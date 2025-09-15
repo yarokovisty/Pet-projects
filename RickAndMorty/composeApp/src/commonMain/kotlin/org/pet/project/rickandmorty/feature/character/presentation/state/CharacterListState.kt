@@ -1,0 +1,12 @@
+package org.pet.project.rickandmorty.feature.character.presentation.state
+
+import org.pet.project.rickandmorty.common.presentation.State
+import org.pet.project.rickandmorty.feature.character.domain.entity.Character
+
+internal data class CharacterListState(
+    val skeleton: Boolean = false,
+    val isLoadingMore: Boolean = false,
+    val error: Boolean = false,
+    val uploadAllCharacters: Boolean = false,
+    val characters: List<Character> = emptyList()
+) : State

@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">RickAndMorty</string>
+
+    <string name="nav_bar_item_characters">Characters</string>
+    <string name="nav_bar_item_episodes">Episodes</string>
+    <string name="nav_bar_item_search">Search</string>
+
+    <string name="character_list_toolbar_title">Characters</string>
+    <string name="character_status_alive">Alive</string>
+    <string name="character_status_died">Died</string>
+    <string name="character_status_unknown">Unknown</string>
+    <string name="character_location_title">Last known location:</string>
+    <string name="character_origin_title">First seen in:</string>
+</resources>
