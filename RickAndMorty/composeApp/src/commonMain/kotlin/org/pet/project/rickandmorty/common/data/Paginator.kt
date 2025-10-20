@@ -2,9 +2,9 @@ package org.pet.project.rickandmorty.common.data
 
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import org.pet.project.rickandmorty.common.utils.EmptyResult
-import org.pet.project.rickandmorty.common.utils.Result
-import org.pet.project.rickandmorty.common.utils.onSuccess
+import org.pet.project.rickandmorty.core.result.EmptyResult
+import org.pet.project.rickandmorty.core.result.Result
+import org.pet.project.rickandmorty.core.result.onSuccess
 
 abstract class Paginator<Key, Item>(initialKey: Key) {
 

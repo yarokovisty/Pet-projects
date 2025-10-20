@@ -1,10 +1,11 @@
 package org.pet.project.rickandmorty.feature.character.data.paginator
 
-import org.pet.project.rickandmorty.common.utils.Result
+import org.pet.project.rickandmorty.core.result.Result
 import org.pet.project.rickandmorty.feature.character.data.datasource.RemoteCharacterDataSource
 import org.pet.project.rickandmorty.feature.character.data.model.CharacterListResponse
 import org.pet.project.rickandmorty.feature.character.data.model.getNextPage
 import org.pet.project.rickandmorty.common.data.Paginator
+import org.pet.project.rickandmorty.utils.PlatformLogger
 
 internal class CharacterPaginator(
     private val remoteDataSource: RemoteCharacterDataSource

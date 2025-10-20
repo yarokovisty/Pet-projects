@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.navigation
+package org.pet.project.rickandmorty.core.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -10,8 +10,8 @@ class NavigationState(
     val navHostController: NavHostController
 ) {
 
-    fun navigateTo(screen: Screen) {
-        navHostController.navigate(screen) {
+    fun navigateTo(destination: Destination) {
+        navHostController.navigate(destination) {
             popUpTo(navHostController.graph.findStartDestination().id) {
                 saveState = true
             }

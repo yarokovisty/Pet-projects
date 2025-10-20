@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.uikit
+package org.pet.project.rickandmorty.design.component
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size

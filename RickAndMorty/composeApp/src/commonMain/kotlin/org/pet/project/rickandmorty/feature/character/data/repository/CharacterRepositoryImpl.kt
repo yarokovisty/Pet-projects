@@ -2,7 +2,7 @@ package org.pet.project.rickandmorty.feature.character.data.repository
 
 
 import kotlinx.coroutines.flow.map
-import org.pet.project.rickandmorty.common.utils.map
+import org.pet.project.rickandmorty.core.result.map
 import org.pet.project.rickandmorty.feature.character.data.model.toItem
 import org.pet.project.rickandmorty.feature.character.data.paginator.CharacterPaginator
 import org.pet.project.rickandmorty.feature.character.domain.repository.CharacterRepository

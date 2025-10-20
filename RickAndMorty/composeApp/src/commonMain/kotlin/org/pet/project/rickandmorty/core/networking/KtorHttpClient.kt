@@ -9,7 +9,7 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import org.pet.project.rickandmorty.common.utils.PlatformLogger
+import org.pet.project.rickandmorty.utils.PlatformLogger
 
 val client: HttpClient by lazy {
     HttpClient {

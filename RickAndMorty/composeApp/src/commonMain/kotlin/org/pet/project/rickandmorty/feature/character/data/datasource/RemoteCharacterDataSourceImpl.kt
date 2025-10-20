@@ -5,8 +5,8 @@ import io.ktor.client.request.parameter
 import io.ktor.client.request.url
 import io.ktor.http.HttpMethod
 import kotlinx.serialization.json.Json
-import org.pet.project.rickandmorty.common.utils.Result
 import org.pet.project.rickandmorty.core.networking.safeRequest
+import org.pet.project.rickandmorty.core.result.Result
 import org.pet.project.rickandmorty.feature.character.data.model.CharacterListResponse
 
 internal class RemoteCharacterDataSourceImpl(

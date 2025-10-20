@@ -22,8 +22,8 @@ import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.design.Spacing
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.entity.Status
-import org.pet.project.rickandmorty.feature.character.ui.characterCardHeight
-import org.pet.project.rickandmorty.uikit.AppSpacer
+import org.pet.project.rickandmorty.feature.character.ui.res.characterCardHeight
+import org.pet.project.rickandmorty.design.component.AppSpacer
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.character_location_title
 

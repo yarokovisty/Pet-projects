@@ -7,8 +7,8 @@ import androidx.compose.material3.ShapeDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import org.pet.project.rickandmorty.common.utils.shimmer
-import org.pet.project.rickandmorty.feature.character.ui.characterCardHeight
+import org.pet.project.rickandmorty.utils.shimmer
+import org.pet.project.rickandmorty.feature.character.ui.res.characterCardHeight
 
 @Composable
 internal fun CharacterListSkeleton() {

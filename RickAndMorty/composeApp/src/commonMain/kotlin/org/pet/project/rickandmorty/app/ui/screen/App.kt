@@ -9,13 +9,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.pet.project.rickandmorty.app.navigation.NavigationGraph
 import org.pet.project.rickandmorty.app.presentation.intent.AppIntent
 import org.pet.project.rickandmorty.app.presentation.viewmodel.AppViewModel
 import org.pet.project.rickandmorty.app.presentation.state.AppState
 import org.pet.project.rickandmorty.app.ui.view.AppNavigationBar
-import org.pet.project.rickandmorty.feature.character.ui.screen.CharacterListScreen
-import org.pet.project.rickandmorty.navigation.NavigationGraph
-import org.pet.project.rickandmorty.navigation.rememberNavigationState
+import org.pet.project.rickandmorty.core.navigation.rememberNavigationState
+import org.pet.project.rickandmorty.feature.character.navigation.CharacterDestination
+import org.pet.project.rickandmorty.feature.episode.navigation.EpisodeDestination
+import org.pet.project.rickandmorty.feature.search.navigation.SearchDestination
 
 @Composable
 fun App() {
@@ -35,8 +37,15 @@ private fun RickAndMortyApp(
     MaterialTheme {
         Scaffold(
             bottomBar = {
-                AppNavigationBar(state.selectedIndexScreen) { selectedIndex ->
-                    onIntent(AppIntent(selectedIndex))
+                AppNavigationBar(state.selectedIndexScreen) { position ->
+                    onIntent(AppIntent(position))
+                    val destination = when(position) {
+                        0 -> CharacterDestination
+                        1 -> EpisodeDestination
+                        2 -> SearchDestination
+                        else -> throw IllegalStateException("Illegal position $position")
+                    }
+                    navigationState.navigateTo(destination)
                 }
             }
         ) { paddingValues ->
@@ -49,9 +58,7 @@ private fun RickAndMortyApp(
 
             NavigationGraph(
                 navController = navigationState.navHostController,
-                modifier = Modifier.padding(customPadding),
-                characterListScreen = { CharacterListScreen() }
-
+                modifier = Modifier.padding(customPadding)
             )
         }
     }

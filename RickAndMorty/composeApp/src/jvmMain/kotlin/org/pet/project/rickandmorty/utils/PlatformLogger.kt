@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.common.utils
+package org.pet.project.rickandmorty.utils
 
 actual object PlatformLogger {
     actual fun e(tag: String, message: String, throwable: Throwable?) {

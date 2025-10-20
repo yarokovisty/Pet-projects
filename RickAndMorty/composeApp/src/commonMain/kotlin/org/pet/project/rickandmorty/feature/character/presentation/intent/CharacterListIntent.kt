@@ -4,6 +4,7 @@ import org.pet.project.rickandmorty.common.presentation.Intent
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 
 sealed interface CharacterListIntent : Intent {
-    object UploadCharacterList : CharacterListIntent
+    object Refresh : CharacterListIntent
+    object Upload : CharacterListIntent
     class OpenCharacterScreen(val character: Character) : CharacterListIntent
 }

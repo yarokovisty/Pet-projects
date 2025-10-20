@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.feature.character.ui
+package org.pet.project.rickandmorty.feature.character.ui.res
 
 import androidx.compose.ui.unit.dp
 

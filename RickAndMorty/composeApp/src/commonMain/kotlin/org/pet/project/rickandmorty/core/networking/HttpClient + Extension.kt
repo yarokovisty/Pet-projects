@@ -7,8 +7,8 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.client.statement.request
 import io.ktor.http.HttpStatusCode
 import kotlinx.serialization.json.Json
-import org.pet.project.rickandmorty.common.utils.HttpException
-import org.pet.project.rickandmorty.common.utils.Result
+import org.pet.project.rickandmorty.core.result.HttpException
+import org.pet.project.rickandmorty.core.result.Result
 
 suspend inline fun <reified T> HttpClient.safeRequest(
     json: Json,

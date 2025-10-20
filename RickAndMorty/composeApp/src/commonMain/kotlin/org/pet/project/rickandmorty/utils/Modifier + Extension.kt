@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.common.utils
+package org.pet.project.rickandmorty.utils
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable

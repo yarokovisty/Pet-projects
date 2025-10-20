@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">RickAndMorty</string>
 
+    <string name="error_text">Oops, technical pickles occurred</string>
+    <string name="error_text_button_refresh">Refresh</string>
+
     <string name="nav_bar_item_characters">Characters</string>
     <string name="nav_bar_item_episodes">Episodes</string>
     <string name="nav_bar_item_search">Search</string>
