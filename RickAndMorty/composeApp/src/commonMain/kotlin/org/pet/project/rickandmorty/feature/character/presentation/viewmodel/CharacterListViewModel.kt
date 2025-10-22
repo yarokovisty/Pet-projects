@@ -3,7 +3,6 @@ package org.pet.project.rickandmorty.feature.character.presentation.viewmodel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.core.result.EmptyResult
@@ -14,7 +13,6 @@ import org.pet.project.rickandmorty.feature.character.domain.repository.Characte
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterListIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterListState
-import org.pet.project.rickandmorty.utils.PlatformLogger
 
 internal class CharacterListViewModel(
     private val characterRepository: CharacterRepository
@@ -76,7 +74,9 @@ internal class CharacterListViewModel(
 
             currentState.isLoadingMore -> {
                 updateState { copy(isLoadingMore = false) }
-                setEvent(CharacterListEvent.ErrorUploadCharacters)
+                viewModelScope.launch {
+                    setEvent(CharacterListEvent.ErrorUploadCharacters)
+                }
             }
         }
     }

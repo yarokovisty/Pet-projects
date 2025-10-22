@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlin.getValue
 
-abstract class BaseViewModel<S : State, I : Intent, E>() : ViewModel() {
+abstract class BaseViewModel<S : State, I : Intent, E : Event>() : ViewModel() {
 
     private val _state by lazy { MutableStateFlow(initState()) }
     val state: StateFlow<S> by lazy { _state.asStateFlow() }
@@ -27,8 +27,8 @@ abstract class BaseViewModel<S : State, I : Intent, E>() : ViewModel() {
     private val _event by lazy { MutableSharedFlow<E>() }
     val event: SharedFlow<E> = _event
 
-    protected fun setEvent(event: E) {
-        _event.tryEmit(event)
+    protected suspend fun setEvent(event: E) {
+        _event.emit(event)
     }
 }
 

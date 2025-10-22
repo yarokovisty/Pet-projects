@@ -16,13 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import org.jetbrains.compose.resources.stringResource
-import org.pet.project.rickandmorty.design.Spacing
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.entity.Status
-import org.pet.project.rickandmorty.feature.character.ui.res.characterCardHeight
 import org.pet.project.rickandmorty.design.component.AppSpacer
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.character_location_title
@@ -34,7 +33,7 @@ internal fun CharacterItemView(
 ) {
     Card(
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth().height(characterCardHeight),
+        modifier = Modifier.fillMaxWidth().height(150.dp),
         shape = ShapeDefaults.Medium
     ) {
         Row {
@@ -50,7 +49,7 @@ private fun CharacterItemImageView(image: String) {
         model = image,
         contentDescription = null,
         contentScale = ContentScale.Fit,
-        modifier = Modifier.size(characterCardHeight)
+        modifier = Modifier.size(150.dp)
     )
 }
 
@@ -59,11 +58,11 @@ private fun RowScope.CharacterItemInfoView(character: Character) {
     Column(
         modifier = Modifier
             .weight(1f)
-            .padding(Spacing.sp2)
+            .padding(8.dp)
     ) {
         CharacterItemNameView(character.name)
         CharacterItemStatusView(character.status, character.species)
-        AppSpacer(height = Spacing.sp2)
+        AppSpacer(height = 8.dp)
         CharacterItemAdditionalInfoView(
             stringResource(Res.string.character_location_title),
             character.location
@@ -85,7 +84,7 @@ private fun CharacterItemStatusView(status: Status, species: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         CharacterStatusIndicatorView(status)
 
-        AppSpacer(width = Spacing.sp1)
+        AppSpacer(width = 4.dp)
 
         val statusText = stringResource(status.value)
         val content = "$statusText - $species"

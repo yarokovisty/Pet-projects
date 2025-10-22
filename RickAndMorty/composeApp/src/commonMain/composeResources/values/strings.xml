@@ -14,4 +14,5 @@
     <string name="character_status_unknown">Unknown</string>
     <string name="character_location_title">Last known location:</string>
     <string name="character_origin_title">First seen in:</string>
+    <string name="character_error_upload">Failed to load characters</string>
 </resources>

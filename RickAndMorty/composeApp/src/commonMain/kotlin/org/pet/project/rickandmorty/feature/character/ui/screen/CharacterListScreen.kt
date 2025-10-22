@@ -1,19 +1,29 @@
 package org.pet.project.rickandmorty.feature.character.ui.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalContext
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.pet.project.rickandmorty.utils.collectAsEffect
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
@@ -24,7 +34,6 @@ import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListError
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListToolbar
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListUploadView
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListView
-import org.pet.project.rickandmorty.utils.PlatformLogger
 
 @Composable
 fun CharacterListScreen() {
@@ -46,6 +55,7 @@ private fun CharacterListScreen(
 ) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     val lazyListState = rememberLazyGridState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     LaunchedEffect(state.characters) {
         snapshotFlow {
@@ -59,29 +69,45 @@ private fun CharacterListScreen(
             }
     }
 
-    Column(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)
-    ) {
-        CharacterListToolbar(scrollBehavior)
-
-        if (state.error) {
-            CharacterListErrorView { onIntent(CharacterListIntent.Refresh) }
-        } else {
-           CharacterListView(
-               Modifier.weight(1f),
-               lazyListState,
-               state
-           ) {
-               onIntent(CharacterListIntent.OpenCharacterScreen(it))
-           }
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        topBar = {
+            CharacterListToolbar(scrollBehavior)
         }
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .padding(
+                    top = paddingValues.calculateTopPadding(),
+                    start = 0.dp,
+                    end = 0.dp,
+                    bottom = 0.dp
+                )
+                .nestedScroll(scrollBehavior.nestedScrollConnection)
+        ) {
+            if (state.error) {
+                CharacterListErrorView { onIntent(CharacterListIntent.Refresh) }
+            } else {
+                CharacterListView(
+                    lazyListState = lazyListState,
+                    state = state,
+                    onClickCharacter = {
+                        onIntent(CharacterListIntent.OpenCharacterScreen(it))
+                    },
+                    Modifier.weight(1f)
+                )
+            }
 
-        if (state.isLoadingMore) {
-            CharacterListUploadView()
+            if (state.isLoadingMore) {
+                CharacterListUploadView()
+            }
         }
     }
 
     event.collectAsEffect {
-        // TODO обработка ошибок при пагинации
+        snackbarHostState.showSnackbar(
+            message = getString(it.errorMessage),
+            duration = SnackbarDuration.Short
+        )
     }
 }

@@ -22,9 +22,7 @@ abstract class Paginator<Key, Item>(initialKey: Key) {
     val paginationFlow: SharedFlow<Result<Item>> = _paginationFlow
 
     suspend fun loadItems() {
-        if (isMakingRequest || isEndReached) {
-            return
-        }
+        if (isMakingRequest || isEndReached) return
 
         isMakingRequest = true
 

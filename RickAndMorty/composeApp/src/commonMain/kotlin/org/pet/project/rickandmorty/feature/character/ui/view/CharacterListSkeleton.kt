@@ -7,15 +7,15 @@ import androidx.compose.material3.ShapeDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import org.pet.project.rickandmorty.utils.shimmer
-import org.pet.project.rickandmorty.feature.character.ui.res.characterCardHeight
 
 @Composable
 internal fun CharacterListSkeleton() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(characterCardHeight)
+            .height(150.dp)
             .clip(ShapeDefaults.Medium)
             .shimmer()
     )

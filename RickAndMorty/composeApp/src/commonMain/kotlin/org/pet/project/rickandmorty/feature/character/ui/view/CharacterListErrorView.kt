@@ -12,9 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.pet.project.rickandmorty.design.Spacing
 import org.pet.project.rickandmorty.design.component.AppSpacer
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.error_text
@@ -28,7 +28,7 @@ internal fun CharacterListErrorView(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = Spacing.sp4, vertical = Spacing.sp2)
+            .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
         Column(
             modifier = Modifier.weight(1f),
@@ -40,7 +40,7 @@ internal fun CharacterListErrorView(
                 null,
                 modifier = Modifier.fillMaxWidth()
             )
-            AppSpacer(height = Spacing.sp5)
+            AppSpacer(height = 20.dp)
             Text(
                 text = stringResource(Res.string.error_text),
                 fontWeight = FontWeight.SemiBold
