@@ -9,12 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import org.pet.project.rickandmorty.app.navigation.NavigationGraph
 import org.pet.project.rickandmorty.app.presentation.intent.AppIntent
 import org.pet.project.rickandmorty.app.presentation.viewmodel.AppViewModel
 import org.pet.project.rickandmorty.app.presentation.state.AppState
 import org.pet.project.rickandmorty.app.ui.view.AppNavigationBar
-import org.pet.project.rickandmorty.core.navigation.rememberNavigationState
+import org.pet.project.rickandmorty.core.navigation.navigateRootTo
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterDestination
 import org.pet.project.rickandmorty.feature.episode.navigation.EpisodeDestination
 import org.pet.project.rickandmorty.feature.search.navigation.SearchDestination
@@ -32,7 +33,7 @@ private fun RickAndMortyApp(
     state: AppState,
     onIntent: (AppIntent) -> Unit
 ) {
-    val navigationState = rememberNavigationState()
+    val navController = rememberNavController()
 
     MaterialTheme {
         Scaffold(
@@ -45,7 +46,7 @@ private fun RickAndMortyApp(
                         2 -> SearchDestination
                         else -> throw IllegalStateException("Illegal position $position")
                     }
-                    navigationState.navigateTo(destination)
+                    navController.navigateRootTo(destination)
                 }
             }
         ) { paddingValues ->
@@ -57,7 +58,7 @@ private fun RickAndMortyApp(
             )
 
             NavigationGraph(
-                navController = navigationState.navHostController,
+                navController = navController,
                 modifier = Modifier.padding(customPadding)
             )
         }

@@ -33,14 +33,14 @@ internal fun CharacterListView(
     ) {
         if (state.skeleton) {
             items(numItemSkeleton) {
-                CharacterListSkeleton()
+                CharacterListItemSkeleton()
             }
         } else {
             items(
                 items = state.characters,
                 key = { character -> character.id }
             ) { character ->
-                CharacterItemView(character) { onClickCharacter(character) }
+                CharacterListItemView(character) { onClickCharacter(character) }
             }
         }
     }

@@ -1,9 +1,11 @@
 package org.pet.project.rickandmorty.feature.character.ui.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
@@ -19,10 +21,12 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.jetbrains.compose.resources.getString
 import org.koin.compose.viewmodel.koinViewModel
+import org.pet.project.rickandmorty.feature.character.navigation.CharacterItemRoute
 import org.pet.project.rickandmorty.utils.collectAsEffect
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterListIntent
@@ -30,23 +34,25 @@ import org.pet.project.rickandmorty.feature.character.presentation.state.Charact
 import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.CharacterListViewModel
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListErrorView
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListToolbar
-import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListUploadView
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListView
 
 @Composable
-fun CharacterListScreen() {
+internal fun CharacterListScreen(navController: NavHostController) {
     val viewModel = koinViewModel<CharacterListViewModel>()
     val state by viewModel.state.collectAsState()
 
     CharacterListScreen(
+        navController = navController,
         state = state,
-        event = viewModel.event
-    ) { viewModel.onIntent(it) }
+        event = viewModel.event,
+        onIntent = { viewModel.onIntent(it) }
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CharacterListScreen(
+    navController: NavHostController,
     state: CharacterListState,
     event: Flow<CharacterListEvent>,
     onIntent: (CharacterListIntent) -> Unit
@@ -69,18 +75,11 @@ private fun CharacterListScreen(
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = {
-            CharacterListToolbar(scrollBehavior)
-        }
-    ) { paddingValues ->
+        topBar = { CharacterListToolbar(scrollBehavior) }
+    ) { innerPadding ->
         Column(
             modifier = Modifier
-                .padding(
-                    top = paddingValues.calculateTopPadding(),
-                    start = 0.dp,
-                    end = 0.dp,
-                    bottom = 0.dp
-                )
+                .padding(innerPadding)
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
         ) {
             if (state.error) {
@@ -90,14 +89,14 @@ private fun CharacterListScreen(
                     lazyListState = lazyListState,
                     state = state,
                     onClickCharacter = {
-                        onIntent(CharacterListIntent.OpenCharacterScreen(it))
+                        navController.navigate(CharacterItemRoute(it.id))
                     },
-                    Modifier.weight(1f)
+                    modifier = Modifier.weight(1f)
                 )
             }
 
             if (state.isLoadingMore) {
-                CharacterListUploadView()
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
         }
     }

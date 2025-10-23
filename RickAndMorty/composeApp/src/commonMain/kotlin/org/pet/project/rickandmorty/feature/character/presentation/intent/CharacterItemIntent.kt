@@ -2,7 +2,5 @@ package org.pet.project.rickandmorty.feature.character.presentation.intent
 
 import org.pet.project.rickandmorty.common.presentation.Intent
 
-sealed interface CharacterListIntent : Intent {
-    object Refresh : CharacterListIntent
-    object Upload : CharacterListIntent
+sealed interface CharacterItemIntent : Intent {
 }

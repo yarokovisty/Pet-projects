@@ -32,7 +32,6 @@ internal class CharacterListViewModel(
             when (intent) {
                 CharacterListIntent.Refresh -> refreshCharacters()
                 CharacterListIntent.Upload -> loadNextCharacters()
-                is CharacterListIntent.OpenCharacterScreen -> {}
             }
         }
     }

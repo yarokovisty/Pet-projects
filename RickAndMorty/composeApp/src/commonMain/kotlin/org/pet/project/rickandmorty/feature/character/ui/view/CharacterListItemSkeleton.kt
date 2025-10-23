@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import org.pet.project.rickandmorty.utils.shimmer
 
 @Composable
-internal fun CharacterListSkeleton() {
+internal fun CharacterListItemSkeleton() {
     Box(
         modifier = Modifier
             .fillMaxWidth()

@@ -1,5 +1,7 @@
 package org.pet.project.rickandmorty.feature.character.ui.view
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -7,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ShapeDefaults
@@ -14,6 +17,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -27,7 +32,7 @@ import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.character_location_title
 
 @Composable
-internal fun CharacterItemView(
+internal fun CharacterListItemView(
     character: Character,
     onClick: () -> Unit
 ) {
@@ -88,9 +93,24 @@ private fun CharacterItemStatusView(status: Status, species: String) {
 
         val statusText = stringResource(status.value)
         val content = "$statusText - $species"
-
         Text(text = content, fontSize = 14.sp)
     }
+}
+
+@Composable
+private fun CharacterStatusIndicatorView(status: Status) {
+    val color = when (status) {
+        Status.ALIVE -> Color.Green
+        Status.DEAD -> Color.Red
+        Status.UNKNOWN -> Color.Yellow
+    }
+
+    Box(
+        modifier = Modifier
+            .size(8.dp)
+            .clip(CircleShape)
+            .background(color)
+    )
 }
 
 @Composable
