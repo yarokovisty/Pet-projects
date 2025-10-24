@@ -1,14 +1,13 @@
 package org.pet.project.rickandmorty.feature.character.ui.screen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
@@ -20,12 +19,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.jetbrains.compose.resources.getString
 import org.koin.compose.viewmodel.koinViewModel
+import org.pet.project.rickandmorty.design.component.AppSnackbar
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterItemRoute
 import org.pet.project.rickandmorty.utils.collectAsEffect
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
@@ -73,15 +72,10 @@ private fun CharacterListScreen(
             }
     }
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
-        topBar = { CharacterListToolbar(scrollBehavior) }
-    ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .nestedScroll(scrollBehavior.nestedScrollConnection)
-        ) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) {
+            CharacterListToolbar(scrollBehavior)
+
             if (state.error) {
                 CharacterListErrorView { onIntent(CharacterListIntent.Refresh) }
             } else {
@@ -99,6 +93,8 @@ private fun CharacterListScreen(
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
         }
+
+        AppSnackbar(snackbarHostState)
     }
 
     event.collectAsEffect {
