@@ -26,7 +26,10 @@ fun NavGraphBuilder.characterFlow(navController: NavHostController) =
         }
         composable<CharacterItemRoute> { backStackEntry  ->
             val characterId = backStackEntry.toRoute<CharacterItemRoute>().id
-            CharacterItemScreen(characterId)
+            CharacterItemScreen(
+                characterId,
+                navController
+            )
         }
     }
 

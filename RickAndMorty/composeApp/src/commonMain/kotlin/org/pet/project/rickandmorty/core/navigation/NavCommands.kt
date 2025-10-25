@@ -14,3 +14,5 @@ fun NavController.navigateRootTo(destination: Destination) {
         restoreState = true
     }
 }
+
+fun NavController.back() { popBackStack() }

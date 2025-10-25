@@ -10,7 +10,7 @@ import org.pet.project.rickandmorty.feature.character.navigation.characterFlow
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     NavHost(
         navController = navController,
