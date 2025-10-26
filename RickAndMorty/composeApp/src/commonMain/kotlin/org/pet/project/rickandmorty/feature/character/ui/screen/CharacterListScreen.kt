@@ -85,7 +85,7 @@ private fun CharacterListScreen(
                     lazyListState = lazyListState,
                     state = state,
                     onClickCharacter = {
-                        navController.navigate(CharacterItemRoute(it.id))
+                        onIntent(CharacterListIntent.OpenCharacterScreen(it.id))
                     },
                     modifier = Modifier.weight(1f)
                 )
@@ -99,10 +99,19 @@ private fun CharacterListScreen(
         AppSnackbar(snackbarHostState)
     }
 
-    event.collectAsEffect {
-        snackbarHostState.showSnackbar(
-            message = getString(it.errorMessage),
-            duration = SnackbarDuration.Short
-        )
+    event.collectAsEffect { e ->
+        when(e) {
+            is CharacterListEvent.OpenCharacterScreen -> {
+                navController.navigate(CharacterItemRoute(e.id))
+            }
+
+            is CharacterListEvent.Error -> {
+                snackbarHostState.showSnackbar(
+                    message = getString(e.errorMes),
+                    duration = SnackbarDuration.Short
+                )
+            }
+        }
+
     }
 }

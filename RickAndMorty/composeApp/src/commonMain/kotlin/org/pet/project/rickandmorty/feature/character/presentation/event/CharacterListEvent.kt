@@ -5,6 +5,7 @@ import org.pet.project.rickandmorty.common.presentation.Event
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.character_error_upload
 
-enum class CharacterListEvent(val errorMessage: StringResource) : Event {
-    ErrorUploadCharacters(Res.string.character_error_upload)
+sealed interface CharacterListEvent : Event {
+    class Error(val errorMes: StringResource) : CharacterListEvent
+    class OpenCharacterScreen(val id: Int) : CharacterListEvent
 }

@@ -11,6 +11,8 @@ import org.pet.project.rickandmorty.feature.character.domain.repository.Characte
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterListIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterListState
+import rickandmorty.composeapp.generated.resources.Res
+import rickandmorty.composeapp.generated.resources.character_error_upload
 
 internal class CharacterListViewModel(
     private val characterRepository: CharacterRepository
@@ -29,6 +31,7 @@ internal class CharacterListViewModel(
         when (intent) {
             CharacterListIntent.Refresh -> refreshCharacters()
             CharacterListIntent.Upload -> loadNextCharacters()
+            is CharacterListIntent.OpenCharacterScreen -> notifyForNavigateToCharacterScreen(intent.id)
         }
     }
 
@@ -65,6 +68,12 @@ internal class CharacterListViewModel(
         }
     }
 
+    private fun notifyForNavigateToCharacterScreen(characterId: Int) {
+        viewModelScope.launch {
+            setEvent(CharacterListEvent.OpenCharacterScreen(characterId))
+        }
+    }
+
     private fun processFailure() {
         when {
             currentStateValue.skeleton -> {
@@ -74,7 +83,9 @@ internal class CharacterListViewModel(
             currentStateValue.isLoadingMore -> {
                 updateState { copy(isLoadingMore = false) }
                 viewModelScope.launch {
-                    setEvent(CharacterListEvent.ErrorUploadCharacters)
+                    setEvent(
+                        CharacterListEvent.Error(Res.string.character_error_upload)
+                    )
                 }
             }
         }

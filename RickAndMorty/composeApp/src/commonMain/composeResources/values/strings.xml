@@ -12,7 +12,13 @@
     <string name="character_status_alive">Alive</string>
     <string name="character_status_died">Died</string>
     <string name="character_status_unknown">Unknown</string>
-    <string name="character_location_title">Last known location:</string>
-    <string name="character_origin_title">First seen in:</string>
+    <string name="character_species_title">Species</string>
+    <string name="character_gender_title">Gender</string>
+    <string name="character_gender_male">Male</string>
+    <string name="character_gender_female">Female</string>
+    <string name="character_gender_genderless">Genderless</string>
+    <string name="character_gender_unknown">Unknown</string>
+    <string name="character_origin_title">Origin</string>
+    <string name="character_location_title">Last known location</string>
     <string name="character_error_upload">Failed to load characters</string>
 </resources>
