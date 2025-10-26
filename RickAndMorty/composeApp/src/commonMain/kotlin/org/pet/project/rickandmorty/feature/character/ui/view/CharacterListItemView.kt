@@ -31,7 +31,6 @@ import org.pet.project.rickandmorty.design.component.AppSpacer
 import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.character_location_title
-import rickandmorty.composeapp.generated.resources.character_species_title
 
 @Composable
 internal fun CharacterListItemView(
