@@ -9,4 +9,6 @@ internal interface CharacterRepository {
     val characters: Flow<Result<List<Character>>>
 
     suspend fun loadCharacterList()
+
+    suspend fun getCharacter(id: Int): Result<Character>
 }

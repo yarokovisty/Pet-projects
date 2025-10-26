@@ -1,8 +1,6 @@
 package org.pet.project.rickandmorty.feature.character.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.core.result.EmptyResult
@@ -28,11 +26,9 @@ internal class CharacterListViewModel(
     }
 
     override fun onIntent(intent: CharacterListIntent) {
-        viewModelScope.launch(Dispatchers.Default) {
-            when (intent) {
-                CharacterListIntent.Refresh -> refreshCharacters()
-                CharacterListIntent.Upload -> loadNextCharacters()
-            }
+        when (intent) {
+            CharacterListIntent.Refresh -> refreshCharacters()
+            CharacterListIntent.Upload -> loadNextCharacters()
         }
     }
 
@@ -49,29 +45,33 @@ internal class CharacterListViewModel(
     }
 
     private fun loadCharacters() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             characterRepository.loadCharacterList()
         }
     }
-    private suspend fun refreshCharacters() {
+    private fun refreshCharacters() {
         updateState { copy(skeleton = true, error = false) }
-        characterRepository.loadCharacterList()
+        viewModelScope.launch {
+            characterRepository.loadCharacterList()
+        }
     }
 
-    private suspend fun loadNextCharacters() {
-        if (currentState.uploadAllCharacters) return
+    private fun loadNextCharacters() {
+        if (currentStateValue.uploadAllCharacters) return
 
         updateState { copy(isLoadingMore = true) }
-        characterRepository.loadCharacterList()
+        viewModelScope.launch {
+            characterRepository.loadCharacterList()
+        }
     }
 
     private fun processFailure() {
         when {
-            currentState.skeleton -> {
+            currentStateValue.skeleton -> {
                 updateState { copy(skeleton = false, error = true) }
             }
 
-            currentState.isLoadingMore -> {
+            currentStateValue.isLoadingMore -> {
                 updateState { copy(isLoadingMore = false) }
                 viewModelScope.launch {
                     setEvent(CharacterListEvent.ErrorUploadCharacters)
@@ -85,7 +85,7 @@ internal class CharacterListViewModel(
     }
 
     private fun processSuccess(characters: List<Character>) {
-        val oldCharacters = currentState.characters
+        val oldCharacters = currentStateValue.characters
         val newCharacters = oldCharacters + characters
 
         updateState {

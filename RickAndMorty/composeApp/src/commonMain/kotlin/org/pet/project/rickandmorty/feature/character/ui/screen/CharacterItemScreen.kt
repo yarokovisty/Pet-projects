@@ -1,13 +1,19 @@
 package org.pet.project.rickandmorty.feature.character.ui.screen
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import org.pet.project.rickandmorty.core.navigation.back
+import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterItemState
 import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.CharacterItemViewModel
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterItemToolbar
@@ -31,11 +37,45 @@ private fun CharacterItemScreen(
     navController: NavHostController,
     state: CharacterItemState
 ) {
+    val back = { navController.back() }
+    when {
+        state.character != null -> CharacterItemContentView(
+            character = state.character,
+            onBack = back
+        )
+
+        state.loading -> CharacterItemLoadingView()
+
+        state.error -> CharacterItemErrorView()
+    }
+
+}
+
+@Composable
+private fun CharacterItemContentView(
+    character: Character,
+    onBack: () -> Unit
+) {
     Column {
         CharacterItemToolbar(
-            characterName = state.character.name,
-            characterGender = state.character.gender,
-            onBack = { navController.back() }
+            characterName = character.name,
+            characterGender = character.gender,
+            onBack = onBack
         )
     }
+}
+
+@Composable
+private fun CharacterItemLoadingView() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun CharacterItemErrorView() {
+
 }

@@ -23,5 +23,5 @@ val characterModule = module {
 
     // presentation
     viewModelOf(::CharacterListViewModel)
-    viewModel { (id: Int) -> CharacterItemViewModel(id) }
+    viewModelOf(::CharacterItemViewModel)
 }

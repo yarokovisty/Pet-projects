@@ -8,6 +8,7 @@ import kotlinx.serialization.json.Json
 import org.pet.project.rickandmorty.core.networking.safeRequest
 import org.pet.project.rickandmorty.core.result.Result
 import org.pet.project.rickandmorty.feature.character.data.model.CharacterListResponse
+import org.pet.project.rickandmorty.feature.character.data.model.CharacterResponse
 
 internal class RemoteCharacterDataSourceImpl(
     private val client: HttpClient,
@@ -18,6 +19,13 @@ internal class RemoteCharacterDataSourceImpl(
         return client.safeRequest<CharacterListResponse>(json) {
             url("/api/character")
             parameter("page", page)
+            method = HttpMethod.Get
+        }
+    }
+
+    override suspend fun getCharacter(id: Int): Result<CharacterResponse> {
+        return client.safeRequest<CharacterResponse>(json) {
+            url("/api/character/$id")
             method = HttpMethod.Get
         }
     }

@@ -46,5 +46,5 @@ val json: Json by lazy {
 }
 
 private const val BASE_URL = "https://rickandmortyapi.com"
-private const val NETWORK_TIME_OUT = 10_000L
+private const val NETWORK_TIME_OUT = 5_000L
 private const val NETWORK_LOGGING = "HttpLogging"
