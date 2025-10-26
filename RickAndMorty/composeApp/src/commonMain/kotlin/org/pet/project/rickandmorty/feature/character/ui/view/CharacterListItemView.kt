@@ -28,8 +28,10 @@ import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.entity.Status
 import org.pet.project.rickandmorty.design.component.AppSpacer
+import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.character_location_title
+import rickandmorty.composeapp.generated.resources.character_species_title
 
 @Composable
 internal fun CharacterListItemView(
@@ -43,6 +45,7 @@ internal fun CharacterListItemView(
     ) {
         Row {
             CharacterItemImageView(character.image)
+
             CharacterItemInfoView(character)
         }
     }
@@ -65,23 +68,41 @@ private fun RowScope.CharacterItemInfoView(character: Character) {
             .weight(1f)
             .padding(8.dp)
     ) {
-        CharacterItemNameView(character.name)
-        CharacterItemStatusView(character.status, character.species)
+        CharacterItemNameAndGenderView(
+            name = character.name,
+            gender = character.gender
+        )
+
         AppSpacer(height = 8.dp)
+
+        CharacterItemStatusView(
+            status = character.status,
+            species = character.species
+        )
+
+        AppSpacer(height = 8.dp)
+
         CharacterItemAdditionalInfoView(
-            stringResource(Res.string.character_location_title),
-            character.location
+            title = stringResource(Res.string.character_location_title),
+            value = character.location
         )
     }
 }
 
 @Composable
-private fun CharacterItemNameView(name: String) {
-    Text(
-        text = name,
-        fontWeight = FontWeight.ExtraBold,
-        fontSize = 16.sp
-    )
+private fun CharacterItemNameAndGenderView(
+    name: String,
+    gender: Gender
+) {
+    Row(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = name,
+            modifier = Modifier.weight(1f),
+            fontWeight = FontWeight.ExtraBold,
+            fontSize = 16.sp
+        )
+        GenderIcon(gender)
+    }
 }
 
 @Composable
@@ -115,6 +136,14 @@ private fun CharacterStatusIndicatorView(status: Status) {
 
 @Composable
 private fun CharacterItemAdditionalInfoView(title: String, value: String) {
-    Text(text = title, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    Text(text = value, fontSize = 14.sp)
+    Text(
+        text = title,
+        fontSize = 12.sp,
+        color = MaterialTheme.colorScheme.onSurfaceVariant
+    )
+
+    Text(
+        text = value,
+        fontSize = 14.sp
+    )
 }

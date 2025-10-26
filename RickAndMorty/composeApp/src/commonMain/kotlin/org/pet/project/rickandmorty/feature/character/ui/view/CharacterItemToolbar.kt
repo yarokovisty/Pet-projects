@@ -52,22 +52,3 @@ private fun NavigationIcon(onClick: () -> Unit) {
         )
     }
 }
-
-@Composable
-private fun GenderIcon(gender: Gender) {
-    val (icon, tint) = gender.toUi()
-
-    Icon(
-        painter = painterResource(icon),
-        contentDescription = null,
-        tint = tint
-    )
-}
-
-private fun Gender.toUi(): Pair<DrawableResource, Color> {
-    return when(this) {
-        Gender.MALE -> Pair(Res.drawable.ic_gender_male, Color.Cyan)
-        Gender.FEMALE -> Pair(Res.drawable.ic_gender_female, Color.Magenta)
-        Gender.GENDERLESS, Gender.UNKNOWN -> Pair(Res.drawable.ic_gender_unknown, Color.Black)
-    }
-}
