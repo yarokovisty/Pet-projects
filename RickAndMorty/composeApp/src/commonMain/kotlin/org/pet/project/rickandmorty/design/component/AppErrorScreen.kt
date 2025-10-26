@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.feature.character.ui.view
+package org.pet.project.rickandmorty.design.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -15,18 +15,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.pet.project.rickandmorty.design.component.AppSpacer
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.error_text
 import rickandmorty.composeapp.generated.resources.error_text_button_refresh
 import rickandmorty.composeapp.generated.resources.pickle_rick
 
 @Composable
-internal fun CharacterListErrorView(
-    onRefresh: () -> Unit
+internal fun AppErrorScreen(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    buttonText: String? = null
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp, vertical = 8.dp)
     ) {
@@ -49,9 +50,12 @@ internal fun CharacterListErrorView(
 
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = onRefresh
+            onClick = onClick
         ) {
-            Text(stringResource(Res.string.error_text_button_refresh))
+            val text = buttonText ?: stringResource(Res.string.error_text_button_refresh)
+            Text(text)
         }
+
     }
 }
+

@@ -13,7 +13,9 @@ import androidx.navigation.NavHostController
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import org.pet.project.rickandmorty.core.navigation.back
+import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
+import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterItemIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterItemState
 import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.CharacterItemViewModel
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterItemToolbar
@@ -27,15 +29,17 @@ internal fun CharacterItemScreen(
     val state by viewModel.state.collectAsState()
 
     CharacterItemScreen(
-        navController,
-        state
+        navController = navController,
+        state = state,
+        onIntent = viewModel::onIntent
     )
 }
 
 @Composable
 private fun CharacterItemScreen(
     navController: NavHostController,
-    state: CharacterItemState
+    state: CharacterItemState,
+    onIntent: (CharacterItemIntent) -> Unit
 ) {
     val back = { navController.back() }
     when {
@@ -46,7 +50,9 @@ private fun CharacterItemScreen(
 
         state.loading -> CharacterItemLoadingView()
 
-        state.error -> CharacterItemErrorView()
+        state.error -> AppErrorScreen(
+            onClick = { onIntent(CharacterItemIntent.Refresh) }
+        )
     }
 
 }
@@ -75,7 +81,3 @@ private fun CharacterItemLoadingView() {
     }
 }
 
-@Composable
-private fun CharacterItemErrorView() {
-
-}

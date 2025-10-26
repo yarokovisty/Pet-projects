@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.jetbrains.compose.resources.getString
 import org.koin.compose.viewmodel.koinViewModel
+import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppSnackbar
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterItemRoute
 import org.pet.project.rickandmorty.utils.collectAsEffect
@@ -31,7 +32,6 @@ import org.pet.project.rickandmorty.feature.character.presentation.event.Charact
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterListIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterListState
 import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.CharacterListViewModel
-import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListErrorView
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListToolbar
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListView
 
@@ -77,7 +77,9 @@ private fun CharacterListScreen(
             CharacterListToolbar(scrollBehavior)
 
             if (state.error) {
-                CharacterListErrorView { onIntent(CharacterListIntent.Refresh) }
+                AppErrorScreen(
+                    onClick = { onIntent(CharacterListIntent.Refresh) }
+                )
             } else {
                 CharacterListView(
                     lazyListState = lazyListState,

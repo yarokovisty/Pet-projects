@@ -22,10 +22,14 @@ internal class CharacterItemViewModel(
     override fun initState(): CharacterItemState = CharacterItemState(loading = true)
 
     override fun onIntent(intent: CharacterItemIntent) {
-        TODO("Not yet implemented")
+        when(intent) {
+            CharacterItemIntent.Refresh -> loadCharacter()
+        }
     }
 
     private fun loadCharacter() {
+        updateState { copy(loading = true, error = false) }
+
         viewModelScope.launch {
             characterRepository.getCharacter(id)
                 .onSuccess {  character -> handleSuccess(character) }
