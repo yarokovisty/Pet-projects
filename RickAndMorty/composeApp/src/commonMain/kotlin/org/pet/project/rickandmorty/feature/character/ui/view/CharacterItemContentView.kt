@@ -31,6 +31,7 @@ import org.pet.project.rickandmorty.design.component.AppSpacer
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
 import org.pet.project.rickandmorty.feature.character.domain.entity.Status
+import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterItemIntent
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.character_gender_female
 import rickandmorty.composeapp.generated.resources.character_gender_genderless
@@ -46,13 +47,13 @@ import rickandmorty.composeapp.generated.resources.ic_arrow_forward
 @Composable
 internal fun CharacterItemContentView(
     character: Character,
-    onBack: () -> Unit
+    onIntent: (CharacterItemIntent) -> Unit
 ) {
     Column {
         CharacterItemToolbar(
             characterName = character.name,
             characterGender = character.gender,
-            onBack = onBack
+            onBack = { onIntent(CharacterItemIntent.Back) }
         )
 
         val contentPadding = PaddingValues(horizontal = 16.dp)
@@ -90,7 +91,9 @@ internal fun CharacterItemContentView(
                 CharacterInfoView(
                     title = stringResource(Res.string.character_origin_title),
                     content = character.origin,
-                    onClick = {  }
+                    onClick = {
+                        onIntent(CharacterItemIntent.OpenOriginScreen(character.origin))
+                    }
                 )
             }
 
@@ -99,7 +102,7 @@ internal fun CharacterItemContentView(
                     title = stringResource(Res.string.character_location_title),
                     content = character.location,
                     onClick = {
-
+                        onIntent(CharacterItemIntent.OpenLocationScreen(character.location))
                     }
                 )
             }

@@ -21,13 +21,14 @@ import org.pet.project.rickandmorty.core.navigation.navigateRootTo
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterGraph
 
 @Composable
-internal fun MainScreen() {
-    val navController = rememberNavController()
+internal fun MainScreen(globalNavController: NavHostController) {
+    val innerNavController = rememberNavController()
     val viewModel = viewModel { MainViewModel() }
     val state by viewModel.state.collectAsState()
 
     MainScreen(
-        navController = navController,
+        globalNavController = globalNavController,
+        innerNavController = innerNavController,
         state = state,
         onIntent = { viewModel.onIntent(it) }
     )
@@ -35,7 +36,8 @@ internal fun MainScreen() {
 
 @Composable
 private fun MainScreen(
-    navController: NavHostController,
+    globalNavController: NavHostController,
+    innerNavController: NavHostController,
     state: MainState,
     onIntent: (MainIntent) -> Unit
 ) {
@@ -49,7 +51,7 @@ private fun MainScreen(
                     2 -> TODO()
                     else -> throw IllegalStateException("Illegal position $position")
                 }
-                navController.navigateRootTo(destination)
+                innerNavController.navigateRootTo(destination)
             }
         }
     ) { paddingValues ->
@@ -61,7 +63,8 @@ private fun MainScreen(
         )
 
         InnerNavigationGraph(
-            navController = navController,
+            globalNavController = globalNavController,
+            innerNavController = innerNavController,
             modifier = Modifier.padding(customPadding)
         )
     }

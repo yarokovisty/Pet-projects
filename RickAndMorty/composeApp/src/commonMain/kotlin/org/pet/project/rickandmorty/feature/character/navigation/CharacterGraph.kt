@@ -4,9 +4,13 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import kotlinx.serialization.Serializable
+import org.pet.project.rickandmorty.core.navigation.Graph
 import org.pet.project.rickandmorty.core.navigation.Route
 import org.pet.project.rickandmorty.feature.character.ui.screen.CharacterItemScreen
 import org.pet.project.rickandmorty.feature.character.ui.screen.CharacterListScreen
+
+@Serializable object CharacterGraph : Graph
 
 fun NavGraphBuilder.characterGraph(
     navigator: CharacterNavigator,

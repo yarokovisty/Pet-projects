@@ -1,9 +1,6 @@
 package org.pet.project.rickandmorty.feature.character.navigation
 
-import androidx.navigation.NavHostController
-
-interface CharacterNavigator {
-    val navController: NavHostController
+interface CharacterNavigator{
 
     fun openCharacterItemScreen(characterId: Int)
 

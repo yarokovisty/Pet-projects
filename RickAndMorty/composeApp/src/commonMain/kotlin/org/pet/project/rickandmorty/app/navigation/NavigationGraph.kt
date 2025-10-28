@@ -1,18 +1,16 @@
 package org.pet.project.rickandmorty.app.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterNavigator
 import org.pet.project.rickandmorty.app.ui.screen.MainScreen
-import org.pet.project.rickandmorty.core.navigation.back
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterGraph
-import org.pet.project.rickandmorty.feature.character.navigation.CharacterItemRoute
-import org.pet.project.rickandmorty.feature.character.navigation.CharacterNavigator
 import org.pet.project.rickandmorty.feature.character.navigation.characterGraph
-import org.pet.project.rickandmorty.feature.location.navigation.LocationInfoRoute
+import org.pet.project.rickandmorty.feature.location.navigation.LocationItemRoute
+import org.pet.project.rickandmorty.feature.location.ui.screen.LocationItemScreen
 
 @Composable
 fun GlobalNavGraph(
@@ -23,42 +21,27 @@ fun GlobalNavGraph(
         startDestination = MainRoute
     ) {
         composable<MainRoute> {
-            MainScreen()
+            MainScreen(navController)
         }
-        composable<LocationInfoRoute> {
-
+        composable<LocationItemRoute> {
+            LocationItemScreen()
         }
     }
 }
 
 @Composable
 fun InnerNavigationGraph(
-    navController: NavHostController,
+    globalNavController: NavHostController,
+    innerNavController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val characterNavigator = remember { CharacterNavigatorImpl(navController) }
+    val characterNavigator = rememberCharacterNavigator(globalNavController, innerNavController)
 
     NavHost(
-        navController = navController,
+        navController = innerNavController,
         startDestination = CharacterGraph,
         modifier = modifier
     ) {
         characterGraph(characterNavigator)
-    }
-}
-
-class CharacterNavigatorImpl(
-    override val navController: NavHostController
-) : CharacterNavigator {
-    override fun openCharacterItemScreen(characterId: Int) {
-        navController.navigate(CharacterItemRoute(characterId))
-    }
-
-    override fun openLocationScreen(locationName: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun back() {
-        navController.back()
     }
 }

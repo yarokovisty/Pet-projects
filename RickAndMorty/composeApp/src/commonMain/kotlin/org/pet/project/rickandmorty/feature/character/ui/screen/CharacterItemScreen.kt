@@ -39,11 +39,10 @@ private fun CharacterItemScreen(
     event: Flow<CharacterItemEvent>,
     onIntent: (CharacterItemIntent) -> Unit
 ) {
-    val back = { navigator.back() }
     when {
         state.character != null -> CharacterItemContentView(
             character = state.character,
-            onBack = back
+            onIntent = onIntent
         )
 
         state.loading -> AppLoadingScreen()
@@ -54,9 +53,13 @@ private fun CharacterItemScreen(
     }
 
     event.collectAsEffect { e ->
-        when(e) {
-            is CharacterItemEvent.OpenLocationScreen -> {
+        when (e) {
+            is CharacterItemEvent.Back -> {
+                navigator.back()
+            }
 
+            is CharacterItemEvent.OpenLocationScreen -> {
+                navigator.openLocationScreen(e.name)
             }
         }
     }

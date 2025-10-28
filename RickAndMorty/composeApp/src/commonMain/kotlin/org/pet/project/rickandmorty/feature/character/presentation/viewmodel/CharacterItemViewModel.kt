@@ -24,7 +24,8 @@ internal class CharacterItemViewModel(
 
     override fun onIntent(intent: CharacterItemIntent) {
         when(intent) {
-            CharacterItemIntent.Refresh -> loadCharacter()
+            is CharacterItemIntent.Refresh -> loadCharacter()
+            is CharacterItemIntent.Back -> navigateBack()
             is CharacterItemIntent.OpenOriginScreen -> navigateToLocationScreen(intent.name)
             is CharacterItemIntent.OpenLocationScreen -> navigateToLocationScreen(intent.name)
             is CharacterItemIntent.OpenAllEpisodes -> {}
@@ -41,6 +42,11 @@ internal class CharacterItemViewModel(
         }
     }
 
+    private fun navigateBack() {
+        viewModelScope.launch {
+            setEvent(CharacterItemEvent.Back)
+        }
+    }
     private fun navigateToLocationScreen(locationName: String) {
         viewModelScope.launch {
             setEvent(CharacterItemEvent.OpenLocationScreen(locationName))
