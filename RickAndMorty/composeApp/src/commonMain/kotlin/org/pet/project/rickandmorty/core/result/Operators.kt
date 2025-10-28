@@ -3,18 +3,13 @@ package org.pet.project.rickandmorty.core.result
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 
-// Operators
+// === Type checkers ===
+@OptIn(ExperimentalContracts::class)
 fun <T> Result<T>.isSuccess(): Boolean {
-    return this is Result.Success
-}
-
-fun <T> Result<T>.asSuccess():Result.Success<T> {
-    return this as Result.Success<T>
-}
-
-inline fun <T> Result<T>.onSuccess(block: (T) -> Unit): Result<T> {
-    if (this is Result.Success) block(value)
-    return this
+    contract {
+        returns(true) implies (this@isSuccess is Result.Success<T>)
+    }
+    return this is Result.Success<T>
 }
 
 @OptIn(ExperimentalContracts::class)
@@ -25,8 +20,33 @@ fun <T> Result<T>.isFailure(): Boolean {
     return this is Result.Failure<*>
 }
 
+@OptIn(ExperimentalContracts::class)
+fun <T> Result<T>.isHttpError(): Boolean {
+    contract {
+        returns(true) implies (this@isHttpError is Result.Failure.HttpError)
+    }
+    return this is Result.Failure.HttpError
+}
+
+
+// === Casting helpers ===
+fun <T> Result<T>.asSuccess():Result.Success<T> {
+    return this as Result.Success<T>
+}
+
 fun <T> Result<T>.asFailure(): Result.Failure<*> {
     return this as Result.Failure<*>
+}
+
+fun <T> Result<T>.asHttpError(): Result.Failure.HttpError {
+    return this as Result.Failure.HttpError
+}
+
+
+// === Chaining ===
+inline fun <T> Result<T>.onSuccess(block: (T) -> Unit): Result<T> {
+    if (this is Result.Success) block(value)
+    return this
 }
 
 inline fun <T> Result<T>.onFailure(block: (Throwable) -> Unit): Result<T> {
@@ -34,15 +54,16 @@ inline fun <T> Result<T>.onFailure(block: (Throwable) -> Unit): Result<T> {
     return this
 }
 
-fun <T> Result<T>.isHttpError(): Boolean {
-    return this is Result.Failure.HttpError
-}
 
-fun <T> Result<T>.asHttpError(): Result.Failure.HttpError {
-    return this as Result.Failure.HttpError
-}
-
+// === Transformations ==
 inline fun <T, R> Result<T>.map(transform: (value: T) -> R): Result<R> {
+    return when(this) {
+        is Result.Success -> Result.Success.Value(transform(value))
+        is Result.Failure<*> -> this
+    }
+}
+
+suspend inline fun <T, R> Result<T>.asyncMap(transform: suspend (value: T) -> R): Result<R> {
     return when(this) {
         is Result.Success -> Result.Success.Value(transform(value))
         is Result.Failure<*> -> this

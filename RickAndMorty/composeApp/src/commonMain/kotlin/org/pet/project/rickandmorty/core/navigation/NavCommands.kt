@@ -5,9 +5,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 
 
-fun NavController.navigateRootTo(destination: Destination) {
-    navigate(destination) {
-        popUpTo(graph.findStartDestination().id) {
+fun NavController.navigateRootTo(graph: Graph) {
+    navigate(graph) {
+        popUpTo(this@navigateRootTo.graph.findStartDestination().id) {
             saveState = true
         }
         launchSingleTop = true

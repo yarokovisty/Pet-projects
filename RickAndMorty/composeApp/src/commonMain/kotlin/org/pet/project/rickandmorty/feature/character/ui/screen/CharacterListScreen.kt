@@ -19,29 +19,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.navigation.NavHostController
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.jetbrains.compose.resources.getString
 import org.koin.compose.viewmodel.koinViewModel
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppSnackbar
-import org.pet.project.rickandmorty.feature.character.navigation.CharacterItemRoute
-import org.pet.project.rickandmorty.utils.collectAsEffect
+import org.pet.project.rickandmorty.feature.character.navigation.CharacterNavigator
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterListIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterListState
 import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.CharacterListViewModel
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListToolbar
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListView
+import org.pet.project.rickandmorty.utils.collectAsEffect
 
 @Composable
-internal fun CharacterListScreen(navController: NavHostController) {
+internal fun CharacterListScreen(navigator: CharacterNavigator) {
     val viewModel = koinViewModel<CharacterListViewModel>()
     val state by viewModel.state.collectAsState()
 
     CharacterListScreen(
-        navController = navController,
+        navigator = navigator,
         state = state,
         event = viewModel.event,
         onIntent = { viewModel.onIntent(it) }
@@ -51,7 +50,7 @@ internal fun CharacterListScreen(navController: NavHostController) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CharacterListScreen(
-    navController: NavHostController,
+    navigator: CharacterNavigator,
     state: CharacterListState,
     event: Flow<CharacterListEvent>,
     onIntent: (CharacterListIntent) -> Unit
@@ -102,7 +101,7 @@ private fun CharacterListScreen(
     event.collectAsEffect { e ->
         when(e) {
             is CharacterListEvent.OpenCharacterScreen -> {
-                navController.navigate(CharacterItemRoute(e.id))
+                navigator.openCharacterItemScreen(e.id)
             }
 
             is CharacterListEvent.Error -> {

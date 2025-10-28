@@ -3,39 +3,43 @@ package org.pet.project.rickandmorty.feature.character.ui.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.navigation.NavHostController
+import kotlinx.coroutines.flow.Flow
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
-import org.pet.project.rickandmorty.core.navigation.back
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppLoadingScreen
+import org.pet.project.rickandmorty.feature.character.navigation.CharacterNavigator
+import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterItemEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterItemIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterItemState
 import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.CharacterItemViewModel
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterItemContentView
+import org.pet.project.rickandmorty.utils.collectAsEffect
 
 @Composable
 internal fun CharacterItemScreen(
     id: Int,
-    navController: NavHostController
+    navigator: CharacterNavigator
 ) {
     val viewModel = koinViewModel<CharacterItemViewModel> { parametersOf(id) }
     val state by viewModel.state.collectAsState()
 
     CharacterItemScreen(
-        navController = navController,
+        navigator = navigator,
         state = state,
+        event = viewModel.event,
         onIntent = viewModel::onIntent
     )
 }
 
 @Composable
 private fun CharacterItemScreen(
-    navController: NavHostController,
+    navigator: CharacterNavigator,
     state: CharacterItemState,
+    event: Flow<CharacterItemEvent>,
     onIntent: (CharacterItemIntent) -> Unit
 ) {
-    val back = { navController.back() }
+    val back = { navigator.back() }
     when {
         state.character != null -> CharacterItemContentView(
             character = state.character,
@@ -49,4 +53,11 @@ private fun CharacterItemScreen(
         )
     }
 
+    event.collectAsEffect { e ->
+        when(e) {
+            is CharacterItemEvent.OpenLocationScreen -> {
+
+            }
+        }
+    }
 }

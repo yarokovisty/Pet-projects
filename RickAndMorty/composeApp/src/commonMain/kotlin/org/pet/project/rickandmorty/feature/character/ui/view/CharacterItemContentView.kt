@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,6 +40,7 @@ import rickandmorty.composeapp.generated.resources.character_gender_unknown
 import rickandmorty.composeapp.generated.resources.character_location_title
 import rickandmorty.composeapp.generated.resources.character_origin_title
 import rickandmorty.composeapp.generated.resources.character_species_title
+import rickandmorty.composeapp.generated.resources.character_view_all_episodes
 import rickandmorty.composeapp.generated.resources.ic_arrow_forward
 
 @Composable
@@ -53,10 +55,7 @@ internal fun CharacterItemContentView(
             onBack = onBack
         )
 
-        val contentPadding = PaddingValues(
-            horizontal = 16.dp,
-            vertical = 8.dp
-        )
+        val contentPadding = PaddingValues(horizontal = 16.dp)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = contentPadding
@@ -99,8 +98,20 @@ internal fun CharacterItemContentView(
                 CharacterInfoView(
                     title = stringResource(Res.string.character_location_title),
                     content = character.location,
+                    onClick = {
+
+                    }
+                )
+            }
+
+            item {
+                AppSpacer(height = 20.dp)
+
+                EpisodesButton(
                     onClick = {  }
                 )
+
+                AppSpacer(height = 20.dp)
             }
         }
 
@@ -187,6 +198,22 @@ private fun CharacterInfoView(
         )
     }
 
+}
+
+@Composable
+private fun EpisodesButton(
+    onClick: () -> Unit
+) {
+    OutlinedButton(
+        onClick = onClick,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = stringResource(Res.string.character_view_all_episodes),
+            modifier = Modifier.padding(vertical = 4.dp),
+            fontSize = 16.sp
+        )
+    }
 }
 
 @Composable
