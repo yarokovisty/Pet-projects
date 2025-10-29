@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterNavigator
 import org.pet.project.rickandmorty.app.ui.screen.MainScreen
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterGraph
@@ -23,8 +24,9 @@ fun GlobalNavGraph(
         composable<MainRoute> {
             MainScreen(navController)
         }
-        composable<LocationItemRoute> {
-            LocationItemScreen()
+        composable<LocationItemRoute> { backEntry ->
+            val locationName = backEntry.toRoute<LocationItemRoute>().name
+            LocationItemScreen(locationName)
         }
     }
 }
