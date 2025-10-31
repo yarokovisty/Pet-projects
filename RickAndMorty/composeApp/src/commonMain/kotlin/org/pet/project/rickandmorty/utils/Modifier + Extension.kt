@@ -5,6 +5,12 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -43,3 +49,9 @@ fun Modifier.shimmer(): Modifier = composed {
         size = it.size
     }
 }
+
+@Composable
+fun Modifier.edgeToEdgePadding(): Modifier = this
+    .padding(
+        bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+    )

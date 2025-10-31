@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.pet.project.rickandmorty.design.component.AppToolbarNavBackIcon
 import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.ic_arrow_back
@@ -27,7 +28,7 @@ internal fun CharacterItemToolbar(
 ) {
     TopAppBar(
         title = { TitleToolbar(characterName) },
-        navigationIcon = { NavigationIcon(onClick = onBack) },
+        navigationIcon = { AppToolbarNavBackIcon(onClick = onBack) },
         actions = { GenderIcon(characterGender) }
     )
 }
@@ -38,17 +39,4 @@ private fun TitleToolbar(title: String) {
         text = title,
         fontWeight = FontWeight.Medium
     )
-}
-
-@Composable
-private fun NavigationIcon(onClick: () -> Unit) {
-    IconButton(
-        onClick = onClick
-    ) {
-        Icon(
-            painter = painterResource(Res.drawable.ic_arrow_back),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.onBackground
-        )
-    }
 }

@@ -20,7 +20,7 @@ internal data class LocationResponse(
     val dimension: String,
 
     @SerialName("residents")
-    val characters: List<String>,
+    val residents: List<String>,
 
     @SerialName("url")
     val url: String,

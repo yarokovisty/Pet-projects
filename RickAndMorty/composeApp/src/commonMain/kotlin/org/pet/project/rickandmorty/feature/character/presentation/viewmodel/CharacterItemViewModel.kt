@@ -20,7 +20,7 @@ internal class CharacterItemViewModel(
         loadCharacter()
     }
 
-    override fun initState(): CharacterItemState = CharacterItemState(loading = true)
+    override fun initState(): CharacterItemState = CharacterItemState()
 
     override fun onIntent(intent: CharacterItemIntent) {
         when(intent) {

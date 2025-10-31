@@ -10,6 +10,7 @@ import org.pet.project.rickandmorty.feature.location.domain.entity.Location
 import org.pet.project.rickandmorty.feature.location.domain.repository.LocationRepository
 import org.pet.project.rickandmorty.feature.location.presentation.intent.LocationItemIntent
 import org.pet.project.rickandmorty.feature.location.presentation.state.LocationItemState
+import org.pet.project.rickandmorty.utils.PlatformLogger
 
 class LocationItemViewModel(
 	private val name: String,
@@ -20,13 +21,17 @@ class LocationItemViewModel(
 		loadLocation()
 	}
 
-	override fun initState(): LocationItemState = LocationItemState(loading = true)
+	override fun initState(): LocationItemState = LocationItemState()
 
 	override fun onIntent(intent: LocationItemIntent) {
-		TODO("Not yet implemented")
+		when(intent) {
+			LocationItemIntent.Refresh -> loadLocation()
+		}
 	}
 
 	private fun loadLocation() {
+		updateState { copy(loading = true, error = false) }
+
 		viewModelScope.launch(Dispatchers.Default) {
 			repository.getLocationByName(name)
 				.onSuccess(::handleSuccess)
@@ -39,6 +44,7 @@ class LocationItemViewModel(
 	}
 
 	private fun handleFailure(throwable: Throwable) {
+		PlatformLogger.e("MyLog", throwable.message.toString())
 		updateState { copy(loading = false, error = true) }
 	}
 }

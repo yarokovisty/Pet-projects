@@ -16,6 +16,7 @@ import org.pet.project.rickandmorty.feature.location.data.model.LocationResponse
 import org.pet.project.rickandmorty.feature.location.data.model.toItem
 import org.pet.project.rickandmorty.feature.character.data.model.toItem
 import org.pet.project.rickandmorty.feature.location.domain.entity.Location
+import org.pet.project.rickandmorty.utils.PlatformLogger
 
 internal class LocationMapper(
     val remoteCharacterDataSource: RemoteCharacterDataSource
@@ -24,7 +25,8 @@ internal class LocationMapper(
     suspend fun fromResponseToItem(response: LocationResponse): Location =
         withContext(Dispatchers.IO) {
             coroutineScope {
-                val charactersDeferred = response.characters.map { url ->
+                PlatformLogger.d("MyLog", "fromResponseToItem")
+                val charactersDeferred = response.residents.map { url ->
                     async { fetchCharacter(url) }
                 }
 

@@ -7,6 +7,7 @@ import io.ktor.http.HttpMethod
 import kotlinx.serialization.json.Json
 import org.pet.project.rickandmorty.core.networking.safeRequest
 import org.pet.project.rickandmorty.core.result.Result
+import org.pet.project.rickandmorty.feature.location.data.model.ApiLocationResponse
 import org.pet.project.rickandmorty.feature.location.data.model.LocationResponse
 
 internal class RemoteLocationDataSourceImpl(
@@ -14,8 +15,8 @@ internal class RemoteLocationDataSourceImpl(
     private val json: Json
 ) : RemoteLocationDataSource {
 
-    override suspend fun getLocationByName(name: String): Result<LocationResponse> {
-        return client.safeRequest<LocationResponse>(json) {
+    override suspend fun getLocationByName(name: String): Result<ApiLocationResponse> {
+        return client.safeRequest<ApiLocationResponse>(json) {
             url("/api/location")
             parameter("name", name)
             method = HttpMethod.Get
