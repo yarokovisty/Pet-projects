@@ -1,26 +1,17 @@
 package org.pet.project.rickandmorty.feature.location.ui.screen
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.navigationBars
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppFullScreen
 import org.pet.project.rickandmorty.design.component.AppLoadingScreen
 import org.pet.project.rickandmorty.feature.location.presentation.intent.LocationItemIntent
-import org.pet.project.rickandmorty.feature.location.presentation.state.LocationItemState
+import org.pet.project.rickandmorty.feature.location.presentation.state.LocationItemScreenState
 import org.pet.project.rickandmorty.feature.location.presentation.viewmodel.LocationItemViewModel
 import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemContentScreen
-import org.pet.project.rickandmorty.utils.edgeToEdgePadding
 import org.pet.project.rickandmorty.utils.isNotNull
 
 @Composable
@@ -38,7 +29,7 @@ fun LocationItemScreen(
 
 @Composable
 private fun LocationItemScreen(
-    state: LocationItemState,
+    state: LocationItemScreenState,
     onIntent: (LocationItemIntent) -> Unit
 ) {
     AppFullScreen {

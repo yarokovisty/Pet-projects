@@ -56,14 +56,14 @@ inline fun <T> Result<T>.onFailure(block: (Throwable) -> Unit): Result<T> {
 
 
 // === Transformations ==
-inline fun <T, R> Result<T>.map(transform: (value: T) -> R): Result<R> {
+inline fun <T, R> Result<T>.map(transform: (T) -> R): Result<R> {
     return when(this) {
         is Result.Success -> Result.Success.Value(transform(value))
         is Result.Failure<*> -> this
     }
 }
 
-suspend inline fun <T, R> Result<T>.asyncMap(transform: suspend (value: T) -> R): Result<R> {
+suspend inline fun <T, R> Result<T>.asyncMap(transform: suspend (T) -> R): Result<R> {
     return when(this) {
         is Result.Success -> Result.Success.Value(transform(value))
         is Result.Failure<*> -> this

@@ -4,7 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.component.KoinComponent
-import org.pet.project.rickandmorty.di.initKoin
+import org.pet.project.rickandmorty.app.di.initKoin
 
 class RickAndMortyApp : Application(), KoinComponent {
     override fun onCreate() {

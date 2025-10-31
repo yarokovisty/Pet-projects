@@ -1,49 +1,22 @@
 package org.pet.project.rickandmorty.feature.location.data.mapper
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
-import org.pet.project.rickandmorty.core.result.Result
-import org.pet.project.rickandmorty.core.result.asSuccess
-import org.pet.project.rickandmorty.core.result.isSuccess
-import org.pet.project.rickandmorty.core.result.map
-import org.pet.project.rickandmorty.feature.character.data.datasource.RemoteCharacterDataSource
-import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.location.data.model.LocationResponse
-import org.pet.project.rickandmorty.feature.location.data.model.toItem
-import org.pet.project.rickandmorty.feature.character.data.model.toItem
+import org.pet.project.rickandmorty.feature.location.data.model.ResidentResponse
 import org.pet.project.rickandmorty.feature.location.domain.entity.Location
-import org.pet.project.rickandmorty.utils.PlatformLogger
+import org.pet.project.rickandmorty.feature.location.domain.entity.Resident
 
-internal class LocationMapper(
-    val remoteCharacterDataSource: RemoteCharacterDataSource
-) {
+internal fun LocationResponse.toItem() =
+	Location(
+		id = this.id,
+		name = this.name,
+		type = this.type,
+		dimension = this.dimension
+	)
 
-    suspend fun fromResponseToItem(response: LocationResponse): Location =
-        withContext(Dispatchers.IO) {
-            coroutineScope {
-                PlatformLogger.d("MyLog", "fromResponseToItem")
-                val charactersDeferred = response.residents.map { url ->
-                    async { fetchCharacter(url) }
-                }
-
-                val characters = charactersDeferred.awaitAll().asSequence()
-                    .filter { characterResponse -> characterResponse.isSuccess() }
-                    .map { characterResponse -> characterResponse.asSuccess().value }
-                    .toList()
-
-                response.toItem(characters)
-            }
-        }
-
-    private suspend fun fetchCharacter(characterUrl: String): Result<Character> {
-        return remoteCharacterDataSource
-            .getCharacter(characterUrl.fetchCharacterId())
-            .map { it.toItem() }
-    }
+internal fun ResidentResponse.toItem(): Resident {
+	return Resident(
+		id = this.id,
+		name = this.name,
+		image = this.image
+	)
 }
-
-private fun String.fetchCharacterId(): Int = substringAfterLast("/").toInt()

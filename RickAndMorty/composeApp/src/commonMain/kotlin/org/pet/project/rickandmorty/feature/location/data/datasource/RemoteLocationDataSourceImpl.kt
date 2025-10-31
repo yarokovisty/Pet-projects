@@ -7,8 +7,10 @@ import io.ktor.http.HttpMethod
 import kotlinx.serialization.json.Json
 import org.pet.project.rickandmorty.core.networking.safeRequest
 import org.pet.project.rickandmorty.core.result.Result
+import org.pet.project.rickandmorty.feature.character.data.model.CharacterResponse
 import org.pet.project.rickandmorty.feature.location.data.model.ApiLocationResponse
 import org.pet.project.rickandmorty.feature.location.data.model.LocationResponse
+import org.pet.project.rickandmorty.feature.location.data.model.ResidentResponse
 
 internal class RemoteLocationDataSourceImpl(
     private val client: HttpClient,
@@ -22,4 +24,12 @@ internal class RemoteLocationDataSourceImpl(
             method = HttpMethod.Get
         }
     }
+
+    override suspend fun getResidents(id: Int): Result<ResidentResponse> {
+        return client.safeRequest<ResidentResponse>(json) {
+            url("/api/character/$id")
+            method = HttpMethod.Get
+        }
+    }
+
 }

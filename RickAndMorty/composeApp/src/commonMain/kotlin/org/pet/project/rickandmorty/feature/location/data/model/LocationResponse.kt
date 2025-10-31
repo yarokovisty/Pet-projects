@@ -28,12 +28,3 @@ internal data class LocationResponse(
     @SerialName("created")
     val created: String
 )
-
-internal fun LocationResponse.toItem(characters: List<Character>) =
-    Location(
-        id = this.id,
-        name = this.name,
-        type = this.type,
-        dimension = this.dimension,
-        characters = characters
-    )

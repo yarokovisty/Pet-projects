@@ -1,25 +1,43 @@
 package org.pet.project.rickandmorty.feature.location.data.repository
 
+import kotlinx.coroutines.flow.map
 import org.pet.project.rickandmorty.core.result.Result
 import org.pet.project.rickandmorty.core.result.asSuccess
-import org.pet.project.rickandmorty.core.result.asyncMap
-import org.pet.project.rickandmorty.core.result.isFailure
+import org.pet.project.rickandmorty.core.result.isSuccess
 import org.pet.project.rickandmorty.core.result.map
 import org.pet.project.rickandmorty.feature.location.data.datasource.RemoteLocationDataSource
-import org.pet.project.rickandmorty.feature.location.data.mapper.LocationMapper
-import org.pet.project.rickandmorty.feature.location.data.model.LocationResponse
-import org.pet.project.rickandmorty.feature.location.data.model.toItem
+import org.pet.project.rickandmorty.feature.location.data.mapper.toItem
+import org.pet.project.rickandmorty.feature.location.data.paginator.ResidentsPaginator
 import org.pet.project.rickandmorty.feature.location.domain.entity.Location
 import org.pet.project.rickandmorty.feature.location.domain.repository.LocationRepository
 
 internal class LocationRepositoryImpl(
-    private val remoteLocationDataSource: RemoteLocationDataSource,
-    private val mapper: LocationMapper
+	private val remoteLocationDataSource: RemoteLocationDataSource,
+	private val residentsPaginator: ResidentsPaginator
 ) : LocationRepository {
 
-    override suspend fun getLocationByName(name: String): Result<Location> {
-        return remoteLocationDataSource.getLocationByName(name).map { response ->
-            mapper.fromResponseToItem(response.results.first())
-        }
-    }
+	override val residents = residentsPaginator.residentsFlow
+		.map { list ->
+			list.asSequence()
+				.filter { result -> result.isSuccess() }
+				.map { result -> result.asSuccess().value.toItem() }
+				.toList()
+		}
+
+	override suspend fun getLocationByName(name: String): Result<Location> {
+		return remoteLocationDataSource.getLocationByName(name)
+			.also { response ->
+				if (response.isSuccess()) {
+					val urls = response.value.results.first().residents
+					residentsPaginator.setResidentsUrls(urls)
+				}
+			}
+			.map { response -> response.results.first().toItem() }
+	}
+
+	override suspend fun loadNextResidents() {
+		residentsPaginator.loadNextResidents()
+	}
+
+
 }
