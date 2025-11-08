@@ -1,43 +1,74 @@
 package org.pet.project.rickandmorty.feature.location.presentation.viewmodel
 
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.core.result.onFailure
 import org.pet.project.rickandmorty.core.result.onSuccess
 import org.pet.project.rickandmorty.feature.location.domain.entity.Location
 import org.pet.project.rickandmorty.feature.location.domain.repository.LocationRepository
+import org.pet.project.rickandmorty.feature.location.presentation.event.LocationItemEvent
 import org.pet.project.rickandmorty.feature.location.presentation.intent.LocationItemIntent
-import org.pet.project.rickandmorty.feature.location.presentation.state.LocationItemScreenState
-import org.pet.project.rickandmorty.utils.PlatformLogger
+import org.pet.project.rickandmorty.feature.location.presentation.state.LocationItemState
 
 internal class LocationItemViewModel(
-	private val name: String,
-	private val repository: LocationRepository
-) : BaseViewModel<LocationItemScreenState, LocationItemIntent, Nothing>() {
+    private val name: String,
+    private val repository: LocationRepository
+) : BaseViewModel<LocationItemState, LocationItemIntent, LocationItemEvent>() {
 
-	init {
-		loadLocation()
-	}
+    init {
+        loadLocation()
+        observerResidents()
+    }
 
-	override fun initState() = LocationItemScreenState()
+    override fun initState(): LocationItemState = LocationItemState()
 
-	override fun onIntent(intent: LocationItemIntent) {
-		when(intent) {
-			LocationItemIntent.Refresh -> loadLocation()
-		}
-	}
+    override fun onIntent(intent: LocationItemIntent) {
+        when (intent) {
+            LocationItemIntent.Refresh -> loadLocation()
+            LocationItemIntent.NavigateBack -> navigateBack()
+        }
+    }
 
-	private fun loadLocation() {
+    private fun navigateBack() {
+        launchInScope {
+            setEvent(LocationItemEvent.NavigateBack)
+        }
+    }
 
-	}
+    private fun loadLocation() {
+        updateState {
+            copy(
+                locationState = locationState.copy(skeleton = true, error = false)
+            )
+        }
 
-	private fun handleSuccess(location: Location) {
+        launchInScope {
+            repository.getLocationByName(name)
+                .onSuccess(::handleSuccess)
+                .onFailure(::handleFailure)
+        }
+    }
 
-	}
+    private fun handleSuccess(location: Location) {
+        updateState {
+            copy(
+                locationState = locationState.copy(skeleton = false, location = location)
+            )
+        }
+    }
 
-	private fun handleFailure(throwable: Throwable) {
+    private fun handleFailure(throwable: Throwable) {
+        updateState {
+            copy(
+                locationState = locationState.copy(skeleton = false, error = true)
+            )
+        }
+    }
 
-	}
+    private fun observerResidents() {
+        launchInScope {
+            repository.residents.collect {
+
+            }
+        }
+    }
 }

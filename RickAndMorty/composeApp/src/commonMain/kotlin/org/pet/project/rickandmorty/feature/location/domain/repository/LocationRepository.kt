@@ -3,10 +3,10 @@ package org.pet.project.rickandmorty.feature.location.domain.repository
 import kotlinx.coroutines.flow.Flow
 import org.pet.project.rickandmorty.core.result.Result
 import org.pet.project.rickandmorty.feature.location.domain.entity.Location
-import org.pet.project.rickandmorty.feature.location.domain.entity.Resident
+import org.pet.project.rickandmorty.feature.location.domain.entity.ResidentState
 
 interface LocationRepository {
-    val residents: Flow<List<Resident>>
+    val residents: Flow<ResidentState>
 
     suspend fun getLocationByName(name: String): Result<Location>
 

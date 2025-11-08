@@ -15,30 +15,36 @@ internal class ResidentsPaginator(
 	private val remoteLocationDataSource: RemoteLocationDataSource
 ) {
 
-	private var residentUrls: List<String>? = null
+	private var urls: List<String> = emptyList()
 	private var startIndex = 0
 
-	private val _residentsFlow: MutableSharedFlow<List<Result<ResidentResponse>>> = MutableSharedFlow()
-	val residentsFlow: Flow<List<Result<ResidentResponse>>> = _residentsFlow
+	private val _residentsFlow: MutableSharedFlow<RequestResidentState> = MutableSharedFlow()
+	val residentsFlow: Flow<RequestResidentState> = _residentsFlow
 
 	fun setResidentsUrls(urls: List<String>) {
-		residentUrls = urls
+		this.urls = urls
 	}
 
 	suspend fun loadNextResidents() {
-		val urls = residentUrls ?: return
+		if (urls.isEmpty()) {
+			_residentsFlow.emit(RequestResidentState.Error)
+			return
+		}
+
 		val totalSize = urls.size
 
 		if (startIndex >= totalSize) {
-			_residentsFlow.emit(emptyList())
+			_residentsFlow.emit(RequestResidentState.Ended)
 			return
 		}
+
+		_residentsFlow.emit(RequestResidentState.Loading)
 
 		val endIndex = getEndIndex(totalSize)
 		val pageUrls = urls.subList(startIndex, endIndex)
 		val residents = fetchResidents(pageUrls)
 
-		_residentsFlow.emit(residents)
+		_residentsFlow.emit(RequestResidentState.Success(residents))
 		startIndex = endIndex
 	}
 
@@ -62,3 +68,4 @@ internal class ResidentsPaginator(
 }
 
 private fun String.fetchCharacterId(): Int = substringAfterLast("/").toInt()
+

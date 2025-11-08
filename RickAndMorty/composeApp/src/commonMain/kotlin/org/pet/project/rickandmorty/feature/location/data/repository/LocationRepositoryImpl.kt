@@ -2,11 +2,11 @@ package org.pet.project.rickandmorty.feature.location.data.repository
 
 import kotlinx.coroutines.flow.map
 import org.pet.project.rickandmorty.core.result.Result
-import org.pet.project.rickandmorty.core.result.asSuccess
 import org.pet.project.rickandmorty.core.result.isSuccess
 import org.pet.project.rickandmorty.core.result.map
 import org.pet.project.rickandmorty.feature.location.data.datasource.RemoteLocationDataSource
 import org.pet.project.rickandmorty.feature.location.data.mapper.toItem
+import org.pet.project.rickandmorty.feature.location.data.paginator.RequestResidentState
 import org.pet.project.rickandmorty.feature.location.data.paginator.ResidentsPaginator
 import org.pet.project.rickandmorty.feature.location.domain.entity.Location
 import org.pet.project.rickandmorty.feature.location.domain.repository.LocationRepository
@@ -17,12 +17,7 @@ internal class LocationRepositoryImpl(
 ) : LocationRepository {
 
 	override val residents = residentsPaginator.residentsFlow
-		.map { list ->
-			list.asSequence()
-				.filter { result -> result.isSuccess() }
-				.map { result -> result.asSuccess().value.toItem() }
-				.toList()
-		}
+		.map(RequestResidentState::toItem)
 
 	override suspend fun getLocationByName(name: String): Result<Location> {
 		return remoteLocationDataSource.getLocationByName(name)
@@ -32,12 +27,14 @@ internal class LocationRepositoryImpl(
 					residentsPaginator.setResidentsUrls(urls)
 				}
 			}
-			.map { response -> response.results.first().toItem() }
+			.map { response ->
+				val amountResidents = response.results.first().residents.size
+				response.results.first().toItem(amountResidents)
+			}
 	}
 
 	override suspend fun loadNextResidents() {
 		residentsPaginator.loadNextResidents()
 	}
-
-
 }
+

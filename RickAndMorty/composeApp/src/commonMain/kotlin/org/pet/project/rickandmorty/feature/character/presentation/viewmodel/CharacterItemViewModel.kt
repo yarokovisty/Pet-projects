@@ -1,7 +1,5 @@
 package org.pet.project.rickandmorty.feature.character.presentation.viewmodel
 
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.core.result.onFailure
 import org.pet.project.rickandmorty.core.result.onSuccess
@@ -35,7 +33,7 @@ internal class CharacterItemViewModel(
     private fun loadCharacter() {
         updateState { copy(loading = true, error = false) }
 
-        viewModelScope.launch {
+        launchInScope {
             characterRepository.getCharacter(id)
                 .onSuccess {  character -> handleSuccess(character) }
                 .onFailure { handleError() }
@@ -43,12 +41,12 @@ internal class CharacterItemViewModel(
     }
 
     private fun navigateBack() {
-        viewModelScope.launch {
+        launchInScope {
             setEvent(CharacterItemEvent.Back)
         }
     }
     private fun navigateToLocationScreen(locationName: String) {
-        viewModelScope.launch {
+        launchInScope {
             setEvent(CharacterItemEvent.OpenLocationScreen(locationName))
         }
     }

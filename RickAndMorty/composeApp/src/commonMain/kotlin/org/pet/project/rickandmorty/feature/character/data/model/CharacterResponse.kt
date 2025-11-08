@@ -2,9 +2,6 @@ package org.pet.project.rickandmorty.feature.character.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.pet.project.rickandmorty.feature.character.domain.entity.Character
-import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
-import org.pet.project.rickandmorty.feature.character.domain.entity.Status
 
 @Serializable
 internal class CharacterResponse(
@@ -27,10 +24,10 @@ internal class CharacterResponse(
     val gender: String,
 
     @SerialName("origin")
-    val origin: Origin,
+    val origin: OriginResponse,
 
     @SerialName("location")
-    val location: Location,
+    val location: LocationResponse,
 
     @SerialName("image")
     val image: String,
@@ -46,7 +43,7 @@ internal class CharacterResponse(
 )
 
 @Serializable
-internal class Origin(
+internal class OriginResponse(
     @SerialName("name")
     val name: String,
 
@@ -55,7 +52,7 @@ internal class Origin(
 )
 
 @Serializable
-internal class Location(
+internal class LocationResponse(
     @SerialName("name")
     val name: String,
 

@@ -1,7 +1,5 @@
 package org.pet.project.rickandmorty.feature.character.di
 
-import org.koin.core.module.dsl.singleOf
-import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -15,11 +13,11 @@ import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.Cha
 
 val characterModule = module {
     // data
-    singleOf(::RemoteCharacterDataSourceImpl) bind RemoteCharacterDataSource::class
-    singleOf(::CharacterPaginator)
+    factory { RemoteCharacterDataSourceImpl(get(), get()) } bind RemoteCharacterDataSource::class
+    factory { CharacterPaginator(get()) }
 
     // domain
-    singleOf(::CharacterRepositoryImpl) bind CharacterRepository::class
+    factory {  CharacterRepositoryImpl(get(), get()) } bind CharacterRepository::class
 
     // presentation
     viewModelOf(::CharacterListViewModel)
