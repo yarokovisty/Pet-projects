@@ -49,6 +49,11 @@ inline fun <T> Result<T>.onSuccess(block: (T) -> Unit): Result<T> {
     return this
 }
 
+suspend fun <T> Result<T>.onSuccessAsync(block: suspend (T) -> Unit): Result<T> {
+    if (this is Result.Success) block(value)
+    return this
+}
+
 inline fun <T> Result<T>.onFailure(block: (Throwable) -> Unit): Result<T> {
     if (this is Result.Failure<*>) block(error)
     return this

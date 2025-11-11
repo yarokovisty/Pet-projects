@@ -2,19 +2,19 @@ package org.pet.project.rickandmorty.feature.location.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppFullScreen
+import org.pet.project.rickandmorty.design.component.AppSpacer
 import org.pet.project.rickandmorty.design.component.AppToolbarNavBackIcon
 import org.pet.project.rickandmorty.feature.location.navigation.LocationNavigator
 import org.pet.project.rickandmorty.feature.location.presentation.event.LocationItemEvent
@@ -22,6 +22,7 @@ import org.pet.project.rickandmorty.feature.location.presentation.intent.Locatio
 import org.pet.project.rickandmorty.feature.location.presentation.state.LocationItemState
 import org.pet.project.rickandmorty.feature.location.presentation.viewmodel.LocationItemViewModel
 import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoBlock
+import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsBlock
 import org.pet.project.rickandmorty.utils.collectAsEffect
 
 private typealias LocationName = String
@@ -58,18 +59,17 @@ private fun LocationItemScreen(
                     onClick = { onIntent(LocationItemIntent.Refresh) }
                 )
             } else {
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                ) {
-                    item {
-                        LocationItemInfoBlock(
-                            state = state.locationState,
-                            onIntent = onIntent
-                        )
-                    }
-                }
+                LocationItemInfoBlock(
+                    state = state.locationState,
+                    onIntent = onIntent
+                )
+
+                AppSpacer(height = 20.dp)
+
+                ResidentsBlock(
+                    state = state.residentState,
+                    onIntent = onIntent
+                )
             }
 
         }

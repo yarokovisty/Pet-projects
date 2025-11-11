@@ -36,7 +36,7 @@ internal fun RequestResidentState.toItem(): ResidentState {
                 .filter { response -> response.isSuccess() }
                 .map { response -> response.asSuccess().value.toItem() }
                 .toList()
-            ResidentState.Success(residents)
+            ResidentState.Success(residents, this.reached)
         }
     }
 }

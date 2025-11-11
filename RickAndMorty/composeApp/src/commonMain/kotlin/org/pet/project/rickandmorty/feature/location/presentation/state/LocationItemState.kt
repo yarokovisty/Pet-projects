@@ -17,8 +17,10 @@ internal data class LocationItemInfoState(
 
 internal data class ResidentListState(
 	val skeleton: Boolean = false,
+	val error: Boolean = false,
 	val uploading: Boolean = false,
+	val uploadAll: Boolean = false,
+	val ended: Boolean = false,
 	val residents: List<Resident> = emptyList(),
-) {
-	val empty: Boolean get() = residents.isEmpty()
-}
+	val visibleResidents: List<Resident> = emptyList()
+)

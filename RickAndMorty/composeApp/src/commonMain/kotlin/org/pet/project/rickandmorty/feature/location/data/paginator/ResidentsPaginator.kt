@@ -42,9 +42,13 @@ internal class ResidentsPaginator(
 
 		val endIndex = getEndIndex(totalSize)
 		val pageUrls = urls.subList(startIndex, endIndex)
-		val residents = fetchResidents(pageUrls)
 
-		_residentsFlow.emit(RequestResidentState.Success(residents))
+		val residents = fetchResidents(pageUrls)
+		val reached = endIndex >= totalSize
+
+		_residentsFlow.emit(
+			RequestResidentState.Success(residents, reached)
+		)
 		startIndex = endIndex
 	}
 
