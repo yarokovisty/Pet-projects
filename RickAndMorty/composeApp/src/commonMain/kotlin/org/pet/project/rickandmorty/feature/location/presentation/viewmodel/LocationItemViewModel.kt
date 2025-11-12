@@ -27,6 +27,7 @@ internal class LocationItemViewModel(
         when (intent) {
             LocationItemIntent.Refresh -> loadLocation()
             LocationItemIntent.NavigateBack -> navigateBack()
+            LocationItemIntent.UploadResidents -> loadNextResidents()
         }
     }
 
@@ -67,6 +68,10 @@ internal class LocationItemViewModel(
                 locationState = locationState.copy(skeleton = false, error = true)
             )
         }
+    }
+
+    private fun loadNextResidents() {
+
     }
 
     private fun observerResidents() {
@@ -117,6 +122,4 @@ internal class LocationItemViewModel(
             )
         }
     }
-
-
 }

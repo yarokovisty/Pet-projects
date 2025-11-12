@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -41,8 +42,6 @@ internal fun LocationItemInfoContent(
     amountResidents: Int
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        AppSpacer(height = 8.dp)
-
         Title(
             text = name,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -85,8 +84,8 @@ private fun InfoCards(
             .heightIn(max = 300.dp),
         state = lazyListState,
         contentPadding = PaddingValues(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         item {
             InfoCard(
@@ -123,27 +122,31 @@ private fun InfoCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp),
+            .height(64.dp),
         shape = ShapeDefaults.Small
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(painter = icon, contentDescription = null)
 
             AppSpacer(width = 12.dp)
 
-            Column(
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .weight(1f)
-            ) {
-                Text(title)
+            Column {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.labelMedium
+                )
 
                 AppSpacer(height = 4.dp)
 
-                Text(value)
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
     }

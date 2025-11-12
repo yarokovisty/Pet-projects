@@ -20,7 +20,6 @@ internal data class ResidentListState(
 	val error: Boolean = false,
 	val uploading: Boolean = false,
 	val uploadAll: Boolean = false,
-	val ended: Boolean = false,
 	val residents: List<Resident> = emptyList(),
 	val visibleResidents: List<Resident> = emptyList()
 )

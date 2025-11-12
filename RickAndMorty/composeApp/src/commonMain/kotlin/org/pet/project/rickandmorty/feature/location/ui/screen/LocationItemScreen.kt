@@ -2,6 +2,7 @@ package org.pet.project.rickandmorty.feature.location.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -21,8 +22,10 @@ import org.pet.project.rickandmorty.feature.location.presentation.event.Location
 import org.pet.project.rickandmorty.feature.location.presentation.intent.LocationItemIntent
 import org.pet.project.rickandmorty.feature.location.presentation.state.LocationItemState
 import org.pet.project.rickandmorty.feature.location.presentation.viewmodel.LocationItemViewModel
-import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoBlock
-import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsBlock
+import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoContent
+import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoSkeleton
+import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsContent
+import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsSkeleton
 import org.pet.project.rickandmorty.utils.collectAsEffect
 
 private typealias LocationName = String
@@ -59,17 +62,36 @@ private fun LocationItemScreen(
                     onClick = { onIntent(LocationItemIntent.Refresh) }
                 )
             } else {
-                LocationItemInfoBlock(
-                    state = state.locationState,
-                    onIntent = onIntent
-                )
+                LazyColumn {
+                    item {
+                        if (state.locationState.skeleton) {
+                            LocationItemInfoSkeleton()
+                        } else {
+                            val location = state.locationState.location
+                            checkNotNull(location)
+                            LocationItemInfoContent(
+                                name = location.name,
+                                type = location.type,
+                                dimension = location.dimension,
+                                amountResidents = location.amountResidents
+                            )
+                        }
+                    }
 
-                AppSpacer(height = 20.dp)
 
-                ResidentsBlock(
-                    state = state.residentState,
-                    onIntent = onIntent
-                )
+                    if (state.residentState.skeleton) {
+                        item {
+                            AppSpacer(height = 16.dp)
+
+                            ResidentsSkeleton()
+                        }
+                    } else {
+                        ResidentsContent(
+                            state = state.residentState,
+                            onIntent = onIntent
+                        )
+                    }
+                }
             }
 
         }
