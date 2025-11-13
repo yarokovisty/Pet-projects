@@ -17,6 +17,7 @@ import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppFullScreen
 import org.pet.project.rickandmorty.design.component.AppSpacer
 import org.pet.project.rickandmorty.design.component.AppToolbarNavBackIcon
+import org.pet.project.rickandmorty.feature.location.navigation.LocalLocationNavigator
 import org.pet.project.rickandmorty.feature.location.navigation.LocationNavigator
 import org.pet.project.rickandmorty.feature.location.presentation.event.LocationItemEvent
 import org.pet.project.rickandmorty.feature.location.presentation.intent.LocationItemIntent
@@ -31,10 +32,8 @@ import org.pet.project.rickandmorty.utils.collectAsEffect
 private typealias LocationName = String
 
 @Composable
-fun LocationItemScreen(
-    name: LocationName,
-    navigator: LocationNavigator
-) {
+internal fun LocationItemScreen(name: LocationName) {
+    val navigator = LocalLocationNavigator.current
     val viewModel = koinViewModel<LocationItemViewModel> { parametersOf(name) }
     val state by viewModel.state.collectAsState()
 

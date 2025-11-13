@@ -9,6 +9,7 @@ import org.koin.core.parameter.parametersOf
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppLoadingScreen
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterNavigator
+import org.pet.project.rickandmorty.feature.character.navigation.LocalCharacterNavigator
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterItemEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterItemIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterItemState
@@ -16,11 +17,11 @@ import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.Cha
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterItemContentView
 import org.pet.project.rickandmorty.utils.collectAsEffect
 
+private typealias CharacterId = Int
+
 @Composable
-internal fun CharacterItemScreen(
-    id: Int,
-    navigator: CharacterNavigator
-) {
+internal fun CharacterItemScreen(id: CharacterId) {
+    val navigator = LocalCharacterNavigator.current
     val viewModel = koinViewModel<CharacterItemViewModel> { parametersOf(id) }
     val state by viewModel.state.collectAsState()
 

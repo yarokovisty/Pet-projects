@@ -26,6 +26,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppSnackbar
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterNavigator
+import org.pet.project.rickandmorty.feature.character.navigation.LocalCharacterNavigator
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterListIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterListState
@@ -35,7 +36,8 @@ import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListView
 import org.pet.project.rickandmorty.utils.collectAsEffect
 
 @Composable
-internal fun CharacterListScreen(navigator: CharacterNavigator) {
+internal fun CharacterListScreen() {
+    val navigator = LocalCharacterNavigator.current
     val viewModel = koinViewModel<CharacterListViewModel>()
     val state by viewModel.state.collectAsState()
 

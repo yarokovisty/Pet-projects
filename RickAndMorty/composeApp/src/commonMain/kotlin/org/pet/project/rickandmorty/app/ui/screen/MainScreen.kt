@@ -12,13 +12,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import org.pet.project.rickandmorty.app.navigation.InnerNavigationGraph
+import org.pet.project.rickandmorty.app.navigation.InnerNavGraph
 import org.pet.project.rickandmorty.app.presentation.intent.MainIntent
 import org.pet.project.rickandmorty.app.presentation.state.MainState
 import org.pet.project.rickandmorty.app.presentation.viewmodel.MainViewModel
 import org.pet.project.rickandmorty.app.ui.view.AppNavigationBar
-import org.pet.project.rickandmorty.core.navigation.navigateRootTo
-import org.pet.project.rickandmorty.feature.character.navigation.CharacterGraph
+import org.pet.project.rickandmorty.core.navigation.navigateToTab
+import org.pet.project.rickandmorty.feature.character.navigation.CharacterTab
 
 @Composable
 internal fun MainScreen(globalNavController: NavHostController) {
@@ -46,12 +46,12 @@ private fun MainScreen(
             AppNavigationBar(state.selectedIndexScreen) { position ->
                 onIntent(MainIntent(position))
                 val destination = when(position) {
-                    0 -> CharacterGraph
+                    0 -> CharacterTab
                     1 -> TODO()
                     2 -> TODO()
                     else -> throw IllegalStateException("Illegal position $position")
                 }
-                innerNavController.navigateRootTo(destination)
+                innerNavController.navigateToTab(destination)
             }
         }
     ) { paddingValues ->
@@ -62,7 +62,7 @@ private fun MainScreen(
             end = paddingValues.calculateRightPadding(LayoutDirection.Ltr)
         )
 
-        InnerNavigationGraph(
+        InnerNavGraph(
             globalNavController = globalNavController,
             innerNavController = innerNavController,
             modifier = Modifier.padding(customPadding)

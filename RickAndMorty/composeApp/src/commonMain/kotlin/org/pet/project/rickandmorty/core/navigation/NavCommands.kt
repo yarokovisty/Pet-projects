@@ -1,13 +1,11 @@
 package org.pet.project.rickandmorty.core.navigation
 
-
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 
-
-fun NavController.navigateRootTo(graph: Graph) {
-    navigate(graph) {
-        popUpTo(this@navigateRootTo.graph.findStartDestination().id) {
+fun NavController.navigateToTab(tab: Tab) {
+    navigate(tab) {
+        popUpTo(this@navigateToTab.graph.findStartDestination().id) {
             saveState = true
         }
         launchSingleTop = true
@@ -15,4 +13,6 @@ fun NavController.navigateRootTo(graph: Graph) {
     }
 }
 
-fun NavController.back() { popBackStack() }
+fun NavController.back() {
+    popBackStack()
+}
