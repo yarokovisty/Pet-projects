@@ -1,7 +1,4 @@
-package org.pet.project.rickandmorty.core.result
-
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.contract
+package org.pet.project.rickandmorty.library.result
 
 sealed class Result<out T> {
 
@@ -34,7 +31,8 @@ sealed class Result<out T> {
 
         class Error(override val error: Throwable) : Failure<Throwable>(error)
 
-        class HttpError(override val error: HttpException) : Failure<HttpException>(error), IHttpResponse {
+        class HttpError(override val error: HttpException) : Failure<HttpException>(error),
+            IHttpResponse {
 
             override val statusCode: Int get() = error.statusCode
 

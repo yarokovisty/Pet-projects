@@ -1,6 +1,6 @@
 package org.pet.project.rickandmorty.feature.location.data.paginator
 
-import org.pet.project.rickandmorty.core.result.Result
+import org.pet.project.rickandmorty.library.result.Result
 import org.pet.project.rickandmorty.feature.location.data.model.ResidentResponse
 
 internal sealed interface RequestResidentState {

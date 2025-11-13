@@ -1,8 +1,8 @@
 package org.pet.project.rickandmorty.feature.location.presentation.viewmodel
 
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
-import org.pet.project.rickandmorty.core.result.onFailure
-import org.pet.project.rickandmorty.core.result.onSuccessAsync
+import org.pet.project.rickandmorty.library.result.onFailure
+import org.pet.project.rickandmorty.library.result.onSuccessAsync
 import org.pet.project.rickandmorty.feature.location.domain.entity.Location
 import org.pet.project.rickandmorty.feature.location.domain.entity.Resident
 import org.pet.project.rickandmorty.feature.location.domain.entity.ResidentState

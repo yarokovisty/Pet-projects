@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.core.result
+package org.pet.project.rickandmorty.library.result
 
 class HttpException(
     val statusCode: Int,

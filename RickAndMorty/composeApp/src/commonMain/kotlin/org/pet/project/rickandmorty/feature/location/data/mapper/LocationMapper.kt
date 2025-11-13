@@ -1,13 +1,13 @@
 package org.pet.project.rickandmorty.feature.location.data.mapper
 
-import org.pet.project.rickandmorty.core.result.asSuccess
-import org.pet.project.rickandmorty.core.result.isSuccess
 import org.pet.project.rickandmorty.feature.location.data.model.LocationResponse
 import org.pet.project.rickandmorty.feature.location.data.model.ResidentResponse
 import org.pet.project.rickandmorty.feature.location.data.paginator.RequestResidentState
 import org.pet.project.rickandmorty.feature.location.domain.entity.Location
 import org.pet.project.rickandmorty.feature.location.domain.entity.Resident
 import org.pet.project.rickandmorty.feature.location.domain.entity.ResidentState
+import org.pet.project.rickandmorty.library.result.asSuccess
+import org.pet.project.rickandmorty.library.result.isSuccess
 
 internal fun LocationResponse.toItem(amountResidents: Int) =
     Location(

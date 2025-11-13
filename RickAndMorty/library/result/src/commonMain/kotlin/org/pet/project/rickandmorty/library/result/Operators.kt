@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.core.result
+package org.pet.project.rickandmorty.library.result
 
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
@@ -30,7 +30,7 @@ fun <T> Result<T>.isHttpError(): Boolean {
 
 
 // === Casting helpers ===
-fun <T> Result<T>.asSuccess():Result.Success<T> {
+fun <T> Result<T>.asSuccess(): Result.Success<T> {
     return this as Result.Success<T>
 }
 

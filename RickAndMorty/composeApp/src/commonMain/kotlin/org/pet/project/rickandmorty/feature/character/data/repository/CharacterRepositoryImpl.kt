@@ -2,13 +2,13 @@ package org.pet.project.rickandmorty.feature.character.data.repository
 
 
 import kotlinx.coroutines.flow.map
-import org.pet.project.rickandmorty.core.result.Result
-import org.pet.project.rickandmorty.core.result.map
 import org.pet.project.rickandmorty.feature.character.data.datasource.RemoteCharacterDataSource
 import org.pet.project.rickandmorty.feature.character.data.mapper.toItem
 import org.pet.project.rickandmorty.feature.character.data.paginator.CharacterPaginator
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.repository.CharacterRepository
+import org.pet.project.rickandmorty.library.result.Result
+import org.pet.project.rickandmorty.library.result.map
 
 
 internal class CharacterRepositoryImpl(

@@ -6,10 +6,8 @@ import io.ktor.client.request.url
 import io.ktor.http.HttpMethod
 import kotlinx.serialization.json.Json
 import org.pet.project.rickandmorty.core.networking.safeRequest
-import org.pet.project.rickandmorty.core.result.Result
-import org.pet.project.rickandmorty.feature.character.data.model.CharacterResponse
+import org.pet.project.rickandmorty.library.result.Result
 import org.pet.project.rickandmorty.feature.location.data.model.ApiLocationResponse
-import org.pet.project.rickandmorty.feature.location.data.model.LocationResponse
 import org.pet.project.rickandmorty.feature.location.data.model.ResidentResponse
 
 internal class RemoteLocationDataSourceImpl(

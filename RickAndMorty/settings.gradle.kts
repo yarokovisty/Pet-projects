@@ -33,3 +33,5 @@ plugins {
 }
 
 include(":composeApp")
+include(":library:result")
+include(":shared")

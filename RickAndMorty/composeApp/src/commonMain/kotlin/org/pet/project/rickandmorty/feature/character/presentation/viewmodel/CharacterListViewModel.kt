@@ -1,9 +1,9 @@
 package org.pet.project.rickandmorty.feature.character.presentation.viewmodel
 
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
-import org.pet.project.rickandmorty.core.result.EmptyResult
-import org.pet.project.rickandmorty.core.result.asSuccess
-import org.pet.project.rickandmorty.core.result.isFailure
+import org.pet.project.rickandmorty.library.result.EmptyResult
+import org.pet.project.rickandmorty.library.result.asSuccess
+import org.pet.project.rickandmorty.library.result.isFailure
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.repository.CharacterRepository
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
