@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.core.networking
+package org.pet.project.rickandmorty.core.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder

@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.core.networking
+package org.pet.project.rickandmorty.core.network
 
 import org.koin.dsl.module
 

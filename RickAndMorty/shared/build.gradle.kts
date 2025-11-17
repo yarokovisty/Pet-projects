@@ -19,7 +19,8 @@ kotlin {
         iosTarget.binaries.framework {
             baseName= "sharedKit"
 
-            export(project(":library:result"))
+            export(projects.core.navigation)
+            export(projects.library.result)
 
             isStatic = true
         }
@@ -31,6 +32,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(projects.core.navigation)
+                api(projects.core.network)
                 api(projects.library.result)
 
                 implementation(libs.kotlin.stdlib)
