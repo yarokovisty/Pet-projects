@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.utils
+package org.pet.project.rickandmorty.library.logger
 
 import platform.Foundation.NSLog
 

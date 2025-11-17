@@ -20,6 +20,8 @@ kotlin {
             baseName= "sharedKit"
 
             export(projects.core.navigation)
+            export(projects.core.network)
+            export(projects.library.logger)
             export(projects.library.result)
 
             isStatic = true
@@ -33,6 +35,7 @@ kotlin {
             dependencies {
                 api(projects.core.navigation)
                 api(projects.core.network)
+                api(projects.library.logger)
                 api(projects.library.result)
 
                 implementation(libs.kotlin.stdlib)

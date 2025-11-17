@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.utils
+package org.pet.project.rickandmorty.library.logger
 
 expect object PlatformLogger {
     fun e(tag: String, message: String, throwable: Throwable? = null)

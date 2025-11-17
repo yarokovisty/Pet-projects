@@ -19,30 +19,10 @@ kotlin {
     iosSimulatorArm64()
 
     jvm()
-
-    sourceSets {
-        androidMain.dependencies {
-            implementation(libs.ktor.client.okhttp)
-        }
-        commonMain.dependencies {
-            implementation(projects.library.logger)
-            implementation(projects.library.result)
-
-            implementation(libs.bundles.ktor)
-
-            implementation(libs.koin.core)
-        }
-        iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
-        }
-        jvmMain.dependencies {
-            implementation(libs.ktor.client.okhttp)
-        }
-    }
 }
 
 android {
-    namespace = "org.pet.project.rickandmorty.core.network"
+    namespace = "org.pet.project.rickandmorty.library.logger"
     compileSdk = libs.versions.android.compile.sdk.get().toInt()
 
     compileOptions {

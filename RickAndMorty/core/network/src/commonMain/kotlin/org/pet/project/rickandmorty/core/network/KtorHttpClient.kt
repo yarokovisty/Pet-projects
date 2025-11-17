@@ -9,6 +9,7 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.pet.project.rickandmorty.library.logger.PlatformLogger
 
 val client: HttpClient by lazy {
     HttpClient {
@@ -30,7 +31,7 @@ val client: HttpClient by lazy {
         install(Logging) {
             logger = object : Logger {
                 override fun log(message: String) {
-//                    PlatformLogger.i(NETWORK_LOGGING, message)
+                    PlatformLogger.i(NETWORK_LOGGING, message)
                 }
             }
             level = LogLevel.ALL

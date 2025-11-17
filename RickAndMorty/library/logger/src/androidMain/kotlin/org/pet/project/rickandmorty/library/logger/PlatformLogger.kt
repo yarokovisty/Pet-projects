@@ -1,19 +1,21 @@
-package org.pet.project.rickandmorty.utils
+package org.pet.project.rickandmorty.library.logger
+
+import android.util.Log
 
 actual object PlatformLogger {
     actual fun e(tag: String, message: String, throwable: Throwable?) {
         if (throwable != null) {
-            println("ERROR: [$tag] $message. Throwable: ${throwable.message}")
+            Log.e(tag, message, throwable)
         } else {
-            println("ERROR: [$tag] $message")
+            Log.e(tag, message)
         }
     }
 
     actual fun d(tag: String, message: String) {
-        println("DEBUG: [$tag] $message")
+        Log.d(tag, message)
     }
 
     actual fun i(tag: String, message: String) {
-        println("INFO: [$tag] $message")
+        Log.i(tag, message)
     }
 }
