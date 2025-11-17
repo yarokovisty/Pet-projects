@@ -30,6 +30,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                api(projects.core.navigation)
                 api(projects.library.result)
 
                 implementation(libs.kotlin.stdlib)

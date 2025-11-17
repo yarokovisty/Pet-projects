@@ -33,5 +33,7 @@ plugins {
 }
 
 include(":composeApp")
-include(":library:result")
 include(":shared")
+include(":core:navigation")
+include(":core:network")
+include(":library:result")
