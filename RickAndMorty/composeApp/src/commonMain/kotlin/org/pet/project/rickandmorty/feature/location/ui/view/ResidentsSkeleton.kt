@@ -1,7 +1,6 @@
 package org.pet.project.rickandmorty.feature.location.ui.view
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -10,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import org.pet.project.rickandmorty.utils.shimmer
+import org.pet.project.rickandmorty.util.shimmer
 
 @Composable
-internal fun ColumnScope.ResidentsSkeleton() {
+internal fun ResidentsSkeleton() {
     Box(
         modifier = Modifier
             .padding(horizontal = 16.dp)

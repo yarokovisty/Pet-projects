@@ -15,7 +15,7 @@ import org.pet.project.rickandmorty.feature.character.presentation.intent.Charac
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterItemState
 import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.CharacterItemViewModel
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterItemContentView
-import org.pet.project.rickandmorty.utils.collectAsEffect
+import org.pet.project.rickandmorty.util.collectAsEffect
 
 private typealias CharacterId = Int
 

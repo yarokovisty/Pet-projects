@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.utils
+package org.pet.project.rickandmorty.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

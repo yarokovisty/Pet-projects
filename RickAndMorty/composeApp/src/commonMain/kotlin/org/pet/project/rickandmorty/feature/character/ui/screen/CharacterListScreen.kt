@@ -33,7 +33,7 @@ import org.pet.project.rickandmorty.feature.character.presentation.state.Charact
 import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.CharacterListViewModel
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListToolbar
 import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListView
-import org.pet.project.rickandmorty.utils.collectAsEffect
+import org.pet.project.rickandmorty.util.collectAsEffect
 
 @Composable
 internal fun CharacterListScreen() {

@@ -23,6 +23,7 @@ kotlin {
             export(projects.core.network)
             export(projects.library.logger)
             export(projects.library.result)
+            export(projects.util)
 
             isStatic = true
         }
@@ -37,6 +38,7 @@ kotlin {
                 api(projects.core.network)
                 api(projects.library.logger)
                 api(projects.library.result)
+                api(projects.util)
 
                 implementation(libs.kotlin.stdlib)
             }

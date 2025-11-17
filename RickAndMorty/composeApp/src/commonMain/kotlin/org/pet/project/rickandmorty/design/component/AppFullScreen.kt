@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import org.pet.project.rickandmorty.utils.edgeToEdgePadding
+import org.pet.project.rickandmorty.util.edgeToEdgePadding
 
 @Composable
 fun AppFullScreen(

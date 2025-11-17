@@ -27,7 +27,7 @@ import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoCon
 import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoSkeleton
 import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsContent
 import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsSkeleton
-import org.pet.project.rickandmorty.utils.collectAsEffect
+import org.pet.project.rickandmorty.util.collectAsEffect
 
 private typealias LocationName = String
 

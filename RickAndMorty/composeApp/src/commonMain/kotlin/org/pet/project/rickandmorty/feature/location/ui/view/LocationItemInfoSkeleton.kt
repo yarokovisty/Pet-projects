@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import org.pet.project.rickandmorty.design.component.AppSpacer
-import org.pet.project.rickandmorty.utils.shimmer
+import org.pet.project.rickandmorty.util.shimmer
 
 @Composable
 internal fun LocationItemInfoSkeleton() {
