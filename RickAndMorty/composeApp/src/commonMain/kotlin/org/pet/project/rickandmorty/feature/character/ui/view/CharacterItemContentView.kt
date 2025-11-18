@@ -42,7 +42,8 @@ import rickandmorty.composeapp.generated.resources.character_location_title
 import rickandmorty.composeapp.generated.resources.character_origin_title
 import rickandmorty.composeapp.generated.resources.character_species_title
 import rickandmorty.composeapp.generated.resources.character_view_all_episodes
-import rickandmorty.composeapp.generated.resources.ic_arrow_forward
+import rickandmorty.design.resources.generated.resources.ic_arrow_forward
+import rickandmorty.design.resources.generated.resources.Res as R
 
 @Composable
 internal fun CharacterItemContentView(
@@ -194,7 +195,7 @@ private fun CharacterInfoView(
         }
 
         Icon(
-            painter = painterResource(Res.drawable.ic_arrow_forward),
+            painter = painterResource(R.drawable.ic_arrow_forward),
             contentDescription = null,
             modifier = Modifier.size(16.dp),
             tint = MaterialTheme.colorScheme.onBackground

@@ -1,0 +1,4 @@
+<resources>
+    <string name="error_text">Oops, technical pickles occurred</string>
+    <string name="error_text_button_refresh">Refresh</string>
+</resources>

@@ -6,10 +6,10 @@ import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
-import rickandmorty.composeapp.generated.resources.Res
-import rickandmorty.composeapp.generated.resources.ic_gender_female
-import rickandmorty.composeapp.generated.resources.ic_gender_male
-import rickandmorty.composeapp.generated.resources.ic_gender_unknown
+import rickandmorty.design.resources.generated.resources.Res
+import rickandmorty.design.resources.generated.resources.ic_gender_female
+import rickandmorty.design.resources.generated.resources.ic_gender_male
+import rickandmorty.design.resources.generated.resources.ic_gender_unknown
 
 @Composable
 internal fun GenderIcon(gender: Gender) {

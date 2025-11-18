@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
@@ -27,12 +26,13 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.design.component.AppSpacer
 import rickandmorty.composeapp.generated.resources.Res
-import rickandmorty.composeapp.generated.resources.ic_dimension
-import rickandmorty.composeapp.generated.resources.ic_group_people
-import rickandmorty.composeapp.generated.resources.ic_location
 import rickandmorty.composeapp.generated.resources.location_amount_residents_title
 import rickandmorty.composeapp.generated.resources.location_dimension_title
 import rickandmorty.composeapp.generated.resources.location_type_title
+import rickandmorty.design.resources.generated.resources.ic_dimension
+import rickandmorty.design.resources.generated.resources.ic_group_people
+import rickandmorty.design.resources.generated.resources.ic_location
+import rickandmorty.design.resources.generated.resources.Res as R
 
 @Composable
 internal fun LocationItemInfoContent(
@@ -89,7 +89,7 @@ private fun InfoCards(
     ) {
         item {
             InfoCard(
-                icon = painterResource(Res.drawable.ic_location),
+                icon = painterResource(R.drawable.ic_location),
                 title = stringResource(Res.string.location_type_title),
                 value = type
             )
@@ -97,7 +97,7 @@ private fun InfoCards(
 
         item {
             InfoCard(
-                icon = painterResource(Res.drawable.ic_dimension),
+                icon = painterResource(R.drawable.ic_dimension),
                 title = stringResource(Res.string.location_dimension_title),
                 value = dimension
             )
@@ -105,7 +105,7 @@ private fun InfoCards(
 
         item {
             InfoCard(
-                icon = painterResource(Res.drawable.ic_group_people),
+                icon = painterResource(R.drawable.ic_group_people),
                 title = stringResource(Res.string.location_amount_residents_title),
                 value = amountResidents.toString()
             )

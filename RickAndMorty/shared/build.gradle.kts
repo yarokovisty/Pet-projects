@@ -21,6 +21,8 @@ kotlin {
 
             export(projects.core.navigation)
             export(projects.core.network)
+            export(projects.design.component)
+            export(projects.design.resources)
             export(projects.library.logger)
             export(projects.library.result)
             export(projects.util)
@@ -36,6 +38,8 @@ kotlin {
             dependencies {
                 api(projects.core.navigation)
                 api(projects.core.network)
+                api(projects.design.component)
+                api(projects.design.resources)
                 api(projects.library.logger)
                 api(projects.library.result)
                 api(projects.util)

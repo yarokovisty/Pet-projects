@@ -15,11 +15,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import rickandmorty.composeapp.generated.resources.Res
-import rickandmorty.composeapp.generated.resources.error_text
-import rickandmorty.composeapp.generated.resources.error_text_button_refresh
-import rickandmorty.design.resources.generated.resources.Res as R
+import rickandmorty.design.component.generated.resources.Res
+import rickandmorty.design.component.generated.resources.error_text
+import rickandmorty.design.component.generated.resources.error_text_button_refresh
 import rickandmorty.design.resources.generated.resources.pickle_rick
+import rickandmorty.design.resources.generated.resources.Res as R
 
 @Composable
 internal fun AppErrorScreen(
@@ -55,6 +55,7 @@ internal fun AppErrorScreen(
         ) {
             val text = buttonText ?: stringResource(Res.string.error_text_button_refresh)
             Text(text)
+
         }
 
     }
