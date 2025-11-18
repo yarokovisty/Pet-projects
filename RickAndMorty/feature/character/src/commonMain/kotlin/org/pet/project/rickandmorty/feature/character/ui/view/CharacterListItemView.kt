@@ -25,17 +25,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import org.jetbrains.compose.resources.stringResource
-import org.pet.project.rickandmorty.feature.character.domain.entity.Character
-import org.pet.project.rickandmorty.feature.character.domain.entity.Status
 import org.pet.project.rickandmorty.design.component.AppSpacer
+import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
-import rickandmorty.composeapp.generated.resources.Res
-import rickandmorty.composeapp.generated.resources.character_location_title
+import org.pet.project.rickandmorty.feature.character.domain.entity.Status
+import rickandmorty.feature.character.generated.resources.Res
+import rickandmorty.feature.character.generated.resources.character_location_title
 
 @Composable
 internal fun CharacterListItemView(
     character: Character,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Card(
         onClick = onClick,
@@ -91,7 +91,7 @@ private fun RowScope.CharacterItemInfoView(character: Character) {
 @Composable
 private fun CharacterItemNameAndGenderView(
     name: String,
-    gender: Gender
+    gender: Gender,
 ) {
     Row(modifier = Modifier.fillMaxWidth()) {
         Text(

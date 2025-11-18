@@ -32,23 +32,23 @@ import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
 import org.pet.project.rickandmorty.feature.character.domain.entity.Status
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterItemIntent
-import rickandmorty.composeapp.generated.resources.Res
-import rickandmorty.composeapp.generated.resources.character_gender_female
-import rickandmorty.composeapp.generated.resources.character_gender_genderless
-import rickandmorty.composeapp.generated.resources.character_gender_male
-import rickandmorty.composeapp.generated.resources.character_gender_title
-import rickandmorty.composeapp.generated.resources.character_gender_unknown
-import rickandmorty.composeapp.generated.resources.character_location_title
-import rickandmorty.composeapp.generated.resources.character_origin_title
-import rickandmorty.composeapp.generated.resources.character_species_title
-import rickandmorty.composeapp.generated.resources.character_view_all_episodes
 import rickandmorty.design.resources.generated.resources.ic_arrow_forward
+import rickandmorty.feature.character.generated.resources.Res
+import rickandmorty.feature.character.generated.resources.character_gender_female
+import rickandmorty.feature.character.generated.resources.character_gender_genderless
+import rickandmorty.feature.character.generated.resources.character_gender_male
+import rickandmorty.feature.character.generated.resources.character_gender_title
+import rickandmorty.feature.character.generated.resources.character_gender_unknown
+import rickandmorty.feature.character.generated.resources.character_location_title
+import rickandmorty.feature.character.generated.resources.character_origin_title
+import rickandmorty.feature.character.generated.resources.character_species_title
+import rickandmorty.feature.character.generated.resources.character_view_all_episodes
 import rickandmorty.design.resources.generated.resources.Res as R
 
 @Composable
 internal fun CharacterItemContentView(
     character: Character,
-    onIntent: (CharacterItemIntent) -> Unit
+    onIntent: (CharacterItemIntent) -> Unit,
 ) {
     Column {
         CharacterItemToolbar(
@@ -112,7 +112,7 @@ internal fun CharacterItemContentView(
                 AppSpacer(height = 20.dp)
 
                 EpisodesButton(
-                    onClick = {  }
+                    onClick = { }
                 )
 
                 AppSpacer(height = 20.dp)
@@ -159,7 +159,7 @@ private fun CharacterStatusView(status: Status) {
 @Composable
 private fun CharacterInfoView(
     title: String,
-    content: String
+    content: String,
 ) {
     Column(modifier = Modifier.padding(vertical = 8.dp)) {
         Text(
@@ -176,7 +176,7 @@ private fun CharacterInfoView(
 private fun CharacterInfoView(
     title: String,
     content: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -206,7 +206,7 @@ private fun CharacterInfoView(
 
 @Composable
 private fun EpisodesButton(
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     OutlinedButton(
         onClick = onClick,
@@ -231,5 +231,3 @@ private fun Gender.getString(): String {
 
     return stringResource(genderRes)
 }
-
-

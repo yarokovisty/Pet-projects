@@ -1,8 +1,9 @@
 package org.pet.project.rickandmorty.feature.character.data.datasource
 
-import org.pet.project.rickandmorty.library.result.Result
 import org.pet.project.rickandmorty.feature.character.data.model.CharacterListResponse
 import org.pet.project.rickandmorty.feature.character.data.model.CharacterResponse
+import org.pet.project.rickandmorty.library.result.Result
+
 
 internal interface RemoteCharacterDataSource {
 

@@ -7,8 +7,8 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import org.jetbrains.compose.resources.stringResource
-import rickandmorty.composeapp.generated.resources.Res
-import rickandmorty.composeapp.generated.resources.character_list_toolbar_title
+import rickandmorty.feature.character.generated.resources.Res
+import rickandmorty.feature.character.generated.resources.character_list_toolbar_title
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

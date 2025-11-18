@@ -6,6 +6,6 @@ import org.pet.project.rickandmorty.core.navigation.Tab
 
 @Serializable object CharacterTab : Tab
 
-@Serializable internal object CharacterListRoute : Route
+@Serializable object CharacterListRoute : Route
 
-@Serializable internal data class CharacterItemRoute(val id: Int) : Route
+@Serializable data class CharacterItemRoute(val id: Int) : Route
