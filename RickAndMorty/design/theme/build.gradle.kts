@@ -24,10 +24,6 @@ kotlin {
     jvm()
 
     sourceSets {
-        androidMain.dependencies {
-
-        }
-
         commonMain.dependencies {
             implementation(projects.util)
 
@@ -36,14 +32,6 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
-        }
-
-        iosMain.dependencies {
-
-        }
-
-        jvmMain.dependencies {
-
         }
     }
 }

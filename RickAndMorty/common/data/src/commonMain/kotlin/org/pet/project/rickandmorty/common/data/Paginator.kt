@@ -21,6 +21,8 @@ abstract class Paginator<Key, Item>(initialKey: Key) {
     private val _paginationFlow = MutableSharedFlow<Result<Item>>()
     val paginationFlow: SharedFlow<Result<Item>> = _paginationFlow
 
+    // TODO исправить реализацию (использовать Mutex)
+    // TODO изменить на состояния
     suspend fun loadItems() {
         if (isMakingRequest || isEndReached) return
 

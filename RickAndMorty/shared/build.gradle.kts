@@ -19,6 +19,7 @@ kotlin {
         iosTarget.binaries.framework {
             baseName= "sharedKit"
 
+            export(projects.common.data)
             export(projects.core.navigation)
             export(projects.core.network)
             export(projects.design.component)
@@ -36,6 +37,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                api(projects.common.data)
                 api(projects.core.navigation)
                 api(projects.core.network)
                 api(projects.design.component)
@@ -45,17 +47,6 @@ kotlin {
                 api(projects.util)
 
                 implementation(libs.kotlin.stdlib)
-            }
-        }
-
-        androidMain {
-            dependencies {
-            }
-        }
-
-        iosMain {
-            dependencies {
-
             }
         }
     }

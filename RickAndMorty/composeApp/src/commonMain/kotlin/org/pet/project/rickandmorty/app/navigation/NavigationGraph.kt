@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberLocationNavigator
+import org.pet.project.rickandmorty.app.navigation.main.MainRoute
+import org.pet.project.rickandmorty.app.navigation.main.mainGraph
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterTab
 import org.pet.project.rickandmorty.feature.character.navigation.LocalCharacterNavigator
 import org.pet.project.rickandmorty.feature.character.navigation.characterGraph

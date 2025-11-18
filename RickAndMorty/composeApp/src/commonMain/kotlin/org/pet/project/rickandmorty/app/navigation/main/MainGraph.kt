@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.app.navigation
+package org.pet.project.rickandmorty.app.navigation.main
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
