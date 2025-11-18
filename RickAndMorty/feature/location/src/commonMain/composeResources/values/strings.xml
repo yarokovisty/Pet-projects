@@ -1,0 +1,6 @@
+<resources>
+    <string name="location_type_title">Location type</string>
+    <string name="location_dimension_title">Dimension</string>
+    <string name="location_amount_residents_title">Number of residents</string>
+    <string name="location_residents_subtitle">Residents</string>
+</resources>

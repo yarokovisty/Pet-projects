@@ -25,13 +25,13 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.design.component.AppSpacer
-import rickandmorty.composeapp.generated.resources.Res
-import rickandmorty.composeapp.generated.resources.location_amount_residents_title
-import rickandmorty.composeapp.generated.resources.location_dimension_title
-import rickandmorty.composeapp.generated.resources.location_type_title
 import rickandmorty.design.resources.generated.resources.ic_dimension
 import rickandmorty.design.resources.generated.resources.ic_group_people
 import rickandmorty.design.resources.generated.resources.ic_location
+import rickandmorty.feature.location.generated.resources.Res
+import rickandmorty.feature.location.generated.resources.location_amount_residents_title
+import rickandmorty.feature.location.generated.resources.location_dimension_title
+import rickandmorty.feature.location.generated.resources.location_type_title
 import rickandmorty.design.resources.generated.resources.Res as R
 
 @Composable

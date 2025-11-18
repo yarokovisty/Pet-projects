@@ -32,16 +32,4 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
 }
 
-include(":composeApp")
-include(":shared")
-include(":common:data")
-include(":common:presentation")
-include(":core:navigation")
-include(":core:network")
-include(":design:component")
-include(":design:resources")
-include(":design:theme")
-include(":feature:character")
-include(":library:logger")
-include(":library:result")
-include(":util")
+apply(from = "modules.gradle.kts")

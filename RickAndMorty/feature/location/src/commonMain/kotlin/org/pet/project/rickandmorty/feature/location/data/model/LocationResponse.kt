@@ -2,8 +2,6 @@ package org.pet.project.rickandmorty.feature.location.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import org.pet.project.rickandmorty.feature.character.domain.entity.Character
-import org.pet.project.rickandmorty.feature.location.domain.entity.Location
 
 @Serializable
 internal data class LocationResponse(

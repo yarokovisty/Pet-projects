@@ -18,8 +18,9 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.feature.location.presentation.intent.LocationItemIntent
 import org.pet.project.rickandmorty.feature.location.presentation.state.ResidentListState
-import rickandmorty.composeapp.generated.resources.Res
-import rickandmorty.composeapp.generated.resources.location_residents_subtitle
+import rickandmorty.feature.location.generated.resources.Res
+import rickandmorty.feature.location.generated.resources.location_residents_subtitle
+
 
 internal fun LazyListScope.ResidentsContent(
 	state: ResidentListState,
