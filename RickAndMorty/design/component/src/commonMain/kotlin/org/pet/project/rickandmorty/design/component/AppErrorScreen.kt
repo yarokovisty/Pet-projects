@@ -22,7 +22,7 @@ import rickandmorty.design.resources.generated.resources.pickle_rick
 import rickandmorty.design.resources.generated.resources.Res as R
 
 @Composable
-internal fun AppErrorScreen(
+fun AppErrorScreen(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     buttonText: String? = null

@@ -20,6 +20,7 @@ kotlin {
             baseName= "sharedKit"
 
             export(projects.common.data)
+            export(projects.common.presentation)
             export(projects.core.navigation)
             export(projects.core.network)
             export(projects.design.component)
@@ -38,6 +39,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(projects.common.data)
+                api(projects.common.presentation)
                 api(projects.core.navigation)
                 api(projects.core.network)
                 api(projects.design.component)
