@@ -8,6 +8,7 @@ import org.pet.project.rickandmorty.feature.location.data.datasource.RemoteLocat
 import org.pet.project.rickandmorty.feature.location.data.paginator.ResidentsPaginator
 import org.pet.project.rickandmorty.feature.location.data.repository.LocationRepositoryImpl
 import org.pet.project.rickandmorty.feature.location.domain.repository.LocationRepository
+import org.pet.project.rickandmorty.feature.location.domain.usecase.LoadNextResidentsUseCase
 import org.pet.project.rickandmorty.feature.location.presentation.viewmodel.LocationItemViewModel
 
 val locationModule = module {
@@ -16,7 +17,8 @@ val locationModule = module {
     factory { ResidentsPaginator(get()) }
 
     // domain
-    factory { LocationRepositoryImpl(get(), get()) } bind LocationRepository::class
+    single { LocationRepositoryImpl(get(), get()) } bind LocationRepository::class
+    factory { LoadNextResidentsUseCase(get()) }
 
     // presentation
     viewModelOf(::LocationItemViewModel)

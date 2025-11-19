@@ -1,5 +1,6 @@
 package org.pet.project.rickandmorty.feature.location.presentation.viewmodel
 
+import kotlinx.coroutines.delay
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.library.result.onFailure
 import org.pet.project.rickandmorty.library.result.onSuccessAsync
@@ -7,14 +8,21 @@ import org.pet.project.rickandmorty.feature.location.domain.entity.Location
 import org.pet.project.rickandmorty.feature.location.domain.entity.Resident
 import org.pet.project.rickandmorty.feature.location.domain.entity.ResidentState
 import org.pet.project.rickandmorty.feature.location.domain.repository.LocationRepository
+import org.pet.project.rickandmorty.feature.location.domain.usecase.LoadNextResidentsUseCase
 import org.pet.project.rickandmorty.feature.location.presentation.event.LocationItemEvent
 import org.pet.project.rickandmorty.feature.location.presentation.intent.LocationItemIntent
 import org.pet.project.rickandmorty.feature.location.presentation.state.LocationItemState
 
 internal class LocationItemViewModel(
     private val name: String,
-    private val repository: LocationRepository
+    private val repository: LocationRepository,
+    private val loadNextResidentsUseCase: LoadNextResidentsUseCase
 ) : BaseViewModel<LocationItemState, LocationItemIntent, LocationItemEvent>() {
+
+    companion object {
+
+        private const val CHUNK_SIZE = 4
+    }
 
     init {
         observerResidents()
@@ -71,7 +79,17 @@ internal class LocationItemViewModel(
     }
 
     private fun loadNextResidents() {
+        launchInScope {
+            val state = stateValue.residentState
+            val all = state.residents
+            val visible = state.visibleResidents
 
+            loadNextResidentsUseCase(visible, all)?.let { nextChunk ->
+                updateState {
+                    copy(residentState = residentState.copy(visibleResidents = visible + nextChunk))
+                }
+            }
+        }
     }
 
     private fun observerResidents() {
@@ -82,9 +100,7 @@ internal class LocationItemViewModel(
 
                     }
 
-                    is ResidentState.Loading -> {
-
-                    }
+                    is ResidentState.Loading -> handleResidentUploading()
 
                     is ResidentState.Ended -> {
 
@@ -96,6 +112,14 @@ internal class LocationItemViewModel(
         }
     }
 
+    private fun handleResidentUploading() {
+        updateState {
+            copy(
+                residentState = residentState.copy(uploading = true, visibleMore = false)
+            )
+        }
+    }
+
     private fun handleResidentSuccess(
         residents: List<Resident>,
         reached: Boolean
@@ -104,10 +128,10 @@ internal class LocationItemViewModel(
             val allResidents = residentState.residents + residents
 
             val fromIndex = residentState.visibleResidents.size
-            val toIndex = if ((fromIndex + 4) >= allResidents.size) {
+            val toIndex = if ((fromIndex + CHUNK_SIZE) >= allResidents.size) {
                 allResidents.size
             } else {
-                fromIndex + 4
+                fromIndex + CHUNK_SIZE
             }
             val visibleResidents = residentState.visibleResidents + allResidents.subList(fromIndex, toIndex)
 
@@ -115,7 +139,7 @@ internal class LocationItemViewModel(
                 residentState = residentState.copy(
                     skeleton = false,
                     uploading = false,
-                    uploadAll = reached,
+                    visibleMore = !reached,
                     residents = allResidents,
                     visibleResidents = visibleResidents
                 )

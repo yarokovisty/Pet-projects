@@ -3,14 +3,19 @@ package org.pet.project.rickandmorty.feature.location.ui.screen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
 import org.koin.compose.viewmodel.koinViewModel
@@ -47,6 +52,7 @@ internal fun LocationItemScreen(name: LocationName) {
 	)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LocationItemScreen(
 	navigator: LocationNavigator,
@@ -54,10 +60,23 @@ private fun LocationItemScreen(
 	event: Flow<LocationItemEvent>,
 	onIntent: (LocationItemIntent) -> Unit
 ) {
-	AppFullScreen(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
-		Column(Modifier.fillMaxSize()) {
-			Toolbar(onBack = { onIntent(LocationItemIntent.NavigateBack) })
+	val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
+	Scaffold(
+		modifier = Modifier
+			.nestedScroll(scrollBehavior.nestedScrollConnection),
+		topBar = {
+			Toolbar(
+				scrollBehavior = scrollBehavior,
+				onBack = { onIntent(LocationItemIntent.NavigateBack) }
+			)
+		}
+	) { innerPadding ->
+		Column(
+			modifier = Modifier
+				.padding(innerPadding)
+				.fillMaxSize()
+		) {
 			if (state.locationState.error) {
 				AppErrorScreen(
 					onClick = { onIntent(LocationItemIntent.Refresh) }
@@ -107,11 +126,13 @@ private fun LocationItemScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun Toolbar(onBack: () -> Unit) {
-	AppSpacer(height = 8.dp)
-
+private fun Toolbar(
+	scrollBehavior: TopAppBarScrollBehavior,
+	onBack: () -> Unit
+) {
 	TopAppBar(
 		title = {},
-		navigationIcon = { AppToolbarNavBackIcon(onClick = onBack) }
+		navigationIcon = { AppToolbarNavBackIcon(onClick = onBack) },
+		scrollBehavior = scrollBehavior
 	)
 }

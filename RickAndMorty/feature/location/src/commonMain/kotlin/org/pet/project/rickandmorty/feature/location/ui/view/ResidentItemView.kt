@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,14 +25,15 @@ import org.pet.project.rickandmorty.design.component.AppSpacer
 internal fun ResidentItemView(
 	icon: String,
 	name: String,
-	showDivider: Boolean
+	modifier: Modifier = Modifier
 ) {
 	Column(
-		modifier = Modifier
+		modifier = modifier
 			.padding(horizontal = 16.dp)
 			.fillMaxWidth()
+			.clip(MaterialTheme.shapes.medium)
 			.background(MaterialTheme.colorScheme.primaryContainer)
-			.padding(horizontal = 8.dp, vertical = 4.dp)
+			.padding(horizontal = 16.dp, vertical = 8.dp)
 	) {
 		Row(
 			modifier = Modifier.fillMaxWidth(),
@@ -48,18 +50,9 @@ internal fun ResidentItemView(
 				color = MaterialTheme.colorScheme.onPrimaryContainer
 			)
 		}
-
-		if (showDivider) {
-			AppSpacer(height = 4.dp)
-
-			HorizontalDivider(
-				modifier = Modifier.fillMaxWidth(),
-				thickness = 1.dp,
-				color = MaterialTheme.colorScheme.outline
-			)
-		}
 	}
 
+	AppSpacer(height = 8.dp)
 }
 
 @Composable

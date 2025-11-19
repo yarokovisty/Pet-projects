@@ -19,7 +19,7 @@ internal data class ResidentListState(
 	val skeleton: Boolean = false,
 	val error: Boolean = false,
 	val uploading: Boolean = false,
-	val uploadAll: Boolean = false,
+	val visibleMore: Boolean = false,
 	val residents: List<Resident> = emptyList(),
 	val visibleResidents: List<Resident> = emptyList()
 )

@@ -1,19 +1,21 @@
 package org.pet.project.rickandmorty.feature.location.ui.view
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.feature.location.presentation.intent.LocationItemIntent
@@ -27,45 +29,32 @@ internal fun LazyListScope.ResidentsContent(
 	onIntent: (LocationItemIntent) -> Unit
 ) {
 	item {
-		Title(
-			modifier = Modifier
-				.padding(
-					start = 16.dp,
-					top = 16.dp,
-					end = 16.dp
-				)
-				.fillMaxWidth()
-				.clip(RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
-				.background(MaterialTheme.colorScheme.primaryContainer)
-				.padding(8.dp)
-		)
+		Title(modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp))
 	}
 
-	items(state.visibleResidents.size) { index ->
-		val resident = state.visibleResidents[index]
-		val showDivider = state.visibleResidents.lastIndex != index
+	items(
+		items = state.visibleResidents,
+		key = { it.id }
+	) { resident ->
 
 		ResidentItemView(
 			icon = resident.image,
 			name = resident.name,
-			showDivider
+			modifier = Modifier.animateItem()
 		)
 	}
 
 	item {
-		Box(
-			modifier = Modifier
-				.padding(horizontal = 16.dp)
-				.fillMaxWidth()
-				.clip(RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp))
-				.background(MaterialTheme.colorScheme.primaryContainer)
-		) {
-			when {
-				state.uploading -> {}
-				!state.uploadAll -> UploadButton(
-					onClick = { onIntent(LocationItemIntent.UploadResidents) }
-				)
-			}
+		if (state.uploading) {
+			UploadIndicator()
+		}
+	}
+
+	item {
+		if (state.visibleMore) {
+			UploadButton(
+				onClick = { onIntent(LocationItemIntent.UploadResidents) },
+			)
 		}
 	}
 }
@@ -77,19 +66,30 @@ private fun Title(
 	Text(
 		text = stringResource(Res.string.location_residents_subtitle),
 		modifier = modifier,
-		style = MaterialTheme.typography.titleMedium,
-		color = MaterialTheme.colorScheme.onPrimaryContainer
+		style = MaterialTheme.typography.titleMedium
 	)
 }
 
 @Composable
-private fun UploadButton(onClick: () -> Unit) {
+private fun UploadIndicator() {
 	Box(
-		modifier =  Modifier
-			.fillMaxWidth()
-			.height(42.dp)
-			.clickable(onClick = {  }),
+		modifier = Modifier.fillMaxWidth(),
 		contentAlignment = Alignment.Center
+	) {
+		CircularProgressIndicator(Modifier.size(20.dp))
+	}
+}
+
+@Composable
+private fun UploadButton(
+	onClick: () -> Unit,
+	modifier: Modifier = Modifier
+) {
+	Button(
+		modifier = modifier
+			.padding(horizontal = 16.dp)
+			.fillMaxWidth(),
+		onClick = onClick
 	) {
 		Text(
 			text = stringResource(Res.string.location_residents_upload_more),
@@ -97,5 +97,4 @@ private fun UploadButton(onClick: () -> Unit) {
 			color = MaterialTheme.colorScheme.onPrimaryContainer
 		)
 	}
-
 }
