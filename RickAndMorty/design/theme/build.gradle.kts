@@ -37,7 +37,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.pet.project.rickandmorty.design.component"
+    namespace = "org.pet.project.rickandmorty.design.theme"
     compileSdk = libs.versions.android.compile.sdk.get().toInt()
 
     compileOptions {

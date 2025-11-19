@@ -1,9 +1,11 @@
 package org.pet.project.rickandmorty.feature.location.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,81 +35,83 @@ private typealias LocationName = String
 
 @Composable
 internal fun LocationItemScreen(name: LocationName) {
-    val navigator = LocalLocationNavigator.current
-    val viewModel = koinViewModel<LocationItemViewModel> { parametersOf(name) }
-    val state by viewModel.state.collectAsState()
+	val navigator = LocalLocationNavigator.current
+	val viewModel = koinViewModel<LocationItemViewModel> { parametersOf(name) }
+	val state by viewModel.state.collectAsState()
 
-    LocationItemScreen(
-        navigator = navigator,
-        state = state,
-        event = viewModel.event,
-        onIntent = viewModel::onIntent
-    )
+	LocationItemScreen(
+		navigator = navigator,
+		state = state,
+		event = viewModel.event,
+		onIntent = viewModel::onIntent
+	)
 }
 
 @Composable
 private fun LocationItemScreen(
-    navigator: LocationNavigator,
-    state: LocationItemState,
-    event: Flow<LocationItemEvent>,
-    onIntent: (LocationItemIntent) -> Unit
+	navigator: LocationNavigator,
+	state: LocationItemState,
+	event: Flow<LocationItemEvent>,
+	onIntent: (LocationItemIntent) -> Unit
 ) {
-    AppFullScreen {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Toolbar(onBack = { onIntent(LocationItemIntent.NavigateBack) })
+	AppFullScreen(modifier = Modifier.background(MaterialTheme.colorScheme.background)) {
+		Column(Modifier.fillMaxSize()) {
+			Toolbar(onBack = { onIntent(LocationItemIntent.NavigateBack) })
 
-            if (state.locationState.error) {
-                AppErrorScreen(
-                    onClick = { onIntent(LocationItemIntent.Refresh) }
-                )
-            } else {
-                LazyColumn {
-                    item {
-                        if (state.locationState.skeleton) {
-                            LocationItemInfoSkeleton()
-                        } else {
-                            val location = state.locationState.location
-                            checkNotNull(location)
-                            LocationItemInfoContent(
-                                name = location.name,
-                                type = location.type,
-                                dimension = location.dimension,
-                                amountResidents = location.amountResidents
-                            )
-                        }
-                    }
+			if (state.locationState.error) {
+				AppErrorScreen(
+					onClick = { onIntent(LocationItemIntent.Refresh) }
+				)
+			} else {
+				LazyColumn {
+					item {
+						if (state.locationState.skeleton) {
+							LocationItemInfoSkeleton()
+						} else {
+							val location = state.locationState.location
+							checkNotNull(location)
+							LocationItemInfoContent(
+								name = location.name,
+								type = location.type,
+								dimension = location.dimension,
+								amountResidents = location.amountResidents
+							)
+						}
+					}
 
 
-                    if (state.residentState.skeleton) {
-                        item {
-                            AppSpacer(height = 16.dp)
+					if (state.residentState.skeleton) {
+						item {
+							AppSpacer(height = 16.dp)
 
-                            ResidentsSkeleton()
-                        }
-                    } else {
-                        ResidentsContent(
-                            state = state.residentState,
-                            onIntent = onIntent
-                        )
-                    }
-                }
-            }
+							ResidentsSkeleton()
+						}
+					} else {
+						ResidentsContent(
+							state = state.residentState,
+							onIntent = onIntent
+						)
+					}
+				}
+			}
 
-        }
-    }
+		}
+	}
 
-    event.collectAsEffect { e ->
-        when(e) {
-            LocationItemEvent.NavigateBack -> navigator.back()
-        }
-    }
+	event.collectAsEffect { e ->
+		when (e) {
+			LocationItemEvent.NavigateBack -> navigator.back()
+		}
+	}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun Toolbar(onBack: () -> Unit) {
-    TopAppBar(
-        title = {},
-        navigationIcon = { AppToolbarNavBackIcon(onClick = onBack) }
-    )
+	AppSpacer(height = 8.dp)
+
+	TopAppBar(
+		title = {},
+		navigationIcon = { AppToolbarNavBackIcon(onClick = onBack) }
+	)
 }

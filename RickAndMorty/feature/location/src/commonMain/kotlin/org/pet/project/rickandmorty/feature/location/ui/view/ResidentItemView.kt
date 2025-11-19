@@ -44,7 +44,8 @@ internal fun ResidentItemView(
 			Text(
 				text = name,
 				modifier = Modifier.weight(1f),
-				style = MaterialTheme.typography.bodyLarge
+				style = MaterialTheme.typography.bodyLarge,
+				color = MaterialTheme.colorScheme.onPrimaryContainer
 			)
 		}
 

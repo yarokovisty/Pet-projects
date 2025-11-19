@@ -57,10 +57,9 @@ internal fun CharacterItemContentView(
             onBack = { onIntent(CharacterItemIntent.Back) }
         )
 
-        val contentPadding = PaddingValues(horizontal = 16.dp)
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = contentPadding
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
         ) {
             item {
                 CharacterImage(character.image)

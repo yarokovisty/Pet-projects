@@ -65,7 +65,8 @@ private fun Title(
     Text(
         text = text,
         modifier = modifier,
-        style = MaterialTheme.typography.headlineSmall
+        style = MaterialTheme.typography.headlineSmall,
+        color = MaterialTheme.colorScheme.onBackground
     )
 }
 

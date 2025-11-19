@@ -20,7 +20,7 @@ import org.pet.project.rickandmorty.feature.location.presentation.intent.Locatio
 import org.pet.project.rickandmorty.feature.location.presentation.state.ResidentListState
 import rickandmorty.feature.location.generated.resources.Res
 import rickandmorty.feature.location.generated.resources.location_residents_subtitle
-
+import rickandmorty.feature.location.generated.resources.location_residents_upload_more
 
 internal fun LazyListScope.ResidentsContent(
 	state: ResidentListState,
@@ -92,8 +92,9 @@ private fun UploadButton(onClick: () -> Unit) {
 		contentAlignment = Alignment.Center
 	) {
 		Text(
-			text = "More",
+			text = stringResource(Res.string.location_residents_upload_more),
 			style = MaterialTheme.typography.labelLarge,
+			color = MaterialTheme.colorScheme.onPrimaryContainer
 		)
 	}
 
