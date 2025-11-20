@@ -1,9 +1,6 @@
 package org.pet.project.rickandmorty.feature.location.presentation.viewmodel
 
-import kotlinx.coroutines.delay
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
-import org.pet.project.rickandmorty.library.result.onFailure
-import org.pet.project.rickandmorty.library.result.onSuccessAsync
 import org.pet.project.rickandmorty.feature.location.domain.entity.Location
 import org.pet.project.rickandmorty.feature.location.domain.entity.Resident
 import org.pet.project.rickandmorty.feature.location.domain.entity.ResidentState
@@ -12,11 +9,13 @@ import org.pet.project.rickandmorty.feature.location.domain.usecase.LoadNextResi
 import org.pet.project.rickandmorty.feature.location.presentation.event.LocationItemEvent
 import org.pet.project.rickandmorty.feature.location.presentation.intent.LocationItemIntent
 import org.pet.project.rickandmorty.feature.location.presentation.state.LocationItemState
+import org.pet.project.rickandmorty.library.result.onFailure
+import org.pet.project.rickandmorty.library.result.onSuccessAsync
 
 internal class LocationItemViewModel(
     private val name: String,
     private val repository: LocationRepository,
-    private val loadNextResidentsUseCase: LoadNextResidentsUseCase
+    private val loadNextResidentsUseCase: LoadNextResidentsUseCase,
 ) : BaseViewModel<LocationItemState, LocationItemIntent, LocationItemEvent>() {
 
     companion object {
@@ -62,9 +61,7 @@ internal class LocationItemViewModel(
 
     private suspend fun handleSuccess(location: Location) {
         updateState {
-            copy(
-                locationState = locationState.copy(skeleton = false, location = location)
-            )
+            copy(locationState = locationState.copy(skeleton = false, location = location))
         }
 
         repository.loadNextResidents()
@@ -72,9 +69,7 @@ internal class LocationItemViewModel(
 
     private fun handleFailure(throwable: Throwable) {
         updateState {
-            copy(
-                locationState = locationState.copy(skeleton = false, error = true)
-            )
+            copy(locationState = locationState.copy(skeleton = false, error = true))
         }
     }
 
@@ -96,54 +91,97 @@ internal class LocationItemViewModel(
         launchInScope {
             repository.residents.collect {
                 when (it) {
-                    is ResidentState.Error -> {
-
-                    }
-
+                    is ResidentState.Error -> handleResidentError()
                     is ResidentState.Loading -> handleResidentUploading()
-
-                    is ResidentState.Ended -> {
-
-                    }
-
+                    is ResidentState.Ended -> {}
                     is ResidentState.Success -> handleResidentSuccess(it.value, it.reached)
                 }
             }
         }
     }
 
-    private fun handleResidentUploading() {
+    private suspend fun handleResidentError() {
         updateState {
             copy(
-                residentState = residentState.copy(uploading = true, visibleMore = false)
+                residentState = residentState.copy(
+                    skeleton = false,
+                    loadError = true,
+                    visibleMore = false
+                )
             )
+        }
+        setEvent(LocationItemEvent.ErrorUploadResidents)
+    }
+
+    private fun handleResidentUploading() {
+        updateState {
+            copy(residentState = residentState.copy(uploading = true, visibleMore = false))
         }
     }
 
-    private fun handleResidentSuccess(
+    private suspend fun handleResidentSuccess(
         residents: List<Resident>,
-        reached: Boolean
+        reached: Boolean,
     ) {
+        when {
+            residents.isNotEmpty() -> handleNonEmptyResidents(residents, reached)
+            stateValue.residentState.residents.isEmpty() -> handleEmptyResidents()
+            else -> handleUploadError()
+        }
+    }
+
+    private fun handleNonEmptyResidents(
+        residents: List<Resident>,
+        reached: Boolean,
+    ) = updateState {
+        val allResidents = residentState.residents + residents
+
+        val fromIndex = residentState.visibleResidents.size
+        val toIndex = if ((fromIndex + CHUNK_SIZE) >= allResidents.size) {
+            allResidents.size
+        } else {
+            fromIndex + CHUNK_SIZE
+        }
+        val visibleResidents =
+            residentState.visibleResidents + allResidents.subList(fromIndex, toIndex)
+
+        copy(
+            residentState = residentState.copy(
+                skeleton = false,
+                uploading = false,
+                visibleMore = !reached,
+                residents = allResidents,
+                visibleResidents = visibleResidents
+            )
+        )
+    }
+
+    private suspend fun handleEmptyResidents() {
         updateState {
-            val allResidents = residentState.residents + residents
+            copy(
+                residentState = residentState.copy(
+                    skeleton = false,
+                    loadError = true,
+                    visibleMore = false,
+                    uploadError = false
+                )
+            )
+        }
+        setEvent(LocationItemEvent.ErrorUploadResidents)
+    }
 
-            val fromIndex = residentState.visibleResidents.size
-            val toIndex = if ((fromIndex + CHUNK_SIZE) >= allResidents.size) {
-                allResidents.size
-            } else {
-                fromIndex + CHUNK_SIZE
-            }
-            val visibleResidents = residentState.visibleResidents + allResidents.subList(fromIndex, toIndex)
-
+    private suspend fun handleUploadError() {
+        updateState {
             copy(
                 residentState = residentState.copy(
                     skeleton = false,
                     uploading = false,
-                    visibleMore = !reached,
-                    residents = allResidents,
-                    visibleResidents = visibleResidents
+                    uploadError = true,
+                    visibleMore = false,
+                    loadError = false
                 )
             )
         }
+        setEvent(LocationItemEvent.ErrorUploadResidents)
     }
 }

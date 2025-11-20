@@ -1,8 +1,5 @@
 package org.pet.project.rickandmorty.feature.location.ui.view
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -28,33 +25,35 @@ internal fun LazyListScope.ResidentsContent(
 	state: ResidentListState,
 	onIntent: (LocationItemIntent) -> Unit
 ) {
-	item {
-		Title(modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp))
-	}
-
-	items(
-		items = state.visibleResidents,
-		key = { it.id }
-	) { resident ->
-
-		ResidentItemView(
-			icon = resident.image,
-			name = resident.name,
-			modifier = Modifier.animateItem()
-		)
-	}
-
-	item {
-		if (state.uploading) {
-			UploadIndicator()
+	if (!state.loadError) {
+		item {
+			Title(modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 8.dp))
 		}
-	}
 
-	item {
-		if (state.visibleMore) {
-			UploadButton(
-				onClick = { onIntent(LocationItemIntent.UploadResidents) },
+		items(
+			items = state.visibleResidents,
+			key = { it.id }
+		) { resident ->
+
+			ResidentItemView(
+				icon = resident.image,
+				name = resident.name,
+				modifier = Modifier.animateItem()
 			)
+		}
+
+		item {
+			if (state.uploading) {
+				UploadIndicator()
+			}
+		}
+
+		item {
+			if (state.visibleMore) {
+				UploadButton(
+					onClick = { onIntent(LocationItemIntent.UploadResidents) },
+				)
+			}
 		}
 	}
 }

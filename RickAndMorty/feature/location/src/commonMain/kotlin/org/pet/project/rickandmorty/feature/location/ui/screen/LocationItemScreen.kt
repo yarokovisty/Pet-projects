@@ -1,27 +1,28 @@
 package org.pet.project.rickandmorty.feature.location.ui.screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.Flow
+import org.jetbrains.compose.resources.getString
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
-import org.pet.project.rickandmorty.design.component.AppFullScreen
 import org.pet.project.rickandmorty.design.component.AppSpacer
 import org.pet.project.rickandmorty.design.component.AppToolbarNavBackIcon
 import org.pet.project.rickandmorty.feature.location.navigation.LocalLocationNavigator
@@ -35,6 +36,8 @@ import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoSke
 import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsContent
 import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsSkeleton
 import org.pet.project.rickandmorty.util.collectAsEffect
+import rickandmorty.feature.location.generated.resources.Res
+import rickandmorty.feature.location.generated.resources.location_error_upload_residents
 
 private typealias LocationName = String
 
@@ -61,16 +64,17 @@ private fun LocationItemScreen(
 	onIntent: (LocationItemIntent) -> Unit
 ) {
 	val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+	val snackbarHostState = remember { SnackbarHostState() }
 
 	Scaffold(
-		modifier = Modifier
-			.nestedScroll(scrollBehavior.nestedScrollConnection),
+		modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
 		topBar = {
 			Toolbar(
 				scrollBehavior = scrollBehavior,
 				onBack = { onIntent(LocationItemIntent.NavigateBack) }
 			)
-		}
+		},
+		snackbarHost = { SnackbarHost(snackbarHostState) }
 	) { innerPadding ->
 		Column(
 			modifier = Modifier
@@ -78,9 +82,7 @@ private fun LocationItemScreen(
 				.fillMaxSize()
 		) {
 			if (state.locationState.error) {
-				AppErrorScreen(
-					onClick = { onIntent(LocationItemIntent.Refresh) }
-				)
+				AppErrorScreen(onClick = { onIntent(LocationItemIntent.Refresh) })
 			} else {
 				LazyColumn {
 					item {
@@ -120,6 +122,11 @@ private fun LocationItemScreen(
 	event.collectAsEffect { e ->
 		when (e) {
 			LocationItemEvent.NavigateBack -> navigator.back()
+			LocationItemEvent.ErrorUploadResidents -> {
+				snackbarHostState.showSnackbar(
+					message = getString(Res.string.location_error_upload_residents)
+				)
+			}
 		}
 	}
 }
