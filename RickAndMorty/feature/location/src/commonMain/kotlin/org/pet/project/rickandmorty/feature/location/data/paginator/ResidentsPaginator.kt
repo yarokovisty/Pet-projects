@@ -7,9 +7,9 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.withContext
-import org.pet.project.rickandmorty.library.result.Result
 import org.pet.project.rickandmorty.feature.location.data.datasource.RemoteLocationDataSource
 import org.pet.project.rickandmorty.feature.location.data.model.ResidentResponse
+import org.pet.project.rickandmorty.library.result.Result
 
 internal class ResidentsPaginator(
 	private val remoteLocationDataSource: RemoteLocationDataSource
@@ -25,6 +25,7 @@ internal class ResidentsPaginator(
 		this.urls = urls
 	}
 
+	// TODO сделать потокобезопасным
 	suspend fun loadNextResidents() {
 		if (urls.isEmpty()) {
 			_residentsFlow.emit(RequestResidentState.Error)

@@ -1,7 +1,10 @@
 package org.pet.project.rickandmorty.feature.character.data.mapper
 
+import org.pet.project.rickandmorty.common.data.PaginatorState
+import org.pet.project.rickandmorty.feature.character.data.model.CharacterListResponse
 import org.pet.project.rickandmorty.feature.character.data.model.CharacterResponse
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
+import org.pet.project.rickandmorty.feature.character.domain.entity.CharacterState
 import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
 import org.pet.project.rickandmorty.feature.character.domain.entity.Status
 
@@ -33,4 +36,17 @@ private fun String.toStatus(): Status {
 		"Dead" -> Status.DEAD
 		else -> Status.UNKNOWN
 	}
+}
+
+internal fun PaginatorState<CharacterListResponse>.toItem(): CharacterState {
+	return when(this) {
+        PaginatorState.End -> CharacterState.End
+        is PaginatorState.Error -> CharacterState.Error(this.throwable)
+        PaginatorState.Initial -> CharacterState.Initial
+        PaginatorState.Loading -> CharacterState.Loading
+        is PaginatorState.Success<CharacterListResponse> -> {
+			val characters = value.results.map(CharacterResponse::toItem)
+			CharacterState.Success(characters)
+		}
+    }
 }

@@ -16,12 +16,7 @@ internal class CharacterRepositoryImpl(
     private val paginator: CharacterPaginator
 ) : CharacterRepository {
 
-    override val characters = paginator.paginationFlow.map { result ->
-        result.map { list ->
-            val characters = list.results.map {  character -> character.toItem() }
-            characters
-        }
-    }
+    override val characters = paginator.paginationFlow.map { it.toItem() }
 
     override suspend fun loadCharacterList() {
         paginator.loadItems()
