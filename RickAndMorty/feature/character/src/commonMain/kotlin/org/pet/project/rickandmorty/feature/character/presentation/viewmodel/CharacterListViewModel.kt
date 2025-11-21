@@ -6,6 +6,11 @@ import org.pet.project.rickandmorty.feature.character.domain.repository.Characte
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterListIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterListState
+import org.pet.project.rickandmorty.feature.character.presentation.state.endReached
+import org.pet.project.rickandmorty.feature.character.presentation.state.failure
+import org.pet.project.rickandmorty.feature.character.presentation.state.refresh
+import org.pet.project.rickandmorty.feature.character.presentation.state.success
+import org.pet.project.rickandmorty.feature.character.presentation.state.uploading
 import org.pet.project.rickandmorty.library.result.EmptyResult
 import org.pet.project.rickandmorty.library.result.asSuccess
 import org.pet.project.rickandmorty.library.result.isFailure
@@ -52,7 +57,7 @@ internal class CharacterListViewModel(
         }
     }
     private fun refreshCharacters() {
-        updateState { copy(skeleton = true, error = false) }
+        updateState { refresh() }
         launchInScope {
             characterRepository.loadCharacterList()
         }
@@ -61,7 +66,7 @@ internal class CharacterListViewModel(
     private fun loadNextCharacters() {
         if (stateValue.uploadAllCharacters) return
 
-        updateState { copy(isLoadingMore = true) }
+        updateState { uploading() }
         launchInScope {
             characterRepository.loadCharacterList()
         }
@@ -76,11 +81,11 @@ internal class CharacterListViewModel(
     private fun processFailure() {
         when {
             stateValue.skeleton -> {
-                updateState { copy(skeleton = false, error = true) }
+                updateState { failure(true) }
             }
 
             stateValue.isLoadingMore -> {
-                updateState { copy(isLoadingMore = false) }
+                updateState { failure(false) }
                 launchInScope {
                     setEvent(
                         CharacterListEvent.Error(Res.string.character_error_upload)
@@ -91,21 +96,13 @@ internal class CharacterListViewModel(
     }
 
     private fun processEndReached() {
-        updateState { copy(uploadAllCharacters = true) }
+        updateState { endReached() }
     }
 
     private fun processSuccess(characters: List<Character>) {
         val oldCharacters = stateValue.characters
         val newCharacters = oldCharacters + characters
 
-        updateState {
-            copy(
-                skeleton = false,
-                isLoadingMore = false,
-                characters = newCharacters
-            )
-        }
-
+        updateState { success(newCharacters) }
     }
-
 }

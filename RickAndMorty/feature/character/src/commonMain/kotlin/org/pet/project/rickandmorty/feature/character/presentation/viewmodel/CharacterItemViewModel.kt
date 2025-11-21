@@ -1,13 +1,16 @@
 package org.pet.project.rickandmorty.feature.character.presentation.viewmodel
 
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
-import org.pet.project.rickandmorty.library.result.onFailure
-import org.pet.project.rickandmorty.library.result.onSuccess
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.repository.CharacterRepository
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterItemEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterItemIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterItemState
+import org.pet.project.rickandmorty.feature.character.presentation.state.error
+import org.pet.project.rickandmorty.feature.character.presentation.state.loading
+import org.pet.project.rickandmorty.feature.character.presentation.state.success
+import org.pet.project.rickandmorty.library.result.onFailure
+import org.pet.project.rickandmorty.library.result.onSuccess
 
 internal class CharacterItemViewModel(
     val id: Int,
@@ -31,7 +34,7 @@ internal class CharacterItemViewModel(
     }
 
     private fun loadCharacter() {
-        updateState { copy(loading = true, error = false) }
+        updateState { loading() }
 
         launchInScope {
             characterRepository.getCharacter(id)
@@ -52,21 +55,10 @@ internal class CharacterItemViewModel(
     }
 
     private fun handleSuccess(character: Character) {
-        updateState {
-            copy(
-                loading = false,
-                error = false,
-                character = character
-            )
-        }
+        updateState { success(character) }
     }
 
     private fun handleError() {
-        updateState {
-            copy(
-                loading = false,
-                error = true
-            )
-        }
+        updateState { error() }
     }
 }
