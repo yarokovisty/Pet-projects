@@ -21,7 +21,7 @@ import rickandmorty.feature.location.generated.resources.Res
 import rickandmorty.feature.location.generated.resources.location_residents_subtitle
 import rickandmorty.feature.location.generated.resources.location_residents_upload_more
 
-internal fun LazyListScope.ResidentsContent(
+internal fun LazyListScope.ResidentListContent(
 	state: ResidentListState,
 	onIntent: (LocationItemIntent) -> Unit
 ) {
@@ -35,7 +35,7 @@ internal fun LazyListScope.ResidentsContent(
 			key = { it.id }
 		) { resident ->
 
-			ResidentItemView(
+			ResidentListItemContent(
 				icon = resident.image,
 				name = resident.name,
 				modifier = Modifier.animateItem()

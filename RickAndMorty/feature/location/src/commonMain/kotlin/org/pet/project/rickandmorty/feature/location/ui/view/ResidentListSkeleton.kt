@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import org.pet.project.rickandmorty.util.shimmer
 
 @Composable
-internal fun ResidentsSkeleton() {
+internal fun ResidentListSkeleton() {
     Box(
         modifier = Modifier
             .padding(horizontal = 16.dp)

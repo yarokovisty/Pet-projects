@@ -9,7 +9,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,18 +24,21 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppSnackbar
+import org.pet.project.rickandmorty.design.component.AppTitleToolbar
 import org.pet.project.rickandmorty.feature.character.navigation.CharacterNavigator
 import org.pet.project.rickandmorty.feature.character.navigation.LocalCharacterNavigator
 import org.pet.project.rickandmorty.feature.character.presentation.event.CharacterListEvent
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterListIntent
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterListState
 import org.pet.project.rickandmorty.feature.character.presentation.viewmodel.CharacterListViewModel
-import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListToolbar
-import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListView
+import org.pet.project.rickandmorty.feature.character.ui.view.CharacterListContent
 import org.pet.project.rickandmorty.util.collectAsEffect
+import rickandmorty.feature.character.generated.resources.Res
+import rickandmorty.feature.character.generated.resources.character_list_toolbar_title
 
 @Composable
 internal fun CharacterListScreen() {
@@ -75,14 +80,14 @@ private fun CharacterListScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) {
-            CharacterListToolbar(scrollBehavior)
+            Toolbar(scrollBehavior)
 
             if (state.error) {
                 AppErrorScreen(
                     onClick = { onIntent(CharacterListIntent.Refresh) }
                 )
             } else {
-                CharacterListView(
+                CharacterListContent(
                     lazyListState = lazyListState,
                     state = state,
                     onClickCharacter = {
@@ -115,4 +120,15 @@ private fun CharacterListScreen(
         }
 
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun Toolbar(
+    scrollBehavior: TopAppBarScrollBehavior,
+) {
+    TopAppBar(
+        title = { AppTitleToolbar(stringResource(Res.string.character_list_toolbar_title)) },
+        scrollBehavior = scrollBehavior
+    )
 }

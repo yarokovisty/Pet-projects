@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +20,7 @@ import coil3.compose.AsyncImage
 import org.pet.project.rickandmorty.design.component.AppSpacer
 
 @Composable
-internal fun ResidentItemView(
+internal fun ResidentListItemContent(
 	icon: String,
 	name: String,
 	modifier: Modifier = Modifier

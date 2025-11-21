@@ -33,8 +33,8 @@ import org.pet.project.rickandmorty.feature.location.presentation.state.Location
 import org.pet.project.rickandmorty.feature.location.presentation.viewmodel.LocationItemViewModel
 import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoContent
 import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoSkeleton
-import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsContent
-import org.pet.project.rickandmorty.feature.location.ui.view.ResidentsSkeleton
+import org.pet.project.rickandmorty.feature.location.ui.view.ResidentListContent
+import org.pet.project.rickandmorty.feature.location.ui.view.ResidentListSkeleton
 import org.pet.project.rickandmorty.util.collectAsEffect
 import rickandmorty.feature.location.generated.resources.Res
 import rickandmorty.feature.location.generated.resources.location_error_upload_residents
@@ -105,10 +105,10 @@ private fun LocationItemScreen(
 						item {
 							AppSpacer(height = 16.dp)
 
-							ResidentsSkeleton()
+							ResidentListSkeleton()
 						}
 					} else {
-						ResidentsContent(
+						ResidentListContent(
 							state = state.residentState,
 							onIntent = onIntent
 						)

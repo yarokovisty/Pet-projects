@@ -33,7 +33,7 @@ import rickandmorty.feature.character.generated.resources.Res
 import rickandmorty.feature.character.generated.resources.character_location_title
 
 @Composable
-internal fun CharacterListItemView(
+internal fun CharacterListItemContent(
     character: Character,
     onClick: () -> Unit,
 ) {
@@ -43,15 +43,15 @@ internal fun CharacterListItemView(
         shape = ShapeDefaults.Medium
     ) {
         Row {
-            CharacterItemImageView(character.image)
+            CharacterImage(character.image)
 
-            CharacterItemInfoView(character)
+            CharacterInfo(character)
         }
     }
 }
 
 @Composable
-private fun CharacterItemImageView(image: String) {
+private fun CharacterImage(image: String) {
     AsyncImage(
         model = image,
         contentDescription = null,
@@ -61,27 +61,27 @@ private fun CharacterItemImageView(image: String) {
 }
 
 @Composable
-private fun RowScope.CharacterItemInfoView(character: Character) {
+private fun RowScope.CharacterInfo(character: Character) {
     Column(
         modifier = Modifier
             .weight(1f)
             .padding(8.dp)
     ) {
-        CharacterItemNameAndGenderView(
+        CharacterNameAndGender(
             name = character.name,
             gender = character.gender
         )
 
         AppSpacer(height = 8.dp)
 
-        CharacterItemStatusView(
+        CharacterStatus(
             status = character.status,
             species = character.species
         )
 
         AppSpacer(height = 8.dp)
 
-        CharacterItemAdditionalInfoView(
+        CharacterAdditionalInfo(
             title = stringResource(Res.string.character_location_title),
             value = character.location
         )
@@ -89,7 +89,7 @@ private fun RowScope.CharacterItemInfoView(character: Character) {
 }
 
 @Composable
-private fun CharacterItemNameAndGenderView(
+private fun CharacterNameAndGender(
     name: String,
     gender: Gender,
 ) {
@@ -105,9 +105,9 @@ private fun CharacterItemNameAndGenderView(
 }
 
 @Composable
-private fun CharacterItemStatusView(status: Status, species: String) {
+private fun CharacterStatus(status: Status, species: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        CharacterStatusIndicatorView(status)
+        CharacterStatusIndicator(status.color)
 
         AppSpacer(width = 4.dp)
 
@@ -118,13 +118,7 @@ private fun CharacterItemStatusView(status: Status, species: String) {
 }
 
 @Composable
-private fun CharacterStatusIndicatorView(status: Status) {
-    val color = when (status) {
-        Status.ALIVE -> Color.Green
-        Status.DEAD -> Color.Red
-        Status.UNKNOWN -> Color.Yellow
-    }
-
+private fun CharacterStatusIndicator(color: Color) {
     Box(
         modifier = Modifier
             .size(8.dp)
@@ -134,7 +128,7 @@ private fun CharacterStatusIndicatorView(status: Status) {
 }
 
 @Composable
-private fun CharacterItemAdditionalInfoView(title: String, value: String) {
+private fun CharacterAdditionalInfo(title: String, value: String) {
     Text(
         text = title,
         fontSize = 12.sp,

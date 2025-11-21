@@ -13,7 +13,7 @@ import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.presentation.state.CharacterListState
 
 @Composable
-internal fun CharacterListView(
+internal fun CharacterListContent(
     lazyListState: LazyGridState,
     state: CharacterListState,
     onClickCharacter: (Character) -> Unit,
@@ -40,7 +40,7 @@ internal fun CharacterListView(
                 items = state.characters,
                 key = { character -> character.id }
             ) { character ->
-                CharacterListItemView(character) { onClickCharacter(character) }
+                CharacterListItemContent(character) { onClickCharacter(character) }
             }
         }
     }

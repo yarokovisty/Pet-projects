@@ -12,10 +12,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,17 +30,15 @@ import coil3.compose.AsyncImage
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.design.component.AppSpacer
+import org.pet.project.rickandmorty.design.component.AppTitleToolbar
+import org.pet.project.rickandmorty.design.component.AppToolbarNavBackIcon
 import org.pet.project.rickandmorty.feature.character.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.domain.entity.Gender
 import org.pet.project.rickandmorty.feature.character.domain.entity.Status
 import org.pet.project.rickandmorty.feature.character.presentation.intent.CharacterItemIntent
 import rickandmorty.design.resources.generated.resources.ic_arrow_forward
 import rickandmorty.feature.character.generated.resources.Res
-import rickandmorty.feature.character.generated.resources.character_gender_female
-import rickandmorty.feature.character.generated.resources.character_gender_genderless
-import rickandmorty.feature.character.generated.resources.character_gender_male
 import rickandmorty.feature.character.generated.resources.character_gender_title
-import rickandmorty.feature.character.generated.resources.character_gender_unknown
 import rickandmorty.feature.character.generated.resources.character_location_title
 import rickandmorty.feature.character.generated.resources.character_origin_title
 import rickandmorty.feature.character.generated.resources.character_species_title
@@ -46,12 +46,12 @@ import rickandmorty.feature.character.generated.resources.character_view_all_epi
 import rickandmorty.design.resources.generated.resources.Res as R
 
 @Composable
-internal fun CharacterItemContentView(
+internal fun CharacterItemContent(
     character: Character,
     onIntent: (CharacterItemIntent) -> Unit,
 ) {
     Column {
-        CharacterItemToolbar(
+        Toolbar(
             characterName = character.name,
             characterGender = character.gender,
             onBack = { onIntent(CharacterItemIntent.Back) }
@@ -68,28 +68,28 @@ internal fun CharacterItemContentView(
             }
 
             item {
-                CharacterStatusView(character.status)
+                CharacterStatus(character.status)
 
                 AppSpacer(height = 8.dp)
             }
 
             item {
-                CharacterInfoView(
+                CharacterInfo(
                     title = stringResource(Res.string.character_species_title),
                     content = character.species
                 )
             }
 
             item {
-                CharacterInfoView(
+                CharacterInfo(
                     title = stringResource(Res.string.character_gender_title),
-                    content = character.gender.getString()
+                    content = stringResource(character.gender.value)
                 )
             }
 
             // TODO обработать случай unknown
             item {
-                CharacterInfoView(
+                CharacterInfo(
                     title = stringResource(Res.string.character_origin_title),
                     content = character.origin,
                     onClick = {
@@ -99,7 +99,7 @@ internal fun CharacterItemContentView(
             }
 
             item {
-                CharacterInfoView(
+                CharacterInfo(
                     title = stringResource(Res.string.character_location_title),
                     content = character.location,
                     onClick = {
@@ -122,6 +122,20 @@ internal fun CharacterItemContentView(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun Toolbar(
+    characterName: String,
+    characterGender: Gender,
+    onBack: () -> Unit
+) {
+    TopAppBar(
+        title = { AppTitleToolbar(characterName) },
+        navigationIcon = { AppToolbarNavBackIcon(onClick = onBack) },
+        actions = { GenderIcon(characterGender) }
+    )
+}
+
 @Composable
 private fun CharacterImage(image: String) {
     AsyncImage(
@@ -135,18 +149,12 @@ private fun CharacterImage(image: String) {
 }
 
 @Composable
-private fun CharacterStatusView(status: Status) {
-    val background = when (status) {
-        Status.ALIVE -> Color.Green
-        Status.DEAD -> Color.Red
-        Status.UNKNOWN -> Color.Yellow
-    }
-
+private fun CharacterStatus(status: Status) {
     Text(
         text = stringResource(status.value),
         modifier = Modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(background)
+            .background(status.color)
             .padding(
                 horizontal = 8.dp,
                 vertical = 4.dp
@@ -157,7 +165,7 @@ private fun CharacterStatusView(status: Status) {
 }
 
 @Composable
-private fun CharacterInfoView(
+private fun CharacterInfo(
     title: String,
     content: String,
 ) {
@@ -173,7 +181,7 @@ private fun CharacterInfoView(
 }
 
 @Composable
-private fun CharacterInfoView(
+private fun CharacterInfo(
     title: String,
     content: String,
     onClick: () -> Unit,
@@ -218,16 +226,4 @@ private fun EpisodesButton(
             fontSize = 16.sp
         )
     }
-}
-
-@Composable
-private fun Gender.getString(): String {
-    val genderRes = when (this) {
-        Gender.MALE -> Res.string.character_gender_male
-        Gender.FEMALE -> Res.string.character_gender_female
-        Gender.GENDERLESS -> Res.string.character_gender_genderless
-        Gender.UNKNOWN -> Res.string.character_gender_unknown
-    }
-
-    return stringResource(genderRes)
 }
