@@ -6,8 +6,8 @@ import androidx.navigation.toRoute
 import org.pet.project.rickandmorty.feature.location.ui.screen.LocationItemScreen
 
 fun NavGraphBuilder.locationScreen() {
-    composable<LocationItemRoute> { backEntry ->
-        val locationName = backEntry.toRoute<LocationItemRoute>().name
+    composable<LocationItemRoute> { backStackEntry ->
+        val locationName = backStackEntry.toRoute<LocationItemRoute>().name
         LocationItemScreen(locationName)
     }
 }

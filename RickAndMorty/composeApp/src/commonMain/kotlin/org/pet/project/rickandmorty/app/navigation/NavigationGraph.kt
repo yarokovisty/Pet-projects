@@ -9,9 +9,10 @@ import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterNavigat
 import org.pet.project.rickandmorty.app.navigation.impl.rememberLocationNavigator
 import org.pet.project.rickandmorty.app.navigation.main.MainRoute
 import org.pet.project.rickandmorty.app.navigation.main.mainGraph
-import org.pet.project.rickandmorty.feature.character.navigation.CharacterTab
-import org.pet.project.rickandmorty.feature.character.navigation.LocalCharacterNavigator
-import org.pet.project.rickandmorty.feature.character.navigation.characterGraph
+import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterTab
+import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.characterGraph
+import org.pet.project.rickandmorty.feature.episode.navigation.characterEpisodeScreen
 import org.pet.project.rickandmorty.feature.location.navigation.LocalLocationNavigator
 import org.pet.project.rickandmorty.feature.location.navigation.locationScreen
 
@@ -30,6 +31,7 @@ fun GlobalNavGraph(
         ) {
             mainGraph(navController)
             locationScreen()
+            characterEpisodeScreen()
         }
     }
 }

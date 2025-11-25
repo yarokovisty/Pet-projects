@@ -12,13 +12,15 @@ listOf(
     ":design:resources",
     ":design:theme",
 
-    ":feature:character",
+    ":feature:character:api",
+    ":feature:character:impl",
+    ":feature:episode",
     ":feature:location",
 
     ":library:logger",
     ":library:result",
 
-    ":util"
+    ":util",
 ).forEach { module ->
     include(module)
 }

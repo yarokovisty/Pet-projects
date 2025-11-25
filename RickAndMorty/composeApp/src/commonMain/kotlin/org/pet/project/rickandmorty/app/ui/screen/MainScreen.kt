@@ -18,7 +18,7 @@ import org.pet.project.rickandmorty.app.presentation.state.MainState
 import org.pet.project.rickandmorty.app.presentation.viewmodel.MainViewModel
 import org.pet.project.rickandmorty.app.ui.view.AppNavigationBar
 import org.pet.project.rickandmorty.core.navigation.navigateToTab
-import org.pet.project.rickandmorty.feature.character.navigation.CharacterTab
+import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterTab
 
 @Composable
 internal fun MainScreen(globalNavController: NavHostController) {

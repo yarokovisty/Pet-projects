@@ -1,5 +1,7 @@
 package org.pet.project.rickandmorty.feature.location.di
 
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
@@ -13,12 +15,12 @@ import org.pet.project.rickandmorty.feature.location.presentation.viewmodel.Loca
 
 val locationModule = module {
     // data
-    factory {  RemoteLocationDataSourceImpl(get(), get()) } bind RemoteLocationDataSource::class
-    factory { ResidentsPaginator(get()) }
+    factoryOf(::RemoteLocationDataSourceImpl) bind RemoteLocationDataSource::class
+    factoryOf(::ResidentsPaginator)
 
     // domain
-    single { LocationRepositoryImpl(get(), get()) } bind LocationRepository::class
-    factory { LoadNextResidentsUseCase(get()) }
+    singleOf(::LocationRepositoryImpl) bind LocationRepository::class
+    factoryOf(::LoadNextResidentsUseCase)
 
     // presentation
     viewModelOf(::LocationItemViewModel)

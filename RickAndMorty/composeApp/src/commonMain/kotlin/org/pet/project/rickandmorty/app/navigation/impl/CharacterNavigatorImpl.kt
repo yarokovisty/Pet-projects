@@ -4,8 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import org.pet.project.rickandmorty.core.navigation.back
-import org.pet.project.rickandmorty.feature.character.navigation.CharacterItemRoute
-import org.pet.project.rickandmorty.feature.character.navigation.CharacterNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterItemRoute
+import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterNavigator
+import org.pet.project.rickandmorty.feature.episode.navigation.CharacterEpisodeRoute
 import org.pet.project.rickandmorty.feature.location.navigation.LocationItemRoute
 
 class CharacterNavigatorImpl(
@@ -19,6 +20,10 @@ class CharacterNavigatorImpl(
 
     override fun openLocationScreen(locationName: String) {
         globalNavController.navigate(LocationItemRoute(locationName))
+    }
+
+    override fun openCharacterEpisodeScreen(characterId: Int) {
+        globalNavController.navigate(CharacterEpisodeRoute(characterId))
     }
 
     override fun back() {
