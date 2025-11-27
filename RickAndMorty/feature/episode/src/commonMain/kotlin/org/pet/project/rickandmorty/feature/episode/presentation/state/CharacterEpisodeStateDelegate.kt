@@ -2,6 +2,10 @@ package org.pet.project.rickandmorty.feature.episode.presentation.state
 
 import org.pet.project.rickandmorty.feature.episode.domain.entity.Season
 
+internal fun CharacterEpisodeState.loading(): CharacterEpisodeState {
+    return copy(loading = true, error = false)
+}
+
 internal fun CharacterEpisodeState.characterSuccess(
     name: String,
     image: String

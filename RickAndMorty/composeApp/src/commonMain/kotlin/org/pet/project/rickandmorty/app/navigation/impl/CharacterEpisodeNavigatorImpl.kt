@@ -10,7 +10,7 @@ class CharacterEpisodeNavigatorImpl(
     private val globalNavController: NavHostController
 ) : CharacterEpisodeNavigator {
 
-    override fun backFromCharacterEpisode() {
+    override fun back() {
         globalNavController.back()
     }
 }
