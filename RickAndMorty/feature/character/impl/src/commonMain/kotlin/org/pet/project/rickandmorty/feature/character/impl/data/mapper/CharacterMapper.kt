@@ -1,12 +1,12 @@
 package org.pet.project.rickandmorty.feature.character.impl.data.mapper
 
 import org.pet.project.rickandmorty.common.data.PaginatorState
-import org.pet.project.rickandmorty.feature.character.impl.data.model.CharacterListResponse
-import org.pet.project.rickandmorty.feature.character.impl.data.model.CharacterResponse
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.CharacterState
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Gender
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Status
+import org.pet.project.rickandmorty.feature.character.impl.data.model.CharacterListResponse
+import org.pet.project.rickandmorty.feature.character.impl.data.model.CharacterResponse
 
 internal fun CharacterResponse.toItem(): Character {
 	return Character(
@@ -17,7 +17,8 @@ internal fun CharacterResponse.toItem(): Character {
 		status = this.status.toStatus(),
 		species = this.species,
 		origin = this.origin.name,
-		location = this.location.name
+		location = this.location.name,
+		episodes = this.episode.toEpisode()
 	)
 }
 
@@ -49,4 +50,10 @@ internal fun PaginatorState<CharacterListResponse>.toItem(): CharacterState {
 			CharacterState.Success(characters)
 		}
     }
+}
+
+private fun List<String>.toEpisode(): List<Int> {
+	return map { url ->
+		url.substringAfterLast("/").toInt()
+	}
 }

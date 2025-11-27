@@ -8,5 +8,6 @@ data class Character(
     val status: Status,
     val species: String,
     val origin: String,
-    val location: String
+    val location: String,
+    val episodes: List<Int>
 )

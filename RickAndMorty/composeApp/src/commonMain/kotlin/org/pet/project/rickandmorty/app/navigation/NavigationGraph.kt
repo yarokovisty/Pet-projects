@@ -6,12 +6,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterNavigator
+import org.pet.project.rickandmorty.app.navigation.impl.rememberEpisodeNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberLocationNavigator
 import org.pet.project.rickandmorty.app.navigation.main.MainRoute
 import org.pet.project.rickandmorty.app.navigation.main.mainGraph
 import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterTab
 import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterNavigator
 import org.pet.project.rickandmorty.feature.character.impl.navigation.characterGraph
+import org.pet.project.rickandmorty.feature.episode.navigation.LocalCharacterEpisodeNavigator
 import org.pet.project.rickandmorty.feature.episode.navigation.characterEpisodeScreen
 import org.pet.project.rickandmorty.feature.location.navigation.LocalLocationNavigator
 import org.pet.project.rickandmorty.feature.location.navigation.locationScreen
@@ -21,9 +23,11 @@ fun GlobalNavGraph(
     navController: NavHostController
 ) {
     val locationNavigator = rememberLocationNavigator(navController)
+    val episodeNavigator = rememberEpisodeNavigator(navController)
 
     CompositionLocalProvider(
-        LocalLocationNavigator provides locationNavigator
+        LocalLocationNavigator provides locationNavigator,
+        LocalCharacterEpisodeNavigator provides episodeNavigator
     ) {
         NavHost(
             navController = navController,
