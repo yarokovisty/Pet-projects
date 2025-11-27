@@ -5,13 +5,15 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterListNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberEpisodeNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberLocationNavigator
 import org.pet.project.rickandmorty.app.navigation.main.MainRoute
 import org.pet.project.rickandmorty.app.navigation.main.mainGraph
 import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterTab
-import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterItemNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterListNavigator
 import org.pet.project.rickandmorty.feature.character.impl.navigation.characterGraph
 import org.pet.project.rickandmorty.feature.episode.navigation.LocalCharacterEpisodeNavigator
 import org.pet.project.rickandmorty.feature.episode.navigation.characterEpisodeScreen
@@ -46,10 +48,12 @@ fun InnerNavGraph(
     innerNavController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    val characterListNavigator = rememberCharacterListNavigator(innerNavController)
     val characterNavigator = rememberCharacterNavigator(globalNavController, innerNavController)
 
     CompositionLocalProvider(
-        LocalCharacterNavigator provides characterNavigator
+        LocalCharacterListNavigator provides characterListNavigator,
+        LocalCharacterItemNavigator provides characterNavigator
     ) {
         NavHost(
             navController = innerNavController,

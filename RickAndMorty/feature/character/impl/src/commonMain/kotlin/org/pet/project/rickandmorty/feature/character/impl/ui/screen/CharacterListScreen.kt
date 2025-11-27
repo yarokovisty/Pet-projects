@@ -29,8 +29,8 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppSnackbar
 import org.pet.project.rickandmorty.design.component.AppTitleToolbar
-import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterNavigator
-import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterListNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterListNavigator
 import org.pet.project.rickandmorty.feature.character.impl.presentation.event.CharacterListEvent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.CharacterListIntent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.CharacterListState
@@ -42,7 +42,7 @@ import rickandmorty.feature.character.impl.generated.resources.character_list_to
 
 @Composable
 internal fun CharacterListScreen() {
-    val navigator = LocalCharacterNavigator.current
+    val navigator = LocalCharacterListNavigator.current
     val viewModel = koinViewModel<CharacterListViewModel>()
     val state by viewModel.state.collectAsState()
 
@@ -57,7 +57,7 @@ internal fun CharacterListScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CharacterListScreen(
-    navigator: CharacterNavigator,
+    navigator: CharacterListNavigator,
     state: CharacterListState,
     event: Flow<CharacterListEvent>,
     onIntent: (CharacterListIntent) -> Unit

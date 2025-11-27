@@ -1,8 +1,6 @@
 package org.pet.project.rickandmorty.feature.character.impl.navigation
 
-interface CharacterNavigator{
-
-    fun openCharacterItemScreen(characterId: Int)
+interface CharacterItemNavigator{
 
     fun openLocationScreen(locationName: String)
 

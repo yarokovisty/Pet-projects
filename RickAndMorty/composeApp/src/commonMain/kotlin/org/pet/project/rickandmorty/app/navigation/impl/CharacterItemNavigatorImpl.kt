@@ -4,19 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import org.pet.project.rickandmorty.core.navigation.back
-import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterItemRoute
-import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterItemNavigator
 import org.pet.project.rickandmorty.feature.episode.navigation.CharacterEpisodeRoute
 import org.pet.project.rickandmorty.feature.location.navigation.LocationItemRoute
 
-class CharacterNavigatorImpl(
+class CharacterItemNavigatorImpl(
     private val globalNavController: NavHostController,
     private val innerNavController: NavHostController
-) : CharacterNavigator {
-
-    override fun openCharacterItemScreen(characterId: Int) {
-        innerNavController.navigate(CharacterItemRoute(characterId))
-    }
+) : CharacterItemNavigator {
 
     override fun openLocationScreen(locationName: String) {
         globalNavController.navigate(LocationItemRoute(locationName))
@@ -35,8 +30,8 @@ class CharacterNavigatorImpl(
 fun rememberCharacterNavigator(
     globalNavController: NavHostController,
     innerNavController: NavHostController,
-) : CharacterNavigator {
+) : CharacterItemNavigator {
     return remember {
-        CharacterNavigatorImpl(globalNavController, innerNavController)
+        CharacterItemNavigatorImpl(globalNavController, innerNavController)
     }
 }
