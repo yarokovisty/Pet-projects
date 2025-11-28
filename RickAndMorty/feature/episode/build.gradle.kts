@@ -61,6 +61,10 @@ kotlin {
     }
 }
 
+compose.resources {
+    publicResClass = true
+}
+
 android {
     namespace = "org.pet.project.rickandmorty.feature.episode"
     compileSdk = libs.versions.android.compile.sdk.get().toInt()
