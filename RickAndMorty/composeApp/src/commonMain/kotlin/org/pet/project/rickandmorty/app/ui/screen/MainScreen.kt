@@ -19,6 +19,7 @@ import org.pet.project.rickandmorty.app.presentation.viewmodel.MainViewModel
 import org.pet.project.rickandmorty.app.ui.view.AppNavigationBar
 import org.pet.project.rickandmorty.core.navigation.navigateToTab
 import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterTab
+import org.pet.project.rickandmorty.feature.episode.navigation.EpisodeTab
 
 @Composable
 internal fun MainScreen(globalNavController: NavHostController) {
@@ -47,7 +48,7 @@ private fun MainScreen(
                 onIntent(MainIntent(position))
                 val destination = when(position) {
                     0 -> CharacterTab
-                    1 -> TODO()
+                    1 -> EpisodeTab
                     2 -> TODO()
                     else -> throw IllegalStateException("Illegal position $position")
                 }

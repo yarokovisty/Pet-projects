@@ -13,18 +13,12 @@ internal class CharacterPaginator(
         return remoteDataSource.getCharactersPage(page)
     }
 
-    override fun getNextKey(
-        currentKey: Int,
-        result: CharacterListResponse
-    ): Int {
+    override fun getNextKey(currentKey: Int, result: CharacterListResponse): Int {
         val nextKey = result.info.getNextPage() ?: (currentKey + 1)
         return nextKey
     }
 
-    override fun checkEndReached(
-        currentKey: Int,
-        result: CharacterListResponse
-    ): Boolean {
+    override fun checkEndReached(currentKey: Int, result: CharacterListResponse): Boolean {
         val allPages = result.info.pages
         return currentKey > allPages
     }

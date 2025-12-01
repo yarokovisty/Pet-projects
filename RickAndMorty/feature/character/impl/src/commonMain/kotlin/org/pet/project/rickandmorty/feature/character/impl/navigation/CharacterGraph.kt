@@ -17,5 +17,4 @@ fun NavGraphBuilder.characterGraph() {
             CharacterItemScreen(characterId)
         }
     }
-
 }

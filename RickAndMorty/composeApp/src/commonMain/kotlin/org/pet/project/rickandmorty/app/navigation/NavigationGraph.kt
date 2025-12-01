@@ -17,6 +17,7 @@ import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalChara
 import org.pet.project.rickandmorty.feature.character.impl.navigation.characterGraph
 import org.pet.project.rickandmorty.feature.episode.navigation.LocalCharacterEpisodeNavigator
 import org.pet.project.rickandmorty.feature.episode.navigation.characterEpisodeScreen
+import org.pet.project.rickandmorty.feature.episode.navigation.episodeGraph
 import org.pet.project.rickandmorty.feature.location.navigation.LocalLocationNavigator
 import org.pet.project.rickandmorty.feature.location.navigation.locationScreen
 
@@ -61,6 +62,7 @@ fun InnerNavGraph(
             modifier = modifier
         ) {
             characterGraph()
+            episodeGraph()
         }
     }
 }

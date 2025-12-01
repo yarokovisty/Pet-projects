@@ -18,9 +18,7 @@ internal class CharacterRepositoryImpl(
 
     override val characters = paginator.paginationFlow.map { it.toItem() }
 
-    override suspend fun loadCharacterList() {
-        paginator.loadItems()
-    }
+    override suspend fun loadCharacterList() = paginator.loadItems()
 
     override suspend fun getCharacter(id: Int): Result<Character> {
         val result = remoteDataSource
