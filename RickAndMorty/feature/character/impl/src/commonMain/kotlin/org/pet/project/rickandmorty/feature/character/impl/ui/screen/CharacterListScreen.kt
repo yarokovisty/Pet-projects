@@ -50,7 +50,7 @@ internal fun CharacterListScreen() {
         navigator = navigator,
         state = state,
         event = viewModel.event,
-        onIntent = { viewModel.onIntent(it) }
+        onIntent = viewModel::onIntent
     )
 }
 
@@ -97,7 +97,7 @@ private fun CharacterListScreen(
                 )
             }
 
-            if (state.isLoadingMore) {
+            if (state.uploading) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
         }

@@ -1,4 +1,5 @@
 <resources>
+    <string name="all_seasons_title">All Seasons</string>
     <string name="num_season">Season %1$s</string>
     <string name="episode">Episode</string>
     <string name="amount_episode">%1$s ep</string>

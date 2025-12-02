@@ -5,7 +5,7 @@ import org.pet.project.rickandmorty.feature.character.api.domain.entity.Characte
 
 internal data class CharacterListState(
     val skeleton: Boolean = false,
-    val isLoadingMore: Boolean = false,
+    val uploading: Boolean = false,
     val error: Boolean = false,
     val uploadAllCharacters: Boolean = false,
     val characters: List<Character> = emptyList()

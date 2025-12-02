@@ -83,7 +83,7 @@ internal class CharacterListViewModel(
                 updateState { failure(true) }
             }
 
-            stateValue.isLoadingMore -> {
+            stateValue.uploading -> {
                 updateState { failure(false) }
                 launchInScope {
                     setEvent(

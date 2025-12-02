@@ -8,7 +8,7 @@ import org.pet.project.rickandmorty.core.navigation.Tab
 object EpisodeTab : Tab
 
 @Serializable
-object AllEpisodeRoute : Route
+object AllEpisodesRoute : Route
 
 @Serializable
 data class CharacterEpisodeRoute(val characterId: Int) : Route

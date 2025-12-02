@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.LayoutDirection
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.Flow
@@ -27,12 +27,10 @@ internal fun MainScreen() {
     val viewModel = viewModel { MainViewModel() }
     val event = viewModel.event
 
-    CompositionLocalProvider(
-        LocalNestedNavController provides nestedNavController
-    ) {
+    CompositionLocalProvider(LocalNestedNavController provides nestedNavController) {
         MainScreen(
             event = event,
-            onIntent = { viewModel.onIntent(it) }
+            onIntent = viewModel::onIntent
         )
     }
 }
@@ -53,10 +51,10 @@ private fun MainScreen(
         }
     ) { paddingValues ->
         val customPadding = PaddingValues(
-            start = paddingValues.calculateLeftPadding(LayoutDirection.Ltr),
+            start = paddingValues.calculateLeftPadding(LocalLayoutDirection.current),
             top = 0.dp,
             bottom = paddingValues.calculateBottomPadding(),
-            end = paddingValues.calculateRightPadding(LayoutDirection.Ltr)
+            end = paddingValues.calculateRightPadding(LocalLayoutDirection.current)
         )
 
         NestedNavGraph(Modifier.padding(customPadding))

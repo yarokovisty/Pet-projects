@@ -10,6 +10,8 @@ import org.pet.project.rickandmorty.feature.episode.data.datasource.EpisodeRemot
 import org.pet.project.rickandmorty.feature.episode.data.paginator.EpisodePaginator
 import org.pet.project.rickandmorty.feature.episode.data.repository.EpisodeRepositoryImpl
 import org.pet.project.rickandmorty.feature.episode.domain.repository.EpisodeRepository
+import org.pet.project.rickandmorty.feature.episode.domain.usecase.GetEpisodesUseCase
+import org.pet.project.rickandmorty.feature.episode.presentation.viewmodel.AllEpisodesViewModel
 import org.pet.project.rickandmorty.feature.episode.presentation.viewmodel.CharacterEpisodeViewModel
 
 val episodeModule = module {
@@ -19,7 +21,9 @@ val episodeModule = module {
 
     // domain
     singleOf(::EpisodeRepositoryImpl) bind EpisodeRepository::class
+    factoryOf(::GetEpisodesUseCase)
 
     // presentation
+    viewModelOf(::AllEpisodesViewModel)
     viewModelOf(::CharacterEpisodeViewModel)
 }
