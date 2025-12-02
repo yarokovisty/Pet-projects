@@ -2,21 +2,21 @@ package org.pet.project.rickandmorty.app.navigation.impl
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.navigation.NavHostController
+import org.pet.project.rickandmorty.core.navigation.GlobalNavController
+import org.pet.project.rickandmorty.core.navigation.LocalGlobalNavController
 import org.pet.project.rickandmorty.feature.location.navigation.LocationNavigator
 
 class LocationNavigatorImpl(
-    private val globalNavController: NavHostController
+    private val globalNavController: GlobalNavController
 ) : LocationNavigator {
 
     override fun back() {
-        globalNavController.popBackStack()
+        globalNavController.back()
     }
 }
 
 @Composable
-fun rememberLocationNavigator(
-    globalNavController: NavHostController
-) : LocationNavigator {
+fun rememberLocationNavigator() : LocationNavigator {
+    val globalNavController = LocalGlobalNavController.current
     return remember { LocationNavigatorImpl(globalNavController) }
 }

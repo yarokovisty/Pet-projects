@@ -11,4 +11,4 @@ object EpisodeTab : Tab
 object AllEpisodeRoute : Route
 
 @Serializable
-data class CharacterEpisodeRoute(val characterId: Int)
+data class CharacterEpisodeRoute(val characterId: Int) : Route

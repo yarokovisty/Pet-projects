@@ -50,6 +50,7 @@ kotlin {
             implementation(libs.compose.viewmodel)
             implementation(libs.compose.lifecycle.runtime)
             implementation(libs.compose.navigation)
+            implementation(libs.compose.ui.backhandler)
 
             implementation(libs.kotlin.serialization.json)
 

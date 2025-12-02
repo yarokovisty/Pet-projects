@@ -6,20 +6,27 @@ import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.compose.currentBackStackEntryAsState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
+import org.pet.project.rickandmorty.core.navigation.Tab
 
 @Composable
-internal fun AppNavigationBar(
-    selectedIcon: Int,
-    onClick: (Int) -> Unit
-) {
+internal fun AppNavigationBar(onClick: (Tab) -> Unit) {
+    val nestedNavController = LocalNestedNavController.current
+    val navBackStackEntry by nestedNavController.navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
     NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
-        AppNavigationBarItem.entries.forEachIndexed { index, item ->
-            val selected = selectedIcon == index
+        AppNavigationBarItem.entries.forEach { item ->
+
+            val selected = currentDestination?.hierarchy?.any { it.route == item.tab.route } == true
             NavigationBarItem(
                 selected = selected,
-                onClick = { if (!selected) onClick(index) },
+                onClick = { if (!selected) onClick(item.tab) },
                 icon = {
                     Icon(
                         painter = painterResource(item.icon),

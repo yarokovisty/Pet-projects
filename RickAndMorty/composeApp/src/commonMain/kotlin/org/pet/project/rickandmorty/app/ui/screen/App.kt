@@ -2,16 +2,20 @@ package org.pet.project.rickandmorty.app.ui.screen
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.runtime.CompositionLocalProvider
 import org.pet.project.rickandmorty.app.navigation.GlobalNavGraph
+import org.pet.project.rickandmorty.core.navigation.LocalGlobalNavController
+import org.pet.project.rickandmorty.core.navigation.rememberGlobalNavController
 import org.pet.project.rickandmorty.design.theme.colorScheme
 
 @Composable
 fun App() {
-    val navController = rememberNavController()
+    val globalNavController = rememberGlobalNavController()
 
     MaterialTheme(colorScheme = colorScheme) {
-        GlobalNavGraph(navController)
+        CompositionLocalProvider(LocalGlobalNavController provides globalNavController) {
+            GlobalNavGraph()
+        }
     }
 }
 

@@ -4,55 +4,51 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import org.pet.project.rickandmorty.app.navigation.InnerNavGraph
+import kotlinx.coroutines.flow.Flow
+import org.pet.project.rickandmorty.app.navigation.NestedNavGraph
+import org.pet.project.rickandmorty.app.navigation.impl.rememberMainNavigator
+import org.pet.project.rickandmorty.app.presentation.event.MainEvent
 import org.pet.project.rickandmorty.app.presentation.intent.MainIntent
-import org.pet.project.rickandmorty.app.presentation.state.MainState
 import org.pet.project.rickandmorty.app.presentation.viewmodel.MainViewModel
 import org.pet.project.rickandmorty.app.ui.view.AppNavigationBar
-import org.pet.project.rickandmorty.core.navigation.navigateToTab
-import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterTab
-import org.pet.project.rickandmorty.feature.episode.navigation.EpisodeTab
+import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
+import org.pet.project.rickandmorty.core.navigation.rememberNestedNavController
+import org.pet.project.rickandmorty.util.collectAsEffect
 
 @Composable
-internal fun MainScreen(globalNavController: NavHostController) {
-    val innerNavController = rememberNavController()
+internal fun MainScreen() {
+    val nestedNavController = rememberNestedNavController()
     val viewModel = viewModel { MainViewModel() }
-    val state by viewModel.state.collectAsState()
+    val event = viewModel.event
 
-    MainScreen(
-        globalNavController = globalNavController,
-        innerNavController = innerNavController,
-        state = state,
-        onIntent = { viewModel.onIntent(it) }
-    )
+    CompositionLocalProvider(
+        LocalNestedNavController provides nestedNavController
+    ) {
+        MainScreen(
+            event = event,
+            onIntent = { viewModel.onIntent(it) }
+        )
+    }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun MainScreen(
-    globalNavController: NavHostController,
-    innerNavController: NavHostController,
-    state: MainState,
+    event: Flow<MainEvent>,
     onIntent: (MainIntent) -> Unit
 ) {
+    val navigator = rememberMainNavigator()
+
     Scaffold(
         bottomBar = {
-            AppNavigationBar(state.selectedIndexScreen) { position ->
-                onIntent(MainIntent(position))
-                val destination = when(position) {
-                    0 -> CharacterTab
-                    1 -> EpisodeTab
-                    2 -> TODO()
-                    else -> throw IllegalStateException("Illegal position $position")
-                }
-                innerNavController.navigateToTab(destination)
+            AppNavigationBar { tab ->
+                onIntent(MainIntent.OpenAppTab(tab))
             }
         }
     ) { paddingValues ->
@@ -63,10 +59,12 @@ private fun MainScreen(
             end = paddingValues.calculateRightPadding(LayoutDirection.Ltr)
         )
 
-        InnerNavGraph(
-            globalNavController = globalNavController,
-            innerNavController = innerNavController,
-            modifier = Modifier.padding(customPadding)
-        )
+        NestedNavGraph(Modifier.padding(customPadding))
+    }
+
+    event.collectAsEffect { e ->
+        when(e) {
+            is MainEvent.OpenAppTab -> navigator.openTab(e.tab)
+        }
     }
 }
