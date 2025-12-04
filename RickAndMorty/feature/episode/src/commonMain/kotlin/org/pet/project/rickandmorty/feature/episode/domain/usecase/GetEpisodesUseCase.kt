@@ -10,8 +10,9 @@ internal class GetEpisodesUseCase {
         currentEpisodes: Map<Int, List<Episode>>,
         newEpisodes: Map<Int, List<Episode>>
     ) : Map<Int, List<Episode>> = withContext(Dispatchers.Default) {
-        (newEpisodes.keys + currentEpisodes.keys).associateWith  { key ->
-            (currentEpisodes[key] ?: emptyList()) + (newEpisodes[key] ?: emptyList())
-        }
+        (currentEpisodes.keys + newEpisodes.keys)
+            .associateWith { season ->
+                (currentEpisodes[season] ?: emptyList()) + (newEpisodes[season] ?: emptyList())
+            }
     }
 }

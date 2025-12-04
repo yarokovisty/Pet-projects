@@ -1,7 +1,8 @@
 package org.pet.project.rickandmorty.feature.episode.ui.view
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -9,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.design.component.AppSpacer
@@ -20,20 +23,21 @@ import rickandmorty.feature.episode.generated.resources.episode
 internal fun EpisodeItem(
     episode: Episode
 ) {
-    Box(Modifier.fillMaxWidth()) {
+    Row(Modifier.fillMaxWidth()) {
         SeriaItem(episode.seria)
+
+        AppSpacer(width = 4.dp)
 
         EpisodeInfo(
             episodeName = episode.name,
-            airDate = episode.airDate,
-            modifier = Modifier.align(Alignment.CenterEnd)
+            airDate = episode.airDate
         )
     }
 }
 
 @Composable
-private fun SeriaItem(seria: Int) {
-    Column {
+private fun RowScope.SeriaItem(seria: Int) {
+    Column(modifier = Modifier.weight(1f)) {
         Text(
             text = stringResource(Res.string.episode),
             color = MaterialTheme.colorScheme.secondary,
@@ -50,19 +54,19 @@ private fun SeriaItem(seria: Int) {
 }
 
 @Composable
-private fun EpisodeInfo(
+private fun RowScope.EpisodeInfo(
     episodeName: String,
-    airDate: String,
-    modifier: Modifier = Modifier,
+    airDate: String
 ) {
     Column(
-        modifier = modifier,
+        modifier = Modifier.weight(2f),
         horizontalAlignment = Alignment.End
     ) {
         Text(
             text = episodeName,
-
-            )
+            fontWeight = FontWeight.Medium,
+            textAlign = TextAlign.End
+        )
 
         AppSpacer(height = 2.dp)
 

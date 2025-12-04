@@ -1,5 +1,6 @@
 package org.pet.project.rickandmorty.feature.episode.presentation.viewmodel
 
+import org.jetbrains.compose.resources.getString
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.feature.episode.domain.entity.Episode
 import org.pet.project.rickandmorty.feature.episode.domain.entity.EpisodeState
@@ -8,11 +9,15 @@ import org.pet.project.rickandmorty.feature.episode.domain.usecase.GetEpisodesUs
 import org.pet.project.rickandmorty.feature.episode.presentation.event.AllEpisodesEvent
 import org.pet.project.rickandmorty.feature.episode.presentation.intent.AllEpisodesIntent
 import org.pet.project.rickandmorty.feature.episode.presentation.state.AllEpisodesState
+import org.pet.project.rickandmorty.feature.episode.presentation.state.end
 import org.pet.project.rickandmorty.feature.episode.presentation.state.failureLoad
 import org.pet.project.rickandmorty.feature.episode.presentation.state.failureUpload
 import org.pet.project.rickandmorty.feature.episode.presentation.state.loading
 import org.pet.project.rickandmorty.feature.episode.presentation.state.success
 import org.pet.project.rickandmorty.feature.episode.presentation.state.uploading
+import rickandmorty.feature.episode.generated.resources.Res
+import rickandmorty.feature.episode.generated.resources.all_episode_uploaded
+import rickandmorty.feature.episode.generated.resources.error_upload_episode
 
 internal class AllEpisodesViewModel(
     private val episodeRepository: EpisodeRepository,
@@ -41,6 +46,7 @@ internal class AllEpisodesViewModel(
                 when(result) {
                     is EpisodeState.Error -> processError()
                     is EpisodeState.Success -> processSuccess(result.value)
+                    is EpisodeState.End -> processEnd()
                     else -> {}
                 }
             }
@@ -56,6 +62,8 @@ internal class AllEpisodesViewModel(
     }
 
     private fun uploadEpisodes() {
+        if (stateValue.end) return
+
         updateState { uploading() }
 
         launchInScope {
@@ -75,8 +83,24 @@ internal class AllEpisodesViewModel(
     }
 
     private fun processError() {
-        updateState {
-            if (stateValue.loading) failureLoad() else failureUpload()
+        if (stateValue.loading) {
+            updateState { failureLoad() }
+        } else {
+            updateState { failureUpload() }
+
+            launchInScope {
+                val message = getString(Res.string.error_upload_episode)
+                setEvent(AllEpisodesEvent.ErrorUploadEpisodes(message))
+            }
+        }
+    }
+
+    private fun processEnd() {
+        updateState { end() }
+
+        launchInScope {
+            val message = getString(Res.string.all_episode_uploaded)
+            setEvent(AllEpisodesEvent.OnReachEnd(message))
         }
     }
 }

@@ -3,4 +3,6 @@
     <string name="num_season">Season %1$s</string>
     <string name="episode">Episode</string>
     <string name="amount_episode">%1$s ep</string>
+    <string name="all_episode_uploaded">Episodes are all uploaded</string>
+    <string name="error_upload_episode">Failed download episodes</string>
 </resources>

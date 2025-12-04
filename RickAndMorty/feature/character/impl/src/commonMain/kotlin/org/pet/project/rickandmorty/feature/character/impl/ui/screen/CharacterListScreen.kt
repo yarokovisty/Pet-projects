@@ -14,15 +14,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -37,6 +34,7 @@ import org.pet.project.rickandmorty.feature.character.impl.presentation.state.Ch
 import org.pet.project.rickandmorty.feature.character.impl.presentation.viewmodel.CharacterListViewModel
 import org.pet.project.rickandmorty.feature.character.impl.ui.view.CharacterListContent
 import org.pet.project.rickandmorty.util.collectAsEffect
+import org.pet.project.rickandmorty.util.onReachEnd
 import rickandmorty.feature.character.impl.generated.resources.Res
 import rickandmorty.feature.character.impl.generated.resources.character_list_toolbar_title
 
@@ -66,17 +64,9 @@ private fun CharacterListScreen(
     val lazyListState = rememberLazyGridState()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(state.characters) {
-        snapshotFlow {
-            lazyListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-        }
-            .distinctUntilChanged()
-            .collect { lastVisibleIndex ->
-                if (lastVisibleIndex == state.characters.lastIndex) {
-                    onIntent(CharacterListIntent.Upload)
-                }
-            }
-    }
+    lazyListState.onReachEnd(
+        action = { onIntent(CharacterListIntent.Upload) }
+    )
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) {

@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,14 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.design.component.AppSpacer
-import org.pet.project.rickandmorty.feature.episode.presentation.state.AllEpisodesState
+import org.pet.project.rickandmorty.feature.episode.domain.entity.Episode
 import rickandmorty.feature.episode.generated.resources.Res
 import rickandmorty.feature.episode.generated.resources.num_season
 
 @Composable
 internal fun AllEpisodesContent(
     lazyListState: LazyGridState,
-    state: AllEpisodesState
+    episodes: Map<Int, List<Episode>>
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 300.dp),
@@ -33,19 +32,13 @@ internal fun AllEpisodesContent(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        state.episodes.forEach { (season, episodes) ->
+        episodes.forEach { (season, episodes) ->
             stickyHeader {
                 SeasonHeader(season)
             }
 
             items(episodes, key = { it.id }) { episode ->
                 EpisodeItem(episode)
-            }
-        }
-
-        if (state.uploading) {
-            item {
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
         }
     }
