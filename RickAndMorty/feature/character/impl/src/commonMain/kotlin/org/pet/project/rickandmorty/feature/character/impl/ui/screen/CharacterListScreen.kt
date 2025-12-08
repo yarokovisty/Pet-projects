@@ -33,6 +33,7 @@ import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.C
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.CharacterListState
 import org.pet.project.rickandmorty.feature.character.impl.presentation.viewmodel.CharacterListViewModel
 import org.pet.project.rickandmorty.feature.character.impl.ui.view.CharacterListContent
+import org.pet.project.rickandmorty.feature.character.impl.ui.view.CharacterListSkeleton
 import org.pet.project.rickandmorty.util.collectAsEffect
 import org.pet.project.rickandmorty.util.onReachEnd
 import rickandmorty.feature.character.impl.generated.resources.Res
@@ -72,17 +73,15 @@ private fun CharacterListScreen(
         Column(modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection)) {
             Toolbar(scrollBehavior)
 
-            if (state.error) {
-                AppErrorScreen(
-                    onClick = { onIntent(CharacterListIntent.Refresh) }
-                )
-            } else {
-                CharacterListContent(
-                    lazyListState = lazyListState,
-                    state = state,
+            when {
+                state.error -> AppErrorScreen(onClick = { onIntent(CharacterListIntent.Refresh) })
+                state.skeleton -> CharacterListSkeleton(modifier = Modifier.weight(1f))
+                else -> CharacterListContent(
+                    characters = state.characters,
                     onClickCharacter = {
                         onIntent(CharacterListIntent.OpenCharacterScreen(it.id))
                     },
+                    lazyListState = lazyListState,
                     modifier = Modifier.weight(1f)
                 )
             }

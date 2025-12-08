@@ -10,4 +10,6 @@ internal interface RemoteCharacterDataSource {
     suspend fun getCharactersPage(page: Int): Result<CharacterListResponse>
 
     suspend fun getCharacter(id: Int): Result<CharacterResponse>
+
+    suspend fun getCharactersByName(name: String): Result<CharacterListResponse>
 }

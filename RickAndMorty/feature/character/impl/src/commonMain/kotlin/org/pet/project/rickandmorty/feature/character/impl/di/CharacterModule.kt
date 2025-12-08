@@ -11,6 +11,7 @@ import org.pet.project.rickandmorty.feature.character.impl.data.paginator.Charac
 import org.pet.project.rickandmorty.feature.character.impl.data.repository.CharacterRepositoryImpl
 import org.pet.project.rickandmorty.feature.character.impl.presentation.viewmodel.CharacterItemViewModel
 import org.pet.project.rickandmorty.feature.character.impl.presentation.viewmodel.CharacterListViewModel
+import org.pet.project.rickandmorty.feature.character.impl.presentation.viewmodel.CharacterSearchViewModel
 
 val characterModule = module {
     // data
@@ -24,4 +25,5 @@ val characterModule = module {
     // presentation
     viewModelOf(::CharacterListViewModel)
     viewModelOf(::CharacterItemViewModel)
+    viewModelOf(::CharacterSearchViewModel)
 }

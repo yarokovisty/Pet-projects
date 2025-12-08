@@ -12,3 +12,9 @@ object CharacterListRoute : Route
 
 @Serializable
 data class CharacterItemRoute(val id: Int) : Route
+
+@Serializable
+object CharacterSearchTab : Tab
+
+@Serializable
+object CharacterSearchRoute : Route

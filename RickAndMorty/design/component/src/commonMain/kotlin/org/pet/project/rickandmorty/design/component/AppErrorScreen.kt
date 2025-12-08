@@ -25,6 +25,7 @@ import rickandmorty.design.resources.generated.resources.Res as R
 fun AppErrorScreen(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    messageText: String? = null,
     buttonText: String? = null
 ) {
     Column(
@@ -44,7 +45,7 @@ fun AppErrorScreen(
             )
             AppSpacer(height = 20.dp)
             Text(
-                text = stringResource(Res.string.error_text),
+                text = messageText ?: stringResource(Res.string.error_text),
                 fontWeight = FontWeight.SemiBold
             )
         }

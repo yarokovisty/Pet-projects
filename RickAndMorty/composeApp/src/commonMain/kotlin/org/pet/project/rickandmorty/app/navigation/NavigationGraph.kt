@@ -16,6 +16,7 @@ import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterT
 import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterItemNavigator
 import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterListNavigator
 import org.pet.project.rickandmorty.feature.character.impl.navigation.characterGraph
+import org.pet.project.rickandmorty.feature.character.impl.navigation.characterSearchGraph
 import org.pet.project.rickandmorty.feature.episode.navigation.LocalCharacterEpisodeNavigator
 import org.pet.project.rickandmorty.feature.episode.navigation.characterEpisodeScreen
 import org.pet.project.rickandmorty.feature.episode.navigation.episodeGraph
@@ -61,6 +62,7 @@ fun NestedNavGraph(modifier: Modifier = Modifier) {
         ) {
             characterGraph()
             episodeGraph()
+            characterSearchGraph()
         }
     }
 }

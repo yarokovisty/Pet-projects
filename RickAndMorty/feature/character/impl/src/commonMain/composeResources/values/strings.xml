@@ -13,4 +13,10 @@
     <string name="character_location_title">Last known location</string>
     <string name="character_view_all_episodes">View all episodes</string>
     <string name="character_error_upload">Failed to load characters</string>
+
+    <string name="character_search_title">Search</string>
+    <string name="character_search_placeholder">Input character's name...</string>
+    <string name="character_search_initial">Search for characters!</string>
+    <string name="character_search_success_result">%1$s results for '%2$s'</string>
+    <string name="character_search_empty_result">Nothing results found for '%1$s'</string>
 </resources>

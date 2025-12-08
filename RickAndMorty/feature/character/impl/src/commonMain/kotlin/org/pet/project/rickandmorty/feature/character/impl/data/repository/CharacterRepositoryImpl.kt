@@ -6,6 +6,7 @@ import org.pet.project.rickandmorty.feature.character.api.domain.entity.Characte
 import org.pet.project.rickandmorty.feature.character.api.domain.repository.CharacterRepository
 import org.pet.project.rickandmorty.feature.character.impl.data.datasource.RemoteCharacterDataSource
 import org.pet.project.rickandmorty.feature.character.impl.data.mapper.toItem
+import org.pet.project.rickandmorty.feature.character.impl.data.model.CharacterResponse
 import org.pet.project.rickandmorty.feature.character.impl.data.paginator.CharacterPaginator
 import org.pet.project.rickandmorty.library.result.Result
 import org.pet.project.rickandmorty.library.result.map
@@ -21,9 +22,12 @@ internal class CharacterRepositoryImpl(
     override suspend fun loadCharacterList() = paginator.loadItems()
 
     override suspend fun getCharacter(id: Int): Result<Character> {
-        val result = remoteDataSource
-            .getCharacter(id)
-            .map { it.toItem() }
-        return result
+        return remoteDataSource.getCharacter(id).map(CharacterResponse::toItem)
+    }
+
+    override suspend fun searchCharactersByName(name: String): Result<List<Character>> {
+        return remoteDataSource.getCharactersByName(name).map {  response ->
+            response.results.map(CharacterResponse::toItem)
+        }
     }
 }
