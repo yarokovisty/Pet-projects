@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterListNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterNavigator
+import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterSearchNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberEpisodeNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberLocationNavigator
 import org.pet.project.rickandmorty.app.navigation.main.MainRoute
@@ -15,6 +16,7 @@ import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
 import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterTab
 import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterItemNavigator
 import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterListNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterSearchNavigator
 import org.pet.project.rickandmorty.feature.character.impl.navigation.characterGraph
 import org.pet.project.rickandmorty.feature.character.impl.navigation.characterSearchGraph
 import org.pet.project.rickandmorty.feature.episode.navigation.LocalCharacterEpisodeNavigator
@@ -50,10 +52,12 @@ fun NestedNavGraph(modifier: Modifier = Modifier) {
     val nestedNavController = LocalNestedNavController.current
     val characterListNavigator = rememberCharacterListNavigator()
     val characterNavigator = rememberCharacterNavigator()
+    val characterSearchNavigator = rememberCharacterSearchNavigator()
 
     CompositionLocalProvider(
         LocalCharacterListNavigator provides characterListNavigator,
-        LocalCharacterItemNavigator provides characterNavigator
+        LocalCharacterItemNavigator provides characterNavigator,
+        LocalCharacterSearchNavigator provides characterSearchNavigator
     ) {
         NavHost(
             navController = nestedNavController.navController,

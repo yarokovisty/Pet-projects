@@ -5,11 +5,11 @@ import androidx.compose.runtime.remember
 import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
 import org.pet.project.rickandmorty.core.navigation.NestedNavController
 import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterItemRoute
-import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterListNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterSearchNavigator
 
-class CharacterListNavigatorImpl(
+class CharacterSearchNavigatorImpl(
     private val nestedNavController: NestedNavController
-) : CharacterListNavigator {
+) : CharacterSearchNavigator {
 
     override fun openCharacterItemScreen(characterId: Int) {
         nestedNavController.navigate(CharacterItemRoute(characterId))
@@ -17,9 +17,9 @@ class CharacterListNavigatorImpl(
 }
 
 @Composable
-fun rememberCharacterListNavigator() : CharacterListNavigator {
+fun rememberCharacterSearchNavigator(): CharacterSearchNavigator {
     val nestedNavController = LocalNestedNavController.current
     return remember {
-        CharacterListNavigatorImpl(nestedNavController)
+        CharacterSearchNavigatorImpl(nestedNavController)
     }
 }

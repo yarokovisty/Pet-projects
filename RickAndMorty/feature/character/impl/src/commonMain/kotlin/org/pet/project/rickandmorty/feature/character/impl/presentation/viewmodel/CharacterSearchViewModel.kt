@@ -1,13 +1,13 @@
 package org.pet.project.rickandmorty.feature.character.impl.presentation.viewmodel
 
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.api.domain.repository.CharacterRepository
+import org.pet.project.rickandmorty.feature.character.impl.presentation.event.CharacterSearchEvent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.CharacterSearchIntent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.CharacterSearchState
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.failure
@@ -22,10 +22,9 @@ import org.pet.project.rickandmorty.library.result.onSuccess
 
 internal class CharacterSearchViewModel(
     private val characterRepository: CharacterRepository
-) : BaseViewModel<CharacterSearchState, CharacterSearchIntent, Nothing>() {
+) : BaseViewModel<CharacterSearchState, CharacterSearchIntent, CharacterSearchEvent>() {
 
     private val _search = MutableStateFlow("")
-    private var searchCharacterJob: Job? = null
 
     init {
         observeSearch()
@@ -36,19 +35,24 @@ internal class CharacterSearchViewModel(
     override fun onIntent(intent: CharacterSearchIntent) {
         when(intent) {
             is CharacterSearchIntent.Clear -> clearSearch()
+            is CharacterSearchIntent.OpenCharacter -> navigateToCharacterScreen(intent.characterId)
             is CharacterSearchIntent.Search -> onQueryChanged(intent.name)
             is CharacterSearchIntent.Refresh -> refreshQuery()
         }
     }
 
     private fun clearSearch() {
-        searchCharacterJob?.cancel()
-        searchCharacterJob = null
-
         _search.value = ""
 
         updateState { initial() }
     }
+
+    private fun navigateToCharacterScreen(characterId: Int) {
+        launchInScope {
+            setEvent(CharacterSearchEvent.OpenCharacterScreen(characterId))
+        }
+    }
+
 
     private fun onQueryChanged(query: String) {
         _search.value = query

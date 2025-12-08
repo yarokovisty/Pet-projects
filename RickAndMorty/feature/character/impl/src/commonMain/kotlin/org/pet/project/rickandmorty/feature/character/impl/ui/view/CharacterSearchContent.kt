@@ -31,7 +31,9 @@ internal fun CharacterSearchContent(
     when(state) {
         is SearchResultState.Content -> CharacterSearchSuccess(
             state = state,
-            onClickCharacter = {  }
+            onClickCharacter = { character ->
+                onIntent(CharacterSearchIntent.OpenCharacter(character.id))
+            }
         )
         is SearchResultState.Error -> AppErrorScreen(
             onClick = { onIntent(CharacterSearchIntent.Refresh) }

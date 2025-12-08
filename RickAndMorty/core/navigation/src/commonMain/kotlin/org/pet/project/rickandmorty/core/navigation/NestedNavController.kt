@@ -19,6 +19,10 @@ class NestedNavController(val navController: NavHostController) {
         }
     }
 
+    fun navigate(route: Route) {
+        navController.navigate(route)
+    }
+
     fun back() {
         navController.popBackStack()
     }
