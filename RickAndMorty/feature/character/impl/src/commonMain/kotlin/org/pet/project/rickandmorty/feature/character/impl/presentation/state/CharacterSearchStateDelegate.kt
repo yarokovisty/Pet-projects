@@ -11,26 +11,44 @@ internal fun CharacterSearchState.inputQuery(query: String): CharacterSearchStat
 }
 
 internal fun CharacterSearchState.loading(): CharacterSearchState {
-    return copy(searchResultState = SearchResultState.Loading)
+    return copy(
+        searchResultState = searchResultState.copy(loading = true, error = false)
+    )
 }
 
 internal fun CharacterSearchState.success(
     name: String,
-    characters: List<Character>
+    characters: List<Character>,
+    filters: List<FilterState>
 ): CharacterSearchState {
     return copy(
-        searchResultState = SearchResultState.Content(
-            numFound = characters.size,
-            name = name,
-            characters = characters
+        searchResultState = searchResultState.copy(
+            loading = false,
+            content = SearchContentState(
+                name = name,
+                numFound = characters.size,
+                characters = characters
+            ),
+            filter = FiltersResultState(
+                filters = filters,
+                filteredCharacters = characters
+            )
         )
     )
 }
 
 internal fun CharacterSearchState.notFound(name: String): CharacterSearchState {
-    return copy(searchResultState = SearchResultState.NotFound(name))
+    return copy(
+        searchResultState = searchResultState.copy(
+            loading = false,
+            query = name,
+            notFound = true
+        )
+    )
 }
 
 internal fun CharacterSearchState.failure(): CharacterSearchState {
-    return copy(searchResultState = SearchResultState.Error)
+    return copy(
+        searchResultState = searchResultState.copy(loading = false, error = true)
+    )
 }

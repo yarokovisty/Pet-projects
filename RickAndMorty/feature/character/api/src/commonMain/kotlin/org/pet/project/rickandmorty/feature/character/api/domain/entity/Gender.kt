@@ -14,9 +14,9 @@ import rickandmorty.feature.character.api.generated.resources.character_gender_u
 import rickandmorty.design.resources.generated.resources.Res as R
 
 enum class Gender(
-    val value: StringResource,
+    override val value: StringResource,
     val icon: Pair<DrawableResource, Color>,
-) {
+) : CharacterFilter {
     MALE(
         value = Res.string.character_gender_male,
         icon = Pair(R.drawable.ic_gender_male, Color.Cyan)

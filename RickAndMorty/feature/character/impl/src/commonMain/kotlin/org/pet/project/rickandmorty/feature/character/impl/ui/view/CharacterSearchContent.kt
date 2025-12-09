@@ -28,19 +28,19 @@ internal fun CharacterSearchContent(
     state: SearchResultState,
     onIntent: (CharacterSearchIntent) -> Unit
 ) {
-    when(state) {
-        is SearchResultState.Content -> CharacterSearchSuccess(
-            state = state,
+    when {
+        state.error -> AppErrorScreen(onClick = { onIntent(CharacterSearchIntent.Refresh) })
+        state.loading -> CharacterSearchLoading()
+        state.notFound -> CharacterSearchNotFound(state.query)
+        state.content == null -> CharacterSearchInitial()
+        else -> CharacterSearchSuccess(
+            characterName = state.content.name,
+            charactersCount = state.content.numFound,
+            characters = state.filter.filteredCharacters,
             onClickCharacter = { character ->
                 onIntent(CharacterSearchIntent.OpenCharacter(character.id))
             }
         )
-        is SearchResultState.Error -> AppErrorScreen(
-            onClick = { onIntent(CharacterSearchIntent.Refresh) }
-        )
-        is SearchResultState.Initial -> CharacterSearchInitial()
-        is SearchResultState.Loading -> CharacterSearchLoading()
-        is SearchResultState.NotFound -> CharacterSearchNotFound(state.name)
     }
 }
 
@@ -77,14 +77,16 @@ private fun CharacterSearchLoading() {
 
 @Composable
 private fun CharacterSearchSuccess(
-    state: SearchResultState.Content,
+    characterName: String,
+    charactersCount: Int,
+    characters: List<Character>,
     onClickCharacter: (Character) -> Unit
 ) {
     Column {
         Text(
             text = stringResource(
                 Res.string.character_search_success_result,
-                state.numFound, state.name
+                charactersCount, characterName
             ),
             style = MaterialTheme.typography.titleMedium,
             textAlign = TextAlign.Center,
@@ -94,7 +96,7 @@ private fun CharacterSearchSuccess(
         )
 
         CharacterListContent(
-            characters = state.characters,
+            characters = characters,
             onClickCharacter = onClickCharacter
         )
     }

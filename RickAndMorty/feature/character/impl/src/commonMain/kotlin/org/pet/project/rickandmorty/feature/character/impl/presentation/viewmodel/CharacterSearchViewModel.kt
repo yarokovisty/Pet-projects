@@ -4,12 +4,15 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
+import org.jetbrains.compose.resources.getString
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.api.domain.repository.CharacterRepository
+import org.pet.project.rickandmorty.feature.character.api.domain.usecase.GetCountCharacterByFilterUseCase
 import org.pet.project.rickandmorty.feature.character.impl.presentation.event.CharacterSearchEvent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.CharacterSearchIntent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.CharacterSearchState
+import org.pet.project.rickandmorty.feature.character.impl.presentation.state.FilterState
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.failure
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.initial
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.inputQuery
@@ -21,7 +24,8 @@ import org.pet.project.rickandmorty.library.result.onFailure
 import org.pet.project.rickandmorty.library.result.onSuccess
 
 internal class CharacterSearchViewModel(
-    private val characterRepository: CharacterRepository
+    private val characterRepository: CharacterRepository,
+    private val getCountCharacterByFilterUseCase: GetCountCharacterByFilterUseCase
 ) : BaseViewModel<CharacterSearchState, CharacterSearchIntent, CharacterSearchEvent>() {
 
     private val _search = MutableStateFlow("")
@@ -87,14 +91,22 @@ internal class CharacterSearchViewModel(
         updateState { loading() }
 
         characterRepository.searchCharactersByName(name)
-            .onSuccess(::processSuccess)
+            .onSuccess { processSuccess(it) }
             .onFailure(::processFailure)
     }
 
-    private fun processSuccess(characters: List<Character>) {
+    private suspend fun processSuccess(characters: List<Character>) {
         val query = stateValue.searchInputState.query
+        val filters = getCountCharacterByFilterUseCase(characters).map { (filter, count) ->
+            FilterState(
+                amount = count,
+                name = getString(filter.value),
+                selected = true,
+                filter = filter
+            )
+        }
 
-        updateState { success(name = query, characters = characters) }
+        updateState { success(name = query, characters = characters, filters = filters) }
     }
 
     private fun processFailure(t: Throwable) {

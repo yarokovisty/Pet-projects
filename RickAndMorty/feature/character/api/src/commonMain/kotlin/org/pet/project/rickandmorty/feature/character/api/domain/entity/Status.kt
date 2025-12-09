@@ -9,9 +9,9 @@ import rickandmorty.feature.character.api.generated.resources.character_status_u
 
 
 enum class Status(
-    val value: StringResource,
+    override val value: StringResource,
     val color: Color
-) {
+) : CharacterFilter {
     ALIVE(
         value = Res.string.character_status_alive,
         color = Color.Green
