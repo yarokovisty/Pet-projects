@@ -15,19 +15,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<S : State, I : Intent, E : Event>() : ViewModel() {
-
-    protected val scope = viewModelScope
-
-    protected fun launchInScope(
-        dispatcher: CoroutineDispatcher = Dispatchers.Default,
-        block: suspend CoroutineScope.() -> Unit
-    ): Job {
-        return scope.launch(
-            context = dispatcher,
-            block = block
-        )
-    }
-
     private val _state by lazy { MutableStateFlow(initState()) }
     val state: StateFlow<S> by lazy { _state.asStateFlow() }
 
@@ -47,5 +34,18 @@ abstract class BaseViewModel<S : State, I : Intent, E : Event>() : ViewModel() {
     protected suspend fun setEvent(event: E) {
         _event.emit(event)
     }
+
+    protected val scope = viewModelScope
+
+    protected fun launchInScope(
+        dispatcher: CoroutineDispatcher = Dispatchers.Default,
+        block: suspend CoroutineScope.() -> Unit
+    ): Job {
+        return scope.launch(
+            context = dispatcher,
+            block = block
+        )
+    }
+
 }
 

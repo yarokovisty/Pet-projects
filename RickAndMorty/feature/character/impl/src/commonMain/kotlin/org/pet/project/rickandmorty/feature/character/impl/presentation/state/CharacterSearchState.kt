@@ -7,7 +7,7 @@ import org.pet.project.rickandmorty.feature.character.api.domain.entity.Characte
 internal data class CharacterSearchState(
     val searchInputState: SearchInputState = SearchInputState(),
     val searchResultState: SearchResultState = SearchResultState(),
-    val filterResultState: FiltersResultState = FiltersResultState()
+    val filterMenuState: FilterMenuState = FilterMenuState()
 ) : State
 
 internal data class SearchInputState(
@@ -21,19 +21,19 @@ internal data class SearchResultState(
     val error: Boolean = false,
     val notFound: Boolean = false,
     val query: String = "",
-    val content: SearchContentState? = null,
-    val filter: FiltersResultState = FiltersResultState()
+    val content: SearchContentState? = null
 )
 
 internal data class SearchContentState(
     val name: String,
     val numFound: Int,
-    val characters: List<Character>
+    val characters: List<Character>,
+    val filteredCharacters: List<Character> = emptyList()
 )
 
-internal data class FiltersResultState(
-    val filters: List<FilterState> = emptyList(),
-    val filteredCharacters: List<Character> = emptyList()
+internal data class FilterMenuState(
+    val expanded: Boolean = false,
+    val filters: Map<String, List<FilterState>> = emptyMap()
 )
 
 internal data class FilterState(

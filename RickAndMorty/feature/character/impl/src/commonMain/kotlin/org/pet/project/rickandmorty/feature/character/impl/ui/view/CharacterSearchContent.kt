@@ -15,8 +15,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.stringResource
 import org.pet.project.rickandmorty.design.component.AppErrorScreen
-import org.pet.project.rickandmorty.feature.character.api.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.CharacterSearchIntent
+import org.pet.project.rickandmorty.feature.character.impl.presentation.state.SearchContentState
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.SearchResultState
 import rickandmorty.feature.character.impl.generated.resources.Res
 import rickandmorty.feature.character.impl.generated.resources.character_search_empty_result
@@ -26,37 +26,14 @@ import rickandmorty.feature.character.impl.generated.resources.character_search_
 @Composable
 internal fun CharacterSearchContent(
     state: SearchResultState,
-    onIntent: (CharacterSearchIntent) -> Unit
+    onIntent: (CharacterSearchIntent) -> Unit,
 ) {
     when {
         state.error -> AppErrorScreen(onClick = { onIntent(CharacterSearchIntent.Refresh) })
         state.loading -> CharacterSearchLoading()
         state.notFound -> CharacterSearchNotFound(state.query)
         state.content == null -> CharacterSearchInitial()
-        else -> CharacterSearchSuccess(
-            characterName = state.content.name,
-            charactersCount = state.content.numFound,
-            characters = state.filter.filteredCharacters,
-            onClickCharacter = { character ->
-                onIntent(CharacterSearchIntent.OpenCharacter(character.id))
-            }
-        )
-    }
-}
-
-@Composable
-private fun CharacterSearchInitial() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 28.dp)
-    ) {
-        Text(
-            text = stringResource(Res.string.character_search_initial),
-            style = MaterialTheme.typography.headlineSmall,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
-        )
+        else -> CharacterSearchSuccess(state = state.content, onIntent = onIntent)
     }
 }
 
@@ -71,33 +48,6 @@ private fun CharacterSearchLoading() {
             modifier = Modifier
                 .size(36.dp)
                 .align(Alignment.Center)
-        )
-    }
-}
-
-@Composable
-private fun CharacterSearchSuccess(
-    characterName: String,
-    charactersCount: Int,
-    characters: List<Character>,
-    onClickCharacter: (Character) -> Unit
-) {
-    Column {
-        Text(
-            text = stringResource(
-                Res.string.character_search_success_result,
-                charactersCount, characterName
-            ),
-            style = MaterialTheme.typography.titleMedium,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-        )
-
-        CharacterListContent(
-            characters = characters,
-            onClickCharacter = onClickCharacter
         )
     }
 }
@@ -119,4 +69,55 @@ private fun CharacterSearchNotFound(name: String) {
             modifier = Modifier.fillMaxWidth()
         )
     }
+}
+
+@Composable
+private fun CharacterSearchInitial() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 28.dp)
+    ) {
+        Text(
+            text = stringResource(Res.string.character_search_initial),
+            style = MaterialTheme.typography.headlineSmall,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+private fun CharacterSearchSuccess(
+    state: SearchContentState,
+    onIntent: (CharacterSearchIntent) -> Unit,
+) {
+    Column {
+        NumFoundCharactersText(amount = state.numFound, characterName = state.name)
+
+        CharacterListContent(
+            characters = state.filteredCharacters,
+            onClickCharacter = { character ->
+                onIntent(CharacterSearchIntent.OpenCharacter(character.id))
+            }
+        )
+    }
+}
+
+@Composable
+private fun NumFoundCharactersText(
+    amount: Int,
+    characterName: String,
+) {
+    Text(
+        text = stringResource(
+            Res.string.character_search_success_result,
+            amount, characterName
+        ),
+        style = MaterialTheme.typography.titleMedium,
+        textAlign = TextAlign.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    )
 }

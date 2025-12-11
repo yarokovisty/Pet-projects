@@ -15,7 +15,7 @@ import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.C
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.CharacterItemState
 import org.pet.project.rickandmorty.feature.character.impl.presentation.viewmodel.CharacterItemViewModel
 import org.pet.project.rickandmorty.feature.character.impl.ui.view.CharacterItemContent
-import org.pet.project.rickandmorty.util.collectAsEffect
+import org.pet.project.rickandmorty.util.observe
 
 private typealias CharacterId = Int
 
@@ -53,7 +53,7 @@ private fun CharacterItemScreen(
         )
     }
 
-    event.collectAsEffect { e ->
+    event observe { e ->
         when (e) {
             is CharacterItemEvent.Back -> {
                 navigator.back()

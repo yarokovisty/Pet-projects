@@ -11,15 +11,13 @@ internal fun CharacterSearchState.inputQuery(query: String): CharacterSearchStat
 }
 
 internal fun CharacterSearchState.loading(): CharacterSearchState {
-    return copy(
-        searchResultState = searchResultState.copy(loading = true, error = false)
-    )
+    return copy(searchResultState = searchResultState.copy(loading = true, error = false))
 }
 
 internal fun CharacterSearchState.success(
     name: String,
     characters: List<Character>,
-    filters: List<FilterState>
+    filters: Map<String, List<FilterState>>
 ): CharacterSearchState {
     return copy(
         searchResultState = searchResultState.copy(
@@ -27,13 +25,11 @@ internal fun CharacterSearchState.success(
             content = SearchContentState(
                 name = name,
                 numFound = characters.size,
-                characters = characters
-            ),
-            filter = FiltersResultState(
-                filters = filters,
+                characters = characters,
                 filteredCharacters = characters
             )
-        )
+        ),
+        filterMenuState = FilterMenuState(filters = filters)
     )
 }
 
@@ -48,7 +44,12 @@ internal fun CharacterSearchState.notFound(name: String): CharacterSearchState {
 }
 
 internal fun CharacterSearchState.failure(): CharacterSearchState {
-    return copy(
-        searchResultState = searchResultState.copy(loading = false, error = true)
-    )
+    return copy(searchResultState = searchResultState.copy(loading = false, error = true))
+}
+internal fun CharacterSearchState.expandFilterDropdownMenu(): CharacterSearchState {
+    return copy(filterMenuState = filterMenuState.copy(expanded = true))
+}
+
+internal fun CharacterSearchState.disableFilterDropdownMenu(): CharacterSearchState {
+    return copy(filterMenuState = filterMenuState.copy(expanded = false))
 }

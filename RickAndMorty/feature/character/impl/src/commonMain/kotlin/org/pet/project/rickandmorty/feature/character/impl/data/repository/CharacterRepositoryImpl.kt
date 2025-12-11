@@ -11,7 +11,6 @@ import org.pet.project.rickandmorty.feature.character.impl.data.paginator.Charac
 import org.pet.project.rickandmorty.library.result.Result
 import org.pet.project.rickandmorty.library.result.map
 
-
 internal class CharacterRepositoryImpl(
     private val remoteDataSource: RemoteCharacterDataSource,
     private val paginator: CharacterPaginator

@@ -34,7 +34,7 @@ import org.pet.project.rickandmorty.feature.character.impl.presentation.state.Ch
 import org.pet.project.rickandmorty.feature.character.impl.presentation.viewmodel.CharacterListViewModel
 import org.pet.project.rickandmorty.feature.character.impl.ui.view.CharacterListContent
 import org.pet.project.rickandmorty.feature.character.impl.ui.view.CharacterListSkeleton
-import org.pet.project.rickandmorty.util.collectAsEffect
+import org.pet.project.rickandmorty.util.observe
 import org.pet.project.rickandmorty.util.onReachEnd
 import rickandmorty.feature.character.impl.generated.resources.Res
 import rickandmorty.feature.character.impl.generated.resources.character_list_toolbar_title
@@ -94,7 +94,7 @@ private fun CharacterListScreen(
         AppSnackbar(snackbarHostState)
     }
 
-    event.collectAsEffect { e ->
+    event observe { e ->
         when(e) {
             is CharacterListEvent.OpenCharacterScreen -> {
                 navigator.openCharacterItemScreen(e.id)

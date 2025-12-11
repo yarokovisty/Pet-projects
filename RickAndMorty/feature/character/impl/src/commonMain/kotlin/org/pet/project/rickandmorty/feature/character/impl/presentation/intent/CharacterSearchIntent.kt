@@ -7,4 +7,5 @@ sealed interface CharacterSearchIntent : Intent {
     class OpenCharacter(val characterId: Int) : CharacterSearchIntent
     class Search(val name: String) : CharacterSearchIntent
     object Refresh : CharacterSearchIntent
+    object ToggleFilterMenu : CharacterSearchIntent
 }

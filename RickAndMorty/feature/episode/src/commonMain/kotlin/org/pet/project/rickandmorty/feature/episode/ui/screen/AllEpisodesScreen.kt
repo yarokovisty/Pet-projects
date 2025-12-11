@@ -26,7 +26,7 @@ import org.pet.project.rickandmorty.feature.episode.presentation.intent.AllEpiso
 import org.pet.project.rickandmorty.feature.episode.presentation.state.AllEpisodesState
 import org.pet.project.rickandmorty.feature.episode.presentation.viewmodel.AllEpisodesViewModel
 import org.pet.project.rickandmorty.feature.episode.ui.view.AllEpisodesContent
-import org.pet.project.rickandmorty.util.collectAsEffect
+import org.pet.project.rickandmorty.util.observe
 import org.pet.project.rickandmorty.util.onReachEnd
 
 @Composable
@@ -85,7 +85,7 @@ private fun AllEpisodesScreen(
     }
 
 
-    event.collectAsEffect { e ->
+    event observe { e ->
         when(e) {
             is AllEpisodesEvent.OnReachEnd -> {
                 snackbarHostState.showSnackbar(

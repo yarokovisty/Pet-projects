@@ -24,7 +24,7 @@ import org.pet.project.rickandmorty.feature.episode.presentation.intent.Characte
 import org.pet.project.rickandmorty.feature.episode.presentation.state.CharacterEpisodeState
 import org.pet.project.rickandmorty.feature.episode.presentation.viewmodel.CharacterEpisodeViewModel
 import org.pet.project.rickandmorty.feature.episode.ui.view.CharacterEpisodeContent
-import org.pet.project.rickandmorty.util.collectAsEffect
+import org.pet.project.rickandmorty.util.observe
 
 private typealias CharacterId = Int
 
@@ -76,7 +76,7 @@ private fun CharacterEpisodeScreen(
             }
         }
 
-        event.collectAsEffect { e ->
+        event observe { e ->
             when(e) {
                 CharacterEpisodeEvent.Back -> navigator.back()
             }

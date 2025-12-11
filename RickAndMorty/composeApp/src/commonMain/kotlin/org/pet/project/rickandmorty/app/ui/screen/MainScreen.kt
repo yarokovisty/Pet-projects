@@ -19,7 +19,7 @@ import org.pet.project.rickandmorty.app.presentation.viewmodel.MainViewModel
 import org.pet.project.rickandmorty.app.ui.view.AppNavigationBar
 import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
 import org.pet.project.rickandmorty.core.navigation.rememberNestedNavController
-import org.pet.project.rickandmorty.util.collectAsEffect
+import org.pet.project.rickandmorty.util.observe
 
 @Composable
 internal fun MainScreen() {
@@ -60,7 +60,7 @@ private fun MainScreen(
         NestedNavGraph(Modifier.padding(customPadding))
     }
 
-    event.collectAsEffect { e ->
+    event observe { e ->
         when(e) {
             is MainEvent.OpenAppTab -> navigator.openTab(e.tab)
         }

@@ -35,7 +35,7 @@ import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoCon
 import org.pet.project.rickandmorty.feature.location.ui.view.LocationItemInfoSkeleton
 import org.pet.project.rickandmorty.feature.location.ui.view.ResidentListContent
 import org.pet.project.rickandmorty.feature.location.ui.view.ResidentListSkeleton
-import org.pet.project.rickandmorty.util.collectAsEffect
+import org.pet.project.rickandmorty.util.observe
 import rickandmorty.feature.location.generated.resources.Res
 import rickandmorty.feature.location.generated.resources.location_error_upload_residents
 
@@ -119,7 +119,7 @@ private fun LocationItemScreen(
 		}
 	}
 
-	event.collectAsEffect { e ->
+	event observe { e ->
 		when (e) {
 			LocationItemEvent.NavigateBack -> navigator.back()
 			LocationItemEvent.ErrorUploadResidents -> {
