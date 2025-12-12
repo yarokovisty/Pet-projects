@@ -27,10 +27,12 @@ internal fun CharacterSearchToolbar(
             AppTitleToolbar(stringResource(SearchRes.string.character_search_title))
         },
         actions = {
-            Box {
-                MenuIcon(onClick = { onIntent(CharacterSearchIntent.ToggleFilterMenu) })
+            if (state.showMenuIcon) {
+                Box {
+                    MenuIcon(onClick = { onIntent(CharacterSearchIntent.ToggleFilterMenu) })
 
-                CharacterSearchFilterDropdownMenu(state = state, onIntent = onIntent)
+                    CharacterSearchFilterDropdownMenu(state = state, onIntent = onIntent)
+                }
             }
         }
     )

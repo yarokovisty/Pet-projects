@@ -11,7 +11,10 @@ internal fun CharacterSearchState.inputQuery(query: String): CharacterSearchStat
 }
 
 internal fun CharacterSearchState.loading(): CharacterSearchState {
-    return copy(searchResultState = searchResultState.copy(loading = true, error = false))
+    return copy(
+        searchResultState = searchResultState.copy(loading = true, error = false),
+        filterMenuState = FilterMenuState()
+    )
 }
 
 internal fun CharacterSearchState.success(
@@ -29,7 +32,7 @@ internal fun CharacterSearchState.success(
                 filteredCharacters = characters
             )
         ),
-        filterMenuState = FilterMenuState(filters = filters)
+        filterMenuState = FilterMenuState(showMenuIcon = true, filters = filters)
     )
 }
 
@@ -39,12 +42,16 @@ internal fun CharacterSearchState.notFound(name: String): CharacterSearchState {
             loading = false,
             query = name,
             notFound = true
-        )
+        ),
+        filterMenuState = FilterMenuState()
     )
 }
 
 internal fun CharacterSearchState.failure(): CharacterSearchState {
-    return copy(searchResultState = searchResultState.copy(loading = false, error = true))
+    return copy(
+        searchResultState = searchResultState.copy(loading = false, error = true),
+        filterMenuState = FilterMenuState()
+    )
 }
 internal fun CharacterSearchState.expandFilterDropdownMenu(): CharacterSearchState {
     return copy(filterMenuState = filterMenuState.copy(expanded = true))

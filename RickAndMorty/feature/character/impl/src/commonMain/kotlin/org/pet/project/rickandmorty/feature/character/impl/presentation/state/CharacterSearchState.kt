@@ -32,6 +32,7 @@ internal data class SearchContentState(
 )
 
 internal data class FilterMenuState(
+    val showMenuIcon: Boolean = false,
     val expanded: Boolean = false,
     val filters: Map<String, List<FilterState>> = emptyMap()
 )
