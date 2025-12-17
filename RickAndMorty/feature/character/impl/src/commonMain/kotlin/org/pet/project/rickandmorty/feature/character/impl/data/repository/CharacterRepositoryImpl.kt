@@ -24,9 +24,9 @@ internal class CharacterRepositoryImpl(
         return remoteDataSource.getCharacter(id).map(CharacterResponse::toItem)
     }
 
-    override suspend fun searchCharactersByName(name: String): Result<List<Character>> {
-        return remoteDataSource.getCharactersByName(name).map {  response ->
-            response.results.map(CharacterResponse::toItem)
+    override suspend fun searchAllCharactersByName(name: String): Result<List<Character>> {
+        return remoteDataSource.getAllCharactersByName(name).map { response ->
+            response.map(CharacterResponse::toItem)
         }
     }
 }

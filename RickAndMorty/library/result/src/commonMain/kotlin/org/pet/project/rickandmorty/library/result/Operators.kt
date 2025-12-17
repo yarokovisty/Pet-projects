@@ -59,6 +59,13 @@ inline fun <T> Result<T>.onFailure(block: (Throwable) -> Unit): Result<T> {
     return this
 }
 
+inline fun <T> Result<T>.getOrElse(
+    onFailure: (Throwable) -> T
+): T = when (this) {
+    is Result.Success -> this.value
+    is Result.Failure<*> -> onFailure(this.error)
+}
+
 
 // === Transformations ==
 inline fun <T, R> Result<T>.map(transform: (T) -> R): Result<R> {

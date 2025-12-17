@@ -13,5 +13,5 @@ interface CharacterRepository {
 
     suspend fun getCharacter(id: Int): Result<Character>
 
-    suspend fun searchCharactersByName(name: String): Result<List<Character>>
+    suspend fun searchAllCharactersByName(name: String): Result<List<Character>>
 }

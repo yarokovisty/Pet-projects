@@ -103,7 +103,7 @@ internal class CharacterSearchViewModel(
     private suspend fun searchCharacters(name: String) {
         updateState { loading() }
 
-        characterRepository.searchCharactersByName(name)
+        characterRepository.searchAllCharactersByName(name)
             .onSuccess { processSuccess(it) }
             .onFailure(::processFailure)
     }
@@ -111,7 +111,6 @@ internal class CharacterSearchViewModel(
     private suspend fun processSuccess(characters: List<Character>) {
         val query = stateValue.searchInputState.query
         val filters = mapToFilters(characters)
-        println(filters)
 
         updateState { success(name = query, characters = characters, filters = filters) }
     }

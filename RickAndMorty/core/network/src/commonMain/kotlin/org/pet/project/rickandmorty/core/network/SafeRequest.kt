@@ -15,7 +15,7 @@ suspend inline fun <reified T> HttpClient.safeRequest(
     block: HttpRequestBuilder.() -> Unit
 ): Result<T> =
     try {
-        val response = request { block() }
+        val response = request(block)
 
         if (response.status == HttpStatusCode.OK) {
             val responseBody = response.bodyAsText()
