@@ -49,7 +49,9 @@ internal fun CharacterSearchFilterDropdownMenu(
                 ) {
                     CharacterFilterListContent(
                         filters = state.filters,
-                        onClickFilterToggle = {}
+                        onClickFilterToggle = { filter ->
+                            onIntent(CharacterSearchIntent.ClickFilter(filter))
+                        }
                     )
                 }
             }

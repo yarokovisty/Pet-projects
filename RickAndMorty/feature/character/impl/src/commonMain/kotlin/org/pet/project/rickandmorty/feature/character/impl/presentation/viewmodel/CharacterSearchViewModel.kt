@@ -16,10 +16,10 @@ import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.C
 import org.pet.project.rickandmorty.feature.character.impl.presentation.mapper.toFilterState
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.CharacterSearchState
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.FilterState
+import org.pet.project.rickandmorty.feature.character.impl.presentation.state.clickFilterToggle
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.disableFilterDropdownMenu
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.expandFilterDropdownMenu
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.failure
-import org.pet.project.rickandmorty.feature.character.impl.presentation.state.initial
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.inputQuery
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.loading
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.notFound
@@ -42,11 +42,12 @@ internal class CharacterSearchViewModel(
         observeSearch()
     }
 
-    override fun initState(): CharacterSearchState = initial()
+    override fun initState(): CharacterSearchState = CharacterSearchState.INITIAL
 
     override fun onIntent(intent: CharacterSearchIntent) {
         when(intent) {
             is CharacterSearchIntent.Clear -> clearSearch()
+            is CharacterSearchIntent.ClickFilter -> clickFilter(intent.filterToggle)
             is CharacterSearchIntent.OpenCharacter -> navigateToCharacterScreen(intent.characterId)
             is CharacterSearchIntent.Refresh -> refreshQuery()
             is CharacterSearchIntent.Search -> onQueryChanged(intent.name)
@@ -61,7 +62,7 @@ internal class CharacterSearchViewModel(
                 .debounce(300)
                 .collectLatest { query ->
                     if (query.isBlank()) {
-                        updateState { initial() }
+                        updateState { CharacterSearchState.INITIAL }
                         return@collectLatest
                     }
 
@@ -73,7 +74,23 @@ internal class CharacterSearchViewModel(
     private fun clearSearch() {
         _search.value = ""
 
-        updateState { initial() }
+        updateState { CharacterSearchState.INITIAL }
+    }
+
+    private fun clickFilter(filterToggle: FilterState) {
+        val filters = stateValue.filterMenuState.filters.mapValues { (_, filterList) ->
+            filterList.map { filter ->
+                if (filter.filter == filterToggle.filter) {
+                    filter.copy(selected = !filter.selected)
+                } else {
+                    filter
+                }
+            }
+        }
+        val filteredCharacters = stateValue.searchResultState.content?.characters?.filter { character ->
+
+        } ?: emptyList()
+        updateState { clickFilterToggle(filteredCharacters, filters) }
     }
 
     private fun navigateToCharacterScreen(characterId: Int) {
@@ -90,6 +107,7 @@ internal class CharacterSearchViewModel(
         }
     }
 
+    // поменять название функции, так как on используется для колбеков
     private fun onQueryChanged(query: String) {
         _search.value = query
         updateState { inputQuery(query) }

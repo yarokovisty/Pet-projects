@@ -2,10 +2,6 @@ package org.pet.project.rickandmorty.feature.character.impl.presentation.state
 
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Character
 
-internal fun initial(): CharacterSearchState {
-    return CharacterSearchState()
-}
-
 internal fun CharacterSearchState.inputQuery(query: String): CharacterSearchState {
     return copy(searchInputState = searchInputState.copy(query = query))
 }
@@ -59,4 +55,16 @@ internal fun CharacterSearchState.expandFilterDropdownMenu(): CharacterSearchSta
 
 internal fun CharacterSearchState.disableFilterDropdownMenu(): CharacterSearchState {
     return copy(filterMenuState = filterMenuState.copy(expanded = false))
+}
+
+internal fun CharacterSearchState.clickFilterToggle(
+    filteredCharacters: List<Character>,
+    filters: Map<String, List<FilterState>>
+): CharacterSearchState {
+    return copy(
+        searchResultState = searchResultState.copy(
+            content = searchResultState.content?.copy(filteredCharacters = filteredCharacters)
+        ),
+        filterMenuState = filterMenuState.copy(filters = filters)
+    )
 }

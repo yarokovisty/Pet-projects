@@ -5,41 +5,77 @@ import org.pet.project.rickandmorty.feature.character.api.domain.entity.Characte
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.CharacterFilter
 
 internal data class CharacterSearchState(
-    val searchInputState: SearchInputState = SearchInputState(),
-    val searchResultState: SearchResultState = SearchResultState(),
-    val filterMenuState: FilterMenuState = FilterMenuState()
-) : State
+    val searchInputState: SearchInputState,
+    val searchResultState: SearchResultState,
+    val filterMenuState: FilterMenuState,
+) : State {
+
+    companion object {
+
+        val INITIAL = CharacterSearchState(
+            searchInputState = SearchInputState.INITIAL,
+            searchResultState = SearchResultState.INITIAL,
+            filterMenuState = FilterMenuState.INITIAL
+        )
+    }
+}
 
 internal data class SearchInputState(
-    val query: String = ""
+    val query: String,
 ) {
     val clearShow: Boolean get() = query.isNotEmpty()
+
+    companion object {
+
+        val INITIAL = SearchInputState(query = "")
+    }
 }
 
 internal data class SearchResultState(
-    val loading: Boolean = false,
-    val error: Boolean = false,
-    val notFound: Boolean = false,
-    val query: String = "",
-    val content: SearchContentState? = null
-)
+    val loading: Boolean,
+    val error: Boolean,
+    val notFound: Boolean,
+    val query: String,
+    val content: SearchContentState?,
+) {
+
+    companion object {
+        val INITIAL = SearchResultState(
+            loading = false,
+            error = false,
+            notFound = false,
+            query = "",
+            content = null
+        )
+    }
+}
 
 internal data class SearchContentState(
     val name: String,
     val numFound: Int,
     val characters: List<Character>,
-    val filteredCharacters: List<Character> = emptyList()
+    val filteredCharacters: List<Character>
 )
 
 internal data class FilterMenuState(
-    val showMenuIcon: Boolean = false,
-    val expanded: Boolean = false,
-    val filters: Map<String, List<FilterState>> = emptyMap()
-)
+    val showMenuIcon: Boolean,
+    val expanded: Boolean,
+    val filters: Map<String, List<FilterState>>
+) {
+
+    companion object {
+
+        val INITIAL = FilterMenuState(
+            showMenuIcon = false,
+            expanded = false,
+            filters = emptyMap()
+        )
+    }
+}
 
 internal data class FilterState(
     val amount: Int,
     val name: String,
     val selected: Boolean,
-    val filter: CharacterFilter
+    val filter: CharacterFilter,
 )
