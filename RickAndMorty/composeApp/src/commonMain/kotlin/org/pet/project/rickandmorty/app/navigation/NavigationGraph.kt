@@ -6,7 +6,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterSearchNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberEpisodeNavigator
-import org.pet.project.rickandmorty.app.navigation.impl.rememberLocationNavigator
 import org.pet.project.rickandmorty.app.navigation.main.MainRoute
 import org.pet.project.rickandmorty.app.navigation.main.mainGraph
 import org.pet.project.rickandmorty.core.navigation.LocalGlobalNavController
@@ -24,6 +23,7 @@ import org.pet.project.rickandmorty.feature.episode.navigation.characterEpisodeS
 import org.pet.project.rickandmorty.feature.episode.navigation.episodeGraph
 import org.pet.project.rickandmorty.feature.location.impl.navigation.LocalLocationNavigator
 import org.pet.project.rickandmorty.feature.location.impl.navigation.locationScreen
+import org.pet.project.rickandmorty.feature.location.impl.navigation.rememberLocationNavigator
 
 @Composable
 fun GlobalNavGraph() {
