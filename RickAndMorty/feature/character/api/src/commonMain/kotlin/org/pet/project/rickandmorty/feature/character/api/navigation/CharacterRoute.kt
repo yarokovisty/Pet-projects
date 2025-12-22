@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.feature.character.impl.navigation
+package org.pet.project.rickandmorty.feature.character.api.navigation
 
 import kotlinx.serialization.Serializable
 import org.pet.project.rickandmorty.core.navigation.Route

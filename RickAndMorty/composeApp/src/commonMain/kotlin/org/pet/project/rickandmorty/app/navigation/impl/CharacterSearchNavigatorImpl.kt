@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
 import org.pet.project.rickandmorty.core.navigation.NestedNavController
-import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterItemRoute
+import org.pet.project.rickandmorty.feature.character.api.navigation.CharacterItemRoute
 import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterSearchNavigator
 
 class CharacterSearchNavigatorImpl(

@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterListNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberCharacterSearchNavigator
 import org.pet.project.rickandmorty.app.navigation.impl.rememberEpisodeNavigator
@@ -13,12 +12,13 @@ import org.pet.project.rickandmorty.app.navigation.main.MainRoute
 import org.pet.project.rickandmorty.app.navigation.main.mainGraph
 import org.pet.project.rickandmorty.core.navigation.LocalGlobalNavController
 import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
-import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterTab
+import org.pet.project.rickandmorty.feature.character.api.navigation.CharacterTab
 import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterItemNavigator
 import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterListNavigator
 import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterSearchNavigator
 import org.pet.project.rickandmorty.feature.character.impl.navigation.characterGraph
 import org.pet.project.rickandmorty.feature.character.impl.navigation.characterSearchGraph
+import org.pet.project.rickandmorty.feature.character.impl.navigation.rememberCharacterListNavigator
 import org.pet.project.rickandmorty.feature.episode.navigation.LocalCharacterEpisodeNavigator
 import org.pet.project.rickandmorty.feature.episode.navigation.characterEpisodeScreen
 import org.pet.project.rickandmorty.feature.episode.navigation.episodeGraph

@@ -3,8 +3,8 @@ package org.pet.project.rickandmorty.app.ui.view
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.pet.project.rickandmorty.core.navigation.Tab
-import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterSearchTab
-import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterTab
+import org.pet.project.rickandmorty.feature.character.api.navigation.CharacterSearchTab
+import org.pet.project.rickandmorty.feature.character.api.navigation.CharacterTab
 import org.pet.project.rickandmorty.feature.episode.navigation.EpisodeTab
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.nav_bar_item_characters
