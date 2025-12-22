@@ -6,6 +6,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import org.pet.project.rickandmorty.feature.location.data.datasource.RemoteLocationDataSource
 import org.pet.project.rickandmorty.feature.location.data.model.ResidentResponse
@@ -15,6 +17,7 @@ internal class ResidentsPaginator(
 	private val remoteLocationDataSource: RemoteLocationDataSource
 ) {
 
+	private val mutex = Mutex()
 	private var urls: List<String> = emptyList()
 	private var startIndex = 0
 
@@ -25,8 +28,7 @@ internal class ResidentsPaginator(
 		this.urls = urls
 	}
 
-	// TODO сделать потокобезопасным
-	suspend fun loadNextResidents() {
+	suspend fun loadNextResidents() = mutex.withLock {
 		if (urls.isEmpty()) {
 			_residentsFlow.emit(RequestResidentState.Error)
 			return
@@ -55,14 +57,10 @@ internal class ResidentsPaginator(
 
 	private fun getEndIndex(listSize: Int): Int = (startIndex + PAGE_SIZE).coerceAtMost(listSize)
 
-	private suspend fun fetchResident(id: Int): Result<ResidentResponse> {
-		return remoteLocationDataSource.getResidents(id)
-	}
-
 	private suspend fun fetchResidents(urls: List<String>): List<Result<ResidentResponse>> =
 		withContext(Dispatchers.IO) {
 			urls.map { url ->
-				async { fetchResident(url.fetchCharacterId()) }
+				async { remoteLocationDataSource.getResidents(url.fetchCharacterId()) }
 			}.awaitAll()
 		}
 

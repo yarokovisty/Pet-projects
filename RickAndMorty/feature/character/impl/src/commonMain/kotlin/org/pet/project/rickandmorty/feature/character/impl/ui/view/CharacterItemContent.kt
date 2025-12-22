@@ -87,7 +87,6 @@ internal fun CharacterItemContent(
                 )
             }
 
-            // TODO обработать случай unknown
             item {
                 CharacterInfo(
                     title = stringResource(Res.string.character_origin_title),
