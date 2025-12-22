@@ -5,6 +5,7 @@ listOf(
     ":common:data",
     ":common:presentation",
 
+    "core:dispatchers",
     ":core:navigation",
     ":core:network",
 

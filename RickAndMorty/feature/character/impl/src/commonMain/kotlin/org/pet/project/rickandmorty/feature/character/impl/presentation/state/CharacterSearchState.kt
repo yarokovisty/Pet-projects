@@ -2,7 +2,7 @@ package org.pet.project.rickandmorty.feature.character.impl.presentation.state
 
 import org.pet.project.rickandmorty.common.presentation.State
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Character
-import org.pet.project.rickandmorty.feature.character.api.domain.entity.CharacterFilter
+import org.pet.project.rickandmorty.feature.character.api.domain.entity.Filter
 
 internal data class CharacterSearchState(
     val searchInputState: SearchInputState,
@@ -52,15 +52,16 @@ internal data class SearchResultState(
 
 internal data class SearchContentState(
     val name: String,
-    val numFound: Int,
     val characters: List<Character>,
     val filteredCharacters: List<Character>
-)
+) {
+    val numFound: Int get() = filteredCharacters.size
+}
 
 internal data class FilterMenuState(
     val showMenuIcon: Boolean,
     val expanded: Boolean,
-    val filters: Map<String, List<FilterState>>
+    val filters: Map<String, List<Filter>>
 ) {
 
     companion object {
@@ -73,9 +74,3 @@ internal data class FilterMenuState(
     }
 }
 
-internal data class FilterState(
-    val amount: Int,
-    val name: String,
-    val selected: Boolean,
-    val filter: CharacterFilter,
-)

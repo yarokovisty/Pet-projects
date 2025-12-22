@@ -20,12 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.pet.project.rickandmorty.design.component.AppSpacer
-import org.pet.project.rickandmorty.feature.character.impl.presentation.state.FilterState
+import org.pet.project.rickandmorty.feature.character.api.domain.entity.Filter
 
 @Composable
 internal fun CharacterFilterListContent(
-	filters: Map<String, List<FilterState>>,
-	onClickFilterToggle: (FilterState) -> Unit
+	filters: Map<String, List<Filter>>,
+	onClickFilterToggle: (Filter) -> Unit
 ) {
 	LazyVerticalGrid(
 		columns = GridCells.Adaptive(minSize = 96.dp),
@@ -61,7 +61,7 @@ private fun Header(title: String) {
 
 @Composable
 private fun FilterToggle(
-	filter: FilterState,
+	filter: Filter,
 	onClick: () -> Unit,
 ) {
 	val color = if (filter.selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.inverseSurface

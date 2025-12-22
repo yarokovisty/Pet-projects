@@ -1,21 +1,24 @@
 package org.pet.project.rickandmorty.feature.character.impl.presentation.viewmodel
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.getString
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Character
+import org.pet.project.rickandmorty.feature.character.api.domain.entity.Filter
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Gender
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Status
 import org.pet.project.rickandmorty.feature.character.api.domain.repository.CharacterRepository
+import org.pet.project.rickandmorty.feature.character.api.domain.usecase.FilterCharacterUseCase
 import org.pet.project.rickandmorty.feature.character.api.domain.usecase.GetCountCharacterByFilterUseCase
 import org.pet.project.rickandmorty.feature.character.impl.presentation.event.CharacterSearchEvent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.CharacterSearchIntent
-import org.pet.project.rickandmorty.feature.character.impl.presentation.mapper.toFilterState
+import org.pet.project.rickandmorty.feature.character.impl.presentation.mapper.toFilter
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.CharacterSearchState
-import org.pet.project.rickandmorty.feature.character.impl.presentation.state.FilterState
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.clickFilterToggle
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.disableFilterDropdownMenu
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.expandFilterDropdownMenu
@@ -33,7 +36,8 @@ import rickandmorty.feature.character.impl.generated.resources.character_status_
 
 internal class CharacterSearchViewModel(
     private val characterRepository: CharacterRepository,
-    private val getCountCharacterByFilterUseCase: GetCountCharacterByFilterUseCase
+    private val getCountCharacterByFilterUseCase: GetCountCharacterByFilterUseCase,
+    private val filterCharacterUseCase: FilterCharacterUseCase
 ) : BaseViewModel<CharacterSearchState, CharacterSearchIntent, CharacterSearchEvent>() {
 
     private val _search = MutableStateFlow("")
@@ -77,20 +81,40 @@ internal class CharacterSearchViewModel(
         updateState { CharacterSearchState.INITIAL }
     }
 
-    private fun clickFilter(filterToggle: FilterState) {
-        val filters = stateValue.filterMenuState.filters.mapValues { (_, filterList) ->
-            filterList.map { filter ->
-                if (filter.filter == filterToggle.filter) {
-                    filter.copy(selected = !filter.selected)
-                } else {
-                    filter
+    private fun clickFilter(filterToggle: Filter) {
+        launchInScope {
+            val filters = stateValue.filterMenuState.filters.mapValues { (_, filterList) ->
+                filterList.map { filter ->
+                    if (filter.filter == filterToggle.filter) {
+                        filter.copy(selected = !filter.selected)
+                    } else {
+                        filter
+                    }
                 }
             }
-        }
-        val filteredCharacters = stateValue.searchResultState.content?.characters?.filter { character ->
+            val filteredCharacters = stateValue.searchResultState.content?.characters?.let { characters ->
+                filterCharacterUseCase(characters, filters)
+            } ?: emptyList()
 
+            updateState { clickFilterToggle(filteredCharacters, filters) }
+        }
+    }
+
+    private suspend fun filterCharacters(filters: Map<String, List<Filter>>): List<Character> = withContext(Dispatchers.Default) {
+        stateValue.searchResultState.content?.characters?.filter { character ->
+            val selectedFilters = filters.values.flatten().filter { it.selected }
+
+            if (selectedFilters.isEmpty()) return@filter true
+
+            val selectedGenders = selectedFilters.filter { it.filter is Gender }
+            val selectedStatuses = selectedFilters.filter { it.filter is Status }
+
+            val matchesGender = selectedGenders.isEmpty() || selectedGenders.any { it.filter == character.gender }
+
+            val matchesStatus = selectedStatuses.isEmpty() || selectedStatuses.any { it.filter == character.status }
+
+            matchesGender && matchesStatus
         } ?: emptyList()
-        updateState { clickFilterToggle(filteredCharacters, filters) }
     }
 
     private fun navigateToCharacterScreen(characterId: Int) {
@@ -142,7 +166,7 @@ internal class CharacterSearchViewModel(
         }
     }
 
-    private suspend fun mapToFilters(characters: List<Character>): Map<String, List<FilterState>> {
+    private suspend fun mapToFilters(characters: List<Character>): Map<String, List<Filter>> {
         val genderKey = getString(Res.string.character_gender_title)
         val statusKey = getString(Res.string.character_status_title)
 
@@ -158,8 +182,8 @@ internal class CharacterSearchViewModel(
                 },
                 valueTransform = { (filter, count) ->
                     when (filter) {
-                        is Gender -> filter.toFilterState(count)
-                        is Status -> filter.toFilterState(count)
+                        is Gender -> filter.toFilter(count)
+                        is Status -> filter.toFilter(count)
                         else -> error("Unknown filter type: ${filter::class.simpleName}")
                     }
                 }
