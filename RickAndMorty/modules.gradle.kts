@@ -15,8 +15,8 @@ listOf(
 
     ":feature:character:api",
     ":feature:character:impl",
-    ":feature:episode",
-    "feature:location",
+    ":feature:episode:api",
+    ":feature:episode:impl",
     ":feature:location:api",
     ":feature:location:impl",
 

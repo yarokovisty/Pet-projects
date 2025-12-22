@@ -5,7 +5,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.pet.project.rickandmorty.core.navigation.Tab
 import org.pet.project.rickandmorty.feature.character.api.navigation.CharacterSearchTab
 import org.pet.project.rickandmorty.feature.character.api.navigation.CharacterTab
-import org.pet.project.rickandmorty.feature.episode.navigation.EpisodeTab
+import org.pet.project.rickandmorty.feature.episode.api.navigation.EpisodeTab
 import rickandmorty.composeapp.generated.resources.Res
 import rickandmorty.composeapp.generated.resources.nav_bar_item_characters
 import rickandmorty.composeapp.generated.resources.nav_bar_item_episodes

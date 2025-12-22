@@ -32,7 +32,8 @@ kotlin {
 
             export(projects.feature.character.api)
             export(projects.feature.character.impl)
-            export(projects.feature.episode)
+            export(projects.feature.episode.api)
+            export(projects.feature.episode.impl)
             export(projects.feature.location.api)
             export(projects.feature.location.impl)
 
@@ -63,7 +64,8 @@ kotlin {
 
                 api(projects.feature.character.api)
                 api(projects.feature.character.impl)
-                api(projects.feature.episode)
+                api(projects.feature.episode.api)
+                api(projects.feature.episode.impl)
                 api(projects.feature.location.api)
                 api(projects.feature.location.impl)
 

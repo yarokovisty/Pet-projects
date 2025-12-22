@@ -7,6 +7,7 @@ import org.pet.project.rickandmorty.core.navigation.GlobalNavController
 import org.pet.project.rickandmorty.core.navigation.LocalGlobalNavController
 import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
 import org.pet.project.rickandmorty.core.navigation.NestedNavController
+import org.pet.project.rickandmorty.feature.episode.api.navigation.CharacterEpisodeRoute
 import org.pet.project.rickandmorty.feature.location.api.navigation.LocationItemRoute
 
 interface CharacterItemNavigator{
@@ -28,8 +29,7 @@ class CharacterItemNavigatorImpl(
     }
 
     override fun openCharacterEpisodeScreen(characterId: Int) {
-        // TODO
-//        globalNavController.navigate(CharacterEpisodeRoute(characterId))
+        globalNavController.navigate(CharacterEpisodeRoute(characterId))
     }
 
     override fun back() {
