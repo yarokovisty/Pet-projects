@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import org.pet.project.rickandmorty.core.navigation.GlobalNavController
 import org.pet.project.rickandmorty.core.navigation.LocalGlobalNavController
-import org.pet.project.rickandmorty.feature.location.navigation.LocationNavigator
+import org.pet.project.rickandmorty.feature.location.impl.navigation.LocationNavigator
 
 class LocationNavigatorImpl(
     private val globalNavController: GlobalNavController

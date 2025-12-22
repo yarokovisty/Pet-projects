@@ -25,15 +25,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.feature.character.api)
-
-            implementation(projects.common.data)
-            implementation(projects.common.presentation)
-            implementation(projects.core.dispatchers)
-            implementation(projects.core.navigation)
-            implementation(projects.core.network)
             implementation(projects.design.component)
             implementation(projects.design.resources)
+            implementation(projects.common.presentation)
+            implementation(projects.core.navigation)
+            implementation(projects.core.network)
             implementation(projects.feature.location.api)
             implementation(projects.library.result)
             implementation(projects.util)
@@ -64,7 +60,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.pet.project.rickandmorty.feature.character.impl"
+    namespace = "org.pet.project.rickandmorty.feature.location.impl"
     compileSdk = libs.versions.android.compile.sdk.get().toInt()
 
     compileOptions {

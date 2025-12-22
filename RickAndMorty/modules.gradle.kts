@@ -5,7 +5,7 @@ listOf(
     ":common:data",
     ":common:presentation",
 
-    "core:dispatchers",
+    ":core:dispatchers",
     ":core:navigation",
     ":core:network",
 
@@ -16,7 +16,9 @@ listOf(
     ":feature:character:api",
     ":feature:character:impl",
     ":feature:episode",
-    ":feature:location",
+    "feature:location",
+    ":feature:location:api",
+    ":feature:location:impl",
 
     ":library:logger",
     ":library:result",
