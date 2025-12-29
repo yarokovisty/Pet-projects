@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.core.navigation
+package org.pet.project.rickandmorty.core.navigation.navigator
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -6,9 +6,10 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import org.pet.project.rickandmorty.core.navigation.destination.Route
+import org.pet.project.rickandmorty.core.navigation.destination.Tab
 
-
-class NestedNavController(val navController: NavHostController) {
+class NestedNavigator(val navController: NavHostController) {
     fun navigateToTab(tab: Tab) {
         navController.navigate(tab) {
             popUpTo(navController.graph.findStartDestination().id) {
@@ -28,15 +29,13 @@ class NestedNavController(val navController: NavHostController) {
     }
 }
 
-@Composable
-fun rememberNestedNavController(
-    navHostController: NavHostController = rememberNavController()
-): NestedNavController {
-    return remember {
-        NestedNavController(navHostController)
-    }
+val LocalNestedNavigator = staticCompositionLocalOf<NestedNavigator> {
+    error("NestedNavController not provided")
 }
 
-val LocalNestedNavController = staticCompositionLocalOf<NestedNavController> {
-    error("NestedNavController not provided")
+@Composable
+fun rememberNestedNavigator(navHostController: NavHostController = rememberNavController()): NestedNavigator {
+    return remember {
+        NestedNavigator(navHostController)
+    }
 }

@@ -2,9 +2,9 @@ package org.pet.project.rickandmorty.app.navigation.main
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
-import org.pet.project.rickandmorty.core.navigation.NestedNavController
-import org.pet.project.rickandmorty.core.navigation.Tab
+import org.pet.project.rickandmorty.core.navigation.navigator.LocalNestedNavigator
+import org.pet.project.rickandmorty.core.navigation.navigator.NestedNavigator
+import org.pet.project.rickandmorty.core.navigation.destination.Tab
 
 interface MainNavigator {
 
@@ -12,17 +12,17 @@ interface MainNavigator {
 }
 
 internal class MainNavigatorImpl(
-    private val nestedNavController: NestedNavController
+    private val nestedNavigator: NestedNavigator
 ) : MainNavigator {
 
     override fun openTab(tab: Tab) {
-        nestedNavController.navigateToTab(tab)
+        nestedNavigator.navigateToTab(tab)
     }
 }
 
 @Composable
 internal fun rememberMainNavigator(): MainNavigator {
-    val nestedNavController = LocalNestedNavController.current
+    val nestedNavController = LocalNestedNavigator.current
     return remember {
         MainNavigatorImpl(nestedNavController)
     }

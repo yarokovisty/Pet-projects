@@ -1,30 +1,13 @@
 package org.pet.project.rickandmorty.feature.episode.impl.navigation
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
-import org.pet.project.rickandmorty.core.navigation.GlobalNavController
-import org.pet.project.rickandmorty.core.navigation.LocalGlobalNavController
+import org.pet.project.rickandmorty.core.navigation.navigator.GlobalNavigator
+import org.pet.project.rickandmorty.core.navigation.navigator.Navigator
 
-interface CharacterEpisodeNavigator {
+class CharacterEpisodeNavigator(private val globalNavigator: GlobalNavigator) : Navigator {
 
-    fun back()
-}
-
-class CharacterEpisodeNavigatorImpl(
-    private val globalNavController: GlobalNavController
-) : CharacterEpisodeNavigator {
-
-    override fun back() {
-        globalNavController.back()
-    }
-}
-
-@Composable
-fun rememberEpisodeNavigator(): CharacterEpisodeNavigator {
-    val globalNavController = LocalGlobalNavController.current
-    return remember {
-        CharacterEpisodeNavigatorImpl(globalNavController)
+    fun back() {
+        globalNavigator.back()
     }
 }
 

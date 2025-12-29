@@ -4,7 +4,7 @@ import org.pet.project.rickandmorty.app.presentation.event.MainEvent
 import org.pet.project.rickandmorty.app.presentation.intent.MainIntent
 import org.pet.project.rickandmorty.app.presentation.state.MainState
 import org.pet.project.rickandmorty.common.presentation.BaseViewModel
-import org.pet.project.rickandmorty.core.navigation.Tab
+import org.pet.project.rickandmorty.core.navigation.destination.Tab
 
 internal class MainViewModel : BaseViewModel<MainState, MainIntent, MainEvent>() {
 

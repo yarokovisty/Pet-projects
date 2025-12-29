@@ -11,12 +11,12 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
-import org.pet.project.rickandmorty.core.navigation.Tab
+import org.pet.project.rickandmorty.core.navigation.navigator.LocalNestedNavigator
+import org.pet.project.rickandmorty.core.navigation.destination.Tab
 
 @Composable
 internal fun AppNavigationBar(onClick: (Tab) -> Unit) {
-    val nestedNavController = LocalNestedNavController.current
+    val nestedNavController = LocalNestedNavigator.current
     val navBackStackEntry by nestedNavController.navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 

@@ -1,8 +1,8 @@
 package org.pet.project.rickandmorty.feature.character.api.navigation
 
 import kotlinx.serialization.Serializable
-import org.pet.project.rickandmorty.core.navigation.Route
-import org.pet.project.rickandmorty.core.navigation.Tab
+import org.pet.project.rickandmorty.core.navigation.destination.Route
+import org.pet.project.rickandmorty.core.navigation.destination.Tab
 
 @Serializable
 object CharacterTab : Tab

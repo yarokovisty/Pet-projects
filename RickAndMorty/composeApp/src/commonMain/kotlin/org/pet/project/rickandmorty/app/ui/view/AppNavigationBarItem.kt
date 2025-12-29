@@ -2,7 +2,7 @@ package org.pet.project.rickandmorty.app.ui.view
 
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
-import org.pet.project.rickandmorty.core.navigation.Tab
+import org.pet.project.rickandmorty.core.navigation.destination.Tab
 import org.pet.project.rickandmorty.feature.character.api.navigation.CharacterSearchTab
 import org.pet.project.rickandmorty.feature.character.api.navigation.CharacterTab
 import org.pet.project.rickandmorty.feature.episode.api.navigation.EpisodeTab

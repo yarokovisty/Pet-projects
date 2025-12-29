@@ -17,17 +17,17 @@ import org.pet.project.rickandmorty.app.presentation.event.MainEvent
 import org.pet.project.rickandmorty.app.presentation.intent.MainIntent
 import org.pet.project.rickandmorty.app.presentation.viewmodel.MainViewModel
 import org.pet.project.rickandmorty.app.ui.view.AppNavigationBar
-import org.pet.project.rickandmorty.core.navigation.LocalNestedNavController
-import org.pet.project.rickandmorty.core.navigation.rememberNestedNavController
+import org.pet.project.rickandmorty.core.navigation.navigator.LocalNestedNavigator
+import org.pet.project.rickandmorty.core.navigation.navigator.rememberNestedNavigator
 import org.pet.project.rickandmorty.util.observe
 
 @Composable
 internal fun MainScreen() {
-    val nestedNavController = rememberNestedNavController()
+    val nestedNavController = rememberNestedNavigator()
     val viewModel = viewModel { MainViewModel() }
     val event = viewModel.event
 
-    CompositionLocalProvider(LocalNestedNavController provides nestedNavController) {
+    CompositionLocalProvider(LocalNestedNavigator provides nestedNavController) {
         MainScreen(
             event = event,
             onIntent = viewModel::onIntent

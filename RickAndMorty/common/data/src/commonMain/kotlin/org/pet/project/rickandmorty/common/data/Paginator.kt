@@ -35,11 +35,15 @@ abstract class Paginator<Key, Item>(initialKey: Key) {
             currentKey = getNextKey(currentKey, item)
             _paginationFlow.value = PaginatorState.Success(item)
 
-            if (checkEndReached(currentKey, item)) {
-                _paginationFlow.value = PaginatorState.End
-            }
+            updateStateIfEndReached(item)
         }.onFailure { t ->
             _paginationFlow.update { PaginatorState.Error(t) }
+        }
+    }
+
+    private fun updateStateIfEndReached(lastItem: Item) {
+        if (checkEndReached(currentKey, lastItem)) {
+            _paginationFlow.value = PaginatorState.End
         }
     }
 }
