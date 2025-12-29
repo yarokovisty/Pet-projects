@@ -11,7 +11,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.Flow
-import org.pet.project.rickandmorty.app.navigation.NestedNavGraph
+import org.pet.project.rickandmorty.app.navigation.nested.NestedNavGraph
 import org.pet.project.rickandmorty.app.navigation.main.rememberMainNavigator
 import org.pet.project.rickandmorty.app.presentation.event.MainEvent
 import org.pet.project.rickandmorty.app.presentation.intent.MainIntent
