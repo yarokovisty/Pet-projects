@@ -6,7 +6,9 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.pet.project.rickandmorty.core.navigation.destination.Route
+import org.pet.project.rickandmorty.navigation.ksp.annotation.ScreenNavigator
 
+@ScreenNavigator
 class GlobalNavigator(val navController: NavHostController) {
 
     fun navigate(route: Route) {
@@ -18,13 +20,7 @@ class GlobalNavigator(val navController: NavHostController) {
     }
 }
 
-val LocalGlobalNavigator = staticCompositionLocalOf<GlobalNavigator> {
-    error("GlobalNavController not provided")
-}
-
 @Composable
 fun rememberGlobalNavigator(navHostController: NavHostController = rememberNavController()): GlobalNavigator {
-    return remember {
-        GlobalNavigator(navHostController)
-    }
+    return remember { GlobalNavigator(navHostController) }
 }

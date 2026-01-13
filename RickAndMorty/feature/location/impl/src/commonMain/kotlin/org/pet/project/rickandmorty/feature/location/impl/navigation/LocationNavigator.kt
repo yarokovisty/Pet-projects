@@ -1,16 +1,21 @@
 package org.pet.project.rickandmorty.feature.location.impl.navigation
 
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import org.pet.project.rickandmorty.core.navigation.navigator.GlobalNavigator
+import org.pet.project.rickandmorty.core.navigation.navigator.LocalGlobalNavigator
 import org.pet.project.rickandmorty.core.navigation.navigator.Navigator
 
-class LocationNavigator(private val globalNavController: GlobalNavigator) : Navigator {
+internal class LocationNavigator(private val globalNavController: GlobalNavigator) : Navigator {
 
     fun back() {
         globalNavController.back()
     }
 }
 
-val LocalLocationNavigator = staticCompositionLocalOf<LocationNavigator> {
-    error("LocationNavigator not provided")
+@Composable
+internal fun rememberLocationNavigator(): LocationNavigator {
+    val globalNavigator = LocalGlobalNavigator.current
+
+    return remember { LocationNavigator(globalNavigator) }
 }

@@ -1,13 +1,16 @@
 package org.pet.project.rickandmorty.feature.character.impl.navigation
 
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import org.pet.project.rickandmorty.core.navigation.navigator.GlobalNavigator
+import org.pet.project.rickandmorty.core.navigation.navigator.LocalGlobalNavigator
+import org.pet.project.rickandmorty.core.navigation.navigator.LocalNestedNavigator
 import org.pet.project.rickandmorty.core.navigation.navigator.Navigator
 import org.pet.project.rickandmorty.core.navigation.navigator.NestedNavigator
 import org.pet.project.rickandmorty.feature.episode.api.navigation.CharacterEpisodeRoute
 import org.pet.project.rickandmorty.feature.location.api.navigation.LocationItemRoute
 
-class CharacterItemNavigator(
+internal class CharacterItemNavigator(
     private val globalNavigator: GlobalNavigator,
     private val nestedNavigator: NestedNavigator
 ) : Navigator {
@@ -25,6 +28,10 @@ class CharacterItemNavigator(
     }
 }
 
-val LocalCharacterItemNavigator = staticCompositionLocalOf<CharacterItemNavigator> {
-    error("CharacterNavigator not provided")
+@Composable
+internal fun rememberCharacterItemNavigator(): CharacterItemNavigator {
+    val globalNavigator = LocalGlobalNavigator.current
+    val nestedNavigator = LocalNestedNavigator.current
+
+    return remember { CharacterItemNavigator(globalNavigator, nestedNavigator) }
 }

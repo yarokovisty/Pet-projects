@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import org.koin.compose.viewmodel.koinViewModel
 import org.pet.project.rickandmorty.design.component.AppSpacer
 import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterSearchNavigator
-import org.pet.project.rickandmorty.feature.character.impl.navigation.LocalCharacterSearchNavigator
+import org.pet.project.rickandmorty.feature.character.impl.navigation.rememberCharacterSearchNavigator
 import org.pet.project.rickandmorty.feature.character.impl.presentation.event.CharacterSearchEvent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.CharacterSearchIntent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.CharacterSearchState
@@ -24,21 +24,21 @@ internal fun CharacterSearchScreen() {
     val viewModel = koinViewModel<CharacterSearchViewModel>()
     val state by viewModel.state.collectAsState()
     val event = viewModel.event
-    val navigator = LocalCharacterSearchNavigator.current
+    val navigator = rememberCharacterSearchNavigator()
 
     CharacterSearchScreen(
+        navigator = navigator,
         state = state,
         event = event,
-        navigator = navigator,
         onIntent = viewModel::onIntent
     )
 }
 
 @Composable
 private fun CharacterSearchScreen(
+    navigator: CharacterSearchNavigator,
     state: CharacterSearchState,
     event: Flow<CharacterSearchEvent>,
-    navigator: CharacterSearchNavigator,
     onIntent: (CharacterSearchIntent) -> Unit,
 ) {
     Column {

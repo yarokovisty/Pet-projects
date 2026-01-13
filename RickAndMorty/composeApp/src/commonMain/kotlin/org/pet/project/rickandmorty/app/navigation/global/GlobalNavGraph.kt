@@ -10,14 +10,12 @@ import org.pet.project.rickandmorty.feature.location.impl.navigation.locationScr
 
 @Composable
 fun GlobalNavGraph() {
-    GlobalLocalProvider {
-        NavHost(
-            navController = LocalGlobalNavigator.current.navController,
-            startDestination = MainRoute
-        ) {
-            mainGraph()
-            locationScreen()
-            characterEpisodeScreen()
-        }
+    NavHost(
+        navController = LocalGlobalNavigator.current.navController,
+        startDestination = MainRoute
+    ) {
+        mainGraph()
+        locationScreen()
+        characterEpisodeScreen()
     }
 }

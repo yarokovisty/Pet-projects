@@ -25,9 +25,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.feature.character.api)
-            implementation(projects.feature.episode.api)
-
             implementation(projects.common.data)
             implementation(projects.common.presentation)
             implementation(projects.core.dispatchers)
@@ -35,6 +32,8 @@ kotlin {
             implementation(projects.core.network)
             implementation(projects.design.component)
             implementation(projects.design.resources)
+            implementation(projects.feature.character.api)
+            implementation(projects.feature.episode.api)
             implementation(projects.feature.location.api)
             implementation(projects.library.result)
             implementation(projects.util)

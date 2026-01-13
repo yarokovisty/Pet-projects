@@ -21,6 +21,8 @@ listOf(
     ":feature:location:impl",
 
     ":library:logger",
+    ":library:navigation-ksp:annotation",
+    ":library:navigation-ksp:processor",
     ":library:result",
 
     ":util",

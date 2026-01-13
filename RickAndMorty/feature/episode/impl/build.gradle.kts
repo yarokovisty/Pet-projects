@@ -25,15 +25,14 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.feature.character.api)
-            implementation(projects.feature.episode.api)
-
             implementation(projects.design.component)
             implementation(projects.design.resources)
             implementation(projects.common.data)
             implementation(projects.common.presentation)
             implementation(projects.core.navigation)
             implementation(projects.core.network)
+            implementation(projects.feature.character.api)
+            implementation(projects.feature.episode.api)
             implementation(projects.library.result)
             implementation(projects.util)
 

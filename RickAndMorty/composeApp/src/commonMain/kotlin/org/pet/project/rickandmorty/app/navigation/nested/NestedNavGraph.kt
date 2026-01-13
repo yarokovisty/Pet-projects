@@ -11,15 +11,13 @@ import org.pet.project.rickandmorty.feature.episode.impl.navigation.episodeGraph
 
 @Composable
 fun NestedNavGraph(modifier: Modifier = Modifier) {
-    NestedLocalProvider {
-        NavHost(
-            navController = LocalNestedNavigator.current.navController,
-            startDestination = CharacterTab,
-            modifier = modifier
-        ) {
-            characterGraph()
-            episodeGraph()
-            characterSearchGraph()
-        }
+    NavHost(
+        navController = LocalNestedNavigator.current.navController,
+        startDestination = CharacterTab,
+        modifier = modifier
+    ) {
+        characterGraph()
+        episodeGraph()
+        characterSearchGraph()
     }
 }
