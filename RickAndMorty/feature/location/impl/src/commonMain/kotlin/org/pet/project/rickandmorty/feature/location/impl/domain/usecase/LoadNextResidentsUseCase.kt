@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.feature.location.api.domain.usecase
+package org.pet.project.rickandmorty.feature.location.impl.domain.usecase
 
 import org.pet.project.rickandmorty.feature.location.api.domain.entity.Resident
 import org.pet.project.rickandmorty.feature.location.api.domain.repository.LocationRepository

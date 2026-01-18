@@ -13,8 +13,6 @@ import org.pet.project.rickandmorty.library.logger.PlatformLogger
 
 val client: HttpClient by lazy {
     HttpClient {
-        expectSuccess = false
-
         defaultRequest {
             url(BASE_URL)
         }

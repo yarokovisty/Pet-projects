@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.feature.character.api.domain.usecase
+package org.pet.project.rickandmorty.feature.character.impl.domain.usecase
 
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Character
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.CharacterFilter

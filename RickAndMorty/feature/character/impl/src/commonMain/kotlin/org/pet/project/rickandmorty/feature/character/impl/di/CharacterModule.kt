@@ -7,8 +7,8 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.pet.project.rickandmorty.core.dispatchers.AppDispatchers
 import org.pet.project.rickandmorty.feature.character.api.domain.repository.CharacterRepository
-import org.pet.project.rickandmorty.feature.character.api.domain.usecase.FilterCharacterUseCase
-import org.pet.project.rickandmorty.feature.character.api.domain.usecase.GetCountCharacterByFilterUseCase
+import org.pet.project.rickandmorty.feature.character.impl.domain.usecase.FilterCharacterUseCase
+import org.pet.project.rickandmorty.feature.character.impl.domain.usecase.GetCountCharacterByFilterUseCase
 import org.pet.project.rickandmorty.feature.character.impl.data.datasource.RemoteCharacterDataSource
 import org.pet.project.rickandmorty.feature.character.impl.data.datasource.RemoteCharacterDataSourceImpl
 import org.pet.project.rickandmorty.feature.character.impl.data.paginator.CharacterPaginator

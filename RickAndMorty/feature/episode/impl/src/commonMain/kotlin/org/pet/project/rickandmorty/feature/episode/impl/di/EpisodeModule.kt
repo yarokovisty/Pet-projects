@@ -6,7 +6,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.pet.project.rickandmorty.feature.episode.api.domain.repository.EpisodeRepository
-import org.pet.project.rickandmorty.feature.episode.api.domain.usecase.GetEpisodesUseCase
+import org.pet.project.rickandmorty.feature.episode.impl.domain.usecase.GetEpisodesUseCase
 import org.pet.project.rickandmorty.feature.episode.impl.data.datasource.EpisodeRemoteDataSource
 import org.pet.project.rickandmorty.feature.episode.impl.data.datasource.EpisodeRemoteDataSourceImpl
 import org.pet.project.rickandmorty.feature.episode.impl.data.paginator.EpisodePaginator

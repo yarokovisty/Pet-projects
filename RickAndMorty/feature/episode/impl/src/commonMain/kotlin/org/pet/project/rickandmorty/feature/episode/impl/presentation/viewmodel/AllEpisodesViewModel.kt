@@ -5,7 +5,7 @@ import org.pet.project.rickandmorty.common.presentation.BaseViewModel
 import org.pet.project.rickandmorty.feature.episode.api.domain.entity.Episode
 import org.pet.project.rickandmorty.feature.episode.api.domain.entity.EpisodeState
 import org.pet.project.rickandmorty.feature.episode.api.domain.repository.EpisodeRepository
-import org.pet.project.rickandmorty.feature.episode.api.domain.usecase.GetEpisodesUseCase
+import org.pet.project.rickandmorty.feature.episode.impl.domain.usecase.GetEpisodesUseCase
 import org.pet.project.rickandmorty.feature.episode.impl.presentation.event.AllEpisodesEvent
 import org.pet.project.rickandmorty.feature.episode.impl.presentation.intent.AllEpisodesIntent
 import org.pet.project.rickandmorty.feature.episode.impl.presentation.state.AllEpisodesState

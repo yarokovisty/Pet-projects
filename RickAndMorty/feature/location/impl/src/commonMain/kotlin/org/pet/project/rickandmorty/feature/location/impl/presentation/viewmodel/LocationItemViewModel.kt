@@ -5,7 +5,7 @@ import org.pet.project.rickandmorty.feature.location.api.domain.entity.Location
 import org.pet.project.rickandmorty.feature.location.api.domain.entity.Resident
 import org.pet.project.rickandmorty.feature.location.api.domain.entity.ResidentState
 import org.pet.project.rickandmorty.feature.location.api.domain.repository.LocationRepository
-import org.pet.project.rickandmorty.feature.location.api.domain.usecase.LoadNextResidentsUseCase
+import org.pet.project.rickandmorty.feature.location.impl.domain.usecase.LoadNextResidentsUseCase
 import org.pet.project.rickandmorty.feature.location.impl.presentation.event.LocationItemEvent
 import org.pet.project.rickandmorty.feature.location.impl.presentation.intent.LocationItemIntent
 import org.pet.project.rickandmorty.feature.location.impl.presentation.state.LocationItemState

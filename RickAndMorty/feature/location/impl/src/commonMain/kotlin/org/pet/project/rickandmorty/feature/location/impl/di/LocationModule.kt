@@ -6,7 +6,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.pet.project.rickandmorty.feature.location.api.domain.repository.LocationRepository
-import org.pet.project.rickandmorty.feature.location.api.domain.usecase.LoadNextResidentsUseCase
+import org.pet.project.rickandmorty.feature.location.impl.domain.usecase.LoadNextResidentsUseCase
 import org.pet.project.rickandmorty.feature.location.impl.data.datasource.RemoteLocationDataSource
 import org.pet.project.rickandmorty.feature.location.impl.data.datasource.RemoteLocationDataSourceImpl
 import org.pet.project.rickandmorty.feature.location.impl.data.paginator.ResidentsPaginator

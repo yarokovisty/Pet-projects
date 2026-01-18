@@ -1,4 +1,4 @@
-package org.pet.project.rickandmorty.feature.character.api.domain.usecase
+package org.pet.project.rickandmorty.feature.character.impl.domain.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext

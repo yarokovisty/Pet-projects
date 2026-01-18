@@ -13,8 +13,8 @@ import org.pet.project.rickandmorty.feature.character.api.domain.entity.Filter
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Gender
 import org.pet.project.rickandmorty.feature.character.api.domain.entity.Status
 import org.pet.project.rickandmorty.feature.character.api.domain.repository.CharacterRepository
-import org.pet.project.rickandmorty.feature.character.api.domain.usecase.FilterCharacterUseCase
-import org.pet.project.rickandmorty.feature.character.api.domain.usecase.GetCountCharacterByFilterUseCase
+import org.pet.project.rickandmorty.feature.character.impl.domain.usecase.FilterCharacterUseCase
+import org.pet.project.rickandmorty.feature.character.impl.domain.usecase.GetCountCharacterByFilterUseCase
 import org.pet.project.rickandmorty.feature.character.impl.presentation.event.CharacterSearchEvent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.CharacterSearchIntent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.mapper.toFilter
