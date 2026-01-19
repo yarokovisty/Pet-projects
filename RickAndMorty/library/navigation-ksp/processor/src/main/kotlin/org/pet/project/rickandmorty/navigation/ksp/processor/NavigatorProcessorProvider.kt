@@ -4,8 +4,8 @@ import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
 
-class LocalNavigatorProcessorProvider : SymbolProcessorProvider {
+class NavigatorProcessorProvider : SymbolProcessorProvider {
 
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor =
-        LocalNavigatorProcessor(environment.codeGenerator, environment.logger)
+        NavigatorProcessor(environment.codeGenerator, environment.logger)
 }

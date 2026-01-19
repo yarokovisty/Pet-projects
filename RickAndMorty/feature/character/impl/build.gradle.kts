@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.ksp)
 }
 
 kotlin {
@@ -35,6 +36,7 @@ kotlin {
             implementation(projects.feature.character.api)
             implementation(projects.feature.episode.api)
             implementation(projects.feature.location.api)
+            implementation(projects.library.navigationKsp.annotation)
             implementation(projects.library.result)
             implementation(projects.util)
 
@@ -73,5 +75,19 @@ android {
     }
     defaultConfig {
         minSdk = libs.versions.android.min.sdk.get().toInt()
+    }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", projects.library.navigationKsp.processor)
+}
+
+kotlin.sourceSets.commonMain {
+    kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
+    if (name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
     }
 }

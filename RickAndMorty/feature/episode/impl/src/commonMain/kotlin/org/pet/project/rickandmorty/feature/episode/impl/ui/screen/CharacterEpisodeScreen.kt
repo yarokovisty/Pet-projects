@@ -18,7 +18,6 @@ import org.pet.project.rickandmorty.design.component.AppLoadingScreen
 import org.pet.project.rickandmorty.design.component.AppTitleToolbar
 import org.pet.project.rickandmorty.design.component.AppToolbarNavBackIcon
 import org.pet.project.rickandmorty.feature.episode.impl.navigation.CharacterEpisodeNavigator
-import org.pet.project.rickandmorty.feature.episode.impl.navigation.rememberCharacterEpisodeNavigator
 import org.pet.project.rickandmorty.feature.episode.impl.presentation.event.CharacterEpisodeEvent
 import org.pet.project.rickandmorty.feature.episode.impl.presentation.intent.CharacterEpisodeIntent
 import org.pet.project.rickandmorty.feature.episode.impl.presentation.state.CharacterEpisodeState
@@ -30,7 +29,7 @@ private typealias CharacterId = Int
 
 @Composable
 internal fun CharacterEpisodeScreen(id: CharacterId) {
-    val navigator = rememberCharacterEpisodeNavigator()
+    val navigator = CharacterEpisodeNavigator()
     val viewModel = koinViewModel<CharacterEpisodeViewModel> { parametersOf(id) }
     val state by viewModel.state.collectAsState()
 

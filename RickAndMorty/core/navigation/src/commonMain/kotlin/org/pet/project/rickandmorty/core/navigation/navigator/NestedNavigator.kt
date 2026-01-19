@@ -8,9 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.pet.project.rickandmorty.core.navigation.destination.Route
 import org.pet.project.rickandmorty.core.navigation.destination.Tab
-import org.pet.project.rickandmorty.navigation.ksp.annotation.ScreenNavigator
 
-@ScreenNavigator
 class NestedNavigator(val navController: NavHostController) {
     fun navigateToTab(tab: Tab) {
         navController.navigate(tab) {
@@ -33,4 +31,8 @@ class NestedNavigator(val navController: NavHostController) {
 @Composable
 fun rememberNestedNavigator(navHostController: NavHostController = rememberNavController()): NestedNavigator {
     return remember { NestedNavigator(navHostController) }
+}
+
+val LocalNestedNavigator = staticCompositionLocalOf<NestedNavigator> {
+    error("NestedNavigator not provided")
 }

@@ -1,15 +1,13 @@
 package org.pet.project.rickandmorty.feature.character.impl.navigation
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import org.pet.project.rickandmorty.core.navigation.navigator.GlobalNavigator
-import org.pet.project.rickandmorty.core.navigation.navigator.LocalGlobalNavigator
-import org.pet.project.rickandmorty.core.navigation.navigator.LocalNestedNavigator
 import org.pet.project.rickandmorty.core.navigation.navigator.Navigator
 import org.pet.project.rickandmorty.core.navigation.navigator.NestedNavigator
 import org.pet.project.rickandmorty.feature.episode.api.navigation.CharacterEpisodeRoute
 import org.pet.project.rickandmorty.feature.location.api.navigation.LocationItemRoute
+import org.pet.project.rickandmorty.navigation.ksp.annotation.ScreenNavigator
 
+@ScreenNavigator
 internal class CharacterItemNavigator(
     private val globalNavigator: GlobalNavigator,
     private val nestedNavigator: NestedNavigator
@@ -26,12 +24,4 @@ internal class CharacterItemNavigator(
     fun back() {
         nestedNavigator.back()
     }
-}
-
-@Composable
-internal fun rememberCharacterItemNavigator(): CharacterItemNavigator {
-    val globalNavigator = LocalGlobalNavigator.current
-    val nestedNavigator = LocalNestedNavigator.current
-
-    return remember { CharacterItemNavigator(globalNavigator, nestedNavigator) }
 }

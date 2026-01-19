@@ -7,7 +7,6 @@ plugins {
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlin.ksp)
 }
 
 kotlin {
@@ -26,8 +25,6 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.library.navigationKsp.annotation)
-
             implementation(compose.runtime)
             implementation(libs.compose.navigation)
             implementation(libs.kotlin.serialization.json)
@@ -45,19 +42,5 @@ android {
     }
     defaultConfig {
         minSdk = libs.versions.android.min.sdk.get().toInt()
-    }
-}
-
-dependencies {
-    add("kspCommonMainMetadata", projects.library.navigationKsp.processor)
-}
-
-kotlin.sourceSets.commonMain {
-    kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask<*>>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
     }
 }

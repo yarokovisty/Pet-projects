@@ -27,7 +27,6 @@ import org.pet.project.rickandmorty.design.component.AppErrorScreen
 import org.pet.project.rickandmorty.design.component.AppSnackbar
 import org.pet.project.rickandmorty.design.component.AppTitleToolbar
 import org.pet.project.rickandmorty.feature.character.impl.navigation.CharacterListNavigator
-import org.pet.project.rickandmorty.feature.character.impl.navigation.rememberCharacterListNavigator
 import org.pet.project.rickandmorty.feature.character.impl.presentation.event.CharacterListEvent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.intent.CharacterListIntent
 import org.pet.project.rickandmorty.feature.character.impl.presentation.state.CharacterListState
@@ -41,7 +40,7 @@ import rickandmorty.feature.character.impl.generated.resources.character_list_to
 
 @Composable
 internal fun CharacterListScreen() {
-    val navigator = rememberCharacterListNavigator()
+    val navigator = CharacterListNavigator()
     val viewModel = koinViewModel<CharacterListViewModel>()
     val state by viewModel.state.collectAsState()
 
