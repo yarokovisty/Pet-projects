@@ -51,27 +51,26 @@ internal class RemoteCharacterDataSourceImpl(
         }
     }
 
-    override suspend fun getAllCharactersByName(
-        name: String
-    ): Result<List<CharacterResponse>> = coroutineScope {
-        val params = mapOf(NAME_PARAM_KEY to name)
+    override suspend fun getAllCharactersByName(name: String): Result<List<CharacterResponse>> =
+        coroutineScope {
+            val params = mapOf(NAME_PARAM_KEY to name)
 
-        val firstPageResult = getCharactersPage(pageNumber = INITIAL_PAGE, params = params)
+            val firstPageResult = getCharactersPage(pageNumber = INITIAL_PAGE, params = params)
 
-        if (firstPageResult.isFailure()) return@coroutineScope firstPageResult
+            if (firstPageResult.isFailure()) return@coroutineScope firstPageResult
 
-        val firstPage = firstPageResult.asSuccess().value.results
-        val totalPages = firstPageResult.asSuccess().value.info.pages
+            val firstPage = firstPageResult.asSuccess().value.results
+            val totalPages = firstPageResult.asSuccess().value.info.pages
 
-        val nextPage = INITIAL_PAGE + 1
-        val pagesDeferred = (nextPage..totalPages).map { page ->
-            async { getCharactersPage(page, params) }
+            val nextPage = INITIAL_PAGE + 1
+            val pagesDeferred = (nextPage..totalPages).map { page ->
+                async { getCharactersPage(page, params) }
+            }
+            val pages = pagesDeferred
+                .awaitAll()
+                .filter { it.isSuccess() }
+                .flatMap { it.asSuccess().value.results }
+
+            Result.Success.Value(firstPage + pages)
         }
-        val pages = pagesDeferred
-            .awaitAll()
-            .filter { it.isSuccess() }
-            .flatMap { it.asSuccess().value.results }
-
-        Result.Success.Value(firstPage + pages)
-    }
 }
