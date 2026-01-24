@@ -25,6 +25,13 @@ kotlin {
     jvm()
 
     sourceSets {
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.ktor.client.mock)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.turbine)
+        }
+
         commonMain.dependencies {
             implementation(projects.common.data)
             implementation(projects.common.presentation)
