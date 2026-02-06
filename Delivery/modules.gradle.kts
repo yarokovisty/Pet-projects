@@ -1,6 +1,8 @@
 listOf(
     ":composeApp",
 
+    ":common:presentation",
+
     ":design:theme",
 
     ":util:coroutines",
