@@ -17,6 +17,7 @@ junit = "4.13.2"
 koin = "4.2.0-RC1"
 kotlin = "2.3.0"
 kotlinx-coroutines = "1.10.2"
+ktor = "3.3.1"
 material3 = "1.10.0-alpha05"
 
 [libraries]
@@ -42,6 +43,13 @@ detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", 
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
+ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines"}
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
@@ -56,3 +64,9 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 delivery-androidLibrary = { id = "org.yarokovisty.delivery.androidLibrary", version.ref = "delivery" }
 delivery-kotlinMultiplatform = { id = "org.yarokovisty.delivery.kmp", version.ref = "delivery" }
+
+[bundles]
+ktor = [
+    "ktor-client-core", "ktor-client-logging", "ktor-serialization-kotlinx-json",
+    "ktor-client-content-negotiation"
+]

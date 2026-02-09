@@ -3,6 +3,8 @@ listOf(
 
     ":common:presentation",
 
+    ":core:network",
+
     ":design:theme",
 
     ":util:coroutines",
