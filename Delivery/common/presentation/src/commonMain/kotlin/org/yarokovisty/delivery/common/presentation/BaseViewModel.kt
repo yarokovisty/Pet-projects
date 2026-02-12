@@ -2,7 +2,9 @@ package org.yarokovisty.delivery.common.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,9 +41,15 @@ abstract class BaseViewModel<S : State, I : Intent, E : Event> : ViewModel() {
         _events.emit(event)
     }
 
-    protected fun launch(block: suspend CoroutineScope.() -> Unit): Job =
-        scope.launch(block = block)
+    protected fun launch(
+        dispatcher: CoroutineDispatcher = Dispatchers.Default,
+        block: suspend CoroutineScope.() -> Unit
+    ): Job =
+        scope.launch(dispatcher = dispatcher, block = block)
 
-    protected fun launchTrying(block: suspend CoroutineScope.() -> Unit): LaunchBuilder =
-        scope.launchBuilderFrom(block = block)
+    protected fun launchTrying(
+        dispatcher: CoroutineDispatcher = Dispatchers.Default,
+        block: suspend CoroutineScope.() -> Unit
+    ): LaunchBuilder =
+        scope.launchBuilderFrom(dispatcher = dispatcher, block = block)
 }

@@ -36,6 +36,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.design.theme)
             implementation(projects.core.network)
+            implementation(projects.feature.delivery.main.impl)
 
             implementation(libs.compose.runtime)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
