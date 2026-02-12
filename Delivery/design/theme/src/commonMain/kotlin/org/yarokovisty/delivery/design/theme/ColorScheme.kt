@@ -36,6 +36,7 @@ private val deliveryLightColorScheme = DeliveryColorScheme(
     indicatorAttention = IndicatorAttention,
     indicatorPositive = IndicatorPositive,
     indicatorLight = IndicatorLight,
+    indicatorMedium = IndicatorMedium,
 )
 
 private val deliveryDarkColorScheme = DeliveryColorScheme(
@@ -60,6 +61,7 @@ private val deliveryDarkColorScheme = DeliveryColorScheme(
     indicatorAttention = IndicatorAttention,
     indicatorPositive = IndicatorPositive,
     indicatorLight = IndicatorLight,
+    indicatorMedium = IndicatorMedium,
 )
 
 @Immutable
@@ -85,4 +87,5 @@ data class DeliveryColorScheme(
     val indicatorAttention: Color,
     val indicatorPositive: Color,
     val indicatorLight: Color,
+    val indicatorMedium: Color,
 )

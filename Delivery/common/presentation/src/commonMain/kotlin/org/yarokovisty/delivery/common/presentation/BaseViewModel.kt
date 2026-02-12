@@ -24,8 +24,7 @@ abstract class BaseViewModel<S : State, I : Intent, E : Event> : ViewModel() {
     private val _events = MutableSharedFlow<E>()
     val events = _events.asSharedFlow()
 
-    protected val scope: CoroutineScope
-        get() = viewModelScope
+    protected val scope = viewModelScope
 
     protected abstract fun initState(): S
 

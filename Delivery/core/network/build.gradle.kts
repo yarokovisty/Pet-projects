@@ -12,7 +12,10 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.util.logger)
 
-            implementation(libs.bundles.ktor)
+            api(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.content.negotiation)
             implementation(libs.koin.core)
         }
         iosMain.dependencies {

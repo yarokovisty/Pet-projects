@@ -1,0 +1,149 @@
+package org.yarokovisty.delivery.feature.delivery.main.impl.data.repository
+
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import kotlinx.coroutines.test.runTest
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.DeliveryPointListResponse
+import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.DeliveryPointResponse
+import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageListResponse
+import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageResponse
+import org.yarokovisty.delivery.feature.delivery.main.impl.data.service.DeliveryService
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertFails
+
+class DeliveryRepositoryImplTest {
+
+    private val service: DeliveryService = mockk()
+    private val repository = DeliveryRepositoryImpl(service)
+
+    private val deliveryPointListResponse = DeliveryPointListResponse(
+        points = listOf(
+            DeliveryPointResponse(
+                id = "0",
+                name = "name0",
+                latitude = 0.0,
+                longitude = 0.0
+            ),
+            DeliveryPointResponse(
+                id = "1",
+                name = "name1",
+                latitude = 1.0,
+                longitude = 1.0
+            )
+        )
+    )
+    private val typePackageListResponse = TypePackageListResponse(
+        packages = listOf(
+            TypePackageResponse(
+                id = "envelope",
+                name = "name0",
+                length = 1,
+                width = 1,
+                height = 1,
+                weight = 1,
+            ),
+            TypePackageResponse(
+                id = "box-s",
+                name = "name1",
+                length = 2,
+                width = 2,
+                height = 2,
+                weight = 2,
+            ),
+        )
+    )
+
+    @Test
+    fun `get delivery points EXPECT delivery points`() = runTest {
+        val expected = listOf(
+            DeliveryPoint(
+                id = "0",
+                name = "name0",
+                latitude = 0.0,
+                longitude = 0.0
+            ),
+            DeliveryPoint(
+                id = "1",
+                name = "name1",
+                latitude = 1.0,
+                longitude = 1.0
+            )
+        )
+        coEvery { service.getDeliveryPoints() } returns deliveryPointListResponse
+
+        val actual = repository.getDeliveryPoints()
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `get delivery points EXPECT invoke get delivery points by service`() = runTest {
+        coEvery { service.getDeliveryPoints() } returns deliveryPointListResponse
+
+        repository.getDeliveryPoints()
+
+        coVerify { service.getDeliveryPoints() }
+    }
+
+    @Test
+    fun `get parcel types EXPECT parcel types`() = runTest {
+        val expected = listOf(
+            ParcelType(
+                id = "envelope",
+                type = PackageType.ENVELOPE,
+                name = "name0",
+                length = 1,
+                width = 1,
+                height = 1,
+                weight = 1,
+            ),
+            ParcelType(
+                id = "box-s",
+                type = PackageType.BOX_S,
+                name = "name1",
+                length = 2,
+                width = 2,
+                height = 2,
+                weight = 2,
+            )
+        )
+        coEvery { service.getPackageTypes() } returns typePackageListResponse
+
+        val actual = repository.getParcelTypes()
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `get parcel types EXPECT invoke get parcel types by service`() = runTest {
+        coEvery { service.getPackageTypes() } returns typePackageListResponse
+
+        repository.getParcelTypes()
+
+        coVerify { service.getPackageTypes() }
+    }
+
+    @Test
+    fun `get parcel types and id not exist in package type EXEPECT error`() = runTest {
+        val response = TypePackageListResponse(
+            packages = listOf(
+                TypePackageResponse(
+                    id = "unknown",
+                    name = "name0",
+                    length = 1,
+                    width = 1,
+                    height = 1,
+                    weight = 1,
+                )
+            )
+        )
+        coEvery { service.getPackageTypes() } returns response
+
+        assertFails { repository.getParcelTypes() }
+    }
+}

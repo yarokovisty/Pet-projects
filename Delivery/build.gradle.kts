@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
 }
 
-subprojects.onEach { project ->
+allprojects.onEach { project ->
     applyDetekt(project)
 }
 
@@ -23,7 +23,8 @@ fun applyDetekt(project: Project) {
             "src/main/kotlin",
             "src/commonMain/kotlin",
             "src/androidMain/kotlin",
-            "src/jvmMain/kotlin"
+            "src/jvmMain/kotlin",
+            "src/commonTest/kotlin",
         )
         source.setFrom(files)
 

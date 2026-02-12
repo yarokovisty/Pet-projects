@@ -1,0 +1,18 @@
+<resources>
+    <string name="title_screen">Мы доставим ваш заказ</string>
+    <string name="subtitle_screen">Отправляйте посылки в приложении Шифт Delivery</string>
+    <string name="calculator_card_title">Рассчитать доставку</string>
+    <string name="calculator_card_point_from_title">Город отправки</string>
+    <string name="calculator_card_point_to_title">Город назначения</string>
+    <string name="calculator_card_point_default_item">Выберите город</string>
+    <string name="calculator_card_package_size_title">Размер поссылки</string>
+    <string name="calculator_card_package_size_default_item">Выберите размер поссылки</string>
+    <string name="calculator_card_button_calculate">Рассчитать</string>
+
+    <string name="tracker_card_title">Отследить поссылку</string>
+    <string name="tracker_card_hint_item">Номер заказа</string>
+    <string name="tracker_card_button_find">Найти</string>
+
+    <string name="error_message_unavailable_service">Сервис временно недоступен</string>
+    <string name="error_button_repeat">Повторить</string>
+</resources>

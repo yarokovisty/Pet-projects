@@ -36,15 +36,13 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.design.theme)
             implementation(projects.core.network)
+            implementation(projects.feature.delivery.main.impl)
 
             implementation(libs.compose.runtime)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
             implementation(libs.koin.compose)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -80,10 +78,6 @@ android {
     }
 }
 
-dependencies {
-    debugImplementation(libs.compose.uiTooling)
-}
-
 compose.desktop {
     application {
         mainClass = "org.yarokovisty.delivery.MainKt"
@@ -95,3 +89,8 @@ compose.desktop {
         }
     }
 }
+
+dependencies {
+    debugImplementation(libs.compose.uiTooling)
+}
+
