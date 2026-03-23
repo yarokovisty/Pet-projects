@@ -23,7 +23,8 @@ fun PrimaryButton(
         enabled = enabled,
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = DeliveryTheme.colorScheme.brandPrimary
+            containerColor = DeliveryTheme.colorScheme.brandPrimary,
+            disabledContainerColor = DeliveryTheme.colorScheme.brandDisabled
         ),
         contentPadding = PaddingValues(16.dp),
         modifier = modifier

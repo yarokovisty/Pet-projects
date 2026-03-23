@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import org.koin.compose.viewmodel.koinViewModel
-import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.FullScreen
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryMainState
@@ -25,7 +24,7 @@ private fun DeliveryMainScreen(
     state: DeliveryMainState,
     onIntent: (DeliveryMainIntent) -> Unit
 ) {
-    FullScreen(DeliveryTheme.colorScheme.bgSecondary) {
+    FullScreen {
         if (state.error) {
             FailureScreen(onIntent)
         } else {

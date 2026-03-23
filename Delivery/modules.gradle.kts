@@ -11,6 +11,8 @@ listOf(
     ":feature:delivery:main:api",
     ":feature:delivery:main:impl",
 
+    ":libs:navigation",
+
     ":util:coroutines",
     ":util:logger",
     ":util:modifier",

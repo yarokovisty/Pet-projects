@@ -13,9 +13,9 @@ import delivery.feature.delivery.main.impl.generated.resources.tracker_card_hint
 import delivery.feature.delivery.main.impl.generated.resources.tracker_card_title
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
+import org.yarokovisty.delivery.design.uikit.DefaultCard
 import org.yarokovisty.delivery.design.uikit.InputFieldDefault
 import org.yarokovisty.delivery.design.uikit.PrimaryButton
-import org.yarokovisty.delivery.design.uikit.PrimaryCard
 import org.yarokovisty.delivery.design.uikit.TitleH2
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.TrackerContent
@@ -25,7 +25,7 @@ internal fun TrackerCard(
     state: TrackerContent,
     onIntent: (DeliveryMainIntent) -> Unit
 ) {
-    PrimaryCard(modifier = Modifier.fillMaxWidth()) {
+    DefaultCard(modifier = Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(24.dp)

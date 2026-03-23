@@ -23,8 +23,8 @@ import delivery.feature.delivery.main.impl.generated.resources.ic_pointer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
+import org.yarokovisty.delivery.design.uikit.DefaultCard
 import org.yarokovisty.delivery.design.uikit.PrimaryButton
-import org.yarokovisty.delivery.design.uikit.PrimaryCard
 import org.yarokovisty.delivery.design.uikit.SelectCategoryDefault
 import org.yarokovisty.delivery.design.uikit.TitleH2
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.DeliveryMainIntent
@@ -36,7 +36,7 @@ internal fun DeliveryCalculatorCard(
     state: DeliveryCalculatorContent,
     onIntent: (DeliveryMainIntent) -> Unit
 ) {
-    PrimaryCard(modifier = Modifier.fillMaxWidth()) {
+    DefaultCard(modifier = Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(24.dp),
@@ -89,7 +89,7 @@ internal fun DeliveryCalculatorCard(
 
 @Composable
 internal fun DeliveryCalculatorCardSkeleton() {
-    PrimaryCard(modifier = Modifier.fillMaxWidth()) {
+    DefaultCard(modifier = Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(24.dp),

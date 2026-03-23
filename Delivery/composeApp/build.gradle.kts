@@ -29,20 +29,34 @@ kotlin {
     jvm()
 
     sourceSets {
+        androidUnitTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.mockk)
+        }
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
             implementation(projects.design.theme)
+            implementation(projects.design.uikit)
+            implementation(projects.common.presentation)
             implementation(projects.core.network)
+            implementation(projects.feature.delivery.main.api)
             implementation(projects.feature.delivery.main.impl)
+            implementation(projects.libs.navigation)
 
-            implementation(libs.compose.runtime)
             implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.navigation.lifecycle)
+            implementation(libs.compose.runtime)
             implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.core)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

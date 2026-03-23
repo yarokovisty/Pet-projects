@@ -1,0 +1,5 @@
+<resources>
+    <string name="tab_text_delivery">Расчёт</string>
+    <string name="tab_text_history">История</string>
+    <string name="tab_text_profile">Профиль</string>
+</resources>

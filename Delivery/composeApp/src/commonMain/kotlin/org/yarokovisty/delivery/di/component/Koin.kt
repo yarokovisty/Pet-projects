@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import org.koin.compose.KoinApplication
 import org.koin.dsl.KoinConfiguration
 import org.koin.dsl.koinConfiguration
+import org.yarokovisty.delivery.di.module.appModule
 import org.yarokovisty.delivery.di.module.coreModule
 import org.yarokovisty.delivery.di.module.featureModule
 
@@ -15,6 +16,7 @@ fun AppComponent(content: @Composable () -> Unit) {
 private fun getKoinConfiguration(): KoinConfiguration =
     koinConfiguration {
         modules(
+            appModule,
             coreModule,
             featureModule,
         )

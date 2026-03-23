@@ -56,6 +56,11 @@ internal val deliveryTypography: DeliveryTypography
             fontWeight = FontWeight.W300,
             fontFamily = Inter()
         ),
+        tabbar = TextStyle(
+            fontSize = 12.sp,
+            fontWeight = FontWeight.W500,
+            fontFamily = Inter()
+        ),
     )
 
 @Immutable
@@ -68,4 +73,5 @@ data class DeliveryTypography(
     val titleH2: TextStyle,
     val titleH3: TextStyle,
     val titleSubtitle: TextStyle,
+    val tabbar: TextStyle,
 )

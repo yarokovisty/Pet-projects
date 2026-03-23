@@ -1,0 +1,55 @@
+package org.yarokovisty.delivery.presentation.viewmodel
+
+import org.yarokovisty.delivery.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.navigation.DeliveryTab
+import org.yarokovisty.delivery.navigation.HistoryTab
+import org.yarokovisty.delivery.navigation.ProfileTab
+import org.yarokovisty.delivery.presentation.intent.MainIntent
+import org.yarokovisty.delivery.presentation.router.MainRouter
+import org.yarokovisty.delivery.presentation.state.MainState
+import org.yarokovisty.delivery.presentation.state.MainTab
+
+class MainViewModel(
+    private val router: MainRouter
+) : BaseViewModel<MainState, MainIntent, Nothing>() {
+
+    override fun initState(): MainState =
+        MainState.INITIAL
+
+    override fun onIntent(intent: MainIntent) {
+        when (intent) {
+            is MainIntent.SwitchTab -> switchTab(intent.tab)
+            is MainIntent.Back -> back()
+        }
+    }
+
+    private fun switchTab(tab: MainTab) {
+        when (tab) {
+            MainTab.DELIVERY -> router.openDeliveryTab()
+            MainTab.HISTORY -> router.openHistoryTab()
+            MainTab.PROFILE -> router.openProfileTab()
+        }
+        changeTab()
+    }
+
+    private fun back() {
+        router.back()
+        changeTab()
+    }
+
+    private fun changeTab() {
+        val backStack = router.bottomBarBackStack.backStack.toList()
+
+        val navTab = router.bottomBarBackStack.currentTab
+        val tab = when (navTab) {
+            DeliveryTab -> MainTab.DELIVERY
+            HistoryTab -> MainTab.HISTORY
+            ProfileTab -> MainTab.PROFILE
+            else -> error("Unsupported destination tab")
+        }
+
+        updateState {
+            copy(backStack = backStack, selectedTab = tab)
+        }
+    }
+}
