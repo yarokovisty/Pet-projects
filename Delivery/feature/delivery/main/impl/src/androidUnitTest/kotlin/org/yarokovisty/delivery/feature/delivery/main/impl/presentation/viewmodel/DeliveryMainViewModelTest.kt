@@ -1,22 +1,14 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.viewmodel
 
-import app.cash.turbine.test
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.test.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.repository.DeliveryRepository
@@ -25,8 +17,8 @@ import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.D
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryCalculatorContent
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryMainState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.TrackerContent
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
+import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository
 import kotlin.test.assertEquals
 
 class MainDispatcherRule(
@@ -49,6 +41,7 @@ class DeliveryMainViewModelTest {
     }
 
     private val deliveryRepository: DeliveryRepository = mockk()
+    private val directionRepository: DirectionRepository = mockk()
     private val getAlternativeDeliveryPointsUseCase: GetAlternativeDeliveryPointsUseCase = mockk()
 
     private val points = listOf(
@@ -96,6 +89,7 @@ class DeliveryMainViewModelTest {
     private fun createViewModel() =
         DeliveryMainViewModel(
             deliveryRepository,
+            directionRepository,
             getAlternativeDeliveryPointsUseCase
         )
 
@@ -126,7 +120,7 @@ class DeliveryMainViewModelTest {
                 selectedParcelType = null
             )
         )
-        coEvery { deliveryRepository.getDeliveryPoints() } returns points
+        coEvery { directionRepository.getDeliveryPoints() } returns points
         coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 
@@ -140,7 +134,7 @@ class DeliveryMainViewModelTest {
     @Test
     fun `loading delivery points is error EXPECT error state`() = runTest {
         val expected = DeliveryMainState.INITIAL.copy(error = true)
-        coEvery { deliveryRepository.getDeliveryPoints() } throws Exception("error")
+        coEvery { directionRepository.getDeliveryPoints() } throws Exception("error")
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -153,7 +147,7 @@ class DeliveryMainViewModelTest {
     @Test
     fun `loading parcel types is error EXPECT error state`() = runTest {
         val expected = DeliveryMainState.INITIAL.copy(error = true)
-        coEvery { deliveryRepository.getDeliveryPoints() } returns points
+        coEvery { directionRepository.getDeliveryPoints() } returns points
         coEvery { deliveryRepository.getParcelTypes() } throws Exception("error")
 
         val viewModel = createViewModel()
@@ -179,7 +173,7 @@ class DeliveryMainViewModelTest {
             trackerContent = TrackerContent("1")
         )
         val intent = DeliveryMainIntent.ChangeInputParcelId("1")
-        coEvery { deliveryRepository.getDeliveryPoints() } returns points
+        coEvery { directionRepository.getDeliveryPoints() } returns points
         coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 

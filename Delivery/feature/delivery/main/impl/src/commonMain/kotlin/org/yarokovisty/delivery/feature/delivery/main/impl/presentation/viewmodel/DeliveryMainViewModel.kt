@@ -10,9 +10,11 @@ import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.ch
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.contentState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.errorState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.loadingState
+import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository
 
 internal class DeliveryMainViewModel(
     private val deliveryRepository: DeliveryRepository,
+    private val directionRepository: DirectionRepository,
     private val getAlternativeDeliveryPointsUseCase: GetAlternativeDeliveryPointsUseCase,
 ) : BaseViewModel<DeliveryMainState, DeliveryMainIntent, Nothing>() {
 
@@ -41,7 +43,7 @@ internal class DeliveryMainViewModel(
         updateState { loadingState() }
 
         launchTrying {
-            val deliveryPointsDeferred = async { deliveryRepository.getDeliveryPoints() }
+            val deliveryPointsDeferred = async { directionRepository.getDeliveryPoints() }
             val parcelTypesDeferred = async { deliveryRepository.getParcelTypes() }
 
             val deliveryPoints = deliveryPointsDeferred.await()

@@ -8,6 +8,8 @@ listOf(
     ":design:theme",
     ":design:uikit",
 
+    ":feature:delivery:direction:api",
+    ":feature:delivery:direction:impl",
     ":feature:delivery:main:api",
     ":feature:delivery:main:impl",
 

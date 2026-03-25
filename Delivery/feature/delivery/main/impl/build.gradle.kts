@@ -20,6 +20,7 @@ kotlin {
             implementation(projects.core.network)
             implementation(projects.design.theme)
             implementation(projects.design.uikit)
+            implementation(projects.feature.delivery.direction.api)
             implementation(projects.feature.delivery.main.api)
             implementation(projects.util.coroutines)
             implementation(projects.util.modifier)

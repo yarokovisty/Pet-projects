@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.delivery.main.impl.data.model
+package org.yarokovisty.delivery.feature.direction.impl.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

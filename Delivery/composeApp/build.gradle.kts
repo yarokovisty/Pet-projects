@@ -45,6 +45,8 @@ kotlin {
             implementation(projects.core.network)
             implementation(projects.feature.delivery.main.api)
             implementation(projects.feature.delivery.main.impl)
+            implementation(projects.feature.delivery.direction.api)
+            implementation(projects.feature.delivery.direction.impl)
             implementation(projects.libs.navigation)
 
             implementation(libs.androidx.lifecycle.viewmodel.compose)

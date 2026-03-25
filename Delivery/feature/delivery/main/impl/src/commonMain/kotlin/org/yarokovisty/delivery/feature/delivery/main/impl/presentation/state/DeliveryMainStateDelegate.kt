@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state
 
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 
 internal fun loadingState(): DeliveryMainState =
     DeliveryMainState.INITIAL.copy(loading = true)

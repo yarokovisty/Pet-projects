@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase
 
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 
 internal class GetAlternativeDeliveryPointsUseCase {
 
@@ -9,6 +9,6 @@ internal class GetAlternativeDeliveryPointsUseCase {
     }
 
     operator fun invoke(points: List<DeliveryPoint>): List<DeliveryPoint> = runCatching {
-        points.take(ALTERNATIVE_POINTS_LIMIT)
+        points.subList(0, ALTERNATIVE_POINTS_LIMIT)
     }.getOrNull() ?: emptyList()
 }

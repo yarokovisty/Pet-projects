@@ -4,11 +4,8 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
-import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.DeliveryPointListResponse
-import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.DeliveryPointResponse
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageListResponse
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageResponse
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.service.DeliveryService
@@ -21,22 +18,7 @@ class DeliveryRepositoryImplTest {
     private val service: DeliveryService = mockk()
     private val repository = DeliveryRepositoryImpl(service)
 
-    private val deliveryPointListResponse = DeliveryPointListResponse(
-        points = listOf(
-            DeliveryPointResponse(
-                id = "0",
-                name = "name0",
-                latitude = 0.0,
-                longitude = 0.0
-            ),
-            DeliveryPointResponse(
-                id = "1",
-                name = "name1",
-                latitude = 1.0,
-                longitude = 1.0
-            )
-        )
-    )
+
     private val typePackageListResponse = TypePackageListResponse(
         packages = listOf(
             TypePackageResponse(
@@ -57,38 +39,6 @@ class DeliveryRepositoryImplTest {
             ),
         )
     )
-
-    @Test
-    fun `get delivery points EXPECT delivery points`() = runTest {
-        val expected = listOf(
-            DeliveryPoint(
-                id = "0",
-                name = "name0",
-                latitude = 0.0,
-                longitude = 0.0
-            ),
-            DeliveryPoint(
-                id = "1",
-                name = "name1",
-                latitude = 1.0,
-                longitude = 1.0
-            )
-        )
-        coEvery { service.getDeliveryPoints() } returns deliveryPointListResponse
-
-        val actual = repository.getDeliveryPoints()
-
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun `get delivery points EXPECT invoke get delivery points by service`() = runTest {
-        coEvery { service.getDeliveryPoints() } returns deliveryPointListResponse
-
-        repository.getDeliveryPoints()
-
-        coVerify { service.getDeliveryPoints() }
-    }
 
     @Test
     fun `get parcel types EXPECT parcel types`() = runTest {
