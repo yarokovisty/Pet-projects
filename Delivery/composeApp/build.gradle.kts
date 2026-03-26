@@ -42,6 +42,7 @@ kotlin {
             implementation(projects.design.theme)
             implementation(projects.design.uikit)
             implementation(projects.common.presentation)
+            implementation(projects.core.coroutines)
             implementation(projects.core.network)
             implementation(projects.feature.delivery.main.api)
             implementation(projects.feature.delivery.main.impl)

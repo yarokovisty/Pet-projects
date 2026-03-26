@@ -3,36 +3,26 @@ package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.viewmod
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.*
+import io.mockk.verify
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.repository.DeliveryRepository
 import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetAlternativeDeliveryPointsUseCase
+import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetDeliveryPointByNameUseCase
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.DeliveryMainIntent
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.router.DeliveryRouter
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryCalculatorContent
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryMainState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.TrackerContent
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.feature.direction.api.domain.entity.DirectionType
 import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository
+import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import kotlin.test.assertEquals
-
-class MainDispatcherRule(
-    val dispatcher: TestDispatcher = StandardTestDispatcher()
-) : TestWatcher() {
-
-    override fun starting(description: Description) {
-        Dispatchers.setMain(dispatcher)
-    }
-
-    override fun finished(description: Description) {
-        Dispatchers.resetMain()
-    }
-}
 
 class DeliveryMainViewModelTest {
 
@@ -43,6 +33,8 @@ class DeliveryMainViewModelTest {
     private val deliveryRepository: DeliveryRepository = mockk()
     private val directionRepository: DirectionRepository = mockk()
     private val getAlternativeDeliveryPointsUseCase: GetAlternativeDeliveryPointsUseCase = mockk()
+    private val getDeliveryPointByNameUseCase: GetDeliveryPointByNameUseCase = mockk()
+    private val router = mockk<DeliveryRouter>(relaxed = true)
 
     private val points = listOf(
         DeliveryPoint(
@@ -90,7 +82,9 @@ class DeliveryMainViewModelTest {
         DeliveryMainViewModel(
             deliveryRepository,
             directionRepository,
-            getAlternativeDeliveryPointsUseCase
+            getAlternativeDeliveryPointsUseCase,
+            getDeliveryPointByNameUseCase,
+            router
         )
 
     @get:Rule
@@ -139,7 +133,6 @@ class DeliveryMainViewModelTest {
         val viewModel = createViewModel()
         advanceUntilIdle()
 
-
         val actual = viewModel.state.value
         assertEquals(expected, actual)
     }
@@ -183,5 +176,93 @@ class DeliveryMainViewModelTest {
 
         val actual = viewModel.state.value
         assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `select alternative delivery point from EXPECT selected point from updated`() = runTest {
+        val selectedPoint = points[1]
+        val alternativePointsUI = alternativePoints.map { it.name }
+        val expected = DeliveryMainState.INITIAL.copy(
+            deliveryCalculatorContent = DeliveryCalculatorContent(
+                points = points,
+                selectedPointFrom = selectedPoint,
+                alternativePointsFrom = alternativePointsUI,
+                selectedPointTo = null,
+                alternativePointsTo = alternativePointsUI,
+                parcelTypes = parcelTypes,
+                selectedParcelType = null
+            )
+        )
+        val intent = DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(selectedPoint.name)
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPoint.name) } returns selectedPoint
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(intent)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `select alternative delivery point to EXPECT selected point to updated`() = runTest {
+        val selectedPoint = points[2]
+        val alternativePointsUI = alternativePoints.map { it.name }
+        val expected = DeliveryMainState.INITIAL.copy(
+            deliveryCalculatorContent = DeliveryCalculatorContent(
+                points = points,
+                selectedPointFrom = null,
+                alternativePointsFrom = alternativePointsUI,
+                selectedPointTo = selectedPoint,
+                alternativePointsTo = alternativePointsUI,
+                parcelTypes = parcelTypes,
+                selectedParcelType = null
+            )
+        )
+        val intent = DeliveryMainIntent.SelectAlternativeDeliveryPointTo(selectedPoint.name)
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPoint.name) } returns selectedPoint
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(intent)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `select delivery point from EXPECT router opens direction screen with FROM type`() = runTest {
+        val intent = DeliveryMainIntent.SelectDeliveryPointFrom
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        viewModel.onIntent(intent)
+        advanceUntilIdle()
+
+        verify { router.openDirectionScreen(DirectionType.FROM) }
+    }
+
+    @Test
+    fun `select delivery point to EXPECT router opens direction screen with TO type`() = runTest {
+        val intent = DeliveryMainIntent.SelectDeliveryPointTo
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        viewModel.onIntent(intent)
+        advanceUntilIdle()
+
+        verify { router.openDirectionScreen(DirectionType.TO) }
     }
 }

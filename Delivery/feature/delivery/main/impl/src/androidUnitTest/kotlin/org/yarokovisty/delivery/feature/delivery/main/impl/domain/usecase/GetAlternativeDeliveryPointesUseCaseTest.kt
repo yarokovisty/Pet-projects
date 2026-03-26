@@ -23,7 +23,6 @@ class GetAlternativeDeliveryPointesUseCaseTest {
             DeliveryPoint("4", "name4", 4.0, 4.0)
         )
 
-
         val actual = getAlternativeDeliveryPointsUseCase(points)
 
         assertEquals(expected, actual)

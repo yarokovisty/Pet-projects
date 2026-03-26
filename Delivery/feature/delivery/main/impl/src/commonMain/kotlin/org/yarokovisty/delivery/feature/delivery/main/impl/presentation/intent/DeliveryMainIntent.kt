@@ -6,9 +6,9 @@ internal sealed interface DeliveryMainIntent : Intent {
     object LoadData : DeliveryMainIntent
 
     object SelectDeliveryPointFrom : DeliveryMainIntent
-    class SelectAlternativeDeliveryPointFrom(val name: String) : DeliveryMainIntent
+    class SelectAlternativeDeliveryPointFrom(val pointName: String) : DeliveryMainIntent
     object SelectDeliveryPointTo : DeliveryMainIntent
-    class SelectAlternativeDeliveryPointTo(val name: String) : DeliveryMainIntent
+    class SelectAlternativeDeliveryPointTo(val pointName: String) : DeliveryMainIntent
     object SelectParcelType : DeliveryMainIntent
     object CalculateDelivery : DeliveryMainIntent
 

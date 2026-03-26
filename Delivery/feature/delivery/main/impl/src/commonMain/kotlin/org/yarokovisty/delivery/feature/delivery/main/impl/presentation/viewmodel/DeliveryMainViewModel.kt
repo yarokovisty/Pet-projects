@@ -4,34 +4,48 @@ import kotlinx.coroutines.async
 import org.yarokovisty.delivery.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.repository.DeliveryRepository
 import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetAlternativeDeliveryPointsUseCase
+import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetDeliveryPointByNameUseCase
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.DeliveryMainIntent
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.router.DeliveryRouter
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryMainState
-import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.changeTrackerState
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.changeTracker
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.contentState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.errorState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.loadingState
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.selectDeliveryPointFrom
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.selectDeliveryPointTo
+import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.feature.direction.api.domain.entity.DirectionType
 import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository
 
 internal class DeliveryMainViewModel(
     private val deliveryRepository: DeliveryRepository,
     private val directionRepository: DirectionRepository,
     private val getAlternativeDeliveryPointsUseCase: GetAlternativeDeliveryPointsUseCase,
-) : BaseViewModel<DeliveryMainState, DeliveryMainIntent, Nothing>() {
+    private val getDeliveryPointByNameUseCase: GetDeliveryPointByNameUseCase,
+    private val router: DeliveryRouter,
+) : BaseViewModel<DeliveryMainState, DeliveryMainIntent, Nothing>(DeliveryMainState.INITIAL) {
+
+    private companion object {
+
+        const val DELIVERY_POINT_SUBSCRIBE_KEY = "deliveryPoint"
+    }
 
     init {
         loadData()
     }
 
-    override fun initState(): DeliveryMainState =
-        DeliveryMainState.INITIAL
-
     override fun onIntent(intent: DeliveryMainIntent) {
         when (intent) {
             DeliveryMainIntent.LoadData -> loadData()
-            DeliveryMainIntent.SelectDeliveryPointFrom -> TODO()
-            is DeliveryMainIntent.SelectAlternativeDeliveryPointFrom -> TODO()
-            DeliveryMainIntent.SelectDeliveryPointTo -> TODO()
-            is DeliveryMainIntent.SelectAlternativeDeliveryPointTo -> TODO()
+            DeliveryMainIntent.SelectDeliveryPointFrom -> openDirectionFromScreen()
+            is DeliveryMainIntent.SelectAlternativeDeliveryPointFrom ->
+                selectAlternativeDeliveryPointFrom(intent.pointName)
+
+            DeliveryMainIntent.SelectDeliveryPointTo -> openDirectionToScreen()
+            is DeliveryMainIntent.SelectAlternativeDeliveryPointTo ->
+                selectAlternativeDeliveryPointTo(intent.pointName)
+
             DeliveryMainIntent.SelectParcelType -> TODO()
             DeliveryMainIntent.CalculateDelivery -> TODO()
             is DeliveryMainIntent.ChangeInputParcelId -> changeInputParcelId(intent.id)
@@ -56,11 +70,46 @@ internal class DeliveryMainViewModel(
             }
         } handle { handleError() }
     }
+
     private fun handleError() {
         updateState { errorState() }
     }
 
     private fun changeInputParcelId(id: String) {
-        updateState { changeTrackerState(id) }
+        updateState { changeTracker(id) }
+    }
+
+    private fun openDirectionFromScreen() {
+        launch {
+            val point = awaitResult<DeliveryPoint>(DELIVERY_POINT_SUBSCRIBE_KEY)
+            updateState { selectDeliveryPointFrom(point) }
+        }
+        router.openDirectionScreen(DirectionType.FROM)
+    }
+
+    private fun selectAlternativeDeliveryPointFrom(pointName: String) {
+        val content = stateValue.deliveryCalculatorContent ?: return
+
+        launch {
+            val selectedPoint = getDeliveryPointByNameUseCase(content.points, pointName)
+            updateState { selectDeliveryPointFrom(selectedPoint) }
+        }
+    }
+
+    private fun openDirectionToScreen() {
+        launch {
+            val point = awaitResult<DeliveryPoint>(DELIVERY_POINT_SUBSCRIBE_KEY)
+            updateState { selectDeliveryPointTo(point) }
+        }
+        router.openDirectionScreen(DirectionType.TO)
+    }
+
+    private fun selectAlternativeDeliveryPointTo(pointName: String) {
+        val content = stateValue.deliveryCalculatorContent ?: return
+
+        launch {
+            val selectedPoint = getDeliveryPointByNameUseCase(content.points, pointName)
+            updateState { selectDeliveryPointTo(selectedPoint) }
+        }
     }
 }

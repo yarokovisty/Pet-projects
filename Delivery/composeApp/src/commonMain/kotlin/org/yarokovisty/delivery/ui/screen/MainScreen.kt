@@ -15,7 +15,6 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import org.koin.compose.viewmodel.koinViewModel
-import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.feature.delivery.main.api.navigation.DeliveryMainDestination
 import org.yarokovisty.delivery.feature.delivery.main.impl.ui.screen.DeliveryMainScreen
 import org.yarokovisty.delivery.navigation.HistoryMainDestination
@@ -50,7 +49,7 @@ private fun MainScreen(
                 }
             )
         },
-        containerColor = DeliveryTheme.colorScheme.bgPrimary
+        contentWindowInsets = WindowInsets()
     ) { innerPadding ->
         NavDisplay(
             entryDecorators = listOf(

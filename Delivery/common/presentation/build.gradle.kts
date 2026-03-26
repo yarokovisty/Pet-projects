@@ -6,6 +6,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.libs.coordinator)
             implementation(projects.util.coroutines)
 
             implementation(libs.androidx.lifecycle.viewmodel.compose)

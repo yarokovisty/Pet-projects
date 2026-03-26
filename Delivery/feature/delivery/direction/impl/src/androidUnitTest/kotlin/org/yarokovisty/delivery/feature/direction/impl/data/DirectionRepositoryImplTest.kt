@@ -65,5 +65,4 @@ class DirectionRepositoryImplTest {
 
         coVerify { service.getDeliveryPoints() }
     }
-
 }

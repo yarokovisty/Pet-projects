@@ -18,7 +18,7 @@ class MainViewModelTest {
 
     @Test
     fun `init EXPECT initial state`() {
-        val expected = MainState.INITIAL
+        val expected = MainState.initial(bottomBarBackStack.backStack)
         val viewModel = createViewModel()
 
         val actual = viewModel.state.value

@@ -16,12 +16,14 @@ import kotlin.test.assertEquals
 
 class AppViewModelTest {
 
-    private val router: AppRouter = mockk()
     private val globalBackStack: GlobalBackStack = GlobalBackStack(MainDestination)
+    private val router: AppRouter = mockk {
+        every { this@mockk.globalBackStack } returns this@AppViewModelTest.globalBackStack
+    }
 
     @Test
     fun `init EXPECT initial state`() {
-        val expected = AppState.INITIAL
+        val expected = AppState.initial(globalBackStack.backStack)
         val viewModel = createViewModel()
 
         val actual = viewModel.state.value
@@ -32,7 +34,6 @@ class AppViewModelTest {
     @Test
     fun `back EXPECT router invoke back`() {
         every { router.back() } just Runs
-        every { router.globalBackStack } returns globalBackStack
         val viewModel = createViewModel()
 
         viewModel.onIntent(AppIntent.Back)
@@ -43,9 +44,7 @@ class AppViewModelTest {
     @Test
     fun `back EXPECT state updated with backstack`() {
         val expected = emptyList<Screen>()
-        val globalBackStack = GlobalBackStack(MainDestination)
         every { router.back() } answers { globalBackStack.pop() }
-        every { router.globalBackStack } returns globalBackStack
         val viewModel = createViewModel()
 
         viewModel.onIntent(AppIntent.Back)

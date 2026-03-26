@@ -9,13 +9,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import org.yarokovisty.delivery.libs.coordinator.Coordinator
 import org.yarokovisty.delivery.util.coroutines.LaunchBuilder
 import org.yarokovisty.delivery.util.coroutines.launch
 import org.yarokovisty.delivery.util.coroutines.launchBuilderFrom
 
-abstract class BaseViewModel<S : State, I : Intent, E : Event> : ViewModel() {
+abstract class BaseViewModel<S : State, I : Intent, E : Event>(initialState: S) : ViewModel() {
 
-    private val _state = MutableStateFlow(initState())
+    private val _state = MutableStateFlow(initialState)
     val state = _state.asStateFlow()
 
     protected val stateValue: S
@@ -25,8 +26,6 @@ abstract class BaseViewModel<S : State, I : Intent, E : Event> : ViewModel() {
     val events = _events.asSharedFlow()
 
     protected val scope = viewModelScope
-
-    protected abstract fun initState(): S
 
     protected fun updateState(block: S.() -> S) {
         _state.update(block)
@@ -43,4 +42,11 @@ abstract class BaseViewModel<S : State, I : Intent, E : Event> : ViewModel() {
 
     protected fun launchTrying(block: suspend CoroutineScope.() -> Unit): LaunchBuilder =
         scope.launchBuilderFrom(block = block)
+
+    protected suspend fun <T> publishResult(key: String, result: T) {
+        Coordinator.publish(key, result)
+    }
+
+    protected suspend fun <T> awaitResult(key: String): T =
+        Coordinator.await(key)
 }

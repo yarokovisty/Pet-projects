@@ -1,9 +1,14 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.ui.screen
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import org.koin.compose.viewmodel.koinViewModel
+import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.FullScreen
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryMainState
@@ -24,7 +29,15 @@ private fun DeliveryMainScreen(
     state: DeliveryMainState,
     onIntent: (DeliveryMainIntent) -> Unit
 ) {
-    FullScreen {
+    val containerColor = if (isSystemInDarkTheme()) {
+        DeliveryTheme.colorScheme.bgPrimary
+    } else {
+        DeliveryTheme.colorScheme.bgSecondary
+    }
+    FullScreen(
+        containerColor = containerColor,
+        paddingValues = WindowInsets.statusBars.asPaddingValues(),
+    ) {
         if (state.error) {
             FailureScreen(onIntent)
         } else {

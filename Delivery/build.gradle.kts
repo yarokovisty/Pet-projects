@@ -25,6 +25,7 @@ fun applyDetekt(project: Project) {
             "src/androidMain/kotlin",
             "src/jvmMain/kotlin",
             "src/commonTest/kotlin",
+            "src/androidUnitTest/kotlin"
         )
         source.setFrom(files)
 

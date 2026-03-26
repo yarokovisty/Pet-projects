@@ -1,0 +1,7 @@
+<resources>
+    <string name="topbar_title_from">Откуда</string>
+    <string name="topbar_title_to">Куда</string>
+
+    <string name="error_message_unavailable_service">Сервис временно недоступен</string>
+    <string name="error_button_repeat">Повторить</string>
+</resources>

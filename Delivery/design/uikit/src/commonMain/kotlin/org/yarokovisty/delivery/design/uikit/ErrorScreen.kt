@@ -88,6 +88,7 @@ private fun BoxScope.ErrorContent(message: String) {
 
         TitleH3(
             text = message,
+            color = DeliveryTheme.colorScheme.textPrimary,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)

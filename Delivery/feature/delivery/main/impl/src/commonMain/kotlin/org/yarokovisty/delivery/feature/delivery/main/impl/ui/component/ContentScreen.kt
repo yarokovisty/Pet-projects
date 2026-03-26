@@ -22,11 +22,10 @@ internal fun ContentScreen(
         }
 
         item {
-            val content = state.deliveryCalculatorContent
-
             when {
                 state.loading -> DeliveryCalculatorCardSkeleton()
-                content != null -> DeliveryCalculatorCard(content, onIntent)
+                state.deliveryCalculatorContent != null ->
+                    DeliveryCalculatorCard(state.deliveryCalculatorContent, onIntent)
             }
         }
 

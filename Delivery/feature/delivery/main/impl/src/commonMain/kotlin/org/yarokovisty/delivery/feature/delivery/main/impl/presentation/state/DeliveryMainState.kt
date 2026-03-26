@@ -30,7 +30,10 @@ internal data class DeliveryCalculatorContent(
     val alternativePointsTo: List<String>,
     val parcelTypes: List<ParcelType>,
     val selectedParcelType: ParcelType?,
-)
+) {
+    val calculateButtonEnabled: Boolean
+        get() = selectedPointFrom != null && selectedPointTo != null && selectedParcelType != null
+}
 
 internal data class TrackerContent(
     val inputIdParcel: String,

@@ -3,6 +3,7 @@ listOf(
 
     ":common:presentation",
 
+    ":core:coroutines",
     ":core:network",
 
     ":design:theme",
@@ -13,11 +14,13 @@ listOf(
     ":feature:delivery:main:api",
     ":feature:delivery:main:impl",
 
+    ":libs:coordinator",
     ":libs:navigation",
 
     ":util:coroutines",
     ":util:logger",
     ":util:modifier",
+    ":util:unit-test"
 ).forEach { module ->
     include(module)
 }

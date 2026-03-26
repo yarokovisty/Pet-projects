@@ -1,5 +1,6 @@
 package org.yarokovisty.delivery.design.uikit
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,10 +14,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,45 +63,51 @@ private fun Content(
     endIcon: Painter?,
     onClick: () -> Unit
 ) {
-    Row(
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .clickable(onClick = onClick)
-            .border(width = 1.dp, color = DeliveryTheme.colorScheme.borderLight, shape = RoundedCornerShape(8.dp))
-            .padding(start = 12.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
+            .clickable(onClick = onClick),
+        color = DeliveryTheme.colorScheme.bgPrimary,
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(width = 1.dp, color = DeliveryTheme.colorScheme.borderLight)
     ) {
-        if (startIcon != null) {
-            Icon(
-                painter = startIcon,
-                contentDescription = null,
-                modifier = Modifier.size(20.dp),
-                tint = DeliveryTheme.colorScheme.indicatorMedium
-            )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 12.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            if (startIcon != null) {
+                Icon(
+                    painter = startIcon,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp),
+                    tint = DeliveryTheme.colorScheme.indicatorMedium
+                )
 
-            HorizontalGap(4.dp)
-        }
-
-        Box(modifier = Modifier.weight(1f)) {
-            when {
-                text.isNotEmpty() ->
-                    Paragraph16Regular(text, color = DeliveryTheme.colorScheme.textSecondary)
-
-                defaultText.isNotEmpty() ->
-                    Paragraph16Regular(defaultText, color = DeliveryTheme.colorScheme.textTertiary)
+                HorizontalGap(4.dp)
             }
-        }
 
-        if (endIcon != null) {
-            HorizontalGap(8.dp)
+            Box(modifier = Modifier.weight(1f)) {
+                when {
+                    text.isNotEmpty() ->
+                        Paragraph16Regular(text, color = DeliveryTheme.colorScheme.textSecondary)
 
-            Icon(
-                painter = endIcon,
-                contentDescription = null,
-                modifier = Modifier.size(20.dp),
-                tint = DeliveryTheme.colorScheme.indicatorMedium
-            )
+                    defaultText.isNotEmpty() ->
+                        Paragraph16Regular(defaultText, color = DeliveryTheme.colorScheme.textTertiary)
+                }
+            }
+
+            if (endIcon != null) {
+                HorizontalGap(8.dp)
+
+                Icon(
+                    painter = endIcon,
+                    contentDescription = null,
+                    modifier = Modifier.size(20.dp),
+                    tint = DeliveryTheme.colorScheme.indicatorMedium
+                )
+            }
         }
     }
 }

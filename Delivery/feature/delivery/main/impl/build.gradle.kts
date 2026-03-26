@@ -11,17 +11,23 @@ plugins {
 kotlin {
     sourceSets {
         androidUnitTest.dependencies {
+            implementation(projects.util.unitTest)
+
+            implementation(libs.junit)
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.mockk)
         }
         commonMain.dependencies {
             implementation(projects.common.presentation)
+            implementation(projects.core.coroutines)
             implementation(projects.core.network)
             implementation(projects.design.theme)
             implementation(projects.design.uikit)
             implementation(projects.feature.delivery.direction.api)
             implementation(projects.feature.delivery.main.api)
+            implementation(projects.libs.coordinator)
+            implementation(projects.libs.navigation)
             implementation(projects.util.coroutines)
             implementation(projects.util.modifier)
 

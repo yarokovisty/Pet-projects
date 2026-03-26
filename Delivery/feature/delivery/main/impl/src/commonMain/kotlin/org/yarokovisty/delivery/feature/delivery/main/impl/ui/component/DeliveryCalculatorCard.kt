@@ -80,6 +80,7 @@ internal fun DeliveryCalculatorCard(
 
             PrimaryButton(
                 text = stringResource(Res.string.calculator_card_button_calculate),
+                enabled = state.calculateButtonEnabled,
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { onIntent(DeliveryMainIntent.CalculateDelivery) },
             )

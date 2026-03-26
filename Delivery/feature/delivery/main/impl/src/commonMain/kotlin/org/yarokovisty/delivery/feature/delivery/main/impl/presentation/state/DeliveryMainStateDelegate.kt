@@ -31,5 +31,19 @@ internal fun DeliveryMainState.contentState(
     )
 }
 
-internal fun DeliveryMainState.changeTrackerState(parcelId: String): DeliveryMainState =
+internal fun DeliveryMainState.selectDeliveryPointFrom(point: DeliveryPoint) =
+    copy(
+        deliveryCalculatorContent = deliveryCalculatorContent?.copy(
+            selectedPointFrom = point
+        )
+    )
+
+internal fun DeliveryMainState.selectDeliveryPointTo(point: DeliveryPoint) =
+    copy(
+        deliveryCalculatorContent = deliveryCalculatorContent?.copy(
+            selectedPointTo = point
+        )
+    )
+
+internal fun DeliveryMainState.changeTracker(parcelId: String): DeliveryMainState =
     copy(trackerContent = trackerContent.copy(inputIdParcel = parcelId))

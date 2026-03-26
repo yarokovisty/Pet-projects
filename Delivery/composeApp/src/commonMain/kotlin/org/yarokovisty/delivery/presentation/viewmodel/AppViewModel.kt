@@ -7,10 +7,9 @@ import org.yarokovisty.delivery.presentation.state.AppState
 
 class AppViewModel(
     private val router: AppRouter
-) : BaseViewModel<AppState, AppIntent, Nothing>() {
-
-    override fun initState(): AppState =
-        AppState.INITIAL
+) : BaseViewModel<AppState, AppIntent, Nothing>(
+    AppState.initial(router.globalBackStack.backStack)
+) {
 
     override fun onIntent(intent: AppIntent) {
         when (intent) {
@@ -20,11 +19,5 @@ class AppViewModel(
 
     private fun back() {
         router.back()
-        updateBackStack()
-    }
-
-    private fun updateBackStack() {
-        val backStack = router.globalBackStack.backStack.toList()
-        updateState { copy(backStack = backStack) }
     }
 }

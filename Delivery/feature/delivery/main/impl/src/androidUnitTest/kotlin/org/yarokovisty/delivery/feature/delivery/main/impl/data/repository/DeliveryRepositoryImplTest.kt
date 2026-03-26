@@ -18,7 +18,6 @@ class DeliveryRepositoryImplTest {
     private val service: DeliveryService = mockk()
     private val repository = DeliveryRepositoryImpl(service)
 
-
     private val typePackageListResponse = TypePackageListResponse(
         packages = listOf(
             TypePackageResponse(

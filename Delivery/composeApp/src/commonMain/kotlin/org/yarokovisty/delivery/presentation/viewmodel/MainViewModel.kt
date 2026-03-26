@@ -11,10 +11,9 @@ import org.yarokovisty.delivery.presentation.state.MainTab
 
 class MainViewModel(
     private val router: MainRouter
-) : BaseViewModel<MainState, MainIntent, Nothing>() {
-
-    override fun initState(): MainState =
-        MainState.INITIAL
+) : BaseViewModel<MainState, MainIntent, Nothing>(
+    MainState.initial(router.bottomBarBackStack.backStack)
+) {
 
     override fun onIntent(intent: MainIntent) {
         when (intent) {
@@ -38,8 +37,6 @@ class MainViewModel(
     }
 
     private fun changeTab() {
-        val backStack = router.bottomBarBackStack.backStack.toList()
-
         val navTab = router.bottomBarBackStack.currentTab
         val tab = when (navTab) {
             DeliveryTab -> MainTab.DELIVERY
@@ -49,7 +46,7 @@ class MainViewModel(
         }
 
         updateState {
-            copy(backStack = backStack, selectedTab = tab)
+            copy(selectedTab = tab)
         }
     }
 }
