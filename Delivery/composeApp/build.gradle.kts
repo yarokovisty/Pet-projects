@@ -42,6 +42,8 @@ kotlin {
             implementation(projects.design.theme)
             implementation(projects.design.uikit)
             implementation(projects.common.presentation)
+            implementation(projects.common.user)
+            implementation(projects.common.validation)
             implementation(projects.core.coroutines)
             implementation(projects.core.network)
             implementation(projects.core.storage)

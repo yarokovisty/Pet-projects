@@ -2,6 +2,8 @@ listOf(
     ":composeApp",
 
     ":common:presentation",
+    ":common:user",
+    ":common:validation",
 
     ":core:coroutines",
     ":core:network",
@@ -21,7 +23,8 @@ listOf(
     ":util:coroutines",
     ":util:logger",
     ":util:modifier",
-    ":util:unit-test"
+    ":util:unit-test",
+    ":util:validation"
 ).forEach { module ->
     include(module)
 }
