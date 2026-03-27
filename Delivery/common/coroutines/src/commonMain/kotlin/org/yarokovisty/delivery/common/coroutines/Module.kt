@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.core.coroutines
+package org.yarokovisty.delivery.common.coroutines
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO

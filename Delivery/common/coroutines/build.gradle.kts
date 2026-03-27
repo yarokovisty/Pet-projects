@@ -14,5 +14,5 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.delivery.core.coroutines"
+    namespace = "org.yarokovisty.delivery.common.coroutines"
 }

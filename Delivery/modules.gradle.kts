@@ -1,11 +1,11 @@
 listOf(
     ":composeApp",
 
+    ":common:coroutines",
     ":common:presentation",
     ":common:user",
     ":common:validation",
 
-    ":core:coroutines",
     ":core:network",
     ":core:storage",
 
