@@ -5,6 +5,7 @@ listOf(
 
     ":core:coroutines",
     ":core:network",
+    ":core:storage",
 
     ":design:theme",
     ":design:uikit",

@@ -44,6 +44,7 @@ kotlin {
             implementation(projects.common.presentation)
             implementation(projects.core.coroutines)
             implementation(projects.core.network)
+            implementation(projects.core.storage)
             implementation(projects.feature.delivery.main.api)
             implementation(projects.feature.delivery.main.impl)
             implementation(projects.feature.delivery.direction.api)
