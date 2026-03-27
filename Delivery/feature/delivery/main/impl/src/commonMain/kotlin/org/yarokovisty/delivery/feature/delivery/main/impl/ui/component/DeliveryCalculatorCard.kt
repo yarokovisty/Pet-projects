@@ -75,7 +75,7 @@ internal fun DeliveryCalculatorCard(
                 defaultText = stringResource(Res.string.calculator_card_package_size_default_item),
                 startIcon = painterResource(Res.drawable.ic_email),
                 endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
-                onClickContent = { onIntent(DeliveryMainIntent.SelectParcelType) }
+                onClickContent = { onIntent(DeliveryMainIntent.OpenParcelTypeScreen) }
             )
 
             PrimaryButton(

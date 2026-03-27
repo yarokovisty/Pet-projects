@@ -2,6 +2,7 @@ package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.viewmod
 
 import kotlinx.coroutines.async
 import org.yarokovisty.delivery.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.repository.DeliveryRepository
 import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetAlternativeDeliveryPointsUseCase
 import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetDeliveryPointByNameUseCase
@@ -9,11 +10,14 @@ import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.D
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.router.DeliveryRouter
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryMainState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.changeTracker
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.closeSelectParcelTypeScreen
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.contentState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.errorState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.loadingState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.selectDeliveryPointFrom
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.selectDeliveryPointTo
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.selectParcelType
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.showSelectParcelTypeScreen
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DirectionType
 import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository
@@ -37,17 +41,17 @@ internal class DeliveryMainViewModel(
 
     override fun onIntent(intent: DeliveryMainIntent) {
         when (intent) {
-            DeliveryMainIntent.LoadData -> loadData()
-            DeliveryMainIntent.SelectDeliveryPointFrom -> openDirectionFromScreen()
+            is DeliveryMainIntent.LoadData -> loadData()
+            is DeliveryMainIntent.SelectDeliveryPointFrom -> openDirectionFromScreen()
             is DeliveryMainIntent.SelectAlternativeDeliveryPointFrom ->
                 selectAlternativeDeliveryPointFrom(intent.pointName)
-
             DeliveryMainIntent.SelectDeliveryPointTo -> openDirectionToScreen()
             is DeliveryMainIntent.SelectAlternativeDeliveryPointTo ->
                 selectAlternativeDeliveryPointTo(intent.pointName)
-
-            DeliveryMainIntent.SelectParcelType -> TODO()
-            DeliveryMainIntent.CalculateDelivery -> TODO()
+            is DeliveryMainIntent.OpenParcelTypeScreen -> openSelectParcelTypeScreen()
+            is DeliveryMainIntent.CloseParcelTypeScreen -> closeSelectParcelTypeScreen()
+            is DeliveryMainIntent.SelectParcelType -> selectParcelType(intent.parcelType)
+            is DeliveryMainIntent.CalculateDelivery -> TODO()
             is DeliveryMainIntent.ChangeInputParcelId -> changeInputParcelId(intent.id)
             is DeliveryMainIntent.TrackParcel -> TODO()
         }
@@ -73,10 +77,6 @@ internal class DeliveryMainViewModel(
 
     private fun handleError() {
         updateState { errorState() }
-    }
-
-    private fun changeInputParcelId(id: String) {
-        updateState { changeTracker(id) }
     }
 
     private fun openDirectionFromScreen() {
@@ -111,5 +111,21 @@ internal class DeliveryMainViewModel(
             val selectedPoint = getDeliveryPointByNameUseCase(content.points, pointName)
             updateState { selectDeliveryPointTo(selectedPoint) }
         }
+    }
+
+    private fun openSelectParcelTypeScreen() {
+        updateState { showSelectParcelTypeScreen() }
+    }
+
+    private fun closeSelectParcelTypeScreen() {
+        updateState { closeSelectParcelTypeScreen() }
+    }
+
+    private fun selectParcelType(parcelType: ParcelType) {
+        updateState { selectParcelType(parcelType) }
+    }
+
+    private fun changeInputParcelId(id: String) {
+        updateState { changeTracker(id) }
     }
 }

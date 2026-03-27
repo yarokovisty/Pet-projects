@@ -4,6 +4,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -24,6 +25,7 @@ fun DeliveryMainScreen() {
     DeliveryMainScreen(state, viewModel::onIntent)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DeliveryMainScreen(
     state: DeliveryMainState,
@@ -34,6 +36,7 @@ private fun DeliveryMainScreen(
     } else {
         DeliveryTheme.colorScheme.bgSecondary
     }
+
     FullScreen(
         containerColor = containerColor,
         paddingValues = WindowInsets.statusBars.asPaddingValues(),
@@ -42,6 +45,13 @@ private fun DeliveryMainScreen(
             FailureScreen(onIntent)
         } else {
             ContentScreen(state, onIntent)
+        }
+
+        if (state.showSelectParcelType && state.deliveryCalculatorContent?.parcelTypes != null) {
+            SelectParcelTypeScreen(
+                parcelTypes = state.deliveryCalculatorContent.parcelTypes,
+                onIntent = onIntent
+            )
         }
     }
 }

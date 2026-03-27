@@ -3,10 +3,10 @@ package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 
-internal fun loadingState(): DeliveryMainState =
+internal fun loadingState() =
     DeliveryMainState.INITIAL.copy(loading = true)
 
-internal fun errorState(): DeliveryMainState =
+internal fun errorState() =
     DeliveryMainState.INITIAL.copy(error = true)
 
 internal fun DeliveryMainState.contentState(
@@ -27,23 +27,27 @@ internal fun DeliveryMainState.contentState(
 
     return copy(
         loading = false,
-        deliveryCalculatorContent = deliveryCalculatorContent
+        deliveryCalculatorContent = deliveryCalculatorContent,
     )
 }
 
 internal fun DeliveryMainState.selectDeliveryPointFrom(point: DeliveryPoint) =
-    copy(
-        deliveryCalculatorContent = deliveryCalculatorContent?.copy(
-            selectedPointFrom = point
-        )
-    )
+    copy(deliveryCalculatorContent = deliveryCalculatorContent?.copy(selectedPointFrom = point))
 
 internal fun DeliveryMainState.selectDeliveryPointTo(point: DeliveryPoint) =
+    copy(deliveryCalculatorContent = deliveryCalculatorContent?.copy(selectedPointTo = point))
+
+internal fun DeliveryMainState.showSelectParcelTypeScreen() =
+    copy(showSelectParcelType = true)
+
+internal fun DeliveryMainState.closeSelectParcelTypeScreen() =
+    copy(showSelectParcelType = false)
+
+internal fun DeliveryMainState.selectParcelType(parcelType: ParcelType) =
     copy(
-        deliveryCalculatorContent = deliveryCalculatorContent?.copy(
-            selectedPointTo = point
-        )
+        deliveryCalculatorContent = deliveryCalculatorContent?.copy(selectedParcelType = parcelType),
+        showSelectParcelType = false
     )
 
-internal fun DeliveryMainState.changeTracker(parcelId: String): DeliveryMainState =
+internal fun DeliveryMainState.changeTracker(parcelId: String) =
     copy(trackerContent = trackerContent.copy(inputIdParcel = parcelId))

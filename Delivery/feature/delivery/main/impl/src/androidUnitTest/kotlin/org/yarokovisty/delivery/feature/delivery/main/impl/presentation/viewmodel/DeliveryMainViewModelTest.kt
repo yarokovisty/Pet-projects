@@ -265,4 +265,185 @@ class DeliveryMainViewModelTest {
 
         verify { router.openDirectionScreen(DirectionType.TO) }
     }
+
+    @Test
+    fun `open parcel type screen EXPECT showSelectParcelType is true`() = runTest {
+        val alternativePointsUI = alternativePoints.map { it.name }
+        val expected = DeliveryMainState.INITIAL.copy(
+            deliveryCalculatorContent = DeliveryCalculatorContent(
+                points = points,
+                selectedPointFrom = null,
+                alternativePointsFrom = alternativePointsUI,
+                selectedPointTo = null,
+                alternativePointsTo = alternativePointsUI,
+                parcelTypes = parcelTypes,
+                selectedParcelType = null
+            ),
+            showSelectParcelType = true
+        )
+        val intent = DeliveryMainIntent.OpenParcelTypeScreen
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(intent)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `close parcel type screen EXPECT showSelectParcelType is false`() = runTest {
+        val alternativePointsUI = alternativePoints.map { it.name }
+        val expected = DeliveryMainState.INITIAL.copy(
+            deliveryCalculatorContent = DeliveryCalculatorContent(
+                points = points,
+                selectedPointFrom = null,
+                alternativePointsFrom = alternativePointsUI,
+                selectedPointTo = null,
+                alternativePointsTo = alternativePointsUI,
+                parcelTypes = parcelTypes,
+                selectedParcelType = null
+            ),
+            showSelectParcelType = false
+        )
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.OpenParcelTypeScreen)
+        viewModel.onIntent(DeliveryMainIntent.CloseParcelTypeScreen)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `select parcel type EXPECT selected parcel type updated and screen closed`() = runTest {
+        val selectedParcelType = parcelTypes[1]
+        val alternativePointsUI = alternativePoints.map { it.name }
+        val expected = DeliveryMainState.INITIAL.copy(
+            deliveryCalculatorContent = DeliveryCalculatorContent(
+                points = points,
+                selectedPointFrom = null,
+                alternativePointsFrom = alternativePointsUI,
+                selectedPointTo = null,
+                alternativePointsTo = alternativePointsUI,
+                parcelTypes = parcelTypes,
+                selectedParcelType = selectedParcelType
+            ),
+            showSelectParcelType = false
+        )
+        val intent = DeliveryMainIntent.SelectParcelType(selectedParcelType)
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.OpenParcelTypeScreen)
+        viewModel.onIntent(intent)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `only point from selected EXPECT calculateButtonEnabled is false`() = runTest {
+        val selectedPoint = points[0]
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPoint.name) } returns selectedPoint
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(selectedPoint.name))
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.deliveryCalculatorContent?.calculateButtonEnabled
+        assertEquals(false, actual)
+    }
+
+    @Test
+    fun `only point to selected EXPECT calculateButtonEnabled is false`() = runTest {
+        val selectedPoint = points[1]
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPoint.name) } returns selectedPoint
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(selectedPoint.name))
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.deliveryCalculatorContent?.calculateButtonEnabled
+        assertEquals(false, actual)
+    }
+
+    @Test
+    fun `only parcel type selected EXPECT calculateButtonEnabled is false`() = runTest {
+        val selectedParcelType = parcelTypes[0]
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.SelectParcelType(selectedParcelType))
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.deliveryCalculatorContent?.calculateButtonEnabled
+        assertEquals(false, actual)
+    }
+
+    @Test
+    fun `point from and to selected but no parcel type EXPECT calculateButtonEnabled is false`() = runTest {
+        val selectedPointFrom = points[0]
+        val selectedPointTo = points[1]
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointFrom.name) } returns selectedPointFrom
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointTo.name) } returns selectedPointTo
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(selectedPointFrom.name))
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(selectedPointTo.name))
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.deliveryCalculatorContent?.calculateButtonEnabled
+        assertEquals(false, actual)
+    }
+
+    @Test
+    fun `all required fields selected EXPECT calculateButtonEnabled is true`() = runTest {
+        val selectedPointFrom = points[0]
+        val selectedPointTo = points[1]
+        val selectedParcelType = parcelTypes[0]
+        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointFrom.name) } returns selectedPointFrom
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointTo.name) } returns selectedPointTo
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(selectedPointFrom.name))
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(selectedPointTo.name))
+        viewModel.onIntent(DeliveryMainIntent.SelectParcelType(selectedParcelType))
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.deliveryCalculatorContent?.calculateButtonEnabled
+        assertEquals(true, actual)
+    }
 }

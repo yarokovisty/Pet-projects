@@ -9,6 +9,7 @@ internal data class DeliveryMainState(
     val error: Boolean,
     val deliveryCalculatorContent: DeliveryCalculatorContent?,
     val trackerContent: TrackerContent,
+    val showSelectParcelType: Boolean
 ) : State {
 
     companion object {
@@ -18,6 +19,7 @@ internal data class DeliveryMainState(
             error = false,
             deliveryCalculatorContent = null,
             trackerContent = TrackerContent(""),
+            showSelectParcelType = false
         )
     }
 }
