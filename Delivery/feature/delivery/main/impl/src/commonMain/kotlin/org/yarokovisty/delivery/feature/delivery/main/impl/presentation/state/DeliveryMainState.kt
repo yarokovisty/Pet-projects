@@ -10,19 +10,7 @@ internal data class DeliveryMainState(
     val deliveryCalculatorContent: DeliveryCalculatorContent?,
     val trackerContent: TrackerContent,
     val showSelectParcelType: Boolean
-) : State {
-
-    companion object {
-
-        val INITIAL = DeliveryMainState(
-            loading = false,
-            error = false,
-            deliveryCalculatorContent = null,
-            trackerContent = TrackerContent(""),
-            showSelectParcelType = false
-        )
-    }
-}
+) : State
 
 internal data class DeliveryCalculatorContent(
     val points: List<DeliveryPoint>,

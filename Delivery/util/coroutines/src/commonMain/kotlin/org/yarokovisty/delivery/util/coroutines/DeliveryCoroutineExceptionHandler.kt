@@ -5,12 +5,8 @@ import kotlin.coroutines.CoroutineContext
 
 @Suppress("FunctionName")
 inline fun DeliveryCoroutineExceptionHandler(
-    crossinline handler: (context: CoroutineContext, exception: Exception) -> Unit
+    crossinline handler: (context: CoroutineContext, throwable: Throwable) -> Unit
 ): CoroutineExceptionHandler =
     CoroutineExceptionHandler { context, throwable ->
-        if (throwable is Exception) {
-            handler(context, throwable)
-        } else {
-            throw throwable
-        }
+        handler(context, throwable)
     }

@@ -14,7 +14,7 @@ import org.yarokovisty.delivery.feature.direction.api.domain.repository.Directio
 import org.yarokovisty.delivery.feature.direction.impl.presentation.intent.DirectionIntent
 import org.yarokovisty.delivery.feature.direction.impl.presentation.router.DirectionRouter
 import org.yarokovisty.delivery.feature.direction.impl.presentation.state.DirectionContentState
-import org.yarokovisty.delivery.feature.direction.impl.presentation.state.DirectionState
+import org.yarokovisty.delivery.feature.direction.impl.presentation.state.initial
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import kotlin.test.assertEquals
 
@@ -57,7 +57,7 @@ class DirectionViewModelTest {
     @Test
     fun `init EXPECT loading state`() = runTest {
         val directionType = DirectionType.FROM
-        val expected = DirectionState.initial(directionType).copy(loading = true)
+        val expected = initial(directionType).copy(loading = true)
 
         val viewModel = createViewModel(directionType)
 
@@ -68,7 +68,7 @@ class DirectionViewModelTest {
     @Test
     fun `loading data is success EXPECT content state`() = runTest {
         val directionType = DirectionType.TO
-        val expected = DirectionState.initial(directionType).copy(
+        val expected = initial(directionType).copy(
             loading = false,
             content = DirectionContentState(deliveryPoints = points)
         )
@@ -84,7 +84,7 @@ class DirectionViewModelTest {
     @Test
     fun `loading data is error EXPECT error state`() = runTest {
         val directionType = DirectionType.FROM
-        val expected = DirectionState.initial(directionType).copy(
+        val expected = initial(directionType).copy(
             loading = false,
             error = true
         )
@@ -112,7 +112,7 @@ class DirectionViewModelTest {
     @Test
     fun `load data intent EXPECT data reloaded`() = runTest {
         val directionType = DirectionType.FROM
-        val expected = DirectionState.initial(directionType).copy(
+        val expected = initial(directionType).copy(
             loading = false,
             content = DirectionContentState(deliveryPoints = points)
         )

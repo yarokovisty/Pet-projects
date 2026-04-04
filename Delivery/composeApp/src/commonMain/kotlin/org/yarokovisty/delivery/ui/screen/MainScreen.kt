@@ -17,8 +17,8 @@ import androidx.navigation3.ui.NavDisplay
 import org.koin.compose.viewmodel.koinViewModel
 import org.yarokovisty.delivery.feature.delivery.main.api.navigation.DeliveryMainDestination
 import org.yarokovisty.delivery.feature.delivery.main.impl.ui.screen.DeliveryMainScreen
+import org.yarokovisty.delivery.feature.profile.main.api.navigation.ProfileMainDestination
 import org.yarokovisty.delivery.navigation.HistoryMainDestination
-import org.yarokovisty.delivery.navigation.ProfileMainDestination
 import org.yarokovisty.delivery.presentation.intent.MainIntent
 import org.yarokovisty.delivery.presentation.state.MainState
 import org.yarokovisty.delivery.presentation.viewmodel.MainViewModel

@@ -4,19 +4,19 @@ import org.yarokovisty.delivery.common.presentation.Intent
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
 
 internal sealed interface DeliveryMainIntent : Intent {
-    object LoadData : DeliveryMainIntent
+    data object LoadData : DeliveryMainIntent
 
-    object SelectDeliveryPointFrom : DeliveryMainIntent
-    class SelectAlternativeDeliveryPointFrom(val pointName: String) : DeliveryMainIntent
-    object SelectDeliveryPointTo : DeliveryMainIntent
-    class SelectAlternativeDeliveryPointTo(val pointName: String) : DeliveryMainIntent
+    data object SelectDeliveryPointFrom : DeliveryMainIntent
+    data class SelectAlternativeDeliveryPointFrom(val pointName: String) : DeliveryMainIntent
+    data object SelectDeliveryPointTo : DeliveryMainIntent
+    data class SelectAlternativeDeliveryPointTo(val pointName: String) : DeliveryMainIntent
 
-    object OpenParcelTypeScreen : DeliveryMainIntent
-    object CloseParcelTypeScreen : DeliveryMainIntent
-    class SelectParcelType(val parcelType: ParcelType) : DeliveryMainIntent
+    data object OpenParcelTypeScreen : DeliveryMainIntent
+    data object CloseParcelTypeScreen : DeliveryMainIntent
+    data class SelectParcelType(val parcelType: ParcelType) : DeliveryMainIntent
 
-    object CalculateDelivery : DeliveryMainIntent
+    data object CalculateDelivery : DeliveryMainIntent
 
-    class ChangeInputParcelId(val id: String) : DeliveryMainIntent
-    object TrackParcel : DeliveryMainIntent
+    data class ChangeInputParcelId(val id: String) : DeliveryMainIntent
+    data object TrackParcel : DeliveryMainIntent
 }

@@ -5,17 +5,17 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.feature.direction.impl.data.datasource.DirectionRemoteDataSource
 import org.yarokovisty.delivery.feature.direction.impl.data.model.DeliveryPointListResponse
 import org.yarokovisty.delivery.feature.direction.impl.data.model.DeliveryPointResponse
 import org.yarokovisty.delivery.feature.direction.impl.data.repository.DirectionRepositoryImpl
-import org.yarokovisty.delivery.feature.direction.impl.data.service.DirectionService
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class DirectionRepositoryImplTest {
 
-    private val service: DirectionService = mockk()
-    private val repository = DirectionRepositoryImpl(service)
+    private val remoteDataSource: DirectionRemoteDataSource = mockk()
+    private val repository = DirectionRepositoryImpl(remoteDataSource)
 
     private val deliveryPointListResponse = DeliveryPointListResponse(
         points = listOf(
@@ -50,7 +50,7 @@ class DirectionRepositoryImplTest {
                 longitude = 1.0
             )
         )
-        coEvery { service.getDeliveryPoints() } returns deliveryPointListResponse
+        coEvery { remoteDataSource.getDeliveryPoints() } returns deliveryPointListResponse
 
         val actual = repository.getDeliveryPoints()
 
@@ -58,11 +58,11 @@ class DirectionRepositoryImplTest {
     }
 
     @Test
-    fun `get delivery points EXPECT invoke get delivery points by service`() = runTest {
-        coEvery { service.getDeliveryPoints() } returns deliveryPointListResponse
+    fun `get delivery points EXPECT invoke get delivery points by remote data source`() = runTest {
+        coEvery { remoteDataSource.getDeliveryPoints() } returns deliveryPointListResponse
 
         repository.getDeliveryPoints()
 
-        coVerify { service.getDeliveryPoints() }
+        coVerify { remoteDataSource.getDeliveryPoints() }
     }
 }

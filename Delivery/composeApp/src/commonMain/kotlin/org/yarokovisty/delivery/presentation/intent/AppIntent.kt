@@ -4,5 +4,5 @@ import org.yarokovisty.delivery.common.presentation.Intent
 
 interface AppIntent : Intent {
 
-    object Back : AppIntent
+    data object Back : AppIntent
 }

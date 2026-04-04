@@ -20,14 +20,26 @@ internal val deliveryTypography: DeliveryTypography
             fontWeight = FontWeight.W600,
             fontFamily = Inter()
         ),
+
+        paragraph14Regular = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.W400,
+            fontFamily = Inter()
+        ),
         paragraph14Medium = TextStyle(
             fontSize = 14.sp,
             fontWeight = FontWeight.W500,
             fontFamily = Inter()
         ),
-        paragraph14Underline = TextStyle(
+        paragraph14RegularUnderline = TextStyle(
             fontSize = 14.sp,
             fontWeight = FontWeight.W400,
+            fontFamily = Inter(),
+            textDecoration = TextDecoration.Underline
+        ),
+        paragraph16MediumUnderline = TextStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.W500,
             fontFamily = Inter(),
             textDecoration = TextDecoration.Underline
         ),
@@ -66,8 +78,10 @@ internal val deliveryTypography: DeliveryTypography
 @Immutable
 data class DeliveryTypography(
     val buttonSemibold: TextStyle,
+    val paragraph14Regular: TextStyle,
     val paragraph14Medium: TextStyle,
-    val paragraph14Underline: TextStyle,
+    val paragraph14RegularUnderline: TextStyle,
+    val paragraph16MediumUnderline: TextStyle,
     val paragraph16Regular: TextStyle,
     val titleH1: TextStyle,
     val titleH2: TextStyle,

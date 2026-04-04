@@ -1,15 +1,17 @@
 package org.yarokovisty.delivery.presentation.viewmodel
 
+import org.yarokovisty.delivery.common.auth.domain.usecase.IsUserAuthorizedUseCase
 import org.yarokovisty.delivery.common.presentation.BaseViewModel
-import org.yarokovisty.delivery.navigation.DeliveryTab
+import org.yarokovisty.delivery.feature.delivery.main.api.navigation.DeliveryTab
+import org.yarokovisty.delivery.feature.profile.main.api.navigation.ProfileTab
 import org.yarokovisty.delivery.navigation.HistoryTab
-import org.yarokovisty.delivery.navigation.ProfileTab
 import org.yarokovisty.delivery.presentation.intent.MainIntent
 import org.yarokovisty.delivery.presentation.router.MainRouter
 import org.yarokovisty.delivery.presentation.state.MainState
 import org.yarokovisty.delivery.presentation.state.MainTab
 
 class MainViewModel(
+    private val isUserAuthorizedUseCase: IsUserAuthorizedUseCase,
     private val router: MainRouter
 ) : BaseViewModel<MainState, MainIntent, Nothing>(
     MainState.initial(router.bottomBarBackStack.backStack)
@@ -26,9 +28,19 @@ class MainViewModel(
         when (tab) {
             MainTab.DELIVERY -> router.openDeliveryTab()
             MainTab.HISTORY -> router.openHistoryTab()
-            MainTab.PROFILE -> router.openProfileTab()
+            MainTab.PROFILE -> openProfileTab()
         }
         changeTab()
+    }
+
+    private fun openProfileTab() {
+        launch {
+            if (isUserAuthorizedUseCase()) {
+                router.openProfileTab()
+            } else {
+                router.openLoginScreen()
+            }
+        }
     }
 
     private fun back() {

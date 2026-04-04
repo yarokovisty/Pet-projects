@@ -7,19 +7,19 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 inline fun CoroutineScope.launch(
-    crossinline onError: (exception: Exception) -> Unit = {},
+    crossinline onError: (throwable: Throwable) -> Unit = {},
     noinline block: suspend CoroutineScope.() -> Unit
 ): Job {
-    val coroutineExceptionHandler = DeliveryCoroutineExceptionHandler { _, exception -> onError(exception) }
+    val coroutineExceptionHandler = DeliveryCoroutineExceptionHandler { _, throwable -> onError(throwable) }
 
     return launch(context = coroutineExceptionHandler, block = block)
 }
 
 inline fun <T> CoroutineScope.async(
-    crossinline onError: (exception: Exception) -> Unit = {},
+    crossinline onError: (throwable: Throwable) -> Unit = {},
     noinline block: suspend CoroutineScope.() -> T
 ): Deferred<T> {
-    val coroutineExceptionHandler = DeliveryCoroutineExceptionHandler { _, exception -> onError(exception) }
+    val coroutineExceptionHandler = DeliveryCoroutineExceptionHandler { _, throwable -> onError(throwable) }
 
     return async(context = coroutineExceptionHandler, block = block)
 }

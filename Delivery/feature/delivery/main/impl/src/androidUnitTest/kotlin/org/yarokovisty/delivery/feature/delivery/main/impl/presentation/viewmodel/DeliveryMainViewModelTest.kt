@@ -16,8 +16,8 @@ import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetDel
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.router.DeliveryRouter
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryCalculatorContent
-import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryMainState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.TrackerContent
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.initial
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DirectionType
 import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository
@@ -92,7 +92,7 @@ class DeliveryMainViewModelTest {
 
     @Test
     fun `init EXPECT loading state`() = runTest {
-        val expected = DeliveryMainState.INITIAL.copy(loading = true)
+        val expected = initial().copy(loading = true)
 
         val viewModel = createViewModel()
 
@@ -103,7 +103,7 @@ class DeliveryMainViewModelTest {
     @Test
     fun `loading data is success EXPECT content state`() = runTest {
         val alternativePointsUI = alternativePoints.map { it.name }
-        val expected = DeliveryMainState.INITIAL.copy(
+        val expected = initial().copy(
             deliveryCalculatorContent = DeliveryCalculatorContent(
                 points = points,
                 selectedPointFrom = null,
@@ -127,7 +127,7 @@ class DeliveryMainViewModelTest {
 
     @Test
     fun `loading delivery points is error EXPECT error state`() = runTest {
-        val expected = DeliveryMainState.INITIAL.copy(error = true)
+        val expected = initial().copy(error = true)
         coEvery { directionRepository.getDeliveryPoints() } throws Exception("error")
 
         val viewModel = createViewModel()
@@ -139,7 +139,7 @@ class DeliveryMainViewModelTest {
 
     @Test
     fun `loading parcel types is error EXPECT error state`() = runTest {
-        val expected = DeliveryMainState.INITIAL.copy(error = true)
+        val expected = initial().copy(error = true)
         coEvery { directionRepository.getDeliveryPoints() } returns points
         coEvery { deliveryRepository.getParcelTypes() } throws Exception("error")
 
@@ -153,7 +153,7 @@ class DeliveryMainViewModelTest {
     @Test
     fun `change input parcel id EXPECT updated input id parcel`() = runTest {
         val alternativePointsUI = alternativePoints.map { it.name }
-        val expected = DeliveryMainState.INITIAL.copy(
+        val expected = initial().copy(
             deliveryCalculatorContent = DeliveryCalculatorContent(
                 points = points,
                 selectedPointFrom = null,
@@ -182,7 +182,7 @@ class DeliveryMainViewModelTest {
     fun `select alternative delivery point from EXPECT selected point from updated`() = runTest {
         val selectedPoint = points[1]
         val alternativePointsUI = alternativePoints.map { it.name }
-        val expected = DeliveryMainState.INITIAL.copy(
+        val expected = initial().copy(
             deliveryCalculatorContent = DeliveryCalculatorContent(
                 points = points,
                 selectedPointFrom = selectedPoint,
@@ -212,7 +212,7 @@ class DeliveryMainViewModelTest {
     fun `select alternative delivery point to EXPECT selected point to updated`() = runTest {
         val selectedPoint = points[2]
         val alternativePointsUI = alternativePoints.map { it.name }
-        val expected = DeliveryMainState.INITIAL.copy(
+        val expected = initial().copy(
             deliveryCalculatorContent = DeliveryCalculatorContent(
                 points = points,
                 selectedPointFrom = null,
@@ -269,7 +269,7 @@ class DeliveryMainViewModelTest {
     @Test
     fun `open parcel type screen EXPECT showSelectParcelType is true`() = runTest {
         val alternativePointsUI = alternativePoints.map { it.name }
-        val expected = DeliveryMainState.INITIAL.copy(
+        val expected = initial().copy(
             deliveryCalculatorContent = DeliveryCalculatorContent(
                 points = points,
                 selectedPointFrom = null,
@@ -298,7 +298,7 @@ class DeliveryMainViewModelTest {
     @Test
     fun `close parcel type screen EXPECT showSelectParcelType is false`() = runTest {
         val alternativePointsUI = alternativePoints.map { it.name }
-        val expected = DeliveryMainState.INITIAL.copy(
+        val expected = initial().copy(
             deliveryCalculatorContent = DeliveryCalculatorContent(
                 points = points,
                 selectedPointFrom = null,
@@ -328,7 +328,7 @@ class DeliveryMainViewModelTest {
     fun `select parcel type EXPECT selected parcel type updated and screen closed`() = runTest {
         val selectedParcelType = parcelTypes[1]
         val alternativePointsUI = alternativePoints.map { it.name }
-        val expected = DeliveryMainState.INITIAL.copy(
+        val expected = initial().copy(
             deliveryCalculatorContent = DeliveryCalculatorContent(
                 points = points,
                 selectedPointFrom = null,

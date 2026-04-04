@@ -1,7 +1,6 @@
 package org.yarokovisty.delivery.design.uikit
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -121,7 +120,7 @@ private fun Alternatives(
 
     LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         items(alternatives) { alternative ->
-            Paragraph14Underline(
+            Paragraph14RegularUnderline(
                 text = alternative,
                 color = DeliveryTheme.colorScheme.textTertiary,
                 modifier = Modifier.clickable(onClick = { onClick(alternative) })

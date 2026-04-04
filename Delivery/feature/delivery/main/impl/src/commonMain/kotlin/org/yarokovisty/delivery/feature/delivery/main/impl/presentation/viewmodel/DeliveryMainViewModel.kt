@@ -13,6 +13,7 @@ import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.ch
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.closeSelectParcelTypeScreen
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.contentState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.errorState
+import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.initial
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.loadingState
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.selectDeliveryPointFrom
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.selectDeliveryPointTo
@@ -28,7 +29,7 @@ internal class DeliveryMainViewModel(
     private val getAlternativeDeliveryPointsUseCase: GetAlternativeDeliveryPointsUseCase,
     private val getDeliveryPointByNameUseCase: GetDeliveryPointByNameUseCase,
     private val router: DeliveryRouter,
-) : BaseViewModel<DeliveryMainState, DeliveryMainIntent, Nothing>(DeliveryMainState.INITIAL) {
+) : BaseViewModel<DeliveryMainState, DeliveryMainIntent, Nothing>(initial()) {
 
     private companion object {
 

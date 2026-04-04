@@ -14,8 +14,8 @@ import delivery.feature.delivery.main.impl.generated.resources.tracker_card_titl
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.DefaultCard
-import org.yarokovisty.delivery.design.uikit.InputFieldDefault
 import org.yarokovisty.delivery.design.uikit.PrimaryButton
+import org.yarokovisty.delivery.design.uikit.TextInput
 import org.yarokovisty.delivery.design.uikit.TitleH2
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.TrackerContent
@@ -32,11 +32,11 @@ internal fun TrackerCard(
         ) {
             TitleH2(text = stringResource(Res.string.tracker_card_title), color = DeliveryTheme.colorScheme.textPrimary)
 
-            InputFieldDefault(
-                value = state.inputIdParcel,
+            TextInput(
+                text = state.inputIdParcel,
                 hint = stringResource(Res.string.tracker_card_hint_item),
                 modifier = Modifier.fillMaxWidth(),
-                onValueChange = { id -> onIntent(DeliveryMainIntent.ChangeInputParcelId(id)) }
+                onTextChange = { id -> onIntent(DeliveryMainIntent.ChangeInputParcelId(id)) }
             )
 
             PrimaryButton(

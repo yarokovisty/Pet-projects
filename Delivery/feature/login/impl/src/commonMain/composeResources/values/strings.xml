@@ -1,0 +1,21 @@
+<resources>
+    <string name="login_topbar_title">Вход</string>
+    <string name="login_description">Введите номер телефона для входа в личный кабинет</string>
+
+    <string name="login_input_phone_title">Телефон</string>
+    <string name="login_input_phone_hint">Введите телефон</string>
+    <string name="login_input_phone_empty_error">Номер телефона обязателен</string>
+    <string name="login_input_phone_length_error">Некорреектная длина номера</string>
+
+    <string name="login_input_otp_code_hint">Проверочный код</string>
+    <string name="login_input_otp_code_empty_error">Код не может быть пустым</string>
+    <string name="login_input_otp_code_length_error">Код должен содержать 6 цифр</string>
+    <string name="login_input_otp_code_invalid">Неверный код</string>
+
+    <string name="login_otp_code_retry_text">Отправить еще раз</string>
+    <string name="login_otp_code_timer_text">Отправить код повторно через %1$d сек</string>
+
+    <string name="login_button">Войти</string>
+
+    <string name="login_error">Упс, возникла ошибка. Повторите попытку</string>
+</resources>

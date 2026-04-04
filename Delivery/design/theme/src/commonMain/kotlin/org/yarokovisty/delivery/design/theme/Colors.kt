@@ -6,6 +6,7 @@ val BrandPrimary = Color(0xFF1975FF)
 val BrandHover = Color(0xFF0052CC)
 val BrandExtraLight = Color(0xFFCCE0FF)
 val BrandDisabled = Color(0xFFCCE0FF)
+val BrandIndicator = Color(0xFF4C94FF)
 
 val BgPrimaryLight = Color(0xFFFFFFFF)
 val BgSecondaryLight = Color(0xFFF3F4F6)

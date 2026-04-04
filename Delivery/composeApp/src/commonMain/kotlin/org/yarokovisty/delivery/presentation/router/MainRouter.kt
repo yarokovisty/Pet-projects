@@ -1,11 +1,16 @@
 package org.yarokovisty.delivery.presentation.router
 
+import org.yarokovisty.delivery.feature.delivery.main.api.navigation.DeliveryTab
+import org.yarokovisty.delivery.feature.login.api.navigation.LoginDestination
+import org.yarokovisty.delivery.feature.profile.main.api.navigation.ProfileTab
 import org.yarokovisty.delivery.libs.navigation.backstack.BottomBarBackStack
-import org.yarokovisty.delivery.navigation.DeliveryTab
+import org.yarokovisty.delivery.libs.navigation.backstack.GlobalBackStack
 import org.yarokovisty.delivery.navigation.HistoryTab
-import org.yarokovisty.delivery.navigation.ProfileTab
 
-class MainRouter(val bottomBarBackStack: BottomBarBackStack) {
+class MainRouter(
+    val globalBackStack: GlobalBackStack,
+    val bottomBarBackStack: BottomBarBackStack
+) {
 
     fun openDeliveryTab() {
         bottomBarBackStack.push(DeliveryTab)
@@ -17,6 +22,10 @@ class MainRouter(val bottomBarBackStack: BottomBarBackStack) {
 
     fun openProfileTab() {
         bottomBarBackStack.push(ProfileTab)
+    }
+
+    fun openLoginScreen() {
+        globalBackStack.push(LoginDestination)
     }
 
     fun back() {

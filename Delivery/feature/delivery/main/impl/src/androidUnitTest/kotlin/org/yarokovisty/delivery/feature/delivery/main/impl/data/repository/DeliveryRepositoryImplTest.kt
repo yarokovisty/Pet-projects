@@ -6,17 +6,17 @@ import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.delivery.main.impl.data.datasource.DeliveryRemoteDataSource
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageListResponse
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageResponse
-import org.yarokovisty.delivery.feature.delivery.main.impl.data.service.DeliveryService
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
 class DeliveryRepositoryImplTest {
 
-    private val service: DeliveryService = mockk()
-    private val repository = DeliveryRepositoryImpl(service)
+    private val remoteDataSource: DeliveryRemoteDataSource = mockk()
+    private val repository = DeliveryRepositoryImpl(remoteDataSource)
 
     private val typePackageListResponse = TypePackageListResponse(
         packages = listOf(
@@ -61,7 +61,7 @@ class DeliveryRepositoryImplTest {
                 weight = 2,
             )
         )
-        coEvery { service.getPackageTypes() } returns typePackageListResponse
+        coEvery { remoteDataSource.getPackageTypes() } returns typePackageListResponse
 
         val actual = repository.getParcelTypes()
 
@@ -69,12 +69,12 @@ class DeliveryRepositoryImplTest {
     }
 
     @Test
-    fun `get parcel types EXPECT invoke get parcel types by service`() = runTest {
-        coEvery { service.getPackageTypes() } returns typePackageListResponse
+    fun `get parcel types EXPECT invoke get parcel types by remote data source`() = runTest {
+        coEvery { remoteDataSource.getPackageTypes() } returns typePackageListResponse
 
         repository.getParcelTypes()
 
-        coVerify { service.getPackageTypes() }
+        coVerify { remoteDataSource.getPackageTypes() }
     }
 
     @Test
@@ -91,7 +91,7 @@ class DeliveryRepositoryImplTest {
                 )
             )
         )
-        coEvery { service.getPackageTypes() } returns response
+        coEvery { remoteDataSource.getPackageTypes() } returns response
 
         assertFails { repository.getParcelTypes() }
     }

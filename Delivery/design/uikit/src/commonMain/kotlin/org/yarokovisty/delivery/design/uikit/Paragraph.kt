@@ -9,6 +9,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
 @Composable
+fun Paragraph14Regular(
+    text: String,
+    color: Color = Color.Unspecified,
+    textAlign: TextAlign? = null,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        color = color,
+        textAlign = textAlign,
+        style = DeliveryTheme.typography.paragraph14Regular,
+        modifier = modifier
+    )
+}
+
+@Composable
 fun Paragraph14Medium(
     text: String,
     color: Color = Color.Unspecified,
@@ -25,7 +41,7 @@ fun Paragraph14Medium(
 }
 
 @Composable
-fun Paragraph14Underline(
+fun Paragraph14RegularUnderline(
     text: String,
     color: Color = Color.Unspecified,
     textAlign: TextAlign? = null,
@@ -35,7 +51,7 @@ fun Paragraph14Underline(
         text = text,
         color = color,
         textAlign = textAlign,
-        style = DeliveryTheme.typography.paragraph14Underline,
+        style = DeliveryTheme.typography.paragraph14RegularUnderline,
         modifier = modifier
     )
 }
@@ -56,6 +72,30 @@ fun Paragraph16Regular(
     )
 }
 
+@Composable
+fun Paragraph16MediumUnderline(
+    text: String,
+    color: Color = Color.Unspecified,
+    textAlign: TextAlign? = null,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        color = color,
+        textAlign = textAlign,
+        style = DeliveryTheme.typography.paragraph16MediumUnderline,
+        modifier = modifier
+    )
+}
+
+@Preview
+@Composable
+private fun Paragraph14RegularPreview() {
+    DeliveryTheme {
+        Paragraph14Regular(text = "Paragraph14Regular")
+    }
+}
+
 @Preview
 @Composable
 private fun Paragraph14MediumPreview() {
@@ -68,7 +108,15 @@ private fun Paragraph14MediumPreview() {
 @Composable
 private fun Paragraph14UnderlinePreview() {
     DeliveryTheme {
-        Paragraph14Underline(text = "Paragraph14Underline")
+        Paragraph14RegularUnderline(text = "Paragraph14Underline")
+    }
+}
+
+@Preview
+@Composable
+private fun Paragraph16MediumUnderlinePreview() {
+    DeliveryTheme {
+        Paragraph16MediumUnderline(text = "Paragraph16MediumUnderline")
     }
 }
 

@@ -3,11 +3,20 @@ package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 
+internal fun initial() =
+    DeliveryMainState(
+        loading = false,
+        error = false,
+        deliveryCalculatorContent = null,
+        trackerContent = TrackerContent(""),
+        showSelectParcelType = false
+    )
+
 internal fun loadingState() =
-    DeliveryMainState.INITIAL.copy(loading = true)
+    initial().copy(loading = true)
 
 internal fun errorState() =
-    DeliveryMainState.INITIAL.copy(error = true)
+    initial().copy(error = true)
 
 internal fun DeliveryMainState.contentState(
     deliveryPoints: List<DeliveryPoint>,

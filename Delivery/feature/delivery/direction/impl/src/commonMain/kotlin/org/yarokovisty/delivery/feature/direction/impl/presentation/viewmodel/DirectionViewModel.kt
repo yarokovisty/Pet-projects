@@ -9,15 +9,14 @@ import org.yarokovisty.delivery.feature.direction.impl.presentation.router.Direc
 import org.yarokovisty.delivery.feature.direction.impl.presentation.state.DirectionState
 import org.yarokovisty.delivery.feature.direction.impl.presentation.state.contentState
 import org.yarokovisty.delivery.feature.direction.impl.presentation.state.errorState
+import org.yarokovisty.delivery.feature.direction.impl.presentation.state.initial
 import org.yarokovisty.delivery.feature.direction.impl.presentation.state.loadingState
 
 internal class DirectionViewModel(
     private val directionRepository: DirectionRepository,
     private val router: DirectionRouter,
     directionType: DirectionType
-) : BaseViewModel<DirectionState, DirectionIntent, Nothing>(
-    DirectionState.initial(directionType)
-) {
+) : BaseViewModel<DirectionState, DirectionIntent, Nothing>(initial(directionType)) {
 
     private companion object {
 

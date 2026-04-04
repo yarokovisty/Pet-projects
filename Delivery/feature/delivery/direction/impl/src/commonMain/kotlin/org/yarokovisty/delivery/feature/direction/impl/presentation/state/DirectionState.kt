@@ -9,18 +9,7 @@ internal data class DirectionState(
     val loading: Boolean,
     val error: Boolean,
     val content: DirectionContentState?
-) : State {
-
-    companion object {
-        fun initial(directionType: DirectionType) =
-            DirectionState(
-                directionType = directionType,
-                loading = false,
-                error = false,
-                content = null
-            )
-    }
-}
+) : State
 
 internal data class DirectionContentState(
     val deliveryPoints: List<DeliveryPoint>

@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
 }
 
-allprojects.onEach { project ->
+subprojects.onEach { project ->
     applyDetekt(project)
 }
 

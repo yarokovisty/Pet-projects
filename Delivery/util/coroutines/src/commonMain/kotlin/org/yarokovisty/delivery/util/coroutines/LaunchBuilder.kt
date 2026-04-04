@@ -9,7 +9,7 @@ class LaunchBuilder internal constructor(
     val body: suspend CoroutineScope.() -> Unit
 ) {
 
-    inline infix fun handle(crossinline handler: (exception: Exception) -> Unit): Job {
+    inline infix fun handle(crossinline handler: (throwable: Throwable) -> Unit): Job {
         val coroutineExceptionHandler = DeliveryCoroutineExceptionHandler { _, e -> handler(e) }
 
         return coroutineScope.launch(
