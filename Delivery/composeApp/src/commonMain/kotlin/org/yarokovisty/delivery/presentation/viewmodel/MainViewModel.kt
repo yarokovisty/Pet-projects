@@ -26,11 +26,16 @@ class MainViewModel(
 
     private fun switchTab(tab: MainTab) {
         when (tab) {
-            MainTab.DELIVERY -> router.openDeliveryTab()
-            MainTab.HISTORY -> router.openHistoryTab()
+            MainTab.DELIVERY -> {
+                router.openDeliveryTab()
+                changeTab()
+            }
+            MainTab.HISTORY -> {
+                router.openHistoryTab()
+                changeTab()
+            }
             MainTab.PROFILE -> openProfileTab()
         }
-        changeTab()
     }
 
     private fun openProfileTab() {
@@ -40,6 +45,7 @@ class MainViewModel(
             } else {
                 router.openLoginScreen()
             }
+            changeTab()
         }
     }
 
