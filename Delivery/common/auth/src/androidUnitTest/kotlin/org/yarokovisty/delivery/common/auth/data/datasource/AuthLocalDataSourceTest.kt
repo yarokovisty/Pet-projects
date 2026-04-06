@@ -4,15 +4,15 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.yarokovisty.delivery.core.storage.preferences.PreferencesStorage
+import org.yarokovisty.delivery.core.storage.encryption.EncryptedPreferencesStorage
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
 class AuthLocalDataSourceTest {
 
-    private val storage: PreferencesStorage = mockk()
-    private val dataSource = AuthLocalDataSource(storage)
+    private val encryptedStorage: EncryptedPreferencesStorage = mockk()
+    private val dataSource = AuthLocalDataSource(encryptedStorage)
 
     private companion object {
 
@@ -22,16 +22,16 @@ class AuthLocalDataSourceTest {
 
     @Test
     fun `save token EXPECT invoke put string by storage`() = runTest {
-        coEvery { storage.putString(any(), any()) } returns Unit
+        coEvery { encryptedStorage.putEncryptedString(any(), any()) } returns Unit
 
         dataSource.saveToken(TEST_TOKEN)
 
-        coVerify { storage.putString(TOKEN_KEY, TEST_TOKEN) }
+        coVerify { encryptedStorage.putEncryptedString(TOKEN_KEY, TEST_TOKEN) }
     }
 
     @Test
     fun `get token EXPECT token from storage`() = runTest {
-        coEvery { storage.getString(TOKEN_KEY) } returns TEST_TOKEN
+        coEvery { encryptedStorage.getDecryptedString(TOKEN_KEY) } returns TEST_TOKEN
 
         val actual = dataSource.getToken()
 
@@ -40,16 +40,16 @@ class AuthLocalDataSourceTest {
 
     @Test
     fun `get token EXPECT invoke get string by storage`() = runTest {
-        coEvery { storage.getString(any()) } returns TEST_TOKEN
+        coEvery { encryptedStorage.getDecryptedString(any()) } returns TEST_TOKEN
 
         dataSource.getToken()
 
-        coVerify { storage.getString(TOKEN_KEY) }
+        coVerify { encryptedStorage.getDecryptedString(TOKEN_KEY) }
     }
 
     @Test
     fun `get token when storage returns null EXPECT null`() = runTest {
-        coEvery { storage.getString(TOKEN_KEY) } returns null
+        coEvery { encryptedStorage.getDecryptedString(TOKEN_KEY) } returns null
 
         val actual = dataSource.getToken()
 
@@ -58,10 +58,10 @@ class AuthLocalDataSourceTest {
 
     @Test
     fun `clear token EXPECT invoke remove by storage`() = runTest {
-        coEvery { storage.remove(any()) } returns Unit
+        coEvery { encryptedStorage.remove(any()) } returns Unit
 
         dataSource.clearToken()
 
-        coVerify { storage.remove(TOKEN_KEY) }
+        coVerify { encryptedStorage.remove(TOKEN_KEY) }
     }
 }

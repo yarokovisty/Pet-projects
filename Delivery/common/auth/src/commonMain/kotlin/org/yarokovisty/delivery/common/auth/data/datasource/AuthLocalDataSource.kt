@@ -1,9 +1,9 @@
 package org.yarokovisty.delivery.common.auth.data.datasource
 
-import org.yarokovisty.delivery.core.storage.preferences.PreferencesStorage
+import org.yarokovisty.delivery.core.storage.encryption.EncryptedPreferencesStorage
 
 internal class AuthLocalDataSource(
-    private val storage: PreferencesStorage
+    private val encryptedStorage: EncryptedPreferencesStorage
 ) {
 
     private companion object {
@@ -12,13 +12,13 @@ internal class AuthLocalDataSource(
     }
 
     suspend fun saveToken(token: String) {
-        storage.putString(TOKEN_KEY, token)
+        encryptedStorage.putEncryptedString(TOKEN_KEY, token)
     }
 
     suspend fun getToken(): String? =
-        storage.getString(TOKEN_KEY)
+        encryptedStorage.getDecryptedString(TOKEN_KEY)
 
     suspend fun clearToken() {
-        storage.remove(TOKEN_KEY)
+        encryptedStorage.remove(TOKEN_KEY)
     }
 }

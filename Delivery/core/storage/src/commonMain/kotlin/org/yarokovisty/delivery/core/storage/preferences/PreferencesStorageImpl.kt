@@ -17,10 +17,10 @@ internal class PreferencesStorageImpl(
         return prefs[stringPreferencesKey(key)] ?: default
     }
 
-    override suspend fun putString(key: String, value: String?) {
+    override suspend fun putString(key: String, value: String) {
         dataStore.edit { prefs ->
-            val k = stringPreferencesKey(key)
-            if (value == null) prefs.remove(k) else prefs[k] = value
+            val prefsKey = stringPreferencesKey(key)
+            prefs[prefsKey] = value
         }
     }
 
@@ -29,10 +29,10 @@ internal class PreferencesStorageImpl(
         return prefs[intPreferencesKey(key)] ?: default
     }
 
-    override suspend fun putInt(key: String, value: Int?) {
+    override suspend fun putInt(key: String, value: Int) {
         dataStore.edit { prefs ->
-            val k = intPreferencesKey(key)
-            if (value == null) prefs.remove(k) else prefs[k] = value
+            val prefsKey = intPreferencesKey(key)
+            prefs[prefsKey] = value
         }
     }
 
@@ -41,10 +41,10 @@ internal class PreferencesStorageImpl(
         return prefs[booleanPreferencesKey(key)] ?: default
     }
 
-    override suspend fun putBoolean(key: String, value: Boolean?) {
+    override suspend fun putBoolean(key: String, value: Boolean) {
         dataStore.edit { prefs ->
-            val k = booleanPreferencesKey(key)
-            if (value == null) prefs.remove(k) else prefs[k] = value
+            val prefsKey = booleanPreferencesKey(key)
+            prefs[prefsKey] = value
         }
     }
 
