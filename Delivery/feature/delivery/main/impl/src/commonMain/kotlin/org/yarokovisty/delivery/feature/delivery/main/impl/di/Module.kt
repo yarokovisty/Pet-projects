@@ -20,9 +20,7 @@ val deliveryMainModule = module {
 
     factoryOf(::GetAlternativeDeliveryPointsUseCase)
     factory {
-        GetDeliveryPointByNameUseCase(
-            get(named(DispatchersQualifier.DEFAULT))
-        )
+        GetDeliveryPointByNameUseCase(get(named(DispatchersQualifier.DEFAULT)))
     }
 
     factoryOf(::DeliveryRouter)
