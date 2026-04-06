@@ -5,14 +5,9 @@ plugins {
 
 kotlin {
     sourceSets {
-        androidMain.dependencies {
-            implementation(libs.koin.android)
-        }
         commonMain.dependencies {
-            implementation(project(":libs:encryption"))
-            implementation(libs.bundles.datastore)
-
-            implementation(libs.koin.core)
+            implementation(libs.bundles.cryptography)
+            implementation(libs.kotlinx.coroutines.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -22,5 +17,5 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.delivery.core.storage"
+    namespace = "org.yarokovisty.delivery.libs.encryption"
 }

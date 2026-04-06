@@ -44,9 +44,7 @@ private fun MainScreen(
         bottomBar = {
             BottomBar(
                 selectedTab = state.selectedTab,
-                onTabSelected = {
-                    onIntent(MainIntent.SwitchTab(it))
-                }
+                onTabSelected = { onIntent(MainIntent.SwitchTab(it)) }
             )
         },
         contentWindowInsets = WindowInsets()

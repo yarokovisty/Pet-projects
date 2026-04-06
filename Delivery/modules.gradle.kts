@@ -31,6 +31,7 @@ val featureModules = listOf(
 
 val libsModules = listOf(
     ":libs:coordinator",
+    ":libs:encryption",
     ":libs:navigation"
 )
 
