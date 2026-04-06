@@ -11,6 +11,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import delivery.feature.login.impl.generated.resources.Res
 import delivery.feature.login.impl.generated.resources.ic_close
 import delivery.feature.login.impl.generated.resources.login_error
@@ -49,6 +52,11 @@ private fun LoginScreen(
     onIntent: (LoginIntent) -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+
+    NavigationBackHandler(
+        state = rememberNavigationEventState(NavigationEventInfo.None),
+        onBackCompleted = { onIntent(LoginIntent.Back) }
+    )
 
     Scaffold(
         topBar = {

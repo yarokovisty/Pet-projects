@@ -8,6 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import delivery.feature.delivery.direction.impl.generated.resources.Res
 import delivery.feature.delivery.direction.impl.generated.resources.ic_close
 import delivery.feature.delivery.direction.impl.generated.resources.topbar_title_from
@@ -42,6 +45,11 @@ private fun DirectionScreen(
     state: DirectionState,
     onIntent: (DirectionIntent) -> Unit
 ) {
+    NavigationBackHandler(
+        state = rememberNavigationEventState(NavigationEventInfo.None),
+        onBackCompleted = { onIntent(DirectionIntent.Back) }
+    )
+
     Scaffold(
         topBar = {
             TopBar(
