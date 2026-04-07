@@ -1,5 +1,6 @@
 package org.yarokovisty.delivery.presentation.viewmodel
 
+import androidx.compose.runtime.snapshotFlow
 import org.yarokovisty.delivery.common.auth.domain.usecase.IsUserAuthorizedUseCase
 import org.yarokovisty.delivery.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.delivery.main.api.navigation.DeliveryTab
@@ -17,6 +18,25 @@ class MainViewModel(
     MainState.initial(router.bottomBarBackStack.backStack)
 ) {
 
+    init {
+        observeCurrentTab()
+    }
+
+    private fun observeCurrentTab() {
+        launch {
+            snapshotFlow { router.bottomBarBackStack.currentTab }
+                .collect { tab ->
+                    val selectedTab = when (tab) {
+                        is DeliveryTab -> MainTab.DELIVERY
+                        is HistoryTab -> MainTab.HISTORY
+                        is ProfileTab -> MainTab.PROFILE
+                        else -> error("Unknown tab type: ${this::class.simpleName}")
+                    }
+                    updateState { copy(selectedTab = selectedTab) }
+                }
+        }
+    }
+
     override fun onIntent(intent: MainIntent) {
         when (intent) {
             is MainIntent.SwitchTab -> switchTab(intent.tab)
@@ -26,14 +46,8 @@ class MainViewModel(
 
     private fun switchTab(tab: MainTab) {
         when (tab) {
-            MainTab.DELIVERY -> {
-                router.openDeliveryTab()
-                changeTab()
-            }
-            MainTab.HISTORY -> {
-                router.openHistoryTab()
-                changeTab()
-            }
+            MainTab.DELIVERY -> router.openDeliveryTab()
+            MainTab.HISTORY -> router.openHistoryTab()
             MainTab.PROFILE -> openProfileTab()
         }
     }
@@ -45,26 +59,10 @@ class MainViewModel(
             } else {
                 router.openLoginScreen()
             }
-            changeTab()
         }
     }
 
     private fun back() {
         router.back()
-        changeTab()
-    }
-
-    private fun changeTab() {
-        val navTab = router.bottomBarBackStack.currentTab
-        val tab = when (navTab) {
-            DeliveryTab -> MainTab.DELIVERY
-            HistoryTab -> MainTab.HISTORY
-            ProfileTab -> MainTab.PROFILE
-            else -> error("Unsupported destination tab")
-        }
-
-        updateState {
-            copy(selectedTab = tab)
-        }
     }
 }

@@ -5,14 +5,11 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
+import org.junit.Rule
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
 import org.yarokovisty.delivery.feature.login.api.domain.repository.LoginRepository
 import org.yarokovisty.delivery.feature.login.api.error.LoginError
@@ -25,10 +22,9 @@ import org.yarokovisty.delivery.feature.login.impl.presentation.intent.LoginInte
 import org.yarokovisty.delivery.feature.login.impl.presentation.router.LoginRouter
 import org.yarokovisty.delivery.feature.login.impl.presentation.state.OtpFieldStatus
 import org.yarokovisty.delivery.feature.login.impl.presentation.state.PhoneFieldStatus
+import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import org.yarokovisty.delivery.util.validation.validated.invalid
 import org.yarokovisty.delivery.util.validation.validated.valid
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -37,7 +33,6 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginViewModelTest {
 
-    private val testDispatcher = StandardTestDispatcher()
     private val loginRepository: LoginRepository = mockk(relaxed = true)
     private val ruPhoneValidationUseCase: RuPhoneValidationUseCase = mockk()
     private val signinUseCase: SigninUseCase = mockk(relaxed = true)
@@ -51,15 +46,8 @@ class LoginViewModelTest {
         const val TEST_EXPIRE_TIME = 60000L
     }
 
-    @BeforeTest
-    fun setup() {
-        Dispatchers.setMain(testDispatcher)
-    }
-
-    @AfterTest
-    fun tearDown() {
-        Dispatchers.resetMain()
-    }
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     @Test
     fun `input phone number EXPECT state updated with new phone`() = runTest {

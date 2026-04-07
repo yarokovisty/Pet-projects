@@ -30,6 +30,8 @@ kotlin {
 
     sourceSets {
         androidUnitTest.dependencies {
+            implementation(projects.util.unitTest)
+
             implementation(libs.kotlin.test)
             implementation(libs.kotlinx.coroutines.test)
             implementation(libs.mockk)
