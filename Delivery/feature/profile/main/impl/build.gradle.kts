@@ -23,6 +23,7 @@ kotlin {
             implementation(projects.common.presentation)
             implementation(projects.common.validation)
             implementation(projects.core.network)
+            implementation(projects.core.storage)
             implementation(projects.design.uikit)
             implementation(projects.design.theme)
             implementation(projects.feature.delivery.direction.api)

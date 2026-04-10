@@ -5,7 +5,9 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import org.yarokovisty.delivery.feature.profile.main.api.domain.repository.UserRepository
+import org.yarokovisty.delivery.feature.profile.main.impl.data.datasource.UserLocalDataSource
 import org.yarokovisty.delivery.feature.profile.main.impl.data.datasource.UserRemoteDataSource
+import org.yarokovisty.delivery.feature.profile.main.impl.data.json.createJsonSerialization
 import org.yarokovisty.delivery.feature.profile.main.impl.data.repository.UserRepositoryImpl
 import org.yarokovisty.delivery.feature.profile.main.impl.domain.usecase.GetUserUseCase
 import org.yarokovisty.delivery.feature.profile.main.impl.domain.usecase.UpdateUserUseCase
@@ -13,6 +15,8 @@ import org.yarokovisty.delivery.feature.profile.main.impl.presentation.router.Pr
 import org.yarokovisty.delivery.feature.profile.main.impl.presentation.viewmodel.ProfileViewModel
 
 val profileMainModule = module {
+    factoryOf(::createJsonSerialization)
+    factoryOf(::UserLocalDataSource)
     factoryOf(::UserRemoteDataSource)
     factoryOf(::UserRepositoryImpl) bind UserRepository::class
 

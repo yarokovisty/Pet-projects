@@ -1,5 +1,8 @@
 package org.yarokovisty.delivery.feature.profile.main.api.domain.entity
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class User(
     val id: String,
     val phone: String,

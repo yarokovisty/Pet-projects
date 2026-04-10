@@ -153,7 +153,6 @@ private fun EmailInput(
     state: EmailFieldState,
     onIntent: (ProfileIntent) -> Unit
 ) {
-    println(state.status.toText())
     TextInput(
         text = state.text,
         title = stringResource(Res.string.profile_email_title),
