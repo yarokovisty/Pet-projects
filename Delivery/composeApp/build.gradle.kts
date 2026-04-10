@@ -56,6 +56,7 @@ kotlin {
             implementation(projects.feature.login.api)
             implementation(projects.feature.login.impl)
             implementation(projects.feature.profile.main.api)
+            implementation(projects.feature.profile.main.impl)
             implementation(projects.libs.encryption)
             implementation(projects.libs.navigation)
 

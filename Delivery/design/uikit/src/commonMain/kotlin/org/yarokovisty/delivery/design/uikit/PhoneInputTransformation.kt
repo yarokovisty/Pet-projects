@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.login.impl.ui.component
+package org.yarokovisty.delivery.design.uikit
 
 import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.TextFieldBuffer
@@ -16,7 +16,7 @@ import androidx.compose.ui.text.TextRange
  * - Preserves cursor position during editing, backspace, and paste operations
  * - No infinite recomposition loops or state desync
  */
-internal class PhoneInputTransformation : InputTransformation {
+class PhoneInputTransformation : InputTransformation {
 
     private companion object {
         const val MAX_DIGITS = 11
@@ -80,7 +80,6 @@ internal class PhoneInputTransformation : InputTransformation {
                 SPACE_AFTER_FIRST_GROUP,
                 SPACE_AFTER_SECOND_GROUP,
                 SPACE_AFTER_THIRD_GROUP -> result.append(" ").append(digit)
-
                 else -> result.append(digit)
             }
         }

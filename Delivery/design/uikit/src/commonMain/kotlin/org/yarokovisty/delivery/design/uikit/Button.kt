@@ -1,6 +1,7 @@
 package org.yarokovisty.delivery.design.uikit
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,6 +36,27 @@ fun PrimaryButton(
             style = DeliveryTheme.typography.buttonSemibold,
         )
     }
+}
+
+@Composable
+fun PrimaryButton(
+    onClick: () -> Unit,
+    enabled: Boolean = true,
+    modifier: Modifier = Modifier,
+    content: @Composable RowScope.() -> Unit
+) {
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        shape = RoundedCornerShape(16.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = DeliveryTheme.colorScheme.brandPrimary,
+            disabledContainerColor = DeliveryTheme.colorScheme.brandDisabled
+        ),
+        contentPadding = PaddingValues(16.dp),
+        modifier = modifier,
+        content = content
+    )
 }
 
 @Preview

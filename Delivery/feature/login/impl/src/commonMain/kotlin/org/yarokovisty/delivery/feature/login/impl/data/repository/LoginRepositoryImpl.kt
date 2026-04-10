@@ -18,11 +18,7 @@ internal class LoginRepositoryImpl(
         val request = OtpRequest(phoneNumber)
         val response = remoteDataSource.otp(request)
 
-        return if (response.success) {
-            response.retryDelay
-        } else {
-            error("Otp verification failed")
-        }
+        return response.retryDelay
     }
 
     override suspend fun signin(phoneNumber: String, otpCode: Int): String {

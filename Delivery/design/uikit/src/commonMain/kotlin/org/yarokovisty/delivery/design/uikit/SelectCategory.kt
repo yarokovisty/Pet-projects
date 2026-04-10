@@ -23,11 +23,11 @@ import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
 @Composable
-fun SelectCategoryDefault(
+fun SelectCategory(
     text: String = "",
     defaultText: String = "",
     label: String = "",
-    onClickContent: () -> Unit = {},
+    onClick: () -> Unit = {},
     alternatives: List<String> = emptyList(),
     onClickAlternative: (String) -> Unit = {},
     startIcon: Painter? = null,
@@ -39,7 +39,7 @@ fun SelectCategoryDefault(
             Label(label)
         }
 
-        Content(text, defaultText, startIcon, endIcon, onClickContent)
+        Content(text, defaultText, startIcon, endIcon, onClick)
 
         if (alternatives.isNotEmpty()) {
             Alternatives(alternatives, onClickAlternative)
@@ -73,7 +73,7 @@ private fun Content(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 12.dp, top = 10.dp, end = 8.dp, bottom = 10.dp),
+                .padding(start = 12.dp, top = 12.dp, end = 8.dp, bottom = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (startIcon != null) {
@@ -133,10 +133,10 @@ private fun Alternatives(
 @Composable
 private fun SelectCategoryDefaultPreview() {
     DeliveryTheme {
-        SelectCategoryDefault(
+        SelectCategory(
             label = "Label",
             text = "Text",
-            onClickContent = {},
+            onClick = {},
             alternatives = listOf("Text1", "Text2", "Text3"),
         )
     }

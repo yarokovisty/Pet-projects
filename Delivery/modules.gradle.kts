@@ -26,7 +26,8 @@ val featureModules = listOf(
     ":feature:delivery:main:impl",
     ":feature:login:api",
     ":feature:login:impl",
-    ":feature:profile:main:api"
+    ":feature:profile:main:api",
+    ":feature:profile:main:impl",
 )
 
 val libsModules = listOf(

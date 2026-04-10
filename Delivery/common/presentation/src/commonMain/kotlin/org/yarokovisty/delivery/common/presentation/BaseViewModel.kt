@@ -43,10 +43,10 @@ abstract class BaseViewModel<S : State, I : Intent, E : Event>(initialState: S) 
     protected fun launchTrying(block: suspend CoroutineScope.() -> Unit): LaunchBuilder =
         scope.launchBuilderFrom(block = block)
 
-    protected suspend fun <T> publishResult(key: String, result: T) {
-        Coordinator.publish(key, result)
+    protected suspend fun <T : Any> publishResult(result: T) {
+        Coordinator.publish(result)
     }
 
-    protected suspend fun <T> awaitResult(key: String): T =
-        Coordinator.await(key)
+    protected suspend inline fun <reified T> awaitResult(): T =
+        Coordinator.await()
 }

@@ -18,11 +18,6 @@ internal class DirectionViewModel(
     directionType: DirectionType
 ) : BaseViewModel<DirectionState, DirectionIntent, Nothing>(initial(directionType)) {
 
-    private companion object {
-
-        const val DELIVERY_POINT_PUBLISH_KEY = "deliveryPoint"
-    }
-
     init {
         loadData()
     }
@@ -54,8 +49,8 @@ internal class DirectionViewModel(
 
     private fun selectDeliveryPoint(point: DeliveryPoint) {
         launch {
-            publishResult(DELIVERY_POINT_PUBLISH_KEY, point)
+            publishResult(point)
+            router.back()
         }
-        router.back()
     }
 }

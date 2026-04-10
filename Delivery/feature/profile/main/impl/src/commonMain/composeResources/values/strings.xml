@@ -1,0 +1,19 @@
+<resources>
+    <string name="profile_topbar_title">Профиль</string>
+
+    <string name="profile_lastname_title">Фамилия</string>
+    <string name="profile_firstname_title">Имя</string>
+    <string name="profile_middlename_title">Отчество</string>
+    <string name="profile_city_title">Город</string>
+    <string name="profile_phone_title">Номер телефона</string>
+    <string name="profile_email_title">Email</string>
+    <string name="profile_email_not_match_pattern_error">Некорректный формат email</string>
+
+    <string name="profile_update_data_button">Обновить данные</string>
+
+    <string name="error_message_unavailable_service">Сервис временно недоступен</string>
+    <string name="error_button_repeat">Повторить</string>
+
+    <string name="user_update_data_success">Данные успешно обновлены</string>
+    <string name="user_update_data_error">Не удалось обновить данные</string>
+</resources>

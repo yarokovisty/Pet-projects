@@ -17,8 +17,7 @@ internal fun LoadingScreen() {
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
-            modifier = Modifier
-                .size(36.dp),
+            modifier = Modifier.size(36.dp),
             color = DeliveryTheme.colorScheme.brandPrimary
         )
     }

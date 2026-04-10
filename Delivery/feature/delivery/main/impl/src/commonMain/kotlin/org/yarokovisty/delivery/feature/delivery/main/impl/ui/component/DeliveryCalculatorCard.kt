@@ -25,7 +25,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.DefaultCard
 import org.yarokovisty.delivery.design.uikit.PrimaryButton
-import org.yarokovisty.delivery.design.uikit.SelectCategoryDefault
+import org.yarokovisty.delivery.design.uikit.SelectCategory
 import org.yarokovisty.delivery.design.uikit.TitleH2
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.DeliveryCalculatorContent
@@ -47,35 +47,35 @@ internal fun DeliveryCalculatorCard(
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
-            SelectCategoryDefault(
+            SelectCategory(
                 label = stringResource(Res.string.calculator_card_point_from_title),
                 text = state.selectedPointFrom?.name ?: "",
                 defaultText = stringResource(Res.string.calculator_card_point_default_item),
                 startIcon = painterResource(Res.drawable.ic_marker),
                 endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
-                onClickContent = { onIntent(DeliveryMainIntent.SelectDeliveryPointFrom) },
+                onClick = { onIntent(DeliveryMainIntent.SelectDeliveryPointFrom) },
                 alternatives = state.alternativePointsFrom,
                 onClickAlternative = { onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(it)) }
             )
 
-            SelectCategoryDefault(
+            SelectCategory(
                 label = stringResource(Res.string.calculator_card_point_to_title),
                 text = state.selectedPointTo?.name ?: "",
                 defaultText = stringResource(Res.string.calculator_card_point_default_item),
                 startIcon = painterResource(Res.drawable.ic_pointer),
                 endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
-                onClickContent = { onIntent(DeliveryMainIntent.SelectDeliveryPointTo) },
+                onClick = { onIntent(DeliveryMainIntent.SelectDeliveryPointTo) },
                 alternatives = state.alternativePointsTo,
                 onClickAlternative = { onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(it)) }
             )
 
-            SelectCategoryDefault(
+            SelectCategory(
                 label = stringResource(Res.string.calculator_card_package_size_title),
                 text = state.selectedParcelType?.name ?: "",
                 defaultText = stringResource(Res.string.calculator_card_package_size_default_item),
                 startIcon = painterResource(Res.drawable.ic_email),
                 endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
-                onClickContent = { onIntent(DeliveryMainIntent.OpenParcelTypeScreen) }
+                onClick = { onIntent(DeliveryMainIntent.OpenParcelTypeScreen) }
             )
 
             PrimaryButton(
@@ -101,7 +101,7 @@ internal fun DeliveryCalculatorCardSkeleton() {
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
-            SelectCategoryDefault(
+            SelectCategory(
                 label = "Label",
                 text = "Text",
                 alternatives = listOf("Text1"),
@@ -111,7 +111,7 @@ internal fun DeliveryCalculatorCardSkeleton() {
                 )
             )
 
-            SelectCategoryDefault(
+            SelectCategory(
                 label = "Label",
                 text = "Text",
                 alternatives = listOf("Text1"),
@@ -121,7 +121,7 @@ internal fun DeliveryCalculatorCardSkeleton() {
                 )
             )
 
-            SelectCategoryDefault(
+            SelectCategory(
                 label = "Label",
                 text = "Text",
                 modifier = Modifier.shimmerable(

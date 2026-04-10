@@ -31,11 +31,6 @@ internal class DeliveryMainViewModel(
     private val router: DeliveryRouter,
 ) : BaseViewModel<DeliveryMainState, DeliveryMainIntent, Nothing>(initial()) {
 
-    private companion object {
-
-        const val DELIVERY_POINT_SUBSCRIBE_KEY = "deliveryPoint"
-    }
-
     init {
         loadData()
     }
@@ -82,7 +77,7 @@ internal class DeliveryMainViewModel(
 
     private fun openDirectionFromScreen() {
         launch {
-            val point = awaitResult<DeliveryPoint>(DELIVERY_POINT_SUBSCRIBE_KEY)
+            val point = awaitResult<DeliveryPoint>()
             updateState { selectDeliveryPointFrom(point) }
         }
         router.openDirectionScreen(DirectionType.FROM)
@@ -99,7 +94,7 @@ internal class DeliveryMainViewModel(
 
     private fun openDirectionToScreen() {
         launch {
-            val point = awaitResult<DeliveryPoint>(DELIVERY_POINT_SUBSCRIBE_KEY)
+            val point = awaitResult<DeliveryPoint>()
             updateState { selectDeliveryPointTo(point) }
         }
         router.openDirectionScreen(DirectionType.TO)

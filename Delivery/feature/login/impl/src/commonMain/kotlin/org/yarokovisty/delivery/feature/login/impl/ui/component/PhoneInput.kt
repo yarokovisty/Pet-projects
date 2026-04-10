@@ -14,6 +14,7 @@ import delivery.feature.login.impl.generated.resources.login_input_phone_length_
 import delivery.feature.login.impl.generated.resources.login_input_phone_title
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
+import org.yarokovisty.delivery.design.uikit.PhoneInputTransformation
 import org.yarokovisty.delivery.design.uikit.TextInput
 import org.yarokovisty.delivery.feature.login.impl.presentation.intent.LoginIntent
 import org.yarokovisty.delivery.feature.login.impl.presentation.state.PhoneFieldStatus

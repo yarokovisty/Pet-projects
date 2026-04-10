@@ -48,16 +48,6 @@ class LoginRepositoryImplTest {
     }
 
     @Test
-    fun `request otp when success false EXPECT error thrown`() = runTest {
-        val response = OtpResponse(success = false, retryDelay = 0L)
-        coEvery { remoteDataSource.otp(any()) } returns response
-
-        assertFailsWith<IllegalStateException> {
-            repository.requestOtp(TEST_PHONE)
-        }
-    }
-
-    @Test
     fun `signin when success true and token exists EXPECT return token`() = runTest {
         val response = SigninResponse(success = true, token = TEST_TOKEN)
         coEvery { remoteDataSource.signin(any()) } returns response
