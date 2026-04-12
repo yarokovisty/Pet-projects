@@ -15,11 +15,9 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import org.koin.compose.viewmodel.koinViewModel
-import org.yarokovisty.delivery.feature.delivery.main.api.navigation.DeliveryMainDestination
-import org.yarokovisty.delivery.feature.delivery.main.impl.ui.screen.DeliveryMainScreen
-import org.yarokovisty.delivery.feature.profile.main.api.navigation.ProfileMainDestination
-import org.yarokovisty.delivery.feature.profile.main.impl.ui.screen.ProfileScreen
-import org.yarokovisty.delivery.navigation.HistoryMainDestination
+import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryMainDestination
+import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileMainDestination
+import org.yarokovisty.delivery.navigation.destination.HistoryMainDestination
 import org.yarokovisty.delivery.presentation.intent.MainIntent
 import org.yarokovisty.delivery.presentation.state.MainState
 import org.yarokovisty.delivery.presentation.viewmodel.MainViewModel
@@ -64,13 +62,13 @@ private fun MainScreen(
             },
             entryProvider = entryProvider {
                 entry<DeliveryMainDestination> {
-                    DeliveryMainScreen()
+                    org.yarokovisty.delivery.feature.delivery.main.ui.screen.DeliveryMainScreen()
                 }
                 entry<HistoryMainDestination> {
                     Text("History")
                 }
                 entry<ProfileMainDestination> {
-                    ProfileScreen()
+                    org.yarokovisty.delivery.feature.profile.main.ui.screen.ProfileScreen()
                 }
             }
         )

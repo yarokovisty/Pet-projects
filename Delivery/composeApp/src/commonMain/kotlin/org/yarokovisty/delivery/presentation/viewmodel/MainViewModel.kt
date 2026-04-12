@@ -3,9 +3,9 @@ package org.yarokovisty.delivery.presentation.viewmodel
 import androidx.compose.runtime.snapshotFlow
 import org.yarokovisty.delivery.common.auth.domain.usecase.IsUserAuthorizedUseCase
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
-import org.yarokovisty.delivery.feature.delivery.main.api.navigation.DeliveryTab
-import org.yarokovisty.delivery.feature.profile.main.api.navigation.ProfileTab
-import org.yarokovisty.delivery.navigation.HistoryTab
+import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryTab
+import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileTab
+import org.yarokovisty.delivery.navigation.destination.HistoryTab
 import org.yarokovisty.delivery.presentation.intent.MainIntent
 import org.yarokovisty.delivery.presentation.router.MainRouter
 import org.yarokovisty.delivery.presentation.state.MainState

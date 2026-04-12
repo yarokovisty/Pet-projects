@@ -8,7 +8,7 @@ import io.mockk.verify
 import org.junit.Test
 import org.yarokovisty.delivery.libs.navigation.backstack.GlobalBackStack
 import org.yarokovisty.delivery.libs.navigation.destination.Screen
-import org.yarokovisty.delivery.navigation.MainDestination
+import org.yarokovisty.delivery.navigation.destination.MainDestination
 import org.yarokovisty.delivery.presentation.intent.AppIntent
 import org.yarokovisty.delivery.presentation.router.AppRouter
 import org.yarokovisty.delivery.presentation.state.AppState

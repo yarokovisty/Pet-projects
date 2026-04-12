@@ -12,7 +12,6 @@ class DeliveryApplication : Application() {
         initKoin {
             androidContext(this@DeliveryApplication)
             androidLogger()
-            modules()
         }
     }
 }
