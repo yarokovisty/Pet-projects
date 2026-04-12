@@ -5,7 +5,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import org.yarokovisty.delivery.common.coroutines.DispatchersQualifier
+import org.yarokovisty.delivery.core.common.coroutines.DispatchersQualifier
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.repository.DeliveryRepository
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.datasource.DeliveryRemoteDataSource
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.repository.DeliveryRepositoryImpl

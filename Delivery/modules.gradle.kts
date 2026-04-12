@@ -4,12 +4,12 @@ val appModules = listOf(
 
 val commonModules = listOf(
     ":common:auth",
-    ":common:coroutines",
     ":common:presentation",
     ":common:validation"
 )
 
 val coreModules = listOf(
+    ":core:common:coroutines",
     ":core:network",
     ":core:storage"
 )

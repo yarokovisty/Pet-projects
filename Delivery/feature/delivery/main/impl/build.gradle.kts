@@ -19,7 +19,7 @@ kotlin {
             implementation(libs.mockk)
         }
         commonMain.dependencies {
-            implementation(projects.common.coroutines)
+            implementation(projects.core.common.coroutines)
             implementation(projects.common.presentation)
             implementation(projects.core.network)
             implementation(projects.design.theme)
