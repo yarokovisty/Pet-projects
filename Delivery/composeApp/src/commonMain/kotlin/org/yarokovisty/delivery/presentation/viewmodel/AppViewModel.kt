@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.presentation.viewmodel
 
-import org.yarokovisty.delivery.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.presentation.intent.AppIntent
 import org.yarokovisty.delivery.presentation.router.AppRouter
 import org.yarokovisty.delivery.presentation.state.AppState

@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.viewmodel
 
 import kotlinx.coroutines.async
-import org.yarokovisty.delivery.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.repository.DeliveryRepository
 import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetAlternativeDeliveryPointsUseCase

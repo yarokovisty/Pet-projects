@@ -20,7 +20,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.core.common.coroutines)
-            implementation(projects.common.presentation)
+            implementation(projects.core.common.presentation)
             implementation(projects.core.network)
             implementation(projects.design.theme)
             implementation(projects.design.uikit)

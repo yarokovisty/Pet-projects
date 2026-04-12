@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.presentation.intent
 
-import org.yarokovisty.delivery.common.presentation.Intent
+import org.yarokovisty.delivery.core.common.presentation.Intent
 import org.yarokovisty.delivery.presentation.state.MainTab
 
 sealed interface MainIntent : Intent {

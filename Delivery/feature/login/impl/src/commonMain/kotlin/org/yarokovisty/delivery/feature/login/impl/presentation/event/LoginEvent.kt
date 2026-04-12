@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.feature.login.impl.presentation.event
 
-import org.yarokovisty.delivery.common.presentation.Event
+import org.yarokovisty.delivery.core.common.presentation.Event
 
 internal sealed interface LoginEvent : Event {
 

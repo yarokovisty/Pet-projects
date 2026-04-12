@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.feature.direction.impl.presentation.state
 
-import org.yarokovisty.delivery.common.presentation.State
+import org.yarokovisty.delivery.core.common.presentation.State
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DirectionType
 

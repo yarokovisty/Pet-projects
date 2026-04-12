@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.login.impl.presentation.state
 
-import org.yarokovisty.delivery.common.presentation.State
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
+import org.yarokovisty.delivery.core.common.presentation.State
 import org.yarokovisty.delivery.feature.login.impl.domain.validator.OtpCodeFormatValidationError
 
 internal data class LoginState(

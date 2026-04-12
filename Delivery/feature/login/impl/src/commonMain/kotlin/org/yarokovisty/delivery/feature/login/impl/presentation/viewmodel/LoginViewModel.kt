@@ -4,7 +4,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
-import org.yarokovisty.delivery.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.login.api.domain.repository.LoginRepository
 import org.yarokovisty.delivery.feature.login.api.error.LoginError
 import org.yarokovisty.delivery.feature.login.impl.domain.usecase.RuPhoneValidationUseCase

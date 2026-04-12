@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.feature.direction.impl.presentation.viewmodel
 
-import org.yarokovisty.delivery.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DirectionType
 import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository

@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.presentation.state
 
-import org.yarokovisty.delivery.common.presentation.State
+import org.yarokovisty.delivery.core.common.presentation.State
 import org.yarokovisty.delivery.libs.navigation.destination.Screen
 
 data class MainState(

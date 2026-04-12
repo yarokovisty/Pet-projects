@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.feature.login.impl.presentation.intent
 
-import org.yarokovisty.delivery.common.presentation.Intent
+import org.yarokovisty.delivery.core.common.presentation.Intent
 
 internal sealed interface LoginIntent : Intent {
 

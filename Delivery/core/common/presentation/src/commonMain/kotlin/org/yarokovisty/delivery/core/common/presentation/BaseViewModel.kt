@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.common.presentation
+package org.yarokovisty.delivery.core.common.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

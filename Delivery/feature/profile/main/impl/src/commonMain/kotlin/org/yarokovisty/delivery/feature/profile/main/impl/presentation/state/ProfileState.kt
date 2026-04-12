@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.profile.main.impl.presentation.state
 
-import org.yarokovisty.delivery.common.presentation.State
 import org.yarokovisty.delivery.common.validation.error.EmailValidationError
+import org.yarokovisty.delivery.core.common.presentation.State
 import org.yarokovisty.delivery.feature.profile.main.api.domain.entity.User
 
 internal data class ProfileState(

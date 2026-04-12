@@ -16,5 +16,5 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.delivery.common.presentation"
+    namespace = "org.yarokovisty.delivery.core.common.presentation"
 }

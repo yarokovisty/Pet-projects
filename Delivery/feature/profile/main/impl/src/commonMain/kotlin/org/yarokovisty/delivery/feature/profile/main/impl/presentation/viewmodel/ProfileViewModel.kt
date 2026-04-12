@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.profile.main.impl.presentation.viewmodel
 
-import org.yarokovisty.delivery.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.common.validation.validator.EmailValidator
+import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.profile.main.api.domain.entity.User
 import org.yarokovisty.delivery.feature.profile.main.impl.domain.usecase.GetUserUseCase
