@@ -1,6 +1,8 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.viewmodel
 
 import kotlinx.coroutines.async
+import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.common.delivery.direction.domain.repository.DirectionRepository
 import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.common.delivery.parcel.domain.repository.ParcelRepository
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
@@ -19,9 +21,7 @@ import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.se
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.selectDeliveryPointTo
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.selectParcelType
 import org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state.showSelectParcelTypeScreen
-import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DirectionType
-import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository
 
 internal class DeliveryMainViewModel(
     private val deliveryRepository: ParcelRepository,
@@ -57,7 +57,7 @@ internal class DeliveryMainViewModel(
         updateState { loadingState() }
 
         launchTrying {
-            val deliveryPointsDeferred = async { directionRepository.getDeliveryPoints() }
+            val deliveryPointsDeferred = async { directionRepository.getDeliveryPointList() }
             val parcelTypesDeferred = async { deliveryRepository.getParcelInfoList() }
 
             val deliveryPoints = deliveryPointsDeferred.await()

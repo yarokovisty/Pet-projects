@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.direction.impl.presentation.intent
 
+import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.core.common.presentation.Intent
-import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 
 internal sealed interface DirectionIntent : Intent {
     data object Back : DirectionIntent

@@ -1,8 +1,8 @@
-package org.yarokovisty.delivery.feature.direction.impl.data.datasource
+package org.yarokovisty.common.delivery.direction.data.datasource
 
 import io.ktor.client.HttpClient
+import org.yarokovisty.common.delivery.direction.data.model.DeliveryPointListResponse
 import org.yarokovisty.delivery.core.network.client.get
-import org.yarokovisty.delivery.feature.direction.impl.data.model.DeliveryPointListResponse
 
 internal class DirectionRemoteDataSource(private val httpClient: HttpClient) {
 

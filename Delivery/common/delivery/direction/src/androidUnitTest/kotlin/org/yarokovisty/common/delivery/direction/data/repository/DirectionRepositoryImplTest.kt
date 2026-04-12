@@ -1,14 +1,13 @@
-package org.yarokovisty.delivery.feature.direction.impl.data
+package org.yarokovisty.common.delivery.direction.data.repository
 
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
-import org.yarokovisty.delivery.feature.direction.impl.data.datasource.DirectionRemoteDataSource
-import org.yarokovisty.delivery.feature.direction.impl.data.model.DeliveryPointListResponse
-import org.yarokovisty.delivery.feature.direction.impl.data.model.DeliveryPointResponse
-import org.yarokovisty.delivery.feature.direction.impl.data.repository.DirectionRepositoryImpl
+import org.yarokovisty.common.delivery.direction.data.datasource.DirectionRemoteDataSource
+import org.yarokovisty.common.delivery.direction.data.model.DeliveryPointListResponse
+import org.yarokovisty.common.delivery.direction.data.model.DeliveryPointResponse
+import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -52,7 +51,7 @@ class DirectionRepositoryImplTest {
         )
         coEvery { remoteDataSource.getDeliveryPoints() } returns deliveryPointListResponse
 
-        val actual = repository.getDeliveryPoints()
+        val actual = repository.getDeliveryPointList()
 
         assertEquals(expected, actual)
     }
@@ -61,7 +60,7 @@ class DirectionRepositoryImplTest {
     fun `get delivery points EXPECT invoke get delivery points by remote data source`() = runTest {
         coEvery { remoteDataSource.getDeliveryPoints() } returns deliveryPointListResponse
 
-        repository.getDeliveryPoints()
+        repository.getDeliveryPointList()
 
         coVerify { remoteDataSource.getDeliveryPoints() }
     }

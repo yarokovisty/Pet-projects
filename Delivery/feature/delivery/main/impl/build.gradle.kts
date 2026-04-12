@@ -21,6 +21,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core.common.coroutines)
             implementation(projects.core.common.presentation)
+            implementation(projects.common.delivery.direction)
             implementation(projects.common.delivery.parcel)
             implementation(projects.design.theme)
             implementation(projects.design.uikit)

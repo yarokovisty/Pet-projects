@@ -45,6 +45,7 @@ kotlin {
             implementation(projects.core.common.coroutines)
             implementation(projects.core.common.presentation)
             implementation(projects.common.delivery.parcel)
+            implementation(projects.common.delivery.direction)
             implementation(projects.common.validation)
             implementation(projects.core.network)
             implementation(projects.core.storage)

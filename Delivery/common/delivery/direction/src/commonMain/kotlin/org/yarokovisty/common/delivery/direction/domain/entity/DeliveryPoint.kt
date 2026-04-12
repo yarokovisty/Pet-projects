@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.direction.api.domain.entity
+package org.yarokovisty.common.delivery.direction.domain.entity
 
 data class DeliveryPoint(
     val id: String,

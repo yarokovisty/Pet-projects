@@ -4,6 +4,7 @@ val appModules = listOf(
 
 val commonModules = listOf(
     ":common:auth",
+    ":common:delivery:direction",
     ":common:delivery:parcel",
     ":common:validation"
 )

@@ -1,9 +1,9 @@
 package org.yarokovisty.delivery.feature.direction.impl.presentation.viewmodel
 
+import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.common.delivery.direction.domain.repository.DirectionRepository
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
-import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DirectionType
-import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository
 import org.yarokovisty.delivery.feature.direction.impl.presentation.intent.DirectionIntent
 import org.yarokovisty.delivery.feature.direction.impl.presentation.router.DirectionRouter
 import org.yarokovisty.delivery.feature.direction.impl.presentation.state.DirectionState
@@ -34,7 +34,7 @@ internal class DirectionViewModel(
         updateState { loadingState() }
 
         launchTrying {
-            val deliveryPoints = directionRepository.getDeliveryPoints()
+            val deliveryPoints = directionRepository.getDeliveryPointList()
             updateState { contentState(deliveryPoints) }
         } handle { handleError() }
     }

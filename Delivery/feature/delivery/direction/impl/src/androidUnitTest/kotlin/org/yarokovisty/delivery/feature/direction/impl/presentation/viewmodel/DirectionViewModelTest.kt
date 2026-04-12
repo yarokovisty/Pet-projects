@@ -8,9 +8,9 @@ import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
+import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.common.delivery.direction.domain.repository.DirectionRepository
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DirectionType
-import org.yarokovisty.delivery.feature.direction.api.domain.repository.DirectionRepository
 import org.yarokovisty.delivery.feature.direction.impl.presentation.intent.DirectionIntent
 import org.yarokovisty.delivery.feature.direction.impl.presentation.router.DirectionRouter
 import org.yarokovisty.delivery.feature.direction.impl.presentation.state.DirectionContentState
@@ -72,7 +72,7 @@ class DirectionViewModelTest {
             loading = false,
             content = DirectionContentState(deliveryPoints = points)
         )
-        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { directionRepository.getDeliveryPointList() } returns points
 
         val viewModel = createViewModel(directionType)
         advanceUntilIdle()
@@ -88,7 +88,7 @@ class DirectionViewModelTest {
             loading = false,
             error = true
         )
-        coEvery { directionRepository.getDeliveryPoints() } throws Exception("error")
+        coEvery { directionRepository.getDeliveryPointList() } throws Exception("error")
 
         val viewModel = createViewModel(directionType)
         advanceUntilIdle()
@@ -100,7 +100,7 @@ class DirectionViewModelTest {
     @Test
     fun `back intent EXPECT router back called`() = runTest {
         val intent = DirectionIntent.Back
-        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { directionRepository.getDeliveryPointList() } returns points
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -117,7 +117,7 @@ class DirectionViewModelTest {
             content = DirectionContentState(deliveryPoints = points)
         )
         val intent = DirectionIntent.LoadData
-        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { directionRepository.getDeliveryPointList() } returns points
 
         val viewModel = createViewModel(directionType)
         advanceUntilIdle()
@@ -126,14 +126,14 @@ class DirectionViewModelTest {
 
         val actual = viewModel.state.value
         assertEquals(expected, actual)
-        coVerify(exactly = 2) { directionRepository.getDeliveryPoints() }
+        coVerify(exactly = 2) { directionRepository.getDeliveryPointList() }
     }
 
     @Test
     fun `select delivery point EXPECT router back called`() = runTest {
         val selectedPoint = points[1]
         val intent = DirectionIntent.SelectDeliveryPoint(selectedPoint)
-        coEvery { directionRepository.getDeliveryPoints() } returns points
+        coEvery { directionRepository.getDeliveryPointList() } returns points
 
         val viewModel = createViewModel()
         advanceUntilIdle()

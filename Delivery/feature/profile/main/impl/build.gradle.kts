@@ -21,6 +21,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.common.auth)
             implementation(projects.core.common.presentation)
+            implementation(projects.common.delivery.direction)
             implementation(projects.common.validation)
             implementation(projects.core.network)
             implementation(projects.core.storage)

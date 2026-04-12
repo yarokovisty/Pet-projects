@@ -17,6 +17,7 @@ kotlin {
             implementation(libs.mockk)
         }
         commonMain.dependencies {
+            implementation(projects.common.delivery.direction)
             implementation(projects.core.common.presentation)
             implementation(projects.core.network)
             implementation(projects.design.uikit)

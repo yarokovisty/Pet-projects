@@ -2,7 +2,7 @@ package org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
-import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
+import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
