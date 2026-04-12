@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent
 
 import org.yarokovisty.delivery.common.presentation.Intent
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 
 internal sealed interface DeliveryMainIntent : Intent {
     data object LoadData : DeliveryMainIntent
@@ -13,7 +13,7 @@ internal sealed interface DeliveryMainIntent : Intent {
 
     data object OpenParcelTypeScreen : DeliveryMainIntent
     data object CloseParcelTypeScreen : DeliveryMainIntent
-    data class SelectParcelType(val parcelType: ParcelType) : DeliveryMainIntent
+    data class SelectParcelType(val parcelInfo: ParcelInfo) : DeliveryMainIntent
 
     data object CalculateDelivery : DeliveryMainIntent
 

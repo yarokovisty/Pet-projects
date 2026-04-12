@@ -5,7 +5,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.datasource.DeliveryRemoteDataSource
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageListResponse
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageResponse
@@ -42,7 +42,7 @@ class DeliveryRepositoryImplTest {
     @Test
     fun `get parcel types EXPECT parcel types`() = runTest {
         val expected = listOf(
-            ParcelType(
+            ParcelInfo(
                 id = "envelope",
                 type = PackageType.ENVELOPE,
                 name = "name0",
@@ -51,7 +51,7 @@ class DeliveryRepositoryImplTest {
                 height = 1,
                 weight = 1,
             ),
-            ParcelType(
+            ParcelInfo(
                 id = "box-s",
                 type = PackageType.BOX_S,
                 name = "name1",

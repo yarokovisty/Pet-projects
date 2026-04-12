@@ -71,7 +71,7 @@ internal fun DeliveryCalculatorCard(
 
             SelectCategory(
                 label = stringResource(Res.string.calculator_card_package_size_title),
-                text = state.selectedParcelType?.name ?: "",
+                text = state.selectedParcelInfo?.name ?: "",
                 defaultText = stringResource(Res.string.calculator_card_package_size_default_item),
                 startIcon = painterResource(Res.drawable.ic_email),
                 endIcon = painterResource(Res.drawable.ic_arrow_drop_down),

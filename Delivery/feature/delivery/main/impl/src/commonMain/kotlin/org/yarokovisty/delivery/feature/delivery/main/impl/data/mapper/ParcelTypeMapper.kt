@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.data.mapper
 
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageListResponse
 import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageResponse
 
@@ -13,11 +13,11 @@ private const val BOX_XL = "box-xl"
 private const val BAG = "bag"
 private const val PALLET = "pallet"
 
-internal fun TypePackageListResponse.toItem(): List<ParcelType> =
+internal fun TypePackageListResponse.toItem(): List<ParcelInfo> =
     packages.map(TypePackageResponse::toItem)
 
-internal fun TypePackageResponse.toItem(): ParcelType =
-    ParcelType(
+internal fun TypePackageResponse.toItem(): ParcelInfo =
+    ParcelInfo(
         id = this.id,
         type = this.id.convertToPackageType(),
         name = this.name,

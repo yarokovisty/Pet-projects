@@ -18,12 +18,12 @@ import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.Paragraph16Regular
 import org.yarokovisty.delivery.design.uikit.TitleH3
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 
 @Composable
 internal fun SelectParcelTypeContent(
-    parcelTypes: List<ParcelType>,
-    onSelect: (ParcelType) -> Unit
+    parcelInfos: List<ParcelInfo>,
+    onSelect: (ParcelInfo) -> Unit
 ) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         item {
@@ -34,9 +34,9 @@ internal fun SelectParcelTypeContent(
             )
         }
 
-        items(parcelTypes, key = { it.id }) { parcelType ->
+        items(parcelInfos, key = { it.id }) { parcelType ->
             ParcelTypeItem(
-                parcelType = parcelType,
+                parcelInfo = parcelType,
                 onClick = { onSelect(parcelType) }
             )
         }
@@ -45,7 +45,7 @@ internal fun SelectParcelTypeContent(
 
 @Composable
 private fun ParcelTypeItem(
-    parcelType: ParcelType,
+    parcelInfo: ParcelInfo,
     onClick: () -> Unit
 ) {
     Box(
@@ -56,10 +56,10 @@ private fun ParcelTypeItem(
     ) {
         val text = stringResource(
             Res.string.parcel_type_value,
-            parcelType.name,
-            parcelType.length,
-            parcelType.width,
-            parcelType.height
+            parcelInfo.name,
+            parcelInfo.length,
+            parcelInfo.width,
+            parcelInfo.height
         )
 
         Paragraph16Regular(
@@ -72,8 +72,8 @@ private fun ParcelTypeItem(
 @Preview(showBackground = true)
 @Composable
 private fun SelectParcelTypeContentPreview() {
-    val parcelTypes = listOf(
-        ParcelType(
+    val parcelInfos = listOf(
+        ParcelInfo(
             id = "envelope",
             type = PackageType.ENVELOPE,
             name = "Конверт",
@@ -82,7 +82,7 @@ private fun SelectParcelTypeContentPreview() {
             height = 1,
             weight = 1,
         ),
-        ParcelType(
+        ParcelInfo(
             id = "box-s",
             type = PackageType.BOX_S,
             name = "Коробка S",
@@ -94,6 +94,6 @@ private fun SelectParcelTypeContentPreview() {
     )
 
     DeliveryTheme {
-        SelectParcelTypeContent(parcelTypes, onSelect = {})
+        SelectParcelTypeContent(parcelInfos, onSelect = {})
     }
 }

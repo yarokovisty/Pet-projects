@@ -2,7 +2,7 @@ package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.viewmod
 
 import kotlinx.coroutines.async
 import org.yarokovisty.delivery.common.presentation.BaseViewModel
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.repository.DeliveryRepository
 import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetAlternativeDeliveryPointsUseCase
 import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetDeliveryPointByNameUseCase
@@ -46,7 +46,7 @@ internal class DeliveryMainViewModel(
                 selectAlternativeDeliveryPointTo(intent.pointName)
             is DeliveryMainIntent.OpenParcelTypeScreen -> openSelectParcelTypeScreen()
             is DeliveryMainIntent.CloseParcelTypeScreen -> closeSelectParcelTypeScreen()
-            is DeliveryMainIntent.SelectParcelType -> selectParcelType(intent.parcelType)
+            is DeliveryMainIntent.SelectParcelType -> selectParcelType(intent.parcelInfo)
             is DeliveryMainIntent.CalculateDelivery -> TODO()
             is DeliveryMainIntent.ChangeInputParcelId -> changeInputParcelId(intent.id)
             is DeliveryMainIntent.TrackParcel -> TODO()
@@ -117,8 +117,8 @@ internal class DeliveryMainViewModel(
         updateState { closeSelectParcelTypeScreen() }
     }
 
-    private fun selectParcelType(parcelType: ParcelType) {
-        updateState { selectParcelType(parcelType) }
+    private fun selectParcelType(parcelInfo: ParcelInfo) {
+        updateState { selectParcelType(parcelInfo) }
     }
 
     private fun changeInputParcelId(id: String) {

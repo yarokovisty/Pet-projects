@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state
 
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 
 internal fun initial() =
@@ -22,7 +22,7 @@ internal fun DeliveryMainState.contentState(
     deliveryPoints: List<DeliveryPoint>,
     alternativePointsFrom: List<String>,
     alternativePointsTo: List<String>,
-    parcelTypes: List<ParcelType>
+    parcelInfos: List<ParcelInfo>
 ): DeliveryMainState {
     val deliveryCalculatorContent = DeliveryCalculatorContent(
         points = deliveryPoints,
@@ -30,8 +30,8 @@ internal fun DeliveryMainState.contentState(
         alternativePointsFrom = alternativePointsFrom,
         selectedPointTo = null,
         alternativePointsTo = alternativePointsTo,
-        parcelTypes = parcelTypes,
-        selectedParcelType = null
+        parcelInfos = parcelInfos,
+        selectedParcelInfo = null
     )
 
     return copy(
@@ -52,9 +52,9 @@ internal fun DeliveryMainState.showSelectParcelTypeScreen() =
 internal fun DeliveryMainState.closeSelectParcelTypeScreen() =
     copy(showSelectParcelType = false)
 
-internal fun DeliveryMainState.selectParcelType(parcelType: ParcelType) =
+internal fun DeliveryMainState.selectParcelType(parcelInfo: ParcelInfo) =
     copy(
-        deliveryCalculatorContent = deliveryCalculatorContent?.copy(selectedParcelType = parcelType),
+        deliveryCalculatorContent = deliveryCalculatorContent?.copy(selectedParcelInfo = parcelInfo),
         showSelectParcelType = false
     )
 

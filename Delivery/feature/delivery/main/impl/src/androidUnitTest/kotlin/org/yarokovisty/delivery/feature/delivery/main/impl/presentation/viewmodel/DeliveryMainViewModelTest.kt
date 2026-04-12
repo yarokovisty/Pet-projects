@@ -9,7 +9,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelType
+import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.feature.delivery.main.api.domain.repository.DeliveryRepository
 import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetAlternativeDeliveryPointsUseCase
 import org.yarokovisty.delivery.feature.delivery.main.impl.domain.usecase.GetDeliveryPointByNameUseCase
@@ -57,8 +57,8 @@ class DeliveryMainViewModelTest {
         )
     )
     val alternativePoints = points.take(ALTERNATIVE_POINTS_LIMIT)
-    private val parcelTypes = listOf(
-        ParcelType(
+    private val parcelInfos = listOf(
+        ParcelInfo(
             id = "envelope",
             type = PackageType.ENVELOPE,
             name = "name0",
@@ -67,7 +67,7 @@ class DeliveryMainViewModelTest {
             height = 1,
             weight = 1,
         ),
-        ParcelType(
+        ParcelInfo(
             id = "box-s",
             type = PackageType.BOX_S,
             name = "name1",
@@ -110,12 +110,12 @@ class DeliveryMainViewModelTest {
                 alternativePointsFrom = alternativePointsUI,
                 selectedPointTo = null,
                 alternativePointsTo = alternativePointsUI,
-                parcelTypes = parcelTypes,
-                selectedParcelType = null
+                parcelInfos = parcelInfos,
+                selectedParcelInfo = null
             )
         )
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 
         val viewModel = createViewModel()
@@ -160,14 +160,14 @@ class DeliveryMainViewModelTest {
                 alternativePointsFrom = alternativePointsUI,
                 selectedPointTo = null,
                 alternativePointsTo = alternativePointsUI,
-                parcelTypes = parcelTypes,
-                selectedParcelType = null
+                parcelInfos = parcelInfos,
+                selectedParcelInfo = null
             ),
             trackerContent = TrackerContent("1")
         )
         val intent = DeliveryMainIntent.ChangeInputParcelId("1")
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 
         val viewModel = createViewModel()
@@ -189,13 +189,13 @@ class DeliveryMainViewModelTest {
                 alternativePointsFrom = alternativePointsUI,
                 selectedPointTo = null,
                 alternativePointsTo = alternativePointsUI,
-                parcelTypes = parcelTypes,
-                selectedParcelType = null
+                parcelInfos = parcelInfos,
+                selectedParcelInfo = null
             )
         )
         val intent = DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(selectedPoint.name)
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
         coEvery { getDeliveryPointByNameUseCase(points, selectedPoint.name) } returns selectedPoint
 
@@ -219,13 +219,13 @@ class DeliveryMainViewModelTest {
                 alternativePointsFrom = alternativePointsUI,
                 selectedPointTo = selectedPoint,
                 alternativePointsTo = alternativePointsUI,
-                parcelTypes = parcelTypes,
-                selectedParcelType = null
+                parcelInfos = parcelInfos,
+                selectedParcelInfo = null
             )
         )
         val intent = DeliveryMainIntent.SelectAlternativeDeliveryPointTo(selectedPoint.name)
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
         coEvery { getDeliveryPointByNameUseCase(points, selectedPoint.name) } returns selectedPoint
 
@@ -242,7 +242,7 @@ class DeliveryMainViewModelTest {
     fun `select delivery point from EXPECT router opens direction screen with FROM type`() = runTest {
         val intent = DeliveryMainIntent.SelectDeliveryPointFrom
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 
         val viewModel = createViewModel()
@@ -256,7 +256,7 @@ class DeliveryMainViewModelTest {
     fun `select delivery point to EXPECT router opens direction screen with TO type`() = runTest {
         val intent = DeliveryMainIntent.SelectDeliveryPointTo
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 
         val viewModel = createViewModel()
@@ -276,14 +276,14 @@ class DeliveryMainViewModelTest {
                 alternativePointsFrom = alternativePointsUI,
                 selectedPointTo = null,
                 alternativePointsTo = alternativePointsUI,
-                parcelTypes = parcelTypes,
-                selectedParcelType = null
+                parcelInfos = parcelInfos,
+                selectedParcelInfo = null
             ),
             showSelectParcelType = true
         )
         val intent = DeliveryMainIntent.OpenParcelTypeScreen
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 
         val viewModel = createViewModel()
@@ -305,13 +305,13 @@ class DeliveryMainViewModelTest {
                 alternativePointsFrom = alternativePointsUI,
                 selectedPointTo = null,
                 alternativePointsTo = alternativePointsUI,
-                parcelTypes = parcelTypes,
-                selectedParcelType = null
+                parcelInfos = parcelInfos,
+                selectedParcelInfo = null
             ),
             showSelectParcelType = false
         )
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 
         val viewModel = createViewModel()
@@ -326,7 +326,7 @@ class DeliveryMainViewModelTest {
 
     @Test
     fun `select parcel type EXPECT selected parcel type updated and screen closed`() = runTest {
-        val selectedParcelType = parcelTypes[1]
+        val selectedParcelType = parcelInfos[1]
         val alternativePointsUI = alternativePoints.map { it.name }
         val expected = initial().copy(
             deliveryCalculatorContent = DeliveryCalculatorContent(
@@ -335,14 +335,14 @@ class DeliveryMainViewModelTest {
                 alternativePointsFrom = alternativePointsUI,
                 selectedPointTo = null,
                 alternativePointsTo = alternativePointsUI,
-                parcelTypes = parcelTypes,
-                selectedParcelType = selectedParcelType
+                parcelInfos = parcelInfos,
+                selectedParcelInfo = selectedParcelType
             ),
             showSelectParcelType = false
         )
         val intent = DeliveryMainIntent.SelectParcelType(selectedParcelType)
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 
         val viewModel = createViewModel()
@@ -359,7 +359,7 @@ class DeliveryMainViewModelTest {
     fun `only point from selected EXPECT calculateButtonEnabled is false`() = runTest {
         val selectedPoint = points[0]
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
         coEvery { getDeliveryPointByNameUseCase(points, selectedPoint.name) } returns selectedPoint
 
@@ -376,7 +376,7 @@ class DeliveryMainViewModelTest {
     fun `only point to selected EXPECT calculateButtonEnabled is false`() = runTest {
         val selectedPoint = points[1]
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
         coEvery { getDeliveryPointByNameUseCase(points, selectedPoint.name) } returns selectedPoint
 
@@ -391,9 +391,9 @@ class DeliveryMainViewModelTest {
 
     @Test
     fun `only parcel type selected EXPECT calculateButtonEnabled is false`() = runTest {
-        val selectedParcelType = parcelTypes[0]
+        val selectedParcelType = parcelInfos[0]
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
 
         val viewModel = createViewModel()
@@ -410,7 +410,7 @@ class DeliveryMainViewModelTest {
         val selectedPointFrom = points[0]
         val selectedPointTo = points[1]
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
         coEvery { getDeliveryPointByNameUseCase(points, selectedPointFrom.name) } returns selectedPointFrom
         coEvery { getDeliveryPointByNameUseCase(points, selectedPointTo.name) } returns selectedPointTo
@@ -429,9 +429,9 @@ class DeliveryMainViewModelTest {
     fun `all required fields selected EXPECT calculateButtonEnabled is true`() = runTest {
         val selectedPointFrom = points[0]
         val selectedPointTo = points[1]
-        val selectedParcelType = parcelTypes[0]
+        val selectedParcelType = parcelInfos[0]
         coEvery { directionRepository.getDeliveryPoints() } returns points
-        coEvery { deliveryRepository.getParcelTypes() } returns parcelTypes
+        coEvery { deliveryRepository.getParcelTypes() } returns parcelInfos
         every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
         coEvery { getDeliveryPointByNameUseCase(points, selectedPointFrom.name) } returns selectedPointFrom
         coEvery { getDeliveryPointByNameUseCase(points, selectedPointTo.name) } returns selectedPointTo

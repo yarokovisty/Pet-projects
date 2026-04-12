@@ -47,9 +47,9 @@ private fun DeliveryMainScreen(
             ContentScreen(state, onIntent)
         }
 
-        if (state.showSelectParcelType && state.deliveryCalculatorContent?.parcelTypes != null) {
+        if (state.showSelectParcelType && state.deliveryCalculatorContent?.parcelInfos != null) {
             SelectParcelTypeScreen(
-                parcelTypes = state.deliveryCalculatorContent.parcelTypes,
+                parcelInfos = state.deliveryCalculatorContent.parcelInfos,
                 onIntent = onIntent
             )
         }
