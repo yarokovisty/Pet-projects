@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.state
 
+import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.core.common.presentation.State
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.feature.direction.api.domain.entity.DeliveryPoint
 
 internal data class DeliveryMainState(
@@ -18,7 +18,7 @@ internal data class DeliveryCalculatorContent(
     val alternativePointsFrom: List<String>,
     val selectedPointTo: DeliveryPoint?,
     val alternativePointsTo: List<String>,
-    val parcelInfos: List<ParcelInfo>,
+    val parcelInfoList: List<ParcelInfo>,
     val selectedParcelInfo: ParcelInfo?,
 ) {
     val calculateButtonEnabled: Boolean

@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.delivery.main.api.domain.entity
+package org.yarokovisty.common.delivery.parcel.domain.entity
 
 data class ParcelInfo(
     val id: String,

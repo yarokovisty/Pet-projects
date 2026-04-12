@@ -1,10 +1,10 @@
-package org.yarokovisty.delivery.feature.delivery.main.impl.data.model
+package org.yarokovisty.common.delivery.parcel.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class TypePackageResponse(
+internal data class PackageTypeResponse(
     @SerialName("id")
     val id: String,
     @SerialName("name")

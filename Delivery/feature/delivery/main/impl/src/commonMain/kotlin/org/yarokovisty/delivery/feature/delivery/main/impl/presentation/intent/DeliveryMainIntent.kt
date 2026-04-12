@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.delivery.main.impl.presentation.intent
 
+import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.core.common.presentation.Intent
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 
 internal sealed interface DeliveryMainIntent : Intent {
     data object LoadData : DeliveryMainIntent

@@ -14,15 +14,15 @@ import delivery.feature.delivery.main.impl.generated.resources.Res
 import delivery.feature.delivery.main.impl.generated.resources.parcel_type_title
 import delivery.feature.delivery.main.impl.generated.resources.parcel_type_value
 import org.jetbrains.compose.resources.stringResource
+import org.yarokovisty.common.delivery.parcel.domain.entity.PackageType
+import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.Paragraph16Regular
 import org.yarokovisty.delivery.design.uikit.TitleH3
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
 
 @Composable
 internal fun SelectParcelTypeContent(
-    parcelInfos: List<ParcelInfo>,
+    parcelInfoList: List<ParcelInfo>,
     onSelect: (ParcelInfo) -> Unit
 ) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
@@ -34,7 +34,7 @@ internal fun SelectParcelTypeContent(
             )
         }
 
-        items(parcelInfos, key = { it.id }) { parcelType ->
+        items(parcelInfoList, key = { it.id }) { parcelType ->
             ParcelTypeItem(
                 parcelInfo = parcelType,
                 onClick = { onSelect(parcelType) }

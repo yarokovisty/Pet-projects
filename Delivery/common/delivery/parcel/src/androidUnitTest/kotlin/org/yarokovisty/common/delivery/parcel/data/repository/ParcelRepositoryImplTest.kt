@@ -1,26 +1,26 @@
-package org.yarokovisty.delivery.feature.delivery.main.impl.data.repository
+package org.yarokovisty.common.delivery.parcel.data.repository
 
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.PackageType
-import org.yarokovisty.delivery.feature.delivery.main.api.domain.entity.ParcelInfo
-import org.yarokovisty.delivery.feature.delivery.main.impl.data.datasource.DeliveryRemoteDataSource
-import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageListResponse
-import org.yarokovisty.delivery.feature.delivery.main.impl.data.model.TypePackageResponse
+import org.yarokovisty.common.delivery.parcel.data.datasource.DeliveryRemoteDataSource
+import org.yarokovisty.common.delivery.parcel.data.model.PackageTypeListResponse
+import org.yarokovisty.common.delivery.parcel.data.model.PackageTypeResponse
+import org.yarokovisty.common.delivery.parcel.domain.entity.PackageType
+import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
-class DeliveryRepositoryImplTest {
+class ParcelRepositoryImplTest {
 
     private val remoteDataSource: DeliveryRemoteDataSource = mockk()
-    private val repository = DeliveryRepositoryImpl(remoteDataSource)
+    private val repository = ParcelRepositoryImpl(remoteDataSource)
 
-    private val typePackageListResponse = TypePackageListResponse(
+    private val typePackageListResponse = PackageTypeListResponse(
         packages = listOf(
-            TypePackageResponse(
+            PackageTypeResponse(
                 id = "envelope",
                 name = "name0",
                 length = 1,
@@ -28,7 +28,7 @@ class DeliveryRepositoryImplTest {
                 height = 1,
                 weight = 1,
             ),
-            TypePackageResponse(
+            PackageTypeResponse(
                 id = "box-s",
                 name = "name1",
                 length = 2,
@@ -63,7 +63,7 @@ class DeliveryRepositoryImplTest {
         )
         coEvery { remoteDataSource.getPackageTypes() } returns typePackageListResponse
 
-        val actual = repository.getParcelTypes()
+        val actual = repository.getParcelInfoList()
 
         assertEquals(expected, actual)
     }
@@ -72,16 +72,16 @@ class DeliveryRepositoryImplTest {
     fun `get parcel types EXPECT invoke get parcel types by remote data source`() = runTest {
         coEvery { remoteDataSource.getPackageTypes() } returns typePackageListResponse
 
-        repository.getParcelTypes()
+        repository.getParcelInfoList()
 
         coVerify { remoteDataSource.getPackageTypes() }
     }
 
     @Test
     fun `get parcel types and id not exist in package type EXEPECT error`() = runTest {
-        val response = TypePackageListResponse(
+        val response = PackageTypeListResponse(
             packages = listOf(
-                TypePackageResponse(
+                PackageTypeResponse(
                     id = "unknown",
                     name = "name0",
                     length = 1,
@@ -93,6 +93,6 @@ class DeliveryRepositoryImplTest {
         )
         coEvery { remoteDataSource.getPackageTypes() } returns response
 
-        assertFails { repository.getParcelTypes() }
+        assertFails { repository.getParcelInfoList() }
     }
 }
