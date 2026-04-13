@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.direction.ui.component
+package org.yarokovisty.delivery.feature.delivery.direction.ui.component
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -8,7 +8,7 @@ import delivery.feature.delivery.direction.generated.resources.error_message_una
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.ErrorScreen
-import org.yarokovisty.delivery.feature.direction.presentation.intent.DirectionIntent
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.intent.DirectionIntent
 
 @Composable
 internal fun FailureScreen(onIntent: (DirectionIntent) -> Unit) {

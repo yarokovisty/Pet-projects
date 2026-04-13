@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.direction.navigation
+package org.yarokovisty.delivery.feature.delivery.direction.navigation
 
 import kotlinx.serialization.Serializable
 import org.yarokovisty.common.delivery.direction.domain.entity.DirectionType

@@ -22,7 +22,6 @@ import org.yarokovisty.delivery.feature.login.navigation.LoginRouter
 import org.yarokovisty.delivery.feature.login.presentation.intent.LoginIntent
 import org.yarokovisty.delivery.feature.login.presentation.state.OtpFieldStatus
 import org.yarokovisty.delivery.feature.login.presentation.state.PhoneFieldStatus
-import org.yarokovisty.delivery.feature.login.presentation.viewmodel.LoginViewModel
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import org.yarokovisty.delivery.util.validation.validated.invalid
 import org.yarokovisty.delivery.util.validation.validated.valid

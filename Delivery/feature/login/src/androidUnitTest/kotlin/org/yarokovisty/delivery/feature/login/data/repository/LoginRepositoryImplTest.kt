@@ -9,7 +9,6 @@ import org.yarokovisty.delivery.feature.login.data.model.OtpRequest
 import org.yarokovisty.delivery.feature.login.data.model.OtpResponse
 import org.yarokovisty.delivery.feature.login.data.model.SigninRequest
 import org.yarokovisty.delivery.feature.login.data.model.SigninResponse
-import org.yarokovisty.delivery.feature.login.data.repository.LoginRepositoryImpl
 import org.yarokovisty.delivery.feature.login.domain.error.LoginError
 import kotlin.test.Test
 import kotlin.test.assertEquals

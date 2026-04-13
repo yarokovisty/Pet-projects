@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.direction.ui.screen
+package org.yarokovisty.delivery.feature.delivery.direction.ui.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,12 +22,12 @@ import org.koin.core.parameter.parametersOf
 import org.yarokovisty.common.delivery.direction.domain.entity.DirectionType
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.TopBar
-import org.yarokovisty.delivery.feature.direction.presentation.intent.DirectionIntent
-import org.yarokovisty.delivery.feature.direction.presentation.state.DirectionState
-import org.yarokovisty.delivery.feature.direction.presentation.viewmodel.DirectionViewModel
-import org.yarokovisty.delivery.feature.direction.ui.component.ContentScreen
-import org.yarokovisty.delivery.feature.direction.ui.component.FailureScreen
-import org.yarokovisty.delivery.feature.direction.ui.component.LoadingScreen
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.intent.DirectionIntent
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.state.DirectionState
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.viewmodel.DirectionViewModel
+import org.yarokovisty.delivery.feature.delivery.direction.ui.component.ContentScreen
+import org.yarokovisty.delivery.feature.delivery.direction.ui.component.FailureScreen
+import org.yarokovisty.delivery.feature.delivery.direction.ui.component.LoadingScreen
 
 @Composable
 fun DirectionScreen(directionType: DirectionType) {

@@ -40,7 +40,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.delivery.feature.direction"
+    namespace = "org.yarokovisty.delivery.feature.delivery.direction"
 }
 
 dependencies {

@@ -5,7 +5,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
 import org.yarokovisty.delivery.common.validation.validator.PhoneValidator
-import org.yarokovisty.delivery.feature.login.domain.usecase.RuPhoneValidationUseCase
 import org.yarokovisty.delivery.util.validation.validated.Validated
 import org.yarokovisty.delivery.util.validation.validated.invalid
 import org.yarokovisty.delivery.util.validation.validated.valid

@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.direction.ui.component
+package org.yarokovisty.delivery.feature.delivery.direction.ui.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -18,8 +18,8 @@ import org.jetbrains.compose.resources.painterResource
 import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.Paragraph16Regular
-import org.yarokovisty.delivery.feature.direction.presentation.intent.DirectionIntent
-import org.yarokovisty.delivery.feature.direction.presentation.state.DirectionContentState
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.intent.DirectionIntent
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.state.DirectionContentState
 
 @Composable
 internal fun ContentScreen(

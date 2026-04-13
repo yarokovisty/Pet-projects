@@ -1,16 +1,16 @@
-package org.yarokovisty.delivery.feature.direction.presentation.viewmodel
+package org.yarokovisty.delivery.feature.delivery.direction.presentation.viewmodel
 
 import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.common.delivery.direction.domain.entity.DirectionType
 import org.yarokovisty.common.delivery.direction.domain.repository.DirectionRepository
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
-import org.yarokovisty.delivery.feature.direction.navigation.DirectionRouter
-import org.yarokovisty.delivery.feature.direction.presentation.intent.DirectionIntent
-import org.yarokovisty.delivery.feature.direction.presentation.state.DirectionState
-import org.yarokovisty.delivery.feature.direction.presentation.state.contentState
-import org.yarokovisty.delivery.feature.direction.presentation.state.errorState
-import org.yarokovisty.delivery.feature.direction.presentation.state.initial
-import org.yarokovisty.delivery.feature.direction.presentation.state.loadingState
+import org.yarokovisty.delivery.feature.delivery.direction.navigation.DirectionRouter
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.intent.DirectionIntent
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.state.DirectionState
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.state.contentState
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.state.errorState
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.state.initial
+import org.yarokovisty.delivery.feature.delivery.direction.presentation.state.loadingState
 
 internal class DirectionViewModel(
     private val directionRepository: DirectionRepository,

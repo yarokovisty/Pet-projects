@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.direction.presentation.state
+package org.yarokovisty.delivery.feature.delivery.direction.presentation.state
 
 import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.common.delivery.direction.domain.entity.DirectionType
@@ -8,7 +8,7 @@ internal data class DirectionState(
     val directionType: DirectionType,
     val loading: Boolean,
     val error: Boolean,
-    val content: DirectionContentState?
+    val content: org.yarokovisty.delivery.feature.delivery.direction.presentation.state.DirectionContentState?
 ) : State
 
 internal data class DirectionContentState(

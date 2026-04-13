@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.direction.ui.component
+package org.yarokovisty.delivery.feature.delivery.direction.ui.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

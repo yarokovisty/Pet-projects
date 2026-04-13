@@ -3,9 +3,9 @@ package org.yarokovisty.delivery.di.module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import org.yarokovisty.delivery.feature.delivery.direction.navigation.DirectionRouter
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryRouter
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryTab
-import org.yarokovisty.delivery.feature.direction.navigation.DirectionRouter
 import org.yarokovisty.delivery.feature.login.navigation.LoginRouter
 import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileRouter
 import org.yarokovisty.delivery.libs.navigation.backstack.BottomBarBackStack
