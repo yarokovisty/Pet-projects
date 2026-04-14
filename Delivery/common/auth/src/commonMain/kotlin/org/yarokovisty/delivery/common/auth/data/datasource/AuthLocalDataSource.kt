@@ -2,9 +2,7 @@ package org.yarokovisty.delivery.common.auth.data.datasource
 
 import org.yarokovisty.delivery.core.storage.encryption.EncryptedPreferencesStorage
 
-internal class AuthLocalDataSource(
-    private val encryptedStorage: EncryptedPreferencesStorage
-) {
+internal class AuthLocalDataSource(private val encryptedStorage: EncryptedPreferencesStorage) {
 
     private companion object {
 

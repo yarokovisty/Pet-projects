@@ -13,10 +13,7 @@ kotlin {
             implementation(libs.bundles.datastore)
 
             implementation(libs.koin.core)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.kotlin.serialization)
         }
     }
 }

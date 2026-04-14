@@ -13,6 +13,8 @@ kotlin {
             implementation(libs.mockk)
         }
         commonMain.dependencies {
+            implementation(projects.common.delivery.direction)
+            implementation(projects.common.delivery.parcel)
             implementation(projects.core.network)
             implementation(projects.util.kotlin)
 
@@ -23,5 +25,5 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.common.delivery.parcel"
+    namespace = "org.yarokovisty.common.delivery.calculator"
 }

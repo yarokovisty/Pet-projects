@@ -4,6 +4,7 @@ val appModules = listOf(
 
 val commonModules = listOf(
     ":common:auth",
+    ":common:delivery:calculator",
     ":common:delivery:direction",
     ":common:delivery:parcel",
     ":common:validation"
@@ -37,6 +38,7 @@ val libsModules = listOf(
 val utilModules = listOf(
     ":util:coroutines",
     ":util:flow",
+    ":util:kotlin",
     ":util:logger",
     ":util:modifier",
     ":util:phone",

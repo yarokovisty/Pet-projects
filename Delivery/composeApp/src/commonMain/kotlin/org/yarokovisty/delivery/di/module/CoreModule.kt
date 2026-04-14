@@ -9,6 +9,7 @@ val coreModule = module {
     includes(
         coroutinesModule,
         networkModule,
+        serializationModule,
         storageModule,
     )
 }

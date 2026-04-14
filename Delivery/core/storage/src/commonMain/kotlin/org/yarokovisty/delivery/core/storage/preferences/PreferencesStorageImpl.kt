@@ -7,8 +7,11 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.first
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.json.Json
 
 internal class PreferencesStorageImpl(
+    private val json: Json,
     private val dataStore: DataStore<Preferences>
 ) : PreferencesStorage {
 
@@ -36,9 +39,9 @@ internal class PreferencesStorageImpl(
         }
     }
 
-    override suspend fun getBoolean(key: String, default: Boolean?): Boolean? {
+    override suspend fun getBoolean(key: String): Boolean? {
         val prefs = dataStore.data.first()
-        return prefs[booleanPreferencesKey(key)] ?: default
+        return prefs[booleanPreferencesKey(key)]
     }
 
     override suspend fun putBoolean(key: String, value: Boolean) {
@@ -46,6 +49,19 @@ internal class PreferencesStorageImpl(
             val prefsKey = booleanPreferencesKey(key)
             prefs[prefsKey] = value
         }
+    }
+
+    override suspend fun <T> putObject(key: String, value: T, serializer: KSerializer<T>) {
+        val string = json.encodeToString(serializer, value)
+        putString(key, string)
+    }
+
+    override suspend fun <T> getObject(key: String, serializer: KSerializer<T>): T? {
+        val string = getString(key) ?: return null
+
+        return runCatching {
+            json.decodeFromString(serializer, string)
+        }.getOrNull()
     }
 
     override suspend fun remove(key: String) {

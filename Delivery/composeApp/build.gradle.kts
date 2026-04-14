@@ -44,8 +44,9 @@ kotlin {
             implementation(projects.common.auth)
             implementation(projects.core.common.coroutines)
             implementation(projects.core.common.presentation)
-            implementation(projects.common.delivery.parcel)
+            implementation(projects.common.delivery.calculator)
             implementation(projects.common.delivery.direction)
+            implementation(projects.common.delivery.parcel)
             implementation(projects.common.validation)
             implementation(projects.core.network)
             implementation(projects.core.storage)
@@ -68,6 +69,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.koin.core)
+            implementation(libs.kotlin.serialization)
         }
         jvmMain.dependencies {
             implementation(compose.desktop.currentOs)

@@ -8,7 +8,7 @@ import org.yarokovisty.delivery.feature.profile.main.di.profileMainModule
 
 val featureModule = module {
     includes(
-        org.yarokovisty.delivery.feature.delivery.direction.di.deliveryDirectionModule,
+        deliveryDirectionModule,
         deliveryMainModule,
         loginModule,
         profileMainModule,
