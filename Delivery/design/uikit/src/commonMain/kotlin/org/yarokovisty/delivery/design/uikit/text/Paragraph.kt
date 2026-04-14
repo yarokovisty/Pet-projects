@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.design.uikit
+package org.yarokovisty.delivery.design.uikit.text
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -7,6 +7,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
+
+@Composable
+fun Paragraph12Regular(
+    text: String,
+    color: Color = Color.Unspecified,
+    textAlign: TextAlign? = null,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        color = color,
+        textAlign = textAlign,
+        style = DeliveryTheme.typography.paragraph12Regular,
+        modifier = modifier
+    )
+}
 
 @Composable
 fun Paragraph14Regular(
@@ -86,6 +102,14 @@ fun Paragraph16MediumUnderline(
         style = DeliveryTheme.typography.paragraph16MediumUnderline,
         modifier = modifier
     )
+}
+
+@Preview
+@Composable
+private fun Paragraph12RegularPreview() {
+    DeliveryTheme {
+        Paragraph12Regular(text = "Paragraph12Regular")
+    }
 }
 
 @Preview

@@ -11,8 +11,8 @@ import delivery.feature.login.generated.resources.login_otp_code_retry_text
 import delivery.feature.login.generated.resources.login_otp_code_timer_text
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.Paragraph14Regular
-import org.yarokovisty.delivery.design.uikit.Paragraph16MediumUnderline
+import org.yarokovisty.delivery.design.uikit.text.Paragraph14Regular
+import org.yarokovisty.delivery.design.uikit.text.Paragraph16MediumUnderline
 import org.yarokovisty.delivery.feature.login.presentation.intent.LoginIntent
 import org.yarokovisty.delivery.feature.login.presentation.state.OtpRetryTimerState
 

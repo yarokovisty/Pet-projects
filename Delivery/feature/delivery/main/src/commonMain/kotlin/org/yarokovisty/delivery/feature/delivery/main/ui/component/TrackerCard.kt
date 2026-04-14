@@ -16,7 +16,7 @@ import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.DefaultCard
 import org.yarokovisty.delivery.design.uikit.PrimaryButton
 import org.yarokovisty.delivery.design.uikit.TextInput
-import org.yarokovisty.delivery.design.uikit.TitleH2
+import org.yarokovisty.delivery.design.uikit.text.TitleH2
 import org.yarokovisty.delivery.feature.delivery.main.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.presentation.state.TrackerContent
 

@@ -15,9 +15,9 @@ import delivery.feature.login.generated.resources.login_button
 import delivery.feature.login.generated.resources.login_description
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.Paragraph16Regular
 import org.yarokovisty.delivery.design.uikit.PrimaryButton
 import org.yarokovisty.delivery.design.uikit.VerticalGap
+import org.yarokovisty.delivery.design.uikit.text.Paragraph16Regular
 import org.yarokovisty.delivery.feature.login.presentation.intent.LoginIntent
 import org.yarokovisty.delivery.feature.login.presentation.state.LoginState
 import org.yarokovisty.delivery.feature.login.presentation.state.initial

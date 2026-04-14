@@ -17,7 +17,7 @@ import delivery.feature.delivery.direction.generated.resources.ic_arrow_small_ri
 import org.jetbrains.compose.resources.painterResource
 import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.Paragraph16Regular
+import org.yarokovisty.delivery.design.uikit.text.Paragraph16Regular
 import org.yarokovisty.delivery.feature.delivery.direction.presentation.intent.DirectionIntent
 import org.yarokovisty.delivery.feature.delivery.direction.presentation.state.DirectionContentState
 

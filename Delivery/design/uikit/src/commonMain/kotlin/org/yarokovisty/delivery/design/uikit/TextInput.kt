@@ -18,9 +18,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults.UnfocusedBorderThick
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -37,6 +35,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.collectLatest
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
+import org.yarokovisty.delivery.design.uikit.text.Paragraph14Regular
+import org.yarokovisty.delivery.design.uikit.text.Paragraph16Regular
 
 @Suppress("LongMethod")
 @Composable

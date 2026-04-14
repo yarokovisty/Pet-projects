@@ -8,6 +8,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
+import org.yarokovisty.delivery.design.uikit.text.TitleH2
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

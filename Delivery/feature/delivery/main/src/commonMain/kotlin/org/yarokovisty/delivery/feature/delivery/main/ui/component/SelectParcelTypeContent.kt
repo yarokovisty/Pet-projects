@@ -17,8 +17,8 @@ import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.common.delivery.parcel.domain.entity.PackageType
 import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.Paragraph16Regular
-import org.yarokovisty.delivery.design.uikit.TitleH3
+import org.yarokovisty.delivery.design.uikit.text.Paragraph16Regular
+import org.yarokovisty.delivery.design.uikit.text.TitleH3
 
 @Composable
 internal fun SelectParcelTypeContent(

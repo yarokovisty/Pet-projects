@@ -18,7 +18,7 @@ import delivery.feature.profile.main.generated.resources.ic_check_circle
 import delivery.feature.profile.main.generated.resources.ic_error_circle
 import org.jetbrains.compose.resources.painterResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.Paragraph14Regular
+import org.yarokovisty.delivery.design.uikit.text.Paragraph14Regular
 
 @Composable
 internal fun ProfileSnacbarHost(

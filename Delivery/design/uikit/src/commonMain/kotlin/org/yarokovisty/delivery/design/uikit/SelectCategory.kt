@@ -21,6 +21,9 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
+import org.yarokovisty.delivery.design.uikit.text.Paragraph14Medium
+import org.yarokovisty.delivery.design.uikit.text.Paragraph14RegularUnderline
+import org.yarokovisty.delivery.design.uikit.text.Paragraph16Regular
 
 @Composable
 fun SelectCategory(

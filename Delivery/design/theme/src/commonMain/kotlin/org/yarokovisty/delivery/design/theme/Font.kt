@@ -9,6 +9,4 @@ import org.jetbrains.compose.resources.Font
 
 @Composable
 fun Inter(): FontFamily =
-    FontFamily(
-        Font(resource = Res.font.inter, style = FontStyle.Normal)
-    )
+    FontFamily(Font(resource = Res.font.inter, style = FontStyle.Normal))

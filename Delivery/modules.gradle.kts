@@ -23,6 +23,7 @@ val designModules = listOf(
 )
 
 val featureModules = listOf(
+    ":feature:delivery:calculator",
     ":feature:delivery:direction",
     ":feature:delivery:main",
     ":feature:login",

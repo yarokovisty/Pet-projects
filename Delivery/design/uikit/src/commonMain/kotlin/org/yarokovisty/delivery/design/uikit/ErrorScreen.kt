@@ -22,6 +22,7 @@ import delivery.design.uikit.generated.resources.ic_close
 import delivery.design.uikit.generated.resources.img_sorry
 import org.jetbrains.compose.resources.painterResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
+import org.yarokovisty.delivery.design.uikit.text.TitleH3
 
 @Composable
 fun ErrorScreen(

@@ -9,9 +9,9 @@ import delivery.feature.delivery.main.generated.resources.subtitle_screen
 import delivery.feature.delivery.main.generated.resources.title_screen
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.TitleH1
-import org.yarokovisty.delivery.design.uikit.TitleSubtitle
 import org.yarokovisty.delivery.design.uikit.VerticalGap
+import org.yarokovisty.delivery.design.uikit.text.TitleH1
+import org.yarokovisty.delivery.design.uikit.text.TitleSubtitle
 
 @Composable
 internal fun Headline() {
