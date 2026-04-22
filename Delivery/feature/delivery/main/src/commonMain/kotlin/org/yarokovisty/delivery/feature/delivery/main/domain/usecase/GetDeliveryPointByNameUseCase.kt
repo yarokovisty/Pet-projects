@@ -2,7 +2,7 @@ package org.yarokovisty.delivery.feature.delivery.main.domain.usecase
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
 
 class GetDeliveryPointByNameUseCase(private val dispatcher: CoroutineDispatcher) {
 

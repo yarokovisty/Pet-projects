@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.delivery.direction.presentation.state
 
-import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
-import org.yarokovisty.common.delivery.direction.domain.entity.DirectionType
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DirectionType
 
 internal fun initial(directionType: DirectionType) =
     DirectionState(

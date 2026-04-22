@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.feature.delivery.main.domain.usecase
 
-import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

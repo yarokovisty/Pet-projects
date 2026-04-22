@@ -1,13 +1,13 @@
-package org.yarokovisty.common.delivery.direction.data.repository
+package org.yarokovisty.delivery.common.delivery.direction.data.repository
 
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.yarokovisty.common.delivery.direction.data.datasource.DirectionRemoteDataSource
-import org.yarokovisty.common.delivery.direction.data.model.DeliveryPointListResponse
-import org.yarokovisty.common.delivery.direction.data.model.DeliveryPointResponse
-import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.delivery.direction.data.datasource.DirectionRemoteDataSource
+import org.yarokovisty.delivery.common.delivery.direction.data.model.DeliveryPointListResponse
+import org.yarokovisty.delivery.common.delivery.direction.data.model.DeliveryPointResponse
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

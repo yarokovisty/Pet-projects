@@ -22,5 +22,5 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.common.delivery.direction"
+    namespace = "org.yarokovisty.delivery.common.delivery.direction"
 }

@@ -8,12 +8,12 @@ import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
-import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
-import org.yarokovisty.common.delivery.direction.domain.entity.DirectionType
-import org.yarokovisty.common.delivery.direction.domain.repository.DirectionRepository
 import org.yarokovisty.common.delivery.parcel.domain.entity.PackageType
 import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.common.delivery.parcel.domain.repository.ParcelRepository
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DirectionType
+import org.yarokovisty.delivery.common.delivery.direction.domain.repository.DirectionRepository
 import org.yarokovisty.delivery.feature.delivery.main.domain.usecase.GetAlternativeDeliveryPointsUseCase
 import org.yarokovisty.delivery.feature.delivery.main.domain.usecase.GetDeliveryPointByNameUseCase
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryRouter

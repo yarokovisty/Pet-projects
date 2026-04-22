@@ -1,8 +1,8 @@
 package org.yarokovisty.delivery.feature.delivery.direction.presentation.viewmodel
 
-import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
-import org.yarokovisty.common.delivery.direction.domain.entity.DirectionType
-import org.yarokovisty.common.delivery.direction.domain.repository.DirectionRepository
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DirectionType
+import org.yarokovisty.delivery.common.delivery.direction.domain.repository.DirectionRepository
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.delivery.direction.navigation.DirectionRouter
 import org.yarokovisty.delivery.feature.delivery.direction.presentation.intent.DirectionIntent

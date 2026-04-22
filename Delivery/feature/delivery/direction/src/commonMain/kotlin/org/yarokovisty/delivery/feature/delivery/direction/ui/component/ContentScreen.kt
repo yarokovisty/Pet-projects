@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import delivery.feature.delivery.direction.generated.resources.Res
 import delivery.feature.delivery.direction.generated.resources.ic_arrow_small_right
 import org.jetbrains.compose.resources.painterResource
-import org.yarokovisty.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.text.Paragraph16Regular
 import org.yarokovisty.delivery.feature.delivery.direction.presentation.intent.DirectionIntent
