@@ -13,19 +13,19 @@ import delivery.feature.delivery.main.generated.resources.tracker_card_hint_item
 import delivery.feature.delivery.main.generated.resources.tracker_card_title
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.DefaultCard
-import org.yarokovisty.delivery.design.uikit.PrimaryButton
-import org.yarokovisty.delivery.design.uikit.TextInput
+import org.yarokovisty.delivery.design.uikit.button.PrimaryButton
+import org.yarokovisty.delivery.design.uikit.input.TextInput
 import org.yarokovisty.delivery.design.uikit.text.TitleH2
 import org.yarokovisty.delivery.feature.delivery.main.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.presentation.state.TrackerContent
 
+// TODO(сделать декомпозицию функции)
 @Composable
 internal fun TrackerCard(
     state: TrackerContent,
     onIntent: (DeliveryMainIntent) -> Unit
 ) {
-    DefaultCard(modifier = Modifier.fillMaxWidth()) {
+    ContentCard(modifier = Modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(24.dp)

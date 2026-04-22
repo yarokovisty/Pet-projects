@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.text.Paragraph12Regular
+import org.yarokovisty.delivery.design.uikit.text.Paragraph14Regular
 
 @Composable
 fun LinearStepIndicator(
@@ -38,7 +38,7 @@ fun LinearStepIndicator(
 
 @Composable
 private fun Title(text: String) {
-    Paragraph12Regular(text = text, color = DeliveryTheme.colorScheme.textPrimary)
+    Paragraph14Regular(text = text, color = DeliveryTheme.colorScheme.textPrimary)
 }
 
 @Composable

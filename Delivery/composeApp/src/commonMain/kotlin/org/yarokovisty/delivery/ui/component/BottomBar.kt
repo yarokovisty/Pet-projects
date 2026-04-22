@@ -25,7 +25,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.Tabbar
+import org.yarokovisty.delivery.design.uikit.text.Tabbar
 import org.yarokovisty.delivery.presentation.state.MainTab
 
 @Composable

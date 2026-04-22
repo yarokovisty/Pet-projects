@@ -41,13 +41,13 @@ internal class DeliveryMainViewModel(
             is DeliveryMainIntent.SelectDeliveryPointFrom -> openDirectionFromScreen()
             is DeliveryMainIntent.SelectAlternativeDeliveryPointFrom ->
                 selectAlternativeDeliveryPointFrom(intent.pointName)
-            DeliveryMainIntent.SelectDeliveryPointTo -> openDirectionToScreen()
+            is DeliveryMainIntent.SelectDeliveryPointTo -> openDirectionToScreen()
             is DeliveryMainIntent.SelectAlternativeDeliveryPointTo ->
                 selectAlternativeDeliveryPointTo(intent.pointName)
             is DeliveryMainIntent.OpenParcelTypeScreen -> openSelectParcelTypeScreen()
             is DeliveryMainIntent.CloseParcelTypeScreen -> closeSelectParcelTypeScreen()
             is DeliveryMainIntent.SelectParcelType -> selectParcelType(intent.parcelInfo)
-            is DeliveryMainIntent.CalculateDelivery -> TODO()
+            is DeliveryMainIntent.CalculateDelivery -> openCalculatorScreen()
             is DeliveryMainIntent.ChangeInputParcelId -> changeInputParcelId(intent.id)
             is DeliveryMainIntent.TrackParcel -> TODO()
         }
@@ -119,6 +119,17 @@ internal class DeliveryMainViewModel(
 
     private fun selectParcelType(parcelInfo: ParcelInfo) {
         updateState { selectParcelType(parcelInfo) }
+    }
+
+    private fun openCalculatorScreen() {
+        val contentState = stateValue.deliveryCalculatorContent ?: return
+        val parcelInfo = contentState.selectedParcelInfo
+        val senderPoint = contentState.selectedPointFrom
+        val receiverPoint = contentState.selectedPointTo
+
+        if (parcelInfo == null || senderPoint == null || receiverPoint == null) return
+
+        router.openCalculatorScreen(parcelInfo, senderPoint, receiverPoint)
     }
 
     private fun changeInputParcelId(id: String) {

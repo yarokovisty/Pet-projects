@@ -1,0 +1,13 @@
+<resources>
+    <string name="calculator_topbar_title">Способ отправки</string>
+    <string name="calculator_step_indicator_title">Шаг %1$d из %2$d</string>
+
+    <string name="calculator_express_delivery_title">Экспресс доставка до двери</string>
+    <string name="calculator_default_delivery_title">Обычная доставка</string>
+    <string name="calculator_delivery_cost">%1$d ₽</string>
+    <string name="calculator_delviery_one_work_day">%1$d рабочий день</string>
+    <string name="calculator_delviery_some_work_days">%1$d рабочих дней</string>
+
+    <string name="error_message_unavailable_service">Сервис временно недоступен</string>
+    <string name="error_button_repeat">Повторить</string>
+</resources>

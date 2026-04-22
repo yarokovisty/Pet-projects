@@ -21,8 +21,8 @@ import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.FullScreen
 import org.yarokovisty.delivery.design.uikit.TopBar
+import org.yarokovisty.delivery.design.uikit.screen.FullScreen
 import org.yarokovisty.delivery.feature.profile.main.presentation.event.ProfileEvent
 import org.yarokovisty.delivery.feature.profile.main.presentation.intent.ProfileIntent
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.ProfileState

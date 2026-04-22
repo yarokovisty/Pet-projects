@@ -1,5 +1,8 @@
 package org.yarokovisty.common.delivery.parcel.domain.entity
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ParcelInfo(
     val id: String,
     val type: PackageType,

@@ -8,6 +8,8 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import org.koin.compose.viewmodel.koinViewModel
+import org.yarokovisty.delivery.feature.delivery.calculator.navigation.CalculatorDestination
+import org.yarokovisty.delivery.feature.delivery.calculator.ui.screen.CalculatorScreen
 import org.yarokovisty.delivery.feature.delivery.direction.navigation.DirectionDestination
 import org.yarokovisty.delivery.feature.delivery.direction.ui.screen.DirectionScreen
 import org.yarokovisty.delivery.feature.login.navigation.LoginDestination
@@ -47,8 +49,15 @@ private fun AppScreen(
             entry<MainDestination> {
                 MainScreen()
             }
-            entry<org.yarokovisty.delivery.feature.delivery.direction.navigation.DirectionDestination> { destination ->
-                org.yarokovisty.delivery.feature.delivery.direction.ui.screen.DirectionScreen(destination.directionType)
+            entry<DirectionDestination> { destination ->
+                DirectionScreen(destination.directionType)
+            }
+            entry<CalculatorDestination> { destination ->
+                CalculatorScreen(
+                    parcelInfo = destination.parcelInfo,
+                    receiverPoint = destination.receiverPoint,
+                    senderPoint = destination.senderPoint
+                )
             }
             entry<LoginDestination> {
                 LoginScreen()

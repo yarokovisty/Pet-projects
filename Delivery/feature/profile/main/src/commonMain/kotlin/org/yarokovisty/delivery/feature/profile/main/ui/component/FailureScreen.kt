@@ -7,7 +7,7 @@ import delivery.feature.profile.main.generated.resources.error_button_repeat
 import delivery.feature.profile.main.generated.resources.error_message_unavailable_service
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.ErrorScreen
+import org.yarokovisty.delivery.design.uikit.screen.ErrorScreen
 import org.yarokovisty.delivery.feature.profile.main.presentation.intent.ProfileIntent
 
 @Composable

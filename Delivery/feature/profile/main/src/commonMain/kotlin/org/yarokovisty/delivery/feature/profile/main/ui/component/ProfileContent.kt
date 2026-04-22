@@ -32,9 +32,9 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.common.validation.error.EmailValidationError
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.PrimaryButton
 import org.yarokovisty.delivery.design.uikit.SelectCategory
-import org.yarokovisty.delivery.design.uikit.TextInput
+import org.yarokovisty.delivery.design.uikit.button.PrimaryButton
+import org.yarokovisty.delivery.design.uikit.input.TextInput
 import org.yarokovisty.delivery.feature.profile.main.presentation.intent.ProfileIntent
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.ContentState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldState

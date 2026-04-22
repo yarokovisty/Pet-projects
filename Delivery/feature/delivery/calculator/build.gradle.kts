@@ -17,7 +17,10 @@ kotlin {
             implementation(libs.mockk)
         }
         commonMain.dependencies {
+            implementation(projects.common.delivery.calculator)
             implementation(projects.common.delivery.direction)
+            implementation(projects.common.delivery.parcel)
+            implementation(projects.common.delivery.step)
             implementation(projects.core.common.presentation)
             implementation(projects.core.network)
             implementation(projects.design.uikit)
@@ -25,6 +28,7 @@ kotlin {
             implementation(projects.libs.coordinator)
             implementation(projects.libs.navigation)
             implementation(projects.util.coroutines)
+            implementation(projects.util.modifier)
 
             implementation(libs.compose.components.resources)
             implementation(libs.compose.foundation)

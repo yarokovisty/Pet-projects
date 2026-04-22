@@ -25,5 +25,5 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.common.delivery.calculator"
+    namespace = "org.yarokovisty.delivery.common.delivery.calculator"
 }

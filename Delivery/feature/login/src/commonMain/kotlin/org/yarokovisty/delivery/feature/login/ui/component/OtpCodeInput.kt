@@ -13,7 +13,7 @@ import delivery.feature.login.generated.resources.login_input_otp_code_hint
 import delivery.feature.login.generated.resources.login_input_otp_code_invalid
 import delivery.feature.login.generated.resources.login_input_otp_code_length_error
 import org.jetbrains.compose.resources.stringResource
-import org.yarokovisty.delivery.design.uikit.TextInput
+import org.yarokovisty.delivery.design.uikit.input.TextInput
 import org.yarokovisty.delivery.feature.login.domain.validator.OtpCodeFormatValidationError
 import org.yarokovisty.delivery.feature.login.presentation.intent.LoginIntent
 import org.yarokovisty.delivery.feature.login.presentation.state.OtpCodeState
