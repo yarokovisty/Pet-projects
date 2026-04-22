@@ -1,8 +1,8 @@
-package org.yarokovisty.common.delivery.parcel.data.mapper
+package org.yarokovisty.delivery.common.delivery.parcel.data.mapper
 
-import org.yarokovisty.common.delivery.parcel.data.model.PackageTypeListResponse
-import org.yarokovisty.common.delivery.parcel.data.model.PackageTypeResponse
-import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
+import org.yarokovisty.delivery.common.delivery.parcel.data.model.PackageTypeListResponse
+import org.yarokovisty.delivery.common.delivery.parcel.data.model.PackageTypeResponse
+import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.util.kotlin.enums.toEnum
 
 internal fun PackageTypeListResponse.toItem(): List<ParcelInfo> =

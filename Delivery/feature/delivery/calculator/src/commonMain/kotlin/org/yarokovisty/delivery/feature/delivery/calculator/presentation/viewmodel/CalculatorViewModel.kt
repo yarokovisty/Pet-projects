@@ -1,9 +1,9 @@
 package org.yarokovisty.delivery.feature.delivery.calculator.presentation.viewmodel
 
-import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.common.delivery.calculator.domain.entity.Option
 import org.yarokovisty.delivery.common.delivery.calculator.domain.repository.CalculatorRepository
 import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.delivery.calculator.navigation.CalculatorRouter
 import org.yarokovisty.delivery.feature.delivery.calculator.presentation.intent.CalculatorIntent

@@ -1,14 +1,14 @@
-package org.yarokovisty.common.delivery.parcel.data.repository
+package org.yarokovisty.delivery.common.delivery.parcel.data.repository
 
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.yarokovisty.common.delivery.parcel.data.datasource.DeliveryRemoteDataSource
-import org.yarokovisty.common.delivery.parcel.data.model.PackageTypeListResponse
-import org.yarokovisty.common.delivery.parcel.data.model.PackageTypeResponse
-import org.yarokovisty.common.delivery.parcel.domain.entity.PackageType
-import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
+import org.yarokovisty.delivery.common.delivery.parcel.data.datasource.DeliveryRemoteDataSource
+import org.yarokovisty.delivery.common.delivery.parcel.data.model.PackageTypeListResponse
+import org.yarokovisty.delivery.common.delivery.parcel.data.model.PackageTypeResponse
+import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.PackageType
+import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.ParcelInfo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails

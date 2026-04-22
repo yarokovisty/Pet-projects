@@ -1,4 +1,4 @@
-package org.yarokovisty.common.delivery.parcel.data.model
+package org.yarokovisty.delivery.common.delivery.parcel.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

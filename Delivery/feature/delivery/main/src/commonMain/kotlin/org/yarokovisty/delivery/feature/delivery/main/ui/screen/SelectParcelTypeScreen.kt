@@ -7,7 +7,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.unit.dp
-import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
+import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.feature.delivery.main.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.ui.component.SelectParcelTypeContent

@@ -23,5 +23,5 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.common.delivery.parcel"
+    namespace = "org.yarokovisty.delivery.common.delivery.parcel"
 }

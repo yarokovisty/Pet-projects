@@ -14,8 +14,8 @@ import delivery.feature.delivery.main.generated.resources.Res
 import delivery.feature.delivery.main.generated.resources.parcel_type_title
 import delivery.feature.delivery.main.generated.resources.parcel_type_value
 import org.jetbrains.compose.resources.stringResource
-import org.yarokovisty.common.delivery.parcel.domain.entity.PackageType
-import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
+import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.PackageType
+import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.text.Paragraph16Regular
 import org.yarokovisty.delivery.design.uikit.text.TitleH3
@@ -35,7 +35,7 @@ internal fun SelectParcelTypeContent(
         }
 
         items(parcelInfoList, key = { it.id }) { parcelType ->
-            _root_ide_package_.org.yarokovisty.delivery.feature.delivery.main.ui.component.ParcelTypeItem(
+            ParcelTypeItem(
                 parcelInfo = parcelType,
                 onClick = { onSelect(parcelType) }
             )
@@ -94,7 +94,7 @@ private fun SelectParcelTypeContentPreview() {
     )
 
     DeliveryTheme {
-        _root_ide_package_.org.yarokovisty.delivery.feature.delivery.main.ui.component.SelectParcelTypeContent(
+        SelectParcelTypeContent(
             parcelInfos,
             onSelect = {}
         )

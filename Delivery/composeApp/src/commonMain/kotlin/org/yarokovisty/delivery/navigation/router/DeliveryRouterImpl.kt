@@ -1,8 +1,8 @@
 package org.yarokovisty.delivery.navigation.router
 
-import org.yarokovisty.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DirectionType
+import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.feature.delivery.calculator.navigation.CalculatorDestination
 import org.yarokovisty.delivery.feature.delivery.direction.navigation.DirectionDestination
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryRouter

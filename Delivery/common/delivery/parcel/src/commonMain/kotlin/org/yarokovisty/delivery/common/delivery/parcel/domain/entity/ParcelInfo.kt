@@ -1,4 +1,4 @@
-package org.yarokovisty.common.delivery.parcel.domain.entity
+package org.yarokovisty.delivery.common.delivery.parcel.domain.entity
 
 import kotlinx.serialization.Serializable
 
