@@ -13,5 +13,5 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.common.delivery.step"
+    namespace = "org.yarokovisty.delivery.common.delivery.step"
 }

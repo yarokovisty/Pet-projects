@@ -1,4 +1,4 @@
-package org.yarokovisty.common.delivery.step
+package org.yarokovisty.delivery.common.delivery.step
 
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
