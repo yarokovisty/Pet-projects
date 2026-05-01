@@ -446,4 +446,173 @@ class DeliveryMainViewModelTest {
         val actual = viewModel.state.value.deliveryCalculatorContent?.calculateButtonEnabled
         assertEquals(true, actual)
     }
+
+    @Test
+    fun `calculate delivery with all fields selected EXPECT router opens calculator screen`() = runTest {
+        val selectedPointFrom = points[0]
+        val selectedPointTo = points[1]
+        val selectedParcelType = parcelInfoList[0]
+        coEvery { directionRepository.getDeliveryPointList() } returns points
+        coEvery { parcelRepository.getParcelInfoList() } returns parcelInfoList
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointFrom.name) } returns selectedPointFrom
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointTo.name) } returns selectedPointTo
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(selectedPointFrom.name))
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(selectedPointTo.name))
+        viewModel.onIntent(DeliveryMainIntent.SelectParcelType(selectedParcelType))
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.CalculateDelivery)
+        advanceUntilIdle()
+
+        verify { router.openCalculatorScreen(selectedParcelType, selectedPointFrom, selectedPointTo) }
+    }
+
+    @Test
+    fun `calculate delivery without point from EXPECT router not called`() = runTest {
+        val selectedPointTo = points[1]
+        val selectedParcelType = parcelInfoList[0]
+        coEvery { directionRepository.getDeliveryPointList() } returns points
+        coEvery { parcelRepository.getParcelInfoList() } returns parcelInfoList
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointTo.name) } returns selectedPointTo
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(selectedPointTo.name))
+        viewModel.onIntent(DeliveryMainIntent.SelectParcelType(selectedParcelType))
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.CalculateDelivery)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openCalculatorScreen(any(), any(), any()) }
+    }
+
+    @Test
+    fun `calculate delivery without point to EXPECT router not called`() = runTest {
+        val selectedPointFrom = points[0]
+        val selectedParcelType = parcelInfoList[0]
+        coEvery { directionRepository.getDeliveryPointList() } returns points
+        coEvery { parcelRepository.getParcelInfoList() } returns parcelInfoList
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointFrom.name) } returns selectedPointFrom
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(selectedPointFrom.name))
+        viewModel.onIntent(DeliveryMainIntent.SelectParcelType(selectedParcelType))
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.CalculateDelivery)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openCalculatorScreen(any(), any(), any()) }
+    }
+
+    @Test
+    fun `calculate delivery without parcel type EXPECT router not called`() = runTest {
+        val selectedPointFrom = points[0]
+        val selectedPointTo = points[1]
+        coEvery { directionRepository.getDeliveryPointList() } returns points
+        coEvery { parcelRepository.getParcelInfoList() } returns parcelInfoList
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointFrom.name) } returns selectedPointFrom
+        coEvery { getDeliveryPointByNameUseCase(points, selectedPointTo.name) } returns selectedPointTo
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(selectedPointFrom.name))
+        viewModel.onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(selectedPointTo.name))
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.CalculateDelivery)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openCalculatorScreen(any(), any(), any()) }
+    }
+
+    @Test
+    fun `select alternative delivery point from without content EXPECT state unchanged`() = runTest {
+        coEvery { directionRepository.getDeliveryPointList() } throws Exception("error")
+        val intent = DeliveryMainIntent.SelectAlternativeDeliveryPointFrom("name0")
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        val stateBefore = viewModel.state.value
+        viewModel.onIntent(intent)
+        advanceUntilIdle()
+
+        val stateAfter = viewModel.state.value
+        assertEquals(stateBefore, stateAfter)
+    }
+
+    @Test
+    fun `select alternative delivery point to without content EXPECT state unchanged`() = runTest {
+        coEvery { directionRepository.getDeliveryPointList() } throws Exception("error")
+        val intent = DeliveryMainIntent.SelectAlternativeDeliveryPointTo("name0")
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        val stateBefore = viewModel.state.value
+        viewModel.onIntent(intent)
+        advanceUntilIdle()
+
+        val stateAfter = viewModel.state.value
+        assertEquals(stateBefore, stateAfter)
+    }
+
+    @Test
+    fun `load data intent EXPECT data reloaded with content state`() = runTest {
+        val alternativePointsUI = alternativePoints.map { it.name }
+        val expected = initial().copy(
+            deliveryCalculatorContent = DeliveryCalculatorContent(
+                points = points,
+                selectedPointFrom = null,
+                alternativePointsFrom = alternativePointsUI,
+                selectedPointTo = null,
+                alternativePointsTo = alternativePointsUI,
+                parcelInfoList = parcelInfoList,
+                selectedParcelInfo = null
+            )
+        )
+        coEvery { directionRepository.getDeliveryPointList() } returns points
+        coEvery { parcelRepository.getParcelInfoList() } returns parcelInfoList
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.LoadData)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun `empty tracker input EXPECT track enabled is false`() = runTest {
+        coEvery { directionRepository.getDeliveryPointList() } returns points
+        coEvery { parcelRepository.getParcelInfoList() } returns parcelInfoList
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.trackerContent.trackEnabled
+        assertEquals(false, actual)
+    }
+
+    @Test
+    fun `non-empty tracker input EXPECT track enabled is true`() = runTest {
+        coEvery { directionRepository.getDeliveryPointList() } returns points
+        coEvery { parcelRepository.getParcelInfoList() } returns parcelInfoList
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.ChangeInputParcelId("parcel-123"))
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.trackerContent.trackEnabled
+        assertEquals(true, actual)
+    }
 }
