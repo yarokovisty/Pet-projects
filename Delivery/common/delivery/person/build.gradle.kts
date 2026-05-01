@@ -12,6 +12,13 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.kotlin.serialization)
         }
+
+        androidUnitTest.dependencies {
+            implementation(libs.junit)
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.mockk)
+        }
     }
 }
 
