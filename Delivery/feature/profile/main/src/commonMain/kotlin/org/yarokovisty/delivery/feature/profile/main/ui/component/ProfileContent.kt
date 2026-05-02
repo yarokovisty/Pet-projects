@@ -40,6 +40,7 @@ import org.yarokovisty.delivery.feature.profile.main.presentation.state.ContentS
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldStatus
 
+// TODO(Добавить переключение на другой инпут через кнопку на клавиатуре)
 @Composable
 internal fun ProfileContent(
     state: ContentState,

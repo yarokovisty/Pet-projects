@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.profile.main.presentation.state
 
+import org.yarokovisty.delivery.common.profile.main.domain.entity.User
 import org.yarokovisty.delivery.common.validation.error.EmailValidationError
-import org.yarokovisty.delivery.feature.profile.main.domain.entity.User
 
 internal fun initial() =
     ProfileState(

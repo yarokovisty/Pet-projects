@@ -1,10 +1,10 @@
 package org.yarokovisty.delivery.feature.profile.main.presentation.viewmodel
 
 import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.profile.main.domain.usecase.GetUserUseCase
+import org.yarokovisty.delivery.common.profile.main.domain.usecase.UpdateUserUseCase
 import org.yarokovisty.delivery.common.validation.validator.EmailValidator
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
-import org.yarokovisty.delivery.feature.profile.main.domain.usecase.GetUserUseCase
-import org.yarokovisty.delivery.feature.profile.main.domain.usecase.UpdateUserUseCase
 import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileRouter
 import org.yarokovisty.delivery.feature.profile.main.presentation.event.ProfileEvent
 import org.yarokovisty.delivery.feature.profile.main.presentation.intent.ProfileIntent
@@ -41,8 +41,9 @@ internal class ProfileViewModel(
         updateState { loadingState() }
 
         launchTrying {
-            val user = getUserUseCase()
-            updateState { contentState(user) }
+            getUserUseCase()?.let { user ->
+                updateState { contentState(user) }
+            }
         } handle { handleError() }
     }
 

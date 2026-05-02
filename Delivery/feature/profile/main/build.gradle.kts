@@ -22,6 +22,7 @@ kotlin {
             implementation(projects.common.auth)
             implementation(projects.core.common.presentation)
             implementation(projects.common.delivery.direction)
+            implementation(projects.common.profile.main)
             implementation(projects.common.validation)
             implementation(projects.core.network)
             implementation(projects.core.storage)

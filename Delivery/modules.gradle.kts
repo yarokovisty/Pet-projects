@@ -9,6 +9,7 @@ val commonModules = listOf(
     ":common:delivery:parcel",
     ":common:delivery:person",
     ":common:delivery:step",
+    ":common:profile:main",
     ":common:validation"
 )
 

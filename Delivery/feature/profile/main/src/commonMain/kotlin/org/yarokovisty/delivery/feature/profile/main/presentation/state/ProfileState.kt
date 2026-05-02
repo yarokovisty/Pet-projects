@@ -1,13 +1,13 @@
 package org.yarokovisty.delivery.feature.profile.main.presentation.state
 
+import org.yarokovisty.delivery.common.profile.main.domain.entity.User
 import org.yarokovisty.delivery.common.validation.error.EmailValidationError
 import org.yarokovisty.delivery.core.common.presentation.State
-import org.yarokovisty.delivery.feature.profile.main.domain.entity.User
 
 internal data class ProfileState(
     val loading: Boolean,
     val error: Boolean,
-    val content: org.yarokovisty.delivery.feature.profile.main.presentation.state.ContentState?
+    val content: ContentState?
 ) : State
 
 internal data class ContentState(
@@ -17,21 +17,20 @@ internal data class ContentState(
     val middlename: String,
     val city: String,
     val phone: String,
-    val email: org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldState,
+    val email: EmailFieldState,
     val downloadingDataUpdate: Boolean,
 )
 
 internal data class EmailFieldState(
     val text: String,
-    val status: org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldStatus
+    val status: EmailFieldStatus
 )
 
 internal sealed interface EmailFieldStatus {
 
-    data object NotValidated : org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldStatus
+    data object NotValidated : EmailFieldStatus
 
-    data class Invalid(val reason: EmailValidationError) :
-        org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldStatus
+    data class Invalid(val reason: EmailValidationError) : EmailFieldStatus
 
-    data object Valid : org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldStatus
+    data object Valid : EmailFieldStatus
 }

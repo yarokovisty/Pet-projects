@@ -7,6 +7,7 @@ import org.yarokovisty.delivery.common.delivery.direction.di.deliveryDirectionMo
 import org.yarokovisty.delivery.common.delivery.parcel.di.deliveryParcelModule
 import org.yarokovisty.delivery.common.delivery.person.di.deliveryPersonModule
 import org.yarokovisty.delivery.common.delivery.step.deliveryStepModule
+import org.yarokovisty.delivery.common.profile.main.di.profileMainModule
 import org.yarokovisty.delivery.common.validation.di.validationModule
 
 val commonModule = module {
@@ -17,6 +18,7 @@ val commonModule = module {
         deliveryParcelModule,
         deliveryPersonModule,
         deliveryStepModule,
+        profileMainModule,
         validationModule
     )
 }
