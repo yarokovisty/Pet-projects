@@ -37,7 +37,7 @@ internal fun PhoneInput(
         hint = stringResource(Res.string.login_input_phone_hint),
         keyboardOptions = keyboardOptions,
         inputTransformation = remember { PhoneInputTransformation() },
-        errorText = state.fieldStatus.toText(),
+        errorText = state.fieldStatus.getText(),
         onTextChange = { onIntent(LoginIntent.InputPhoneNumber(it)) },
         onImeAction = {
             focusManager.clearFocus()
@@ -56,7 +56,7 @@ private fun getTitleText(showTitle: Boolean): String? =
     }
 
 @Composable
-private fun PhoneFieldStatus.toText(): String? =
+private fun PhoneFieldStatus.getText(): String? =
     if (this is PhoneFieldStatus.Invalid) {
         error.toText()
     } else {

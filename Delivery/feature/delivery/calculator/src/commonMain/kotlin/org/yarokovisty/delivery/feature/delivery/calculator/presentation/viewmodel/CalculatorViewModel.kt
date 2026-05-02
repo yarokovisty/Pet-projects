@@ -61,6 +61,7 @@ internal class CalculatorViewModel(
     private fun selectOption(option: Option) {
         launch {
             calculatorRepository.setOption(option)
+            router.openReceiverScreen()
         }
     }
 }

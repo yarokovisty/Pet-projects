@@ -1,6 +1,5 @@
 package org.yarokovisty.delivery.common.delivery.person.data.datasource
 
-import kotlinx.serialization.builtins.serializer
 import org.yarokovisty.delivery.common.delivery.person.domain.entity.PersonInfo
 import org.yarokovisty.delivery.core.storage.preferences.PreferencesStorage
 

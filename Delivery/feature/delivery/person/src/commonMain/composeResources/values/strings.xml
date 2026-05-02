@@ -1,0 +1,17 @@
+<resources>
+    <string name="receiver_topbar_title">Получатель</string>
+    <string name="person_step_indicator_title">Шаг %1$d из %2$d</string>
+
+    <string name="person_lastname_input_hint">Фамилия</string>
+    <string name="person_firstname_input_hint">Имя</string>
+    <string name="person_middlename_input_hint">Отчество (при наличии)</string>
+    <string name="person_phone_number_input_hint">Телефон</string>
+
+    <string name="person_input_empty_error">Заполните поле</string>
+    <string name="person_input_phone_length_error">Некорреектная длина номера</string>
+
+    <string name="person_continue_button">Продолжить</string>
+
+    <string name="error_message_unavailable_service">Сервис временно недоступен</string>
+    <string name="error_button_repeat">Повторить</string>
+</resources>

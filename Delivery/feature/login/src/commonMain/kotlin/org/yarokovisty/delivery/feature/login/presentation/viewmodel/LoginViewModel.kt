@@ -4,10 +4,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import org.yarokovisty.delivery.common.validation.usecase.RuPhoneValidateUseCase
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.login.domain.error.LoginError
 import org.yarokovisty.delivery.feature.login.domain.repository.LoginRepository
-import org.yarokovisty.delivery.feature.login.domain.usecase.RuPhoneValidationUseCase
 import org.yarokovisty.delivery.feature.login.domain.usecase.SigninUseCase
 import org.yarokovisty.delivery.feature.login.domain.usecase.StartCountDownUseCase
 import org.yarokovisty.delivery.feature.login.domain.validator.OtpCodeFormatValidator
@@ -32,7 +32,7 @@ import org.yarokovisty.delivery.util.validation.validated.fold
 
 internal class LoginViewModel(
     private val loginRepository: LoginRepository,
-    private val ruPhoneValidationUseCase: RuPhoneValidationUseCase,
+    private val ruPhoneValidateUseCase: RuPhoneValidateUseCase,
     private val signinUseCase: SigninUseCase,
     private val startCountDownUseCase: StartCountDownUseCase,
     private val otpCodeFormatValidator: OtpCodeFormatValidator,
@@ -80,7 +80,7 @@ internal class LoginViewModel(
     }
 
     private fun validatePhoneNumber(phoneNumber: String): Boolean =
-        ruPhoneValidationUseCase(phoneNumber)
+        ruPhoneValidateUseCase(phoneNumber)
             .fold(
                 onValid = {
                     updateState { validPhoneNumber() }

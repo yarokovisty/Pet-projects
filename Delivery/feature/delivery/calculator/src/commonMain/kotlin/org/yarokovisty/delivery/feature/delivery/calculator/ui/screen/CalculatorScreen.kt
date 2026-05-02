@@ -1,9 +1,11 @@
 package org.yarokovisty.delivery.feature.delivery.calculator.ui.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import delivery.feature.delivery.calculator.generated.resources.Res
 import delivery.feature.delivery.calculator.generated.resources.calculator_topbar_title
 import delivery.feature.delivery.calculator.generated.resources.ic_close
@@ -41,8 +43,8 @@ private fun CalculatorScreen(
     onIntent: (CalculatorIntent) -> Unit
 ) {
     FullScreen {
-        Column {
-            CalculatorTopBar(onClickBack = { onIntent(CalculatorIntent.Back) })
+        Column(modifier = Modifier.fillMaxSize()) {
+            CalculatorTopBar(onBackClick = { onIntent(CalculatorIntent.Back) })
 
             when {
                 state.error -> {
@@ -69,10 +71,10 @@ private fun CalculatorScreen(
 }
 
 @Composable
-private fun CalculatorTopBar(onClickBack: () -> Unit) {
+private fun CalculatorTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.calculator_topbar_title),
         navigationIcon = painterResource(Res.drawable.ic_close),
-        onClickNavIcon = onClickBack
+        onClickNavIcon = onBackClick
     )
 }

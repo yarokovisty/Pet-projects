@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.login.domain.usecase
+package org.yarokovisty.delivery.common.validation.usecase
 
 import io.mockk.every
 import io.mockk.mockk
@@ -11,10 +11,10 @@ import org.yarokovisty.delivery.util.validation.validated.valid
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class RuPhoneValidationUseCaseTest {
+class RuPhoneValidateUseCaseTest {
 
     private val phoneValidator: PhoneValidator = mockk()
-    private val useCase = RuPhoneValidationUseCase(phoneValidator)
+    private val useCase = RuPhoneValidateUseCase(phoneValidator)
 
     private companion object {
         const val RU_PHONE_LENGTH = 11

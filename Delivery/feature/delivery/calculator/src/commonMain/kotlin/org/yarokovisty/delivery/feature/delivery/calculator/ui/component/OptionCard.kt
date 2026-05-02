@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
+// TODO(Добавить анимацию нажатия на карточку)
 @Composable
 internal fun OptionCard(
     modifier: Modifier = Modifier,

@@ -23,8 +23,7 @@ private const val NUM_SKELETON_THRESHOLD = 2
 internal fun SkeletonScreen() {
     Column(
         verticalArrangement = Arrangement.spacedBy(24.dp),
-        modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 24.dp),
+        modifier = Modifier.padding(horizontal = 16.dp),
     ) {
         repeat(NUM_SKELETON_THRESHOLD) {
             OptionCard(

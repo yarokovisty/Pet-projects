@@ -19,6 +19,6 @@ internal fun CalculatorLinearStepIndicator(state: StepState) {
         title = stringResource(Res.string.calculator_step_indicator_title, state.progress, state.maxProgress),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp)
+            .padding(vertical = 24.dp, horizontal = 16.dp)
     )
 }

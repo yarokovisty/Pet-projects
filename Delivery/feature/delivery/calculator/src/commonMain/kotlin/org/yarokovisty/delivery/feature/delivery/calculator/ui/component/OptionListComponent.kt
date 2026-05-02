@@ -21,7 +21,7 @@ internal fun OptionListComponent(
     onSelectOption: (Option) -> Unit
 ) {
     LazyColumn(
-        contentPadding = PaddingValues(start = 16.dp, top = 24.dp, end = 16.dp, bottom = 16.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 16.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp),
         modifier = Modifier.fillMaxSize(),
     ) {

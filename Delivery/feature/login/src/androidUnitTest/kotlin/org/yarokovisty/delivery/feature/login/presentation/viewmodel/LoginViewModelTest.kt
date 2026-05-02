@@ -11,9 +11,9 @@ import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
+import org.yarokovisty.delivery.common.validation.usecase.RuPhoneValidateUseCase
 import org.yarokovisty.delivery.feature.login.domain.error.LoginError
 import org.yarokovisty.delivery.feature.login.domain.repository.LoginRepository
-import org.yarokovisty.delivery.feature.login.domain.usecase.RuPhoneValidationUseCase
 import org.yarokovisty.delivery.feature.login.domain.usecase.SigninUseCase
 import org.yarokovisty.delivery.feature.login.domain.usecase.StartCountDownUseCase
 import org.yarokovisty.delivery.feature.login.domain.validator.OtpCodeFormatValidationError
@@ -34,7 +34,7 @@ import kotlin.test.assertTrue
 class LoginViewModelTest {
 
     private val loginRepository: LoginRepository = mockk(relaxed = true)
-    private val ruPhoneValidationUseCase: RuPhoneValidationUseCase = mockk()
+    private val ruPhoneValidateUseCase: RuPhoneValidateUseCase = mockk()
     private val signinUseCase: SigninUseCase = mockk(relaxed = true)
     private val startCountDownUseCase: StartCountDownUseCase = mockk()
     private val otpCodeFormatValidator: OtpCodeFormatValidator = mockk()
@@ -61,7 +61,7 @@ class LoginViewModelTest {
 
     @Test
     fun `input otp code EXPECT state updated with new code`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns valid(TEST_PHONE)
+        every { ruPhoneValidateUseCase(any()) } returns valid(TEST_PHONE)
         coEvery { loginRepository.requestOtp(any()) } returns TEST_EXPIRE_TIME
         every { startCountDownUseCase(any()) } returns flowOf()
         val viewModel = createViewModel()
@@ -77,7 +77,7 @@ class LoginViewModelTest {
 
     @Test
     fun `click login when otp code state is null EXPECT request otp`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns valid(TEST_PHONE)
+        every { ruPhoneValidateUseCase(any()) } returns valid(TEST_PHONE)
         coEvery { loginRepository.requestOtp(any()) } returns TEST_EXPIRE_TIME
         every { startCountDownUseCase(any()) } returns flowOf()
         val viewModel = createViewModel()
@@ -91,7 +91,7 @@ class LoginViewModelTest {
 
     @Test
     fun `request otp with valid phone EXPECT state shows otp input`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns valid(TEST_PHONE)
+        every { ruPhoneValidateUseCase(any()) } returns valid(TEST_PHONE)
         coEvery { loginRepository.requestOtp(any()) } returns TEST_EXPIRE_TIME
         every { startCountDownUseCase(any()) } returns flowOf()
         val viewModel = createViewModel()
@@ -105,7 +105,7 @@ class LoginViewModelTest {
 
     @Test
     fun `request otp with invalid phone EXPECT state shows phone validation error`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns invalid(PhoneValidationError.INVALID_LENGTH)
+        every { ruPhoneValidateUseCase(any()) } returns invalid(PhoneValidationError.INVALID_LENGTH)
         val viewModel = createViewModel()
 
         viewModel.onIntent(LoginIntent.InputPhoneNumber("123"))
@@ -119,7 +119,7 @@ class LoginViewModelTest {
 
     @Test
     fun `request otp with valid phone EXPECT phone field status valid`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns valid(TEST_PHONE)
+        every { ruPhoneValidateUseCase(any()) } returns valid(TEST_PHONE)
         coEvery { loginRepository.requestOtp(any()) } returns TEST_EXPIRE_TIME
         every { startCountDownUseCase(any()) } returns flowOf()
         val viewModel = createViewModel()
@@ -133,7 +133,7 @@ class LoginViewModelTest {
 
     @Test
     fun `request otp success EXPECT timer started`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns valid(TEST_PHONE)
+        every { ruPhoneValidateUseCase(any()) } returns valid(TEST_PHONE)
         coEvery { loginRepository.requestOtp(any()) } returns TEST_EXPIRE_TIME
         every { startCountDownUseCase(any()) } returns flowOf(TEST_EXPIRE_TIME)
         val viewModel = createViewModel()
@@ -147,7 +147,7 @@ class LoginViewModelTest {
 
     @Test
     fun `signin with valid otp EXPECT profile screen opened`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns valid(TEST_PHONE)
+        every { ruPhoneValidateUseCase(any()) } returns valid(TEST_PHONE)
         coEvery { loginRepository.requestOtp(any()) } returns TEST_EXPIRE_TIME
         every { startCountDownUseCase(any()) } returns flowOf()
         every { otpCodeFormatValidator.validate(any()) } returns valid(TEST_OTP_CODE)
@@ -166,7 +166,7 @@ class LoginViewModelTest {
 
     @Test
     fun `signin with invalid otp format EXPECT format validation error shown`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns valid(TEST_PHONE)
+        every { ruPhoneValidateUseCase(any()) } returns valid(TEST_PHONE)
         coEvery { loginRepository.requestOtp(any()) } returns TEST_EXPIRE_TIME
         every { startCountDownUseCase(any()) } returns flowOf()
         every { otpCodeFormatValidator.validate(any()) } returns invalid(OtpCodeFormatValidationError.INVALID_LENGTH)
@@ -189,7 +189,7 @@ class LoginViewModelTest {
 
     @Test
     fun `signin with invalid otp from server EXPECT invalid otp code state`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns valid(TEST_PHONE)
+        every { ruPhoneValidateUseCase(any()) } returns valid(TEST_PHONE)
         coEvery { loginRepository.requestOtp(any()) } returns TEST_EXPIRE_TIME
         every { startCountDownUseCase(any()) } returns flowOf()
         every { otpCodeFormatValidator.validate(any()) } returns valid(TEST_OTP_CODE)
@@ -218,7 +218,7 @@ class LoginViewModelTest {
 
     @Test
     fun `retry send otp EXPECT request otp again`() = runTest {
-        every { ruPhoneValidationUseCase(any()) } returns valid(TEST_PHONE)
+        every { ruPhoneValidateUseCase(any()) } returns valid(TEST_PHONE)
         coEvery { loginRepository.requestOtp(any()) } returns TEST_EXPIRE_TIME
         every { startCountDownUseCase(any()) } returns flowOf()
         val viewModel = createViewModel()
@@ -235,7 +235,7 @@ class LoginViewModelTest {
     private fun createViewModel() =
         LoginViewModel(
             loginRepository,
-            ruPhoneValidationUseCase,
+            ruPhoneValidateUseCase,
             signinUseCase,
             startCountDownUseCase,
             otpCodeFormatValidator,

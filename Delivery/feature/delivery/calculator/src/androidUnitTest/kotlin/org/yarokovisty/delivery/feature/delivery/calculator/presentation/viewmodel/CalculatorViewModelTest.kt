@@ -2,7 +2,10 @@ package org.yarokovisty.delivery.feature.delivery.calculator.presentation.viewmo
 
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import io.mockk.verify
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
@@ -16,9 +19,7 @@ import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.PackageType
 import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.ParcelInfo
 import org.yarokovisty.delivery.feature.delivery.calculator.navigation.CalculatorRouter
 import org.yarokovisty.delivery.feature.delivery.calculator.presentation.intent.CalculatorIntent
-import org.yarokovisty.delivery.feature.delivery.calculator.presentation.state.CalculatorState
 import org.yarokovisty.delivery.feature.delivery.calculator.presentation.state.StepState
-import org.yarokovisty.delivery.feature.delivery.calculator.presentation.state.initial
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -73,31 +74,67 @@ class CalculatorViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @Test
-    fun `init EXPECT loading state`() = runTest {
+    fun `init viewmodel EXPECT step state with current step 1`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
         } returns options
 
         val viewModel = createViewModel()
 
-        val actual = viewModel.state.value
-        assertTrue(actual.skeleton)
+        val actual = viewModel.state.value.stepState
+        assertEquals(StepState(progress = 1, maxProgress = maxSteps), actual)
     }
 
     @Test
-    fun `init EXPECT correct step state`() = runTest {
+    fun `init viewmodel EXPECT step state with max steps from parameter`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
         } returns options
 
         val viewModel = createViewModel()
 
-        val actual = viewModel.state.value
-        assertEquals(StepState(progress = 1, maxProgress = maxSteps), actual.stepState)
+        val actual = viewModel.state.value.stepState.maxProgress
+        assertEquals(maxSteps, actual)
     }
 
     @Test
-    fun `loading data is success EXPECT content state with options`() = runTest {
+    fun `init viewmodel EXPECT skeleton is true`() = runTest {
+        coEvery {
+            calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
+        } returns options
+
+        val viewModel = createViewModel()
+
+        val actual = viewModel.state.value.skeleton
+        assertTrue(actual)
+    }
+
+    @Test
+    fun `init viewmodel EXPECT error is false`() = runTest {
+        coEvery {
+            calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
+        } returns options
+
+        val viewModel = createViewModel()
+
+        val actual = viewModel.state.value.error
+        assertFalse(actual)
+    }
+
+    @Test
+    fun `init viewmodel EXPECT options are empty`() = runTest {
+        coEvery {
+            calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
+        } returns options
+
+        val viewModel = createViewModel()
+
+        val actual = viewModel.state.value.options
+        assertTrue(actual.isEmpty())
+    }
+
+    @Test
+    fun `loading data successfully EXPECT skeleton is false`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
         } returns options
@@ -105,12 +142,12 @@ class CalculatorViewModelTest {
         val viewModel = createViewModel()
         advanceUntilIdle()
 
-        val actual = viewModel.state.value
-        assertEquals(options, actual.options)
+        val actual = viewModel.state.value.skeleton
+        assertFalse(actual)
     }
 
     @Test
-    fun `loading data is success EXPECT skeleton is false`() = runTest {
+    fun `loading data successfully EXPECT error is false`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
         } returns options
@@ -118,38 +155,64 @@ class CalculatorViewModelTest {
         val viewModel = createViewModel()
         advanceUntilIdle()
 
-        val actual = viewModel.state.value
-        assertFalse(actual.skeleton)
+        val actual = viewModel.state.value.error
+        assertFalse(actual)
     }
 
     @Test
-    fun `loading data is error EXPECT error state`() = runTest {
+    fun `loading data successfully EXPECT options list is populated`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
-        } throws Exception("error")
+        } returns options
 
         val viewModel = createViewModel()
         advanceUntilIdle()
 
-        val actual = viewModel.state.value
-        assertTrue(actual.error)
+        val actual = viewModel.state.value.options
+        assertEquals(options, actual)
     }
 
     @Test
-    fun `loading data is error EXPECT skeleton is false`() = runTest {
+    fun `loading data failed EXPECT skeleton is false`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
-        } throws Exception("error")
+        } throws Exception("Network error")
 
         val viewModel = createViewModel()
         advanceUntilIdle()
 
-        val actual = viewModel.state.value
-        assertFalse(actual.skeleton)
+        val actual = viewModel.state.value.skeleton
+        assertFalse(actual)
     }
 
     @Test
-    fun `back intent EXPECT router back called`() = runTest {
+    fun `loading data failed EXPECT error is true`() = runTest {
+        coEvery {
+            calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
+        } throws Exception("Network error")
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.error
+        assertTrue(actual)
+    }
+
+    @Test
+    fun `loading data failed EXPECT options are empty`() = runTest {
+        coEvery {
+            calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
+        } throws Exception("Network error")
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.options
+        assertTrue(actual.isEmpty())
+    }
+
+    @Test
+    fun `back intent dispatched EXPECT router back called`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
         } returns options
@@ -158,11 +221,11 @@ class CalculatorViewModelTest {
         advanceUntilIdle()
         viewModel.onIntent(CalculatorIntent.Back)
 
-        verify { router.back() }
+        verify(exactly = 1) { router.back() }
     }
 
     @Test
-    fun `load data intent EXPECT data reloaded`() = runTest {
+    fun `load data intent dispatched EXPECT repository called again`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
         } returns options
@@ -178,10 +241,25 @@ class CalculatorViewModelTest {
     }
 
     @Test
-    fun `load data intent after error EXPECT content state`() = runTest {
+    fun `load data intent dispatched EXPECT skeleton becomes true`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
-        } throws Exception("error")
+        } returns options
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+
+        viewModel.onIntent(CalculatorIntent.LoadData)
+
+        val actual = viewModel.state.value.skeleton
+        assertTrue(actual)
+    }
+
+    @Test
+    fun `reload after error EXPECT skeleton is false`() = runTest {
+        coEvery {
+            calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
+        } throws Exception("Network error")
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -193,15 +271,15 @@ class CalculatorViewModelTest {
         viewModel.onIntent(CalculatorIntent.LoadData)
         advanceUntilIdle()
 
-        val actual = viewModel.state.value
-        assertEquals(options, actual.options)
+        val actual = viewModel.state.value.skeleton
+        assertFalse(actual)
     }
 
     @Test
-    fun `load data intent after error EXPECT error is false`() = runTest {
+    fun `reload after error EXPECT error is false`() = runTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
-        } throws Exception("error")
+        } throws Exception("Network error")
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -213,22 +291,59 @@ class CalculatorViewModelTest {
         viewModel.onIntent(CalculatorIntent.LoadData)
         advanceUntilIdle()
 
-        val actual = viewModel.state.value
-        assertFalse(actual.error)
+        val actual = viewModel.state.value.error
+        assertFalse(actual)
     }
 
     @Test
-    fun `select option intent EXPECT repository set option called`() = runTest {
+    fun `reload after error EXPECT options populated`() = runTest {
+        coEvery {
+            calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
+        } throws Exception("Network error")
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+
+        coEvery {
+            calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
+        } returns options
+
+        viewModel.onIntent(CalculatorIntent.LoadData)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.options
+        assertEquals(options, actual)
+    }
+
+    @Test
+    fun `select option intent dispatched EXPECT repository set option called`() = runTest {
         val selectedOption = options[0]
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
         } returns options
+        every { calculatorRepository.setOption(selectedOption) } just runs
 
         val viewModel = createViewModel()
         advanceUntilIdle()
         viewModel.onIntent(CalculatorIntent.SelectOption(selectedOption))
         advanceUntilIdle()
 
-        verify { calculatorRepository.setOption(selectedOption) }
+        verify(exactly = 1) { calculatorRepository.setOption(selectedOption) }
+    }
+
+    @Test
+    fun `select option intent dispatched EXPECT router open receiver screen called`() = runTest {
+        val selectedOption = options[1]
+        coEvery {
+            calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
+        } returns options
+        every { calculatorRepository.setOption(selectedOption) } just runs
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(CalculatorIntent.SelectOption(selectedOption))
+        advanceUntilIdle()
+
+        verify(exactly = 1) { router.openReceiverScreen() }
     }
 }

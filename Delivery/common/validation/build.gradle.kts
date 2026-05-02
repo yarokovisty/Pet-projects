@@ -8,6 +8,7 @@ kotlin {
         androidUnitTest.dependencies {
             implementation(libs.junit)
             implementation(libs.kotlin.test)
+            implementation(libs.mockk)
         }
         commonMain.dependencies {
             implementation(projects.util.validation)

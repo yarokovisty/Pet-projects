@@ -1,10 +1,10 @@
-package org.yarokovisty.delivery.feature.login.domain.usecase
+package org.yarokovisty.delivery.common.validation.usecase
 
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
 import org.yarokovisty.delivery.common.validation.validator.PhoneValidator
 import org.yarokovisty.delivery.util.validation.validated.Validated
 
-internal class RuPhoneValidationUseCase(
+class RuPhoneValidateUseCase(
     private val phoneValidator: PhoneValidator
 ) {
 
