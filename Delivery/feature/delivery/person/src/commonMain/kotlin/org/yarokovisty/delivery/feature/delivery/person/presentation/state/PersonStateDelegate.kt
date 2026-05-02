@@ -29,6 +29,26 @@ internal fun initial(currentStep: Int, maxSteps: Int): PersonState =
         )
     )
 
+internal fun PersonState.setPersonInfo(personInfo: PersonInfo, phoneNumber: String): PersonState =
+    copy(
+        contentState = contentState.copy(
+            person = personInfo,
+            firstname = contentState.firstname.copy(
+                value = personInfo.firstname,
+                fieldStatus = NameFieldStatus.NotValidated
+            ),
+            lastname = contentState.lastname.copy(
+                value = personInfo.lastname,
+                fieldStatus = NameFieldStatus.NotValidated,
+            ),
+            middlename = personInfo.middlename ?: "",
+            phoneNumber = contentState.phoneNumber.copy(
+                value = phoneNumber,
+                fieldStatus = PhoneFieldStatus.NotValidated
+            )
+        )
+    )
+
 internal fun PersonState.updateFirstname(firstname: String): PersonState =
     copy(
         contentState = contentState.copy(

@@ -19,12 +19,18 @@ import org.yarokovisty.delivery.design.uikit.input.TextInput
 import org.yarokovisty.delivery.feature.login.presentation.intent.LoginIntent
 import org.yarokovisty.delivery.feature.login.presentation.state.PhoneFieldStatus
 import org.yarokovisty.delivery.feature.login.presentation.state.PhoneNumberState
+import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
+import org.yarokovisty.delivery.util.phone.PhoneNumberMask
 
 @Composable
 internal fun PhoneInput(
     state: PhoneNumberState,
     onIntent: (LoginIntent) -> Unit
 ) {
+    val inputTransformation = remember {
+        val formatter = PhoneNumberFormatter(PhoneNumberMask.RU)
+        PhoneInputTransformation(formatter)
+    }
     val keyboardOptions = remember {
         KeyboardOptions(keyboardType = KeyboardType.Phone, imeAction = ImeAction.Done)
     }
@@ -36,7 +42,7 @@ internal fun PhoneInput(
         title = getTitleText(state.showTitle),
         hint = stringResource(Res.string.login_input_phone_hint),
         keyboardOptions = keyboardOptions,
-        inputTransformation = remember { PhoneInputTransformation() },
+        inputTransformation = inputTransformation,
         errorText = state.fieldStatus.getText(),
         onTextChange = { onIntent(LoginIntent.InputPhoneNumber(it)) },
         onImeAction = {

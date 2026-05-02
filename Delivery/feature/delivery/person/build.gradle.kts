@@ -21,6 +21,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.common.delivery.person)
             implementation(projects.common.delivery.step)
+            implementation(projects.common.profile.main)
             implementation(projects.common.validation)
             implementation(projects.core.common.presentation)
             implementation(projects.design.theme)

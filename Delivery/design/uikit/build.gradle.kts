@@ -9,6 +9,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.design.theme)
+            implementation(projects.util.phone)
 
             implementation(libs.compose.components.resources)
             implementation(libs.compose.foundation)

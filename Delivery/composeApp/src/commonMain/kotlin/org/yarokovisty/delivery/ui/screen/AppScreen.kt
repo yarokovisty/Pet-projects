@@ -13,7 +13,9 @@ import org.yarokovisty.delivery.feature.delivery.calculator.ui.screen.Calculator
 import org.yarokovisty.delivery.feature.delivery.direction.navigation.DirectionDestination
 import org.yarokovisty.delivery.feature.delivery.direction.ui.screen.DirectionScreen
 import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverDestination
+import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderDestination
 import org.yarokovisty.delivery.feature.delivery.person.ui.screen.ReceiverScreen
+import org.yarokovisty.delivery.feature.delivery.person.ui.screen.SenderScreen
 import org.yarokovisty.delivery.feature.login.navigation.LoginDestination
 import org.yarokovisty.delivery.feature.login.ui.screen.LoginScreen
 import org.yarokovisty.delivery.navigation.destination.MainDestination
@@ -63,6 +65,9 @@ private fun AppScreen(
             }
             entry<ReceiverDestination> {
                 ReceiverScreen()
+            }
+            entry<SenderDestination> {
+                SenderScreen()
             }
             entry<LoginDestination> {
                 LoginScreen()

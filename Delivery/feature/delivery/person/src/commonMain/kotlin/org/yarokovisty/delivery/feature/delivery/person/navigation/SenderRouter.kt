@@ -1,8 +1,6 @@
 package org.yarokovisty.delivery.feature.delivery.person.navigation
 
-interface ReceiverRouter {
-
-    fun openSenderScreen()
+interface SenderRouter {
 
     fun back()
 }

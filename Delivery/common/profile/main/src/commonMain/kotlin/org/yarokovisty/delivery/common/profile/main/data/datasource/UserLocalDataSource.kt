@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.common.profile.main.data.datasource
 
-import org.yarokovisty.delivery.core.storage.preferences.PreferencesStorage
 import org.yarokovisty.delivery.common.profile.main.domain.entity.User
+import org.yarokovisty.delivery.core.storage.preferences.PreferencesStorage
 
 internal class UserLocalDataSource(private val storage: PreferencesStorage) {
 

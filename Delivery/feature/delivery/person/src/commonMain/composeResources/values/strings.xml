@@ -1,5 +1,6 @@
 <resources>
     <string name="receiver_topbar_title">Получатель</string>
+    <string name="sender_topbar_title">Отправитель</string>
     <string name="person_step_indicator_title">Шаг %1$d из %2$d</string>
 
     <string name="person_lastname_input_hint">Фамилия</string>

@@ -1,10 +1,12 @@
 package org.yarokovisty.delivery.feature.delivery.person.presentation.viewmodel
 
 import org.yarokovisty.delivery.common.delivery.person.domain.repository.PersonRepository
+import org.yarokovisty.delivery.common.profile.main.domain.usecase.GetUserUseCase
 import org.yarokovisty.delivery.common.validation.usecase.RuPhoneValidateUseCase
 import org.yarokovisty.delivery.common.validation.validator.NameValidator
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
-import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverRouter
+import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderRouter
+import org.yarokovisty.delivery.feature.delivery.person.presentation.converter.toPersonInfo
 import org.yarokovisty.delivery.feature.delivery.person.presentation.intent.PersonIntent
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.PersonState
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.firstnameInvalid
@@ -15,26 +17,42 @@ import org.yarokovisty.delivery.feature.delivery.person.presentation.state.lastn
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.lastnameValid
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.phoneNumberInvalid
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.phoneNumberValid
+import org.yarokovisty.delivery.feature.delivery.person.presentation.state.setPersonInfo
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.updateFirstname
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.updateLastname
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.updateMiddlename
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.updatePhoneNumber
+import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
 import org.yarokovisty.delivery.util.phone.clearPhoneNumber
 import org.yarokovisty.delivery.util.validation.validated.fold
 
-internal class ReceiverViewModel(
+internal class SenderViewModel(
     private val personRepository: PersonRepository,
+    private val getUserUseCase: GetUserUseCase,
     private val ruPhoneValidateUseCase: RuPhoneValidateUseCase,
     private val nameValidator: NameValidator,
-    private val router: ReceiverRouter,
-    maxSteps: Int,
+    private val phoneNumberFormatter: PhoneNumberFormatter,
+    private val router: SenderRouter,
+    maxSteps: Int
 ) : BaseViewModel<PersonState, PersonIntent, Nothing>(
     initial(CURRENT_STEP, maxSteps)
 ) {
-
     private companion object {
 
-        const val CURRENT_STEP = 2
+        const val CURRENT_STEP = 3
+    }
+
+    init {
+        loadUser()
+    }
+
+    private fun loadUser() {
+        launch {
+            getUserUseCase()?.toPersonInfo()?.let { receiverInfo ->
+                val phoneNumberFormatted = phoneNumberFormatter.format(receiverInfo.phone)
+                updateState { setPersonInfo(receiverInfo, phoneNumberFormatted) }
+            }
+        }
     }
 
     override fun onIntent(intent: PersonIntent) {
@@ -56,9 +74,8 @@ internal class ReceiverViewModel(
         if (!validateInputData()) return
 
         launch {
-            val receiverInfo = stateValue.getUpdatedPersonInfo()
-            personRepository.setReceiver(receiverInfo)
-            router.openSenderScreen()
+            val senderInfo = stateValue.getUpdatedPersonInfo()
+            personRepository.setSender(senderInfo)
         }
     }
 

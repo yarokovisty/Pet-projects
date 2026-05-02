@@ -455,4 +455,77 @@ internal class ReceiverViewModelTest {
 
         coVerify(exactly = 0) { personRepository.setReceiver(any()) }
     }
+
+    @Test
+    fun `click continue with valid data EXPECT router openSenderScreen called`() = runTest {
+        every { nameValidator.validate(TEST_FIRSTNAME) } returns valid(TEST_FIRSTNAME)
+        every { nameValidator.validate(TEST_LASTNAME) } returns valid(TEST_LASTNAME)
+        every { ruPhoneValidateUseCase(TEST_PHONE) } returns valid(TEST_PHONE)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(PersonIntent.InputFirstname(TEST_FIRSTNAME))
+        viewModel.onIntent(PersonIntent.InputLastname(TEST_LASTNAME))
+        viewModel.onIntent(PersonIntent.InputPhoneNumber(TEST_PHONE))
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify { router.openSenderScreen() }
+    }
+
+    @Test
+    fun `click continue with empty firstname EXPECT router openSenderScreen not called`() = runTest {
+        every { nameValidator.validate("") } returns invalid(NameValidationError.EMPTY)
+        every { nameValidator.validate(TEST_LASTNAME) } returns valid(TEST_LASTNAME)
+        every { ruPhoneValidateUseCase(TEST_PHONE) } returns valid(TEST_PHONE)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(PersonIntent.InputLastname(TEST_LASTNAME))
+        viewModel.onIntent(PersonIntent.InputPhoneNumber(TEST_PHONE))
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openSenderScreen() }
+    }
+
+    @Test
+    fun `click continue with empty lastname EXPECT router openSenderScreen not called`() = runTest {
+        every { nameValidator.validate(TEST_FIRSTNAME) } returns valid(TEST_FIRSTNAME)
+        every { nameValidator.validate("") } returns invalid(NameValidationError.EMPTY)
+        every { ruPhoneValidateUseCase(TEST_PHONE) } returns valid(TEST_PHONE)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(PersonIntent.InputFirstname(TEST_FIRSTNAME))
+        viewModel.onIntent(PersonIntent.InputPhoneNumber(TEST_PHONE))
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openSenderScreen() }
+    }
+
+    @Test
+    fun `click continue with invalid phone EXPECT router openSenderScreen not called`() = runTest {
+        every { nameValidator.validate(TEST_FIRSTNAME) } returns valid(TEST_FIRSTNAME)
+        every { nameValidator.validate(TEST_LASTNAME) } returns valid(TEST_LASTNAME)
+        every { ruPhoneValidateUseCase("") } returns invalid(PhoneValidationError.EMPTY)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(PersonIntent.InputFirstname(TEST_FIRSTNAME))
+        viewModel.onIntent(PersonIntent.InputLastname(TEST_LASTNAME))
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openSenderScreen() }
+    }
+
+    @Test
+    fun `click continue with all fields invalid EXPECT router openSenderScreen not called`() = runTest {
+        every { nameValidator.validate("") } returns invalid(NameValidationError.EMPTY)
+        every { ruPhoneValidateUseCase("") } returns invalid(PhoneValidationError.EMPTY)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openSenderScreen() }
+    }
 }
