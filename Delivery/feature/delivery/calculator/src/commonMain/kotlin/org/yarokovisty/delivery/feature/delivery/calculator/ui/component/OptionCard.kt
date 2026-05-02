@@ -1,7 +1,6 @@
 package org.yarokovisty.delivery.feature.delivery.calculator.ui.component
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
-// TODO(Добавить анимацию нажатия на карточку)
 @Composable
 internal fun OptionCard(
     modifier: Modifier = Modifier,
@@ -22,11 +20,8 @@ internal fun OptionCard(
         shape = RoundedCornerShape(24.dp),
         color = DeliveryTheme.colorScheme.bgPrimary,
         border = BorderStroke(width = 1.dp, color = DeliveryTheme.colorScheme.borderExtraLight),
-        modifier = modifier
-            .clickable(
-                enabled = onClick != null,
-                onClick = { onClick?.invoke() }
-            ),
+        modifier = modifier,
+        onClick = { onClick?.invoke() },
     ) {
         Box(
             modifier = Modifier.padding(16.dp),

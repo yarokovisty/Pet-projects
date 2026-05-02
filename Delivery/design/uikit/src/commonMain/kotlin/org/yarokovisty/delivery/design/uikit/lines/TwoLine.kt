@@ -1,7 +1,6 @@
 package org.yarokovisty.delivery.design.uikit.lines
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,20 +30,12 @@ fun TwoLine(
     subtitle: String,
     subtitleStyle: TextStyle,
     modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null,
     startIcon: Painter? = null,
     startIconColor: Color = Color.Unspecified,
     endIcon: Painter? = null,
     endIconColor: Color = Color.Unspecified,
 ) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable(
-                enabled = onClick != null,
-                onClick = { onClick?.invoke() }
-            )
-    ) {
+    Row(modifier = modifier.fillMaxWidth()) {
         if (startIcon != null) {
             StartIcon(startIcon, startIconColor)
 

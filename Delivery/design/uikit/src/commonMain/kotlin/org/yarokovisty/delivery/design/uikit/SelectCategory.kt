@@ -66,12 +66,11 @@ private fun Content(
     onClick: () -> Unit
 ) {
     Surface(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable(onClick = onClick),
+        modifier = Modifier.fillMaxWidth(),
         color = DeliveryTheme.colorScheme.bgPrimary,
         shape = RoundedCornerShape(8.dp),
-        border = BorderStroke(width = 1.dp, color = DeliveryTheme.colorScheme.borderLight)
+        border = BorderStroke(width = 1.dp, color = DeliveryTheme.colorScheme.borderLight),
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier
