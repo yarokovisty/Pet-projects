@@ -2,8 +2,8 @@ package org.yarokovisty.delivery.feature.delivery.main.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,9 +28,7 @@ import org.yarokovisty.delivery.design.uikit.button.PrimaryButton
 import org.yarokovisty.delivery.design.uikit.text.TitleH2
 import org.yarokovisty.delivery.feature.delivery.main.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.presentation.state.DeliveryCalculatorContent
-import org.yarokovisty.delivery.util.modifier.shimmerable
 
-// TODO(сделать декомпозицию функции)
 @Composable
 internal fun DeliveryCalculatorCard(
     state: DeliveryCalculatorContent,
@@ -41,101 +39,89 @@ internal fun DeliveryCalculatorCard(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            TitleH2(
-                text = stringResource(Res.string.calculator_card_title),
-                color = DeliveryTheme.colorScheme.textPrimary,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
+            Title()
 
-            SelectCategory(
-                label = stringResource(Res.string.calculator_card_point_from_title),
-                text = state.selectedPointFrom?.name ?: "",
-                defaultText = stringResource(Res.string.calculator_card_point_default_item),
-                startIcon = painterResource(Res.drawable.ic_marker),
-                endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
-                onClick = { onIntent(DeliveryMainIntent.SelectDeliveryPointFrom) },
-                alternatives = state.alternativePointsFrom,
-                onClickAlternative = { onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(it)) }
-            )
+            PointFromSelector(state, onIntent)
 
-            SelectCategory(
-                label = stringResource(Res.string.calculator_card_point_to_title),
-                text = state.selectedPointTo?.name ?: "",
-                defaultText = stringResource(Res.string.calculator_card_point_default_item),
-                startIcon = painterResource(Res.drawable.ic_pointer),
-                endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
-                onClick = { onIntent(DeliveryMainIntent.SelectDeliveryPointTo) },
-                alternatives = state.alternativePointsTo,
-                onClickAlternative = { onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(it)) }
-            )
+            PointToSelector(state, onIntent)
 
-            SelectCategory(
-                label = stringResource(Res.string.calculator_card_package_size_title),
-                text = state.selectedParcelInfo?.name ?: "",
-                defaultText = stringResource(Res.string.calculator_card_package_size_default_item),
-                startIcon = painterResource(Res.drawable.ic_email),
-                endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
-                onClick = { onIntent(DeliveryMainIntent.OpenParcelTypeScreen) }
-            )
+            PackageTypeSelector(state, onIntent)
 
-            PrimaryButton(
-                text = stringResource(Res.string.calculator_card_button_calculate),
+            CalculateButton(
                 enabled = state.calculateButtonEnabled,
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { onIntent(DeliveryMainIntent.CalculateDelivery) },
+                onClick = { onIntent(DeliveryMainIntent.CalculateDelivery) }
             )
         }
     }
 }
 
 @Composable
-internal fun DeliveryCalculatorCardSkeleton() {
-    ContentCard(modifier = Modifier.fillMaxWidth()) {
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-        ) {
-            TitleH2(
-                text = stringResource(Res.string.calculator_card_title),
-                color = DeliveryTheme.colorScheme.textPrimary,
-                modifier = Modifier.align(Alignment.CenterHorizontally)
-            )
+private fun ColumnScope.Title() {
+    TitleH2(
+        text = stringResource(Res.string.calculator_card_title),
+        color = DeliveryTheme.colorScheme.textPrimary,
+        modifier = Modifier.align(Alignment.CenterHorizontally)
+    )
+}
 
-            SelectCategory(
-                label = "Label",
-                text = "Text",
-                alternatives = listOf("Text1"),
-                modifier = Modifier.shimmerable(
-                    color = DeliveryTheme.colorScheme.bgSecondary,
-                    shape = RoundedCornerShape(8.dp)
-                )
-            )
+@Composable
+private fun PointFromSelector(
+    state: DeliveryCalculatorContent,
+    onIntent: (DeliveryMainIntent) -> Unit
+) {
+    SelectCategory(
+        label = stringResource(Res.string.calculator_card_point_from_title),
+        text = state.selectedPointFrom?.name ?: "",
+        defaultText = stringResource(Res.string.calculator_card_point_default_item),
+        startIcon = painterResource(Res.drawable.ic_marker),
+        endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
+        onClick = { onIntent(DeliveryMainIntent.SelectDeliveryPointFrom) },
+        alternatives = state.alternativePointsFrom,
+        onClickAlternative = { onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(it)) }
+    )
+}
 
-            SelectCategory(
-                label = "Label",
-                text = "Text",
-                alternatives = listOf("Text1"),
-                modifier = Modifier.shimmerable(
-                    color = DeliveryTheme.colorScheme.bgSecondary,
-                    shape = RoundedCornerShape(8.dp)
-                )
-            )
+@Composable
+private fun PointToSelector(
+    state: DeliveryCalculatorContent,
+    onIntent: (DeliveryMainIntent) -> Unit
+) {
+    SelectCategory(
+        label = stringResource(Res.string.calculator_card_point_to_title),
+        text = state.selectedPointTo?.name ?: "",
+        defaultText = stringResource(Res.string.calculator_card_point_default_item),
+        startIcon = painterResource(Res.drawable.ic_pointer),
+        endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
+        onClick = { onIntent(DeliveryMainIntent.SelectDeliveryPointTo) },
+        alternatives = state.alternativePointsTo,
+        onClickAlternative = { onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(it)) }
+    )
+}
 
-            SelectCategory(
-                label = "Label",
-                text = "Text",
-                modifier = Modifier.shimmerable(
-                    color = DeliveryTheme.colorScheme.bgSecondary,
-                    shape = RoundedCornerShape(8.dp)
-                )
-            )
+@Composable
+private fun PackageTypeSelector(
+    state: DeliveryCalculatorContent,
+    onIntent: (DeliveryMainIntent) -> Unit
+) {
+    SelectCategory(
+        label = stringResource(Res.string.calculator_card_package_size_title),
+        text = state.selectedParcelInfo?.name ?: "",
+        defaultText = stringResource(Res.string.calculator_card_package_size_default_item),
+        startIcon = painterResource(Res.drawable.ic_email),
+        endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
+        onClick = { onIntent(DeliveryMainIntent.OpenParcelTypeScreen) }
+    )
+}
 
-            PrimaryButton(
-                text = stringResource(Res.string.calculator_card_button_calculate),
-                modifier = Modifier.fillMaxWidth(),
-                enabled = false,
-                onClick = { },
-            )
-        }
-    }
+@Composable
+private fun CalculateButton(
+    enabled: Boolean,
+    onClick: () -> Unit,
+) {
+    PrimaryButton(
+        text = stringResource(Res.string.calculator_card_button_calculate),
+        enabled = enabled,
+        modifier = Modifier.fillMaxWidth(),
+        onClick = onClick,
+    )
 }
