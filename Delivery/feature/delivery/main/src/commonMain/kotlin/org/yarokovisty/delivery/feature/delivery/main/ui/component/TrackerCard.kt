@@ -19,7 +19,6 @@ import org.yarokovisty.delivery.design.uikit.text.TitleH2
 import org.yarokovisty.delivery.feature.delivery.main.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.presentation.state.TrackerContent
 
-// TODO(сделать декомпозицию функции)
 @Composable
 internal fun TrackerCard(
     state: TrackerContent,
@@ -30,23 +29,50 @@ internal fun TrackerCard(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            TitleH2(text = stringResource(Res.string.tracker_card_title), color = DeliveryTheme.colorScheme.textPrimary)
+            Title()
 
-            TextInput(
+            ParcelIdInput(
                 text = state.inputIdParcel,
-                hint = stringResource(Res.string.tracker_card_hint_item),
-                modifier = Modifier.fillMaxWidth(),
-                onTextChange = { id -> onIntent(DeliveryMainIntent.ChangeInputParcelId(id)) }
+                onTextChange = { onIntent(DeliveryMainIntent.ChangeInputParcelId(it)) }
             )
 
-            PrimaryButton(
-                text = stringResource(Res.string.tracker_card_button_find),
+            FindButton(
                 enabled = state.trackEnabled,
-                modifier = Modifier.fillMaxWidth(),
                 onClick = { onIntent(DeliveryMainIntent.TrackParcel) }
             )
         }
     }
+}
+
+@Composable
+private fun Title() {
+    TitleH2(text = stringResource(Res.string.tracker_card_title), color = DeliveryTheme.colorScheme.textPrimary)
+}
+
+@Composable
+private fun ParcelIdInput(
+    text: String,
+    onTextChange: (String) -> Unit
+) {
+    TextInput(
+        text = text,
+        hint = stringResource(Res.string.tracker_card_hint_item),
+        modifier = Modifier.fillMaxWidth(),
+        onTextChange = onTextChange
+    )
+}
+
+@Composable
+private fun FindButton(
+    enabled: Boolean,
+    onClick: () -> Unit
+) {
+    PrimaryButton(
+        text = stringResource(Res.string.tracker_card_button_find),
+        enabled = enabled,
+        modifier = Modifier.fillMaxWidth(),
+        onClick = onClick
+    )
 }
 
 @Preview
