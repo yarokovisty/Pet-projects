@@ -12,4 +12,6 @@ private fun createJsonSerialization(): Json =
     Json {
         ignoreUnknownKeys = true
         prettyPrint = true
+        encodeDefaults = false
+        explicitNulls = false
     }

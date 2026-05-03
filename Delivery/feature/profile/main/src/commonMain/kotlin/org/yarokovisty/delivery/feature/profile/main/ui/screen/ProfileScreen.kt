@@ -33,6 +33,7 @@ import org.yarokovisty.delivery.feature.profile.main.ui.component.ProfileContent
 import org.yarokovisty.delivery.feature.profile.main.ui.component.ProfileSnacbarHost
 import org.yarokovisty.delivery.util.flow.observe
 
+// TODO добавить возможность выходить из профиля
 @Composable
 fun ProfileScreen() {
     val viewModel = koinViewModel<ProfileViewModel>()

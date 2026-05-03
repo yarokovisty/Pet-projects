@@ -23,5 +23,5 @@ kotlin {
 }
 
 android {
-    namespace = "org.yarokovisty.delivery.common.delivery.person"
+    namespace = "org.yarokovisty.delivery.common.delivery.point"
 }
