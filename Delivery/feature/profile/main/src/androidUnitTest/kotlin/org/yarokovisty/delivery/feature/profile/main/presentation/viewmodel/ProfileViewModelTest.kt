@@ -9,11 +9,11 @@ import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
+import org.yarokovisty.delivery.common.profile.main.domain.entity.User
+import org.yarokovisty.delivery.common.profile.main.domain.usecase.GetUserUseCase
+import org.yarokovisty.delivery.common.profile.main.domain.usecase.UpdateUserUseCase
 import org.yarokovisty.delivery.common.validation.error.EmailValidationError
 import org.yarokovisty.delivery.common.validation.validator.EmailValidator
-import org.yarokovisty.delivery.feature.profile.main.domain.entity.User
-import org.yarokovisty.delivery.feature.profile.main.domain.usecase.GetUserUseCase
-import org.yarokovisty.delivery.feature.profile.main.domain.usecase.UpdateUserUseCase
 import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileRouter
 import org.yarokovisty.delivery.feature.profile.main.presentation.intent.ProfileIntent
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.ContentState
@@ -44,7 +44,7 @@ class ProfileViewModelTest {
     }
 
     private fun createViewModel() =
-        _root_ide_package_.org.yarokovisty.delivery.feature.profile.main.presentation.viewmodel.ProfileViewModel(
+        ProfileViewModel(
             getUserUseCase,
             updateUserUseCase,
             emailValidator,
