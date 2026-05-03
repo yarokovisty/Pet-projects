@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import delivery.feature.profile.main.generated.resources.Res
@@ -40,7 +41,6 @@ import org.yarokovisty.delivery.feature.profile.main.presentation.state.ContentS
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldStatus
 
-// TODO(Добавить переключение на другой инпут через кнопку на клавиатуре)
 @Composable
 internal fun ProfileContent(
     state: ContentState,
@@ -82,14 +82,11 @@ private fun FirstnameInput(
     firstname: String,
     onTextChange: (String) -> Unit
 ) {
-    val keyboardOptions = remember { KeyboardOptions(capitalization = KeyboardCapitalization.Sentences) }
-
-    TextInput(
+    NameInput(
         text = firstname,
-        onTextChange = onTextChange,
         title = stringResource(Res.string.profile_firstname_title),
         hint = stringResource(Res.string.profile_firstname_title),
-        keyboardOptions = keyboardOptions
+        onTextChange = onTextChange,
     )
 }
 
@@ -98,14 +95,11 @@ private fun LasnameInput(
     lastname: String,
     onTextChange: (String) -> Unit
 ) {
-    val keyboardOptions = remember { KeyboardOptions(capitalization = KeyboardCapitalization.Sentences) }
-
-    TextInput(
+    NameInput(
         text = lastname,
-        onTextChange = onTextChange,
         title = stringResource(Res.string.profile_lastname_title),
         hint = stringResource(Res.string.profile_lastname_title),
-        keyboardOptions = keyboardOptions
+        onTextChange = onTextChange
     )
 }
 
@@ -114,14 +108,37 @@ private fun MiddlenameInput(
     middlename: String,
     onTextChange: (String) -> Unit
 ) {
-    val keyboardOptions = remember { KeyboardOptions(capitalization = KeyboardCapitalization.Sentences) }
-
-    TextInput(
+    NameInput(
         text = middlename,
-        onTextChange = onTextChange,
         title = stringResource(Res.string.profile_middlename_title),
         hint = stringResource(Res.string.profile_middlename_title),
-        keyboardOptions = keyboardOptions
+        onTextChange = onTextChange
+    )
+}
+
+@Composable
+private fun NameInput(
+    text: String,
+    title: String,
+    hint: String,
+    onTextChange: (String) -> Unit
+) {
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val keyboardOptions = remember {
+        KeyboardOptions(capitalization = KeyboardCapitalization.Words, imeAction = ImeAction.Done)
+    }
+
+    TextInput(
+        text = text,
+        onTextChange = onTextChange,
+        title = title,
+        hint = hint,
+        keyboardOptions = keyboardOptions,
+        onImeAction = {
+            focusManager.clearFocus()
+            keyboardController?.hide()
+        }
     )
 }
 
