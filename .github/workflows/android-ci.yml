@@ -1,5 +1,9 @@
 name: Android CI
 
+defaults:
+  run:
+    working-directory: Delivery
+
 on:
   push:
     branches:
@@ -30,8 +34,4 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Run checks
-        run: ./gradlew detekt assembleDebug testDebugUnitTest \
-          --no-daemon \
-          --parallel \
-          --build-cache \
-          --stacktrace
+        run: ./gradlew detekt assembleDebug testDebugUnitTest --no-daemon --parallel --build-cache --stacktrace
