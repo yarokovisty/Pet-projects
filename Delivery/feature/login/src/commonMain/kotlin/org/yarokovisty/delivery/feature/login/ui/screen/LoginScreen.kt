@@ -33,7 +33,7 @@ import org.yarokovisty.delivery.feature.login.ui.component.LoginContent
 import org.yarokovisty.delivery.util.flow.observe
 
 @Composable
-fun LoginScreen() {
+internal fun LoginScreen() {
     val viewModel: LoginViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
     val events = viewModel.events

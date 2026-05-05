@@ -15,8 +15,8 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import org.koin.compose.viewmodel.koinViewModel
-import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryMainDestination
-import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileMainDestination
+import org.yarokovisty.delivery.feature.delivery.main.navigation.deliveryMainEntry
+import org.yarokovisty.delivery.feature.profile.main.navigation.profileEntry
 import org.yarokovisty.delivery.navigation.destination.HistoryMainDestination
 import org.yarokovisty.delivery.presentation.intent.MainIntent
 import org.yarokovisty.delivery.presentation.state.MainState
@@ -61,15 +61,11 @@ private fun MainScreen(
                 onIntent(MainIntent.Back)
             },
             entryProvider = entryProvider {
-                entry<DeliveryMainDestination> {
-                    org.yarokovisty.delivery.feature.delivery.main.ui.screen.DeliveryMainScreen()
-                }
+                deliveryMainEntry()
                 entry<HistoryMainDestination> {
                     Text("History")
                 }
-                entry<ProfileMainDestination> {
-                    org.yarokovisty.delivery.feature.profile.main.ui.screen.ProfileScreen()
-                }
+                profileEntry()
             }
         )
     }

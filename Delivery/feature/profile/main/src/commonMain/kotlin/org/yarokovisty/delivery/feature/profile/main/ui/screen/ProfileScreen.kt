@@ -35,7 +35,7 @@ import org.yarokovisty.delivery.util.flow.observe
 
 // TODO добавить возможность выходить из профиля
 @Composable
-fun ProfileScreen() {
+internal fun ProfileScreen() {
     val viewModel = koinViewModel<ProfileViewModel>()
     val state by viewModel.state.collectAsState()
 

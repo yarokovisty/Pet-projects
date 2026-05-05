@@ -30,7 +30,7 @@ import org.yarokovisty.delivery.feature.delivery.direction.ui.component.FailureS
 import org.yarokovisty.delivery.feature.delivery.direction.ui.component.LoadingScreen
 
 @Composable
-fun DirectionScreen(directionType: DirectionType) {
+internal fun DirectionScreen(directionType: DirectionType) {
     val viewModel = koinViewModel<DirectionViewModel> { parametersOf(directionType) }
     val state by viewModel.state.collectAsState()
 

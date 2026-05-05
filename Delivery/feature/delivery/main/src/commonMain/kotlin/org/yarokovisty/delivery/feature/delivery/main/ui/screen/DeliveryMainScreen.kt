@@ -18,7 +18,7 @@ import org.yarokovisty.delivery.feature.delivery.main.ui.component.ContentScreen
 import org.yarokovisty.delivery.feature.delivery.main.ui.component.FailureScreen
 
 @Composable
-fun DeliveryMainScreen() {
+internal fun DeliveryMainScreen() {
     val viewModel: DeliveryMainViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 

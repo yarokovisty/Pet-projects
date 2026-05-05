@@ -21,7 +21,7 @@ import org.yarokovisty.delivery.feature.delivery.person.ui.component.PersonConte
 import org.yarokovisty.delivery.feature.delivery.person.ui.component.PersonLinearStepIndicator
 
 @Composable
-fun SenderScreen() {
+internal fun SenderScreen() {
     val viewModel: SenderViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
 

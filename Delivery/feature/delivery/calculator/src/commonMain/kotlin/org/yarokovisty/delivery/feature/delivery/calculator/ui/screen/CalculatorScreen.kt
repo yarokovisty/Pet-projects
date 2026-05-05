@@ -26,7 +26,7 @@ import org.yarokovisty.delivery.feature.delivery.calculator.ui.component.OptionL
 import org.yarokovisty.delivery.feature.delivery.calculator.ui.component.SkeletonScreen
 
 @Composable
-fun CalculatorScreen(
+internal fun CalculatorScreen(
     parcelInfo: ParcelInfo,
     senderPoint: DeliveryPoint,
     receiverPoint: DeliveryPoint
