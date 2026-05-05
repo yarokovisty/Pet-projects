@@ -8,5 +8,5 @@ data class Address(
     val house: String,
     val apartment: String,
     val comment: String,
-    val isNonContact: Boolean?
+    val nonContacted: Boolean?
 )

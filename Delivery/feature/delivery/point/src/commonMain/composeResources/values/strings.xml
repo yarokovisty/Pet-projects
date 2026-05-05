@@ -1,0 +1,17 @@
+<resources>
+    <string name="address_sender_topbar_title">Откуда забрать</string>
+    <string name="address_receiver_topbar_title">Куда доставить</string>
+    <string name="address_step_indicator_title">Шаг %1$d из %2$d</string>
+
+    <string name="address_street_input_hint">Улица</string>
+    <string name="address_house_input_hint">Дом</string>
+    <string name="address_apartment_input_hint">Квартира</string>
+    <string name="address_comment_input_hint">Заметка для курьера</string>
+    <string name="address_input_empty_error">Заполните поле</string>
+
+    <string name="address_receiver_non_contact_checkbox_text">Оставить заказ у двери</string>
+    <string name="address_receiver_non_contact_hint_title">Бесконтактная доставка</string>
+    <string name="address_receiver_non_contact_hint_text">Курьер привозит заказ, оставляет его у двери и уходит, а вам приходит уведомление на телефон о том, что заказ доставлен</string>
+
+    <string name="address_continue_button">Продолжить</string>
+</resources>

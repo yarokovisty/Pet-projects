@@ -1,6 +1,7 @@
 package org.yarokovisty.delivery.feature.delivery.person.presentation.state
 
 import org.yarokovisty.delivery.common.delivery.person.domain.entity.PersonInfo
+import org.yarokovisty.delivery.common.delivery.presentation.StepState
 import org.yarokovisty.delivery.common.validation.error.NameValidationError
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
 import org.yarokovisty.delivery.util.phone.clearPhoneNumber

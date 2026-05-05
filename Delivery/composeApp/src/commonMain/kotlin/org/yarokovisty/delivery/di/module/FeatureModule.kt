@@ -5,6 +5,7 @@ import org.yarokovisty.delivery.feature.delivery.calculator.di.deliveryCalculato
 import org.yarokovisty.delivery.feature.delivery.direction.di.deliveryDirectionModule
 import org.yarokovisty.delivery.feature.delivery.main.di.deliveryMainModule
 import org.yarokovisty.delivery.feature.delivery.person.di.deliveryPersonModule
+import org.yarokovisty.delivery.feature.delivery.point.di.deliveryPointModule
 import org.yarokovisty.delivery.feature.login.di.loginModule
 import org.yarokovisty.delivery.feature.profile.main.di.profileMainModule
 
@@ -14,6 +15,7 @@ val featureModule = module {
         deliveryDirectionModule,
         deliveryMainModule,
         deliveryPersonModule,
+        deliveryPointModule,
         loginModule,
         profileMainModule,
     )

@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -53,6 +55,9 @@ fun TextInput(
     shape: Shape = RoundedCornerShape(8.dp),
     focusedBorderWidth: Dp = FocusedBorderThickness,
     unfocusedBorderWidth: Dp = UnfocusedBorderThickness,
+    singleLine: Boolean = true,
+    minLines: Int = 1,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     title: String? = null,
     hint: String? = null,
     errorText: String? = null,
@@ -62,6 +67,20 @@ fun TextInput(
 ) {
     val state = rememberTextFieldState(text)
     val errorEnabled = errorText != null
+    val lineLimits = remember(singleLine) {
+        when {
+            singleLine -> TextFieldLineLimits.SingleLine
+            else -> TextFieldLineLimits.MultiLine(
+                minHeightInLines = minLines,
+                maxHeightInLines = maxLines
+            )
+        }
+    }
+    val heightModifier = if (singleLine) {
+        Modifier.height(48.dp)
+    } else {
+        Modifier.heightIn(min = 48.dp)
+    }
 
     LaunchedEffect(text) {
         if (state.text.toString() != text) {
@@ -89,9 +108,10 @@ fun TextInput(
             interactionSource = interactionSource,
             textStyle = getInputTextStyle(enabled, errorEnabled),
             cursorBrush = getCursorColor(errorEnabled),
+            lineLimits = lineLimits,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(48.dp)
+                .then(heightModifier)
                 .focusRequester(focusRequester)
                 .onFocusChanged { onFocusChange?.invoke(it.hasFocus) },
             onKeyboardAction = { onImeAction?.invoke(keyboardOptions.imeAction) },
@@ -99,7 +119,7 @@ fun TextInput(
                 OutlinedTextFieldDefaults.DecorationBox(
                     value = state.text.toString(),
                     enabled = enabled,
-                    singleLine = true,
+                    singleLine = singleLine,
                     visualTransformation = VisualTransformation.None,
                     interactionSource = interactionSource,
                     isError = errorEnabled,

@@ -1,6 +1,7 @@
 package org.yarokovisty.delivery.feature.delivery.calculator.presentation.state
 
 import org.yarokovisty.delivery.common.delivery.calculator.domain.entity.Option
+import org.yarokovisty.delivery.common.delivery.presentation.StepState
 
 internal fun initial(currentStep: Int, maxSteps: Int) =
     CalculatorState(

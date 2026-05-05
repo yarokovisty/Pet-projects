@@ -31,6 +31,7 @@ val featureModules = listOf(
     ":feature:delivery:direction",
     ":feature:delivery:main",
     ":feature:delivery:person",
+    ":feature:delivery:point",
     ":feature:login",
     ":feature:profile:main",
 )

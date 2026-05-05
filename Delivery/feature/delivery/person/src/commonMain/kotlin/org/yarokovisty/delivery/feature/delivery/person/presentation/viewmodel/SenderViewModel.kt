@@ -76,6 +76,8 @@ internal class SenderViewModel(
         launch {
             val senderInfo = stateValue.getUpdatedPersonInfo()
             personRepository.setSender(senderInfo)
+
+            router.openSenderAddressScreen()
         }
     }
 

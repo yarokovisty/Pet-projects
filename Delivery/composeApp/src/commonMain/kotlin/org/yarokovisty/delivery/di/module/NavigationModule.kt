@@ -9,6 +9,7 @@ import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryRouter
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryTab
 import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverRouter
 import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderRouter
+import org.yarokovisty.delivery.feature.delivery.point.navigation.SenderAddressRouter
 import org.yarokovisty.delivery.feature.login.navigation.LoginRouter
 import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileRouter
 import org.yarokovisty.delivery.libs.navigation.backstack.BottomBarBackStack
@@ -20,6 +21,7 @@ import org.yarokovisty.delivery.navigation.router.DirectionRouterImpl
 import org.yarokovisty.delivery.navigation.router.LoginRouterImpl
 import org.yarokovisty.delivery.navigation.router.ProfileRouterImpl
 import org.yarokovisty.delivery.navigation.router.ReceiverRouterImpl
+import org.yarokovisty.delivery.navigation.router.SenderAddressRouterImpl
 import org.yarokovisty.delivery.navigation.router.SenderRouterImpl
 
 private val backStackModule = module {
@@ -35,6 +37,7 @@ private val routerModule = module {
     factoryOf(::ProfileRouterImpl) bind ProfileRouter::class
     factoryOf(::ReceiverRouterImpl) bind ReceiverRouter::class
     factoryOf(::SenderRouterImpl) bind SenderRouter::class
+    factoryOf(::SenderAddressRouterImpl) bind SenderAddressRouter::class
 }
 
 val navigationModule = module {

@@ -8,8 +8,8 @@ import androidx.compose.ui.unit.dp
 import delivery.feature.delivery.calculator.generated.resources.Res
 import delivery.feature.delivery.calculator.generated.resources.calculator_step_indicator_title
 import org.jetbrains.compose.resources.stringResource
+import org.yarokovisty.delivery.common.delivery.presentation.StepState
 import org.yarokovisty.delivery.design.uikit.LinearStepIndicator
-import org.yarokovisty.delivery.feature.delivery.calculator.presentation.state.StepState
 
 @Composable
 internal fun CalculatorLinearStepIndicator(state: StepState) {

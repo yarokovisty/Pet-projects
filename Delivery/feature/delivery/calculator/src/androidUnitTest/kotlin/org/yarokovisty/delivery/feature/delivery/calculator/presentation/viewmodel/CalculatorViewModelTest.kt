@@ -17,9 +17,9 @@ import org.yarokovisty.delivery.common.delivery.calculator.domain.repository.Cal
 import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.PackageType
 import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.ParcelInfo
+import org.yarokovisty.delivery.common.delivery.presentation.StepState
 import org.yarokovisty.delivery.feature.delivery.calculator.navigation.CalculatorRouter
 import org.yarokovisty.delivery.feature.delivery.calculator.presentation.intent.CalculatorIntent
-import org.yarokovisty.delivery.feature.delivery.calculator.presentation.state.StepState
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse

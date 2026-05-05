@@ -25,7 +25,7 @@ class AddressLocalDataSourceTest {
             house = "12",
             apartment = "34",
             comment = "Ring the bell",
-            isNonContact = false
+            nonContacted = false
         )
     }
 
