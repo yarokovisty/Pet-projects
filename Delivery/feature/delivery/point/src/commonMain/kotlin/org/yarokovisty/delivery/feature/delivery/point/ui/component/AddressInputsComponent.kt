@@ -1,6 +1,5 @@
 package org.yarokovisty.delivery.feature.delivery.point.ui.component
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,6 +20,7 @@ import delivery.feature.delivery.point.generated.resources.address_input_empty_e
 import delivery.feature.delivery.point.generated.resources.address_street_input_hint
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.common.validation.error.AddressValidationError
+import org.yarokovisty.delivery.design.uikit.VerticalGap
 import org.yarokovisty.delivery.design.uikit.input.TextInput
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.FieldStatus
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.InputState
@@ -36,15 +36,14 @@ internal fun AddressInputsComponent(
     comment: String,
     onCommentChange: (String) -> Unit
 ) {
-    Column(
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        modifier = Modifier.fillMaxWidth()
-    ) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         AddressInput(
             state = street,
             hint = stringResource(Res.string.address_street_input_hint),
             onTextChange = onStreetChange
         )
+
+        InputGap(street.fieldStatus is FieldStatus.Invalid)
 
         AddressInput(
             state = house,
@@ -52,11 +51,15 @@ internal fun AddressInputsComponent(
             onTextChange = onHouseChange
         )
 
+        InputGap(house.fieldStatus is FieldStatus.Invalid)
+
         AddressInput(
             state = apartment,
             hint = stringResource(Res.string.address_apartment_input_hint),
             onTextChange = onApartmentChange
         )
+
+        InputGap(apartment.fieldStatus is FieldStatus.Invalid)
 
         CommentInput(
             text = comment,
@@ -100,6 +103,17 @@ private fun CommentInput(
         onTextChange = onTextChange,
         hint = stringResource(Res.string.address_comment_input_hint),
         singleLine = false
+    )
+}
+
+@Composable
+private fun InputGap(error: Boolean) {
+    VerticalGap(
+        height = if (error) {
+            7.dp
+        } else {
+            24.dp
+        }
     )
 }
 

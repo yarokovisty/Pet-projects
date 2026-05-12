@@ -90,11 +90,7 @@ fun TextInput(
 
     LaunchedEffect(state) {
         snapshotFlow { state.text.toString() }
-            .collectLatest { newText ->
-                if (newText != text) {
-                    onTextChange(newText)
-                }
-            }
+            .collectLatest(onTextChange)
     }
 
     Column(modifier = modifier) {

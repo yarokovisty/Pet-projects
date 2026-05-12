@@ -1,6 +1,5 @@
 package org.yarokovisty.delivery.feature.delivery.person.ui.component
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
@@ -22,23 +22,27 @@ import delivery.feature.delivery.person.generated.resources.person_lastname_inpu
 import delivery.feature.delivery.person.generated.resources.person_middlename_input_hint
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.common.validation.error.NameValidationError
+import org.yarokovisty.delivery.design.uikit.VerticalGap
 import org.yarokovisty.delivery.design.uikit.button.PrimaryButton
 import org.yarokovisty.delivery.design.uikit.input.TextInput
 import org.yarokovisty.delivery.feature.delivery.person.presentation.intent.PersonIntent
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.ContentState
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.NameFieldStatus
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.NameState
+import org.yarokovisty.delivery.feature.delivery.person.presentation.state.PhoneFieldStatus
 
 @Composable
 internal fun PersonContent(
     state: ContentState,
     onIntent: (PersonIntent) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         NameInput(
             state = state.lastname,
@@ -46,28 +50,40 @@ internal fun PersonContent(
             onTextChange = { onIntent(PersonIntent.InputLastname(it)) }
         )
 
+        InputGap(state.lastname.fieldStatus is NameFieldStatus.Invalid)
+
         NameInput(
             state = state.firstname,
             hintText = stringResource(Res.string.person_firstname_input_hint),
             onTextChange = { onIntent(PersonIntent.InputFirstname(it)) }
         )
 
+        InputGap(state.firstname.fieldStatus is NameFieldStatus.Invalid)
+
         MiddlenameInput(
             text = state.middlename,
             onTextChange = { onIntent(PersonIntent.InputMiddlename(it)) }
         )
+
+        VerticalGap(24.dp)
 
         PhoneInput(
             state = state.phoneNumber,
             onIntent = onIntent
         )
 
+        InputGap(state.phoneNumber.fieldStatus is PhoneFieldStatus.Invalid)
+
         PrimaryButton(
             text = stringResource(Res.string.person_continue_button),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp),
-            onClick = { onIntent(PersonIntent.ClickContinue) }
+            onClick = {
+                focusManager.clearFocus()
+                keyboardController?.hide()
+                onIntent(PersonIntent.ClickContinue)
+            }
         )
     }
 }
@@ -117,6 +133,17 @@ private fun MiddlenameInput(
         hint = stringResource(Res.string.person_middlename_input_hint),
         keyboardOptions = keyboardOptions,
         onImeAction = { focusManager.moveFocus(FocusDirection.Down) }
+    )
+}
+
+@Composable
+private fun InputGap(error: Boolean) {
+    VerticalGap(
+        height = if (error) {
+            7.dp
+        } else {
+            24.dp
+        }
     )
 }
 
