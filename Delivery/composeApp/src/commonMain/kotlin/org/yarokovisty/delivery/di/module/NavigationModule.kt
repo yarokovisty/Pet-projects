@@ -9,6 +9,7 @@ import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryRouter
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryTab
 import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverRouter
 import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderRouter
+import org.yarokovisty.delivery.feature.delivery.point.navigation.ReceiverAddressRouter
 import org.yarokovisty.delivery.feature.delivery.point.navigation.SenderAddressRouter
 import org.yarokovisty.delivery.feature.login.navigation.LoginRouter
 import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileRouter
@@ -20,6 +21,7 @@ import org.yarokovisty.delivery.navigation.router.DeliveryRouterImpl
 import org.yarokovisty.delivery.navigation.router.DirectionRouterImpl
 import org.yarokovisty.delivery.navigation.router.LoginRouterImpl
 import org.yarokovisty.delivery.navigation.router.ProfileRouterImpl
+import org.yarokovisty.delivery.navigation.router.ReceiverAddressRouterImpl
 import org.yarokovisty.delivery.navigation.router.ReceiverRouterImpl
 import org.yarokovisty.delivery.navigation.router.SenderAddressRouterImpl
 import org.yarokovisty.delivery.navigation.router.SenderRouterImpl
@@ -35,9 +37,10 @@ private val routerModule = module {
     factoryOf(::DirectionRouterImpl) bind DirectionRouter::class
     factoryOf(::LoginRouterImpl) bind LoginRouter::class
     factoryOf(::ProfileRouterImpl) bind ProfileRouter::class
+    factoryOf(::ReceiverAddressRouterImpl) bind ReceiverAddressRouter::class
     factoryOf(::ReceiverRouterImpl) bind ReceiverRouter::class
-    factoryOf(::SenderRouterImpl) bind SenderRouter::class
     factoryOf(::SenderAddressRouterImpl) bind SenderAddressRouter::class
+    factoryOf(::SenderRouterImpl) bind SenderRouter::class
 }
 
 val navigationModule = module {

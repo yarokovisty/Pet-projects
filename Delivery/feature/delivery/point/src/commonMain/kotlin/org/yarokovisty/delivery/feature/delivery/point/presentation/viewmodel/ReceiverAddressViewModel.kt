@@ -4,45 +4,48 @@ import org.yarokovisty.delivery.common.delivery.point.domain.repository.AddressR
 import org.yarokovisty.delivery.common.validation.error.AddressValidationError
 import org.yarokovisty.delivery.common.validation.validator.AddressValidator
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
-import org.yarokovisty.delivery.feature.delivery.point.navigation.SenderAddressRouter
-import org.yarokovisty.delivery.feature.delivery.point.presentation.intent.SenderAddressIntent
-import org.yarokovisty.delivery.feature.delivery.point.presentation.state.SenderAddressState
+import org.yarokovisty.delivery.feature.delivery.point.navigation.ReceiverAddressRouter
+import org.yarokovisty.delivery.feature.delivery.point.presentation.intent.ReceiverAddressIntent
+import org.yarokovisty.delivery.feature.delivery.point.presentation.state.ReceiverAddressState
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.apartmentInvalid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.apartmentValid
-import org.yarokovisty.delivery.feature.delivery.point.presentation.state.getSenderAddress
+import org.yarokovisty.delivery.feature.delivery.point.presentation.state.getReceiverAddress
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.houseInvalid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.houseValid
-import org.yarokovisty.delivery.feature.delivery.point.presentation.state.initialSenderAddressState
+import org.yarokovisty.delivery.feature.delivery.point.presentation.state.initialReceiverAddressState
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.streetInvalid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.streetValid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.updateApartment
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.updateComment
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.updateHouse
+import org.yarokovisty.delivery.feature.delivery.point.presentation.state.updateNonContactedCheckBox
+import org.yarokovisty.delivery.feature.delivery.point.presentation.state.updateNonContactedTipShowing
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.updateStreet
 import org.yarokovisty.delivery.util.validation.validated.fold
 
-internal class SenderAddressViewModel(
+internal class ReceiverAddressViewModel(
     private val addressRepository: AddressRepository,
     private val addressValidator: AddressValidator,
-    private val router: SenderAddressRouter,
+    private val router: ReceiverAddressRouter,
     maxSteps: Int,
-) : BaseViewModel<SenderAddressState, SenderAddressIntent, Nothing>(
-    initialSenderAddressState(currentStep = CURRENT_STEP, maxSteps = maxSteps)
+) : BaseViewModel<ReceiverAddressState, ReceiverAddressIntent, Nothing>(
+    initialReceiverAddressState(currentStep = CURRENT_STEP, maxSteps = maxSteps)
 ) {
-
     private companion object {
 
-        const val CURRENT_STEP = 4
+        const val CURRENT_STEP = 5
     }
 
-    override fun onIntent(intent: SenderAddressIntent) {
+    override fun onIntent(intent: ReceiverAddressIntent) {
         when (intent) {
-            is SenderAddressIntent.Back -> back()
-            is SenderAddressIntent.ClickContinue -> nextStep()
-            is SenderAddressIntent.InputApartment -> changeApartment(intent.apartment)
-            is SenderAddressIntent.InputComment -> changeComment(intent.comment)
-            is SenderAddressIntent.InputHouse -> changeHouse(intent.house)
-            is SenderAddressIntent.InputStreet -> changeStreet(intent.street)
+            is ReceiverAddressIntent.Back -> back()
+            is ReceiverAddressIntent.ClickContinue -> nextStep()
+            is ReceiverAddressIntent.ClickNonContactedCheckbox -> changeNonContactedCheckbox()
+            is ReceiverAddressIntent.ClickNonContactedTip -> changeNonContactedTipShowing()
+            is ReceiverAddressIntent.InputApartment -> changeApartment(intent.apartment)
+            is ReceiverAddressIntent.InputComment -> changeComment(intent.comment)
+            is ReceiverAddressIntent.InputHouse -> changeHouse(intent.house)
+            is ReceiverAddressIntent.InputStreet -> changeStreet(intent.street)
         }
     }
 
@@ -79,8 +82,8 @@ internal class SenderAddressViewModel(
 
     private fun validateAddress(
         input: String,
-        onValidUpdate: SenderAddressState.() -> SenderAddressState,
-        onInvalidUpdate: SenderAddressState.(AddressValidationError) -> SenderAddressState
+        onValidUpdate: ReceiverAddressState.() -> ReceiverAddressState,
+        onInvalidUpdate: ReceiverAddressState.(AddressValidationError) -> ReceiverAddressState
     ): Boolean =
         addressValidator.validate(input).fold(
             onValid = {
@@ -95,11 +98,17 @@ internal class SenderAddressViewModel(
 
     private fun saveAddress() {
         launch {
-            val senderAddress = stateValue.getSenderAddress()
-            addressRepository.setSender(senderAddress)
-
-            router.openReceiverAddress()
+            val receiverAddress = stateValue.getReceiverAddress()
+            addressRepository.setReceiver(receiverAddress)
         }
+    }
+
+    private fun changeNonContactedCheckbox() {
+        updateState { updateNonContactedCheckBox() }
+    }
+
+    private fun changeNonContactedTipShowing() {
+        updateState { updateNonContactedTipShowing() }
     }
 
     private fun changeStreet(street: String) {

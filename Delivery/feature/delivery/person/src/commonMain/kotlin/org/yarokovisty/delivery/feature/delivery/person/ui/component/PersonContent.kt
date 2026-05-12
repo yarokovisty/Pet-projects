@@ -64,7 +64,9 @@ internal fun PersonContent(
 
         PrimaryButton(
             text = stringResource(Res.string.person_continue_button),
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
             onClick = { onIntent(PersonIntent.ClickContinue) }
         )
     }

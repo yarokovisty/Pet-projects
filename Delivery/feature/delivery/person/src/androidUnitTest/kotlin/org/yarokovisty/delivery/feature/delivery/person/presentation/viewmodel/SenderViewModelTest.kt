@@ -29,6 +29,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
+@Suppress("LargeClass")
 internal class SenderViewModelTest {
 
     private companion object {
@@ -63,8 +64,6 @@ internal class SenderViewModelTest {
             maxSteps = MAX_STEPS,
         )
     }
-
-    // region Init
 
     @Test
     fun `init EXPECT initial state with step 3`() {
@@ -119,10 +118,6 @@ internal class SenderViewModelTest {
 
         assertEquals("", actual)
     }
-
-    // endregion
-
-    // region Load User
 
     @Test
     fun `init with user EXPECT firstname loaded from user`() = runTest {
@@ -247,10 +242,6 @@ internal class SenderViewModelTest {
         assertEquals("", viewModel.state.value.contentState.firstname.value)
     }
 
-    // endregion
-
-    // region Input
-
     @Test
     fun `input firstname EXPECT state updated with new firstname`() = runTest {
         val viewModel = createViewModel()
@@ -321,10 +312,6 @@ internal class SenderViewModelTest {
         assertEquals(PhoneFieldStatus.NotValidated, viewModel.state.value.contentState.phoneNumber.fieldStatus)
     }
 
-    // endregion
-
-    // region Back
-
     @Test
     fun `back EXPECT router back called`() = runTest {
         val viewModel = createViewModel()
@@ -334,10 +321,6 @@ internal class SenderViewModelTest {
 
         verify { router.back() }
     }
-
-    // endregion
-
-    // region Click Continue - Valid Data
 
     @Test
     fun `click continue with valid data EXPECT firstname field status valid`() = runTest {
@@ -448,10 +431,6 @@ internal class SenderViewModelTest {
         verify { router.openSenderAddressScreen() }
     }
 
-    // endregion
-
-    // region Click Continue - Invalid Firstname
-
     @Test
     fun `click continue with empty firstname EXPECT firstname field status invalid`() = runTest {
         every { nameValidator.validate("") } returns invalid(NameValidationError.EMPTY)
@@ -500,10 +479,6 @@ internal class SenderViewModelTest {
         verify(exactly = 0) { router.openSenderAddressScreen() }
     }
 
-    // endregion
-
-    // region Click Continue - Invalid Lastname
-
     @Test
     fun `click continue with empty lastname EXPECT lastname field status invalid`() = runTest {
         every { nameValidator.validate(TEST_FIRSTNAME) } returns valid(TEST_FIRSTNAME)
@@ -551,10 +526,6 @@ internal class SenderViewModelTest {
 
         verify(exactly = 0) { router.openSenderAddressScreen() }
     }
-
-    // endregion
-
-    // region Click Continue - Invalid Phone
 
     @Test
     fun `click continue with empty phone EXPECT phone field status invalid with empty error`() = runTest {
@@ -623,10 +594,6 @@ internal class SenderViewModelTest {
 
         verify(exactly = 0) { router.openSenderAddressScreen() }
     }
-
-    // endregion
-
-    // region Click Continue - All Fields Invalid
 
     @Test
     fun `click continue with all fields invalid EXPECT firstname field status invalid`() = runTest {
@@ -697,5 +664,161 @@ internal class SenderViewModelTest {
         verify(exactly = 0) { router.openSenderAddressScreen() }
     }
 
-    // endregion
+    @Test
+    fun `input firstname after validation failed EXPECT firstname field status reset to not validated`() = runTest {
+        every { nameValidator.validate("") } returns invalid(NameValidationError.EMPTY)
+        every { nameValidator.validate(TEST_LASTNAME) } returns valid(TEST_LASTNAME)
+        every { ruPhoneValidateUseCase(TEST_PHONE) } returns valid(TEST_PHONE)
+        val viewModel = createViewModel()
+        viewModel.onIntent(PersonIntent.InputLastname(TEST_LASTNAME))
+        viewModel.onIntent(PersonIntent.InputPhoneNumber(TEST_PHONE))
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        viewModel.onIntent(PersonIntent.InputFirstname(TEST_FIRSTNAME))
+        advanceUntilIdle()
+
+        assertEquals(NameFieldStatus.NotValidated, viewModel.state.value.contentState.firstname.fieldStatus)
+    }
+
+    @Test
+    fun `input lastname after validation failed EXPECT lastname field status reset to not validated`() = runTest {
+        every { nameValidator.validate(TEST_FIRSTNAME) } returns valid(TEST_FIRSTNAME)
+        every { nameValidator.validate("") } returns invalid(NameValidationError.EMPTY)
+        every { ruPhoneValidateUseCase(TEST_PHONE) } returns valid(TEST_PHONE)
+        val viewModel = createViewModel()
+        viewModel.onIntent(PersonIntent.InputFirstname(TEST_FIRSTNAME))
+        viewModel.onIntent(PersonIntent.InputPhoneNumber(TEST_PHONE))
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        viewModel.onIntent(PersonIntent.InputLastname(TEST_LASTNAME))
+        advanceUntilIdle()
+
+        assertEquals(NameFieldStatus.NotValidated, viewModel.state.value.contentState.lastname.fieldStatus)
+    }
+
+    @Test
+    fun `input phone after validation failed EXPECT phone field status reset to not validated`() = runTest {
+        every { nameValidator.validate(TEST_FIRSTNAME) } returns valid(TEST_FIRSTNAME)
+        every { nameValidator.validate(TEST_LASTNAME) } returns valid(TEST_LASTNAME)
+        every { ruPhoneValidateUseCase("") } returns invalid(PhoneValidationError.EMPTY)
+        val viewModel = createViewModel()
+        viewModel.onIntent(PersonIntent.InputFirstname(TEST_FIRSTNAME))
+        viewModel.onIntent(PersonIntent.InputLastname(TEST_LASTNAME))
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        viewModel.onIntent(PersonIntent.InputPhoneNumber(TEST_PHONE))
+        advanceUntilIdle()
+
+        assertEquals(PhoneFieldStatus.NotValidated, viewModel.state.value.contentState.phoneNumber.fieldStatus)
+    }
+
+    @Test
+    fun `init with user with null lastname EXPECT empty lastname`() = runTest {
+        val user = User(
+            id = "1",
+            phone = TEST_PHONE,
+            firstname = TEST_FIRSTNAME,
+            lastname = null,
+            middlename = null,
+            email = null,
+            city = null,
+        )
+        every { phoneNumberFormatter.format(TEST_PHONE) } returns TEST_PHONE_FORMATTED
+        val viewModel = createViewModel(userResult = user)
+
+        advanceUntilIdle()
+
+        assertEquals("", viewModel.state.value.contentState.lastname.value)
+    }
+
+    @Test
+    fun `init with user EXPECT phoneNumberFormatter format called with user phone`() = runTest {
+        val user = User(
+            id = "1",
+            phone = TEST_PHONE,
+            firstname = TEST_FIRSTNAME,
+            lastname = TEST_LASTNAME,
+            middlename = TEST_MIDDLENAME,
+            email = null,
+            city = null,
+        )
+        every { phoneNumberFormatter.format(TEST_PHONE) } returns TEST_PHONE_FORMATTED
+        val viewModel = createViewModel(userResult = user)
+
+        advanceUntilIdle()
+
+        verify { phoneNumberFormatter.format(TEST_PHONE) }
+    }
+
+    @Test
+    fun `click continue with formatted phone EXPECT phone validated after clearing`() = runTest {
+        val formattedPhone = "+7 (912) 345-67-89"
+        val clearedPhone = "79123456789"
+        every { nameValidator.validate(TEST_FIRSTNAME) } returns valid(TEST_FIRSTNAME)
+        every { nameValidator.validate(TEST_LASTNAME) } returns valid(TEST_LASTNAME)
+        every { ruPhoneValidateUseCase(clearedPhone) } returns valid(clearedPhone)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(PersonIntent.InputFirstname(TEST_FIRSTNAME))
+        viewModel.onIntent(PersonIntent.InputLastname(TEST_LASTNAME))
+        viewModel.onIntent(PersonIntent.InputPhoneNumber(formattedPhone))
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        assertEquals(PhoneFieldStatus.Valid, viewModel.state.value.contentState.phoneNumber.fieldStatus)
+    }
+
+    @Test
+    fun `click continue with all fields invalid EXPECT all validators called`() = runTest {
+        every { nameValidator.validate("") } returns invalid(NameValidationError.EMPTY)
+        every { ruPhoneValidateUseCase("") } returns invalid(PhoneValidationError.EMPTY)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify(exactly = 2) { nameValidator.validate("") }
+    }
+
+    @Test
+    fun `click continue with all fields invalid EXPECT phone validator called`() = runTest {
+        every { nameValidator.validate("") } returns invalid(NameValidationError.EMPTY)
+        every { ruPhoneValidateUseCase("") } returns invalid(PhoneValidationError.EMPTY)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(PersonIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify { ruPhoneValidateUseCase("") }
+    }
+
+    @Test
+    fun `init EXPECT firstname field status not validated`() {
+        val viewModel = createViewModel()
+
+        val actual = viewModel.state.value.contentState.firstname.fieldStatus
+
+        assertEquals(NameFieldStatus.NotValidated, actual)
+    }
+
+    @Test
+    fun `init EXPECT lastname field status not validated`() {
+        val viewModel = createViewModel()
+
+        val actual = viewModel.state.value.contentState.lastname.fieldStatus
+
+        assertEquals(NameFieldStatus.NotValidated, actual)
+    }
+
+    @Test
+    fun `init EXPECT phone field status not validated`() {
+        val viewModel = createViewModel()
+
+        val actual = viewModel.state.value.contentState.phoneNumber.fieldStatus
+
+        assertEquals(PhoneFieldStatus.NotValidated, actual)
+    }
 }

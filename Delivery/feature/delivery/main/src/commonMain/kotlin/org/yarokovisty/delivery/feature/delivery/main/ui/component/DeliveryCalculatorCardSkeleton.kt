@@ -13,8 +13,8 @@ import delivery.feature.delivery.main.generated.resources.calculator_card_button
 import delivery.feature.delivery.main.generated.resources.calculator_card_title
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
-import org.yarokovisty.delivery.design.uikit.SelectCategory
 import org.yarokovisty.delivery.design.uikit.button.PrimaryButton
+import org.yarokovisty.delivery.design.uikit.selector.SelectCategory
 import org.yarokovisty.delivery.design.uikit.text.TitleH2
 import org.yarokovisty.delivery.util.modifier.shimmerable
 

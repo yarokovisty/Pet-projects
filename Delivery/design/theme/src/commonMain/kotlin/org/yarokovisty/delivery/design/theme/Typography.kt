@@ -41,6 +41,11 @@ internal val deliveryTypography: DeliveryTypography
             fontFamily = Inter(),
             textDecoration = TextDecoration.Underline
         ),
+        paragraph16Medium = TextStyle(
+            fontSize = 16.sp,
+            fontWeight = FontWeight.W500,
+            fontFamily = Inter()
+        ),
         paragraph16MediumUnderline = TextStyle(
             fontSize = 16.sp,
             fontWeight = FontWeight.W500,
@@ -86,6 +91,7 @@ data class DeliveryTypography(
     val paragraph14Regular: TextStyle,
     val paragraph14Medium: TextStyle,
     val paragraph14RegularUnderline: TextStyle,
+    val paragraph16Medium: TextStyle,
     val paragraph16MediumUnderline: TextStyle,
     val paragraph16Regular: TextStyle,
     val titleH1: TextStyle,

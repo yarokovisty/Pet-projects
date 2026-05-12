@@ -4,21 +4,25 @@ import org.yarokovisty.delivery.common.delivery.point.domain.entity.Address
 import org.yarokovisty.delivery.common.delivery.presentation.StepState
 import org.yarokovisty.delivery.common.validation.error.AddressValidationError
 
-internal fun initialSenderAddressState(currentStep: Int, maxSteps: Int): SenderAddressState =
-    SenderAddressState(
+internal fun initialReceiverAddressState(currentStep: Int, maxSteps: Int): ReceiverAddressState =
+    ReceiverAddressState(
         stepState = StepState(
             progress = currentStep,
             maxProgress = maxSteps
         ),
-        contentState = SenderAddressContentState(
+        contentState = ReceiverAddressContentState(
             street = InputState.INITIAL,
             house = InputState.INITIAL,
             apartment = InputState.INITIAL,
-            comment = ""
+            comment = "",
+            nonContactedState = NonContactedState(
+                checked = false,
+                tipShowing = false
+            )
         )
     )
 
-internal fun SenderAddressState.updateStreet(street: String): SenderAddressState =
+internal fun ReceiverAddressState.updateStreet(street: String): ReceiverAddressState =
     copy(
         contentState = contentState.copy(
             street = contentState.street.copy(
@@ -28,21 +32,21 @@ internal fun SenderAddressState.updateStreet(street: String): SenderAddressState
         )
     )
 
-internal fun SenderAddressState.streetValid(): SenderAddressState =
+internal fun ReceiverAddressState.streetValid(): ReceiverAddressState =
     copy(
         contentState = contentState.copy(
             street = contentState.street.copy(fieldStatus = FieldStatus.Valid)
         )
     )
 
-internal fun SenderAddressState.streetInvalid(error: AddressValidationError): SenderAddressState =
+internal fun ReceiverAddressState.streetInvalid(error: AddressValidationError): ReceiverAddressState =
     copy(
         contentState = contentState.copy(
             street = contentState.street.copy(fieldStatus = FieldStatus.Invalid(error))
         )
     )
 
-internal fun SenderAddressState.updateHouse(house: String): SenderAddressState =
+internal fun ReceiverAddressState.updateHouse(house: String): ReceiverAddressState =
     copy(
         contentState = contentState.copy(
             house = contentState.house.copy(
@@ -52,21 +56,21 @@ internal fun SenderAddressState.updateHouse(house: String): SenderAddressState =
         )
     )
 
-internal fun SenderAddressState.houseValid(): SenderAddressState =
+internal fun ReceiverAddressState.houseValid(): ReceiverAddressState =
     copy(
         contentState = contentState.copy(
             house = contentState.house.copy(fieldStatus = FieldStatus.Valid)
         )
     )
 
-internal fun SenderAddressState.houseInvalid(error: AddressValidationError): SenderAddressState =
+internal fun ReceiverAddressState.houseInvalid(error: AddressValidationError): ReceiverAddressState =
     copy(
         contentState = contentState.copy(
             house = contentState.house.copy(fieldStatus = FieldStatus.Invalid(error))
         )
     )
 
-internal fun SenderAddressState.updateApartment(apartment: String): SenderAddressState =
+internal fun ReceiverAddressState.updateApartment(apartment: String): ReceiverAddressState =
     copy(
         contentState = contentState.copy(
             apartment = contentState.apartment.copy(
@@ -76,30 +80,50 @@ internal fun SenderAddressState.updateApartment(apartment: String): SenderAddres
         )
     )
 
-internal fun SenderAddressState.apartmentValid(): SenderAddressState =
+internal fun ReceiverAddressState.apartmentValid(): ReceiverAddressState =
     copy(
         contentState = contentState.copy(
             apartment = contentState.apartment.copy(fieldStatus = FieldStatus.Valid)
         )
     )
 
-internal fun SenderAddressState.apartmentInvalid(error: AddressValidationError): SenderAddressState =
+internal fun ReceiverAddressState.apartmentInvalid(error: AddressValidationError): ReceiverAddressState =
     copy(
         contentState = contentState.copy(
             apartment = contentState.apartment.copy(fieldStatus = FieldStatus.Invalid(error))
         )
     )
 
-internal fun SenderAddressState.updateComment(comment: String): SenderAddressState =
+internal fun ReceiverAddressState.updateComment(comment: String): ReceiverAddressState =
     copy(
         contentState = contentState.copy(comment = comment)
     )
 
-internal fun SenderAddressState.getSenderAddress(): Address =
+internal fun ReceiverAddressState.getReceiverAddress(): Address =
     Address(
         street = contentState.street.value,
         house = contentState.house.value,
         apartment = contentState.apartment.value,
         comment = contentState.comment,
-        nonContacted = null
+        nonContacted = contentState.nonContactedState.checked
     )
+
+internal fun ReceiverAddressState.updateNonContactedCheckBox(): ReceiverAddressState {
+    val currentChecked = contentState.nonContactedState.checked
+
+    return copy(
+        contentState = contentState.copy(
+            nonContactedState = contentState.nonContactedState.copy(checked = !currentChecked)
+        )
+    )
+}
+
+internal fun ReceiverAddressState.updateNonContactedTipShowing(): ReceiverAddressState {
+    val currentShowing = contentState.nonContactedState.tipShowing
+
+    return copy(
+        contentState = contentState.copy(
+            nonContactedState = contentState.nonContactedState.copy(tipShowing = !currentShowing)
+        )
+    )
+}

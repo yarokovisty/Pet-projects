@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.design.uikit
+package org.yarokovisty.delivery.design.uikit.selector
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
+import org.yarokovisty.delivery.design.uikit.HorizontalGap
+import org.yarokovisty.delivery.design.uikit.VerticalGap
 import org.yarokovisty.delivery.design.uikit.text.Paragraph14Medium
 import org.yarokovisty.delivery.design.uikit.text.Paragraph14RegularUnderline
 import org.yarokovisty.delivery.design.uikit.text.Paragraph16Regular
