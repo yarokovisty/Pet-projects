@@ -1,0 +1,10 @@
+<resources>
+    <string name="payer_topbar_title">Оплата доставки</string>
+    <string name="payer_step_indicator_title">Шаг %1$d из %2$d</string>
+
+    <string name="payer_question_select_text">Кто оплачивает доставку</string>
+    <string name="payer_receiver_text">Получатель</string>
+    <string name="payer_sender_text">Отправитель</string>
+
+    <string name="payer_continue_button">Продолжить</string>
+</resources>

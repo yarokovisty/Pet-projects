@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,44 +33,44 @@ import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.HorizontalGap
 
 @Composable
-fun CheckBox(
-    onCheckedChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    checked: Boolean = false,
+fun RadioButton(
+    selected: Boolean,
+    text: String,
+    onClick: () -> Unit,
     enabled: Boolean = true,
-    text: String? = null,
     textStyle: TextStyle = DeliveryTheme.typography.paragraph16Medium,
     textColor: Color = DeliveryTheme.colorScheme.textPrimary,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.clickable(
+            enabled = enabled,
+            onClick = onClick,
+        )
     ) {
-        CheckBox(checked, enabled, onCheckedChange)
+        RadioButton(selected, enabled)
 
-        if (!text.isNullOrBlank()) {
-            HorizontalGap(16.dp)
+        HorizontalGap(16.dp)
 
-            Text(text = text, style = textStyle, color = textColor)
-        }
+        Text(text, style = textStyle, color = textColor)
     }
 }
 
 @Composable
-private fun CheckBox(
-    checked: Boolean,
-    enabled: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
+private fun RadioButton(
+    selected: Boolean,
+    enabled: Boolean
 ) {
     val borderColor = when {
-        checked && enabled -> DeliveryTheme.colorScheme.brandPrimary
+        selected && enabled -> DeliveryTheme.colorScheme.brandPrimary
         enabled -> DeliveryTheme.colorScheme.borderLight
-        checked -> DeliveryTheme.colorScheme.brandDisabled
+        selected -> DeliveryTheme.colorScheme.brandDisabled
         else -> DeliveryTheme.colorScheme.borderExtraLight
     }
     val backgroundColor = when {
-        checked && enabled -> DeliveryTheme.colorScheme.brandPrimary
-        checked -> DeliveryTheme.colorScheme.brandDisabled
+        selected && enabled -> DeliveryTheme.colorScheme.brandPrimary
+        selected -> DeliveryTheme.colorScheme.brandDisabled
         else -> Color.Transparent
     }
     val animatedBorderColor by animateColorAsState(borderColor)
@@ -78,21 +78,17 @@ private fun CheckBox(
 
     Box(
         modifier = Modifier
-            .border(2.dp, animatedBorderColor, RoundedCornerShape(6.dp))
+            .border(2.dp, animatedBorderColor, CircleShape)
             .size(24.dp)
-            .background(animatedBackgroundColor, RoundedCornerShape(6.dp))
-            .clip(RoundedCornerShape(6.dp))
-            .clickable(
-                enabled = enabled,
-                onClick = { onCheckedChange(!checked) }
-            )
+            .background(animatedBackgroundColor, CircleShape)
+            .clip(CircleShape)
     ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
             AnimatedVisibility(
-                checked,
+                selected,
                 enter = scaleIn(
                     initialScale = 0.5f,
                     animationSpec = tween(100)
@@ -115,33 +111,17 @@ private fun CheckBox(
 
 @Preview
 @Composable
-private fun CheckBoxPreview() {
+private fun RadioButtonPreview() {
     DeliveryTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.background(DeliveryTheme.colorScheme.bgPrimary)
         ) {
-            CheckBox(onCheckedChange = {})
+            RadioButton(selected = true, enabled = true, text = "RadioButton", onClick = {})
 
-            CheckBox(
-                text = "Checkbox",
-                checked = true,
-                onCheckedChange = {}
-            )
+            RadioButton(selected = false, enabled = true, text = "RadioButton", onClick = {})
 
-            CheckBox(
-                text = "Checkbox",
-                checked = true,
-                enabled = false,
-                onCheckedChange = {}
-            )
-
-            CheckBox(
-                text = "Checkbox",
-                enabled = false,
-                checked = false,
-                onCheckedChange = {}
-            )
+            RadioButton(selected = false, enabled = false, text = "RadioButton", onClick = {})
         }
     }
 }

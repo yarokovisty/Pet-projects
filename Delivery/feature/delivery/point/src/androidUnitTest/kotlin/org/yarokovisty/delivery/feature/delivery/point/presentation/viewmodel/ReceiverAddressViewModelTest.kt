@@ -407,6 +407,22 @@ internal class ReceiverAddressViewModelTest {
             coVerify { addressRepository.setReceiver(expectedAddress) }
         }
 
+    @Test
+    fun `click continue with valid data EXPECT router open payer screen called`() = runTest {
+        every { addressValidator.validate(TEST_STREET) } returns valid(TEST_STREET)
+        every { addressValidator.validate(TEST_HOUSE) } returns valid(TEST_HOUSE)
+        every { addressValidator.validate(TEST_APARTMENT) } returns valid(TEST_APARTMENT)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(ReceiverAddressIntent.InputStreet(TEST_STREET))
+        viewModel.onIntent(ReceiverAddressIntent.InputHouse(TEST_HOUSE))
+        viewModel.onIntent(ReceiverAddressIntent.InputApartment(TEST_APARTMENT))
+        viewModel.onIntent(ReceiverAddressIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify { router.openPayerScreen() }
+    }
+
     // endregion
 
     // region Click Continue - Invalid Street
@@ -442,6 +458,21 @@ internal class ReceiverAddressViewModelTest {
         advanceUntilIdle()
 
         coVerify(exactly = 0) { addressRepository.setReceiver(any()) }
+    }
+
+    @Test
+    fun `click continue with empty street EXPECT router open payer screen not called`() = runTest {
+        every { addressValidator.validate("") } returns invalid(AddressValidationError.EMPTY)
+        every { addressValidator.validate(TEST_HOUSE) } returns valid(TEST_HOUSE)
+        every { addressValidator.validate(TEST_APARTMENT) } returns valid(TEST_APARTMENT)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(ReceiverAddressIntent.InputHouse(TEST_HOUSE))
+        viewModel.onIntent(ReceiverAddressIntent.InputApartment(TEST_APARTMENT))
+        viewModel.onIntent(ReceiverAddressIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openPayerScreen() }
     }
 
     // endregion
@@ -481,6 +512,21 @@ internal class ReceiverAddressViewModelTest {
         coVerify(exactly = 0) { addressRepository.setReceiver(any()) }
     }
 
+    @Test
+    fun `click continue with empty house EXPECT router open payer screen not called`() = runTest {
+        every { addressValidator.validate(TEST_STREET) } returns valid(TEST_STREET)
+        every { addressValidator.validate("") } returns invalid(AddressValidationError.EMPTY)
+        every { addressValidator.validate(TEST_APARTMENT) } returns valid(TEST_APARTMENT)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(ReceiverAddressIntent.InputStreet(TEST_STREET))
+        viewModel.onIntent(ReceiverAddressIntent.InputApartment(TEST_APARTMENT))
+        viewModel.onIntent(ReceiverAddressIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openPayerScreen() }
+    }
+
     // endregion
 
     // region Click Continue - Invalid Apartment
@@ -516,6 +562,21 @@ internal class ReceiverAddressViewModelTest {
         advanceUntilIdle()
 
         coVerify(exactly = 0) { addressRepository.setReceiver(any()) }
+    }
+
+    @Test
+    fun `click continue with empty apartment EXPECT router open payer screen not called`() = runTest {
+        every { addressValidator.validate(TEST_STREET) } returns valid(TEST_STREET)
+        every { addressValidator.validate(TEST_HOUSE) } returns valid(TEST_HOUSE)
+        every { addressValidator.validate("") } returns invalid(AddressValidationError.EMPTY)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(ReceiverAddressIntent.InputStreet(TEST_STREET))
+        viewModel.onIntent(ReceiverAddressIntent.InputHouse(TEST_HOUSE))
+        viewModel.onIntent(ReceiverAddressIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openPayerScreen() }
     }
 
     // endregion
@@ -575,6 +636,17 @@ internal class ReceiverAddressViewModelTest {
         coVerify(exactly = 0) { addressRepository.setReceiver(any()) }
     }
 
+    @Test
+    fun `click continue with all fields empty EXPECT router open payer screen not called`() = runTest {
+        every { addressValidator.validate("") } returns invalid(AddressValidationError.EMPTY)
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(ReceiverAddressIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openPayerScreen() }
+    }
+
     // endregion
 
     // region Re-input After Validation Resets Field Status
@@ -625,6 +697,64 @@ internal class ReceiverAddressViewModelTest {
         advanceUntilIdle()
 
         viewModel.onIntent(ReceiverAddressIntent.InputApartment(TEST_APARTMENT))
+        advanceUntilIdle()
+
+        assertEquals(FieldStatus.NotValidated, viewModel.state.value.contentState.apartment.fieldStatus)
+    }
+
+    // endregion
+
+    // region Re-input After Successful Validation Resets Field Status
+
+    @Test
+    fun `input street after successful validation EXPECT street field status reset to not validated`() = runTest {
+        every { addressValidator.validate(TEST_STREET) } returns valid(TEST_STREET)
+        every { addressValidator.validate(TEST_HOUSE) } returns valid(TEST_HOUSE)
+        every { addressValidator.validate(TEST_APARTMENT) } returns valid(TEST_APARTMENT)
+        val viewModel = createViewModel()
+        viewModel.onIntent(ReceiverAddressIntent.InputStreet(TEST_STREET))
+        viewModel.onIntent(ReceiverAddressIntent.InputHouse(TEST_HOUSE))
+        viewModel.onIntent(ReceiverAddressIntent.InputApartment(TEST_APARTMENT))
+        viewModel.onIntent(ReceiverAddressIntent.ClickContinue)
+        advanceUntilIdle()
+
+        viewModel.onIntent(ReceiverAddressIntent.InputStreet("New Street"))
+        advanceUntilIdle()
+
+        assertEquals(FieldStatus.NotValidated, viewModel.state.value.contentState.street.fieldStatus)
+    }
+
+    @Test
+    fun `input house after successful validation EXPECT house field status reset to not validated`() = runTest {
+        every { addressValidator.validate(TEST_STREET) } returns valid(TEST_STREET)
+        every { addressValidator.validate(TEST_HOUSE) } returns valid(TEST_HOUSE)
+        every { addressValidator.validate(TEST_APARTMENT) } returns valid(TEST_APARTMENT)
+        val viewModel = createViewModel()
+        viewModel.onIntent(ReceiverAddressIntent.InputStreet(TEST_STREET))
+        viewModel.onIntent(ReceiverAddressIntent.InputHouse(TEST_HOUSE))
+        viewModel.onIntent(ReceiverAddressIntent.InputApartment(TEST_APARTMENT))
+        viewModel.onIntent(ReceiverAddressIntent.ClickContinue)
+        advanceUntilIdle()
+
+        viewModel.onIntent(ReceiverAddressIntent.InputHouse("20"))
+        advanceUntilIdle()
+
+        assertEquals(FieldStatus.NotValidated, viewModel.state.value.contentState.house.fieldStatus)
+    }
+
+    @Test
+    fun `input apartment after successful validation EXPECT apartment field status reset to not validated`() = runTest {
+        every { addressValidator.validate(TEST_STREET) } returns valid(TEST_STREET)
+        every { addressValidator.validate(TEST_HOUSE) } returns valid(TEST_HOUSE)
+        every { addressValidator.validate(TEST_APARTMENT) } returns valid(TEST_APARTMENT)
+        val viewModel = createViewModel()
+        viewModel.onIntent(ReceiverAddressIntent.InputStreet(TEST_STREET))
+        viewModel.onIntent(ReceiverAddressIntent.InputHouse(TEST_HOUSE))
+        viewModel.onIntent(ReceiverAddressIntent.InputApartment(TEST_APARTMENT))
+        viewModel.onIntent(ReceiverAddressIntent.ClickContinue)
+        advanceUntilIdle()
+
+        viewModel.onIntent(ReceiverAddressIntent.InputApartment("99"))
         advanceUntilIdle()
 
         assertEquals(FieldStatus.NotValidated, viewModel.state.value.contentState.apartment.fieldStatus)

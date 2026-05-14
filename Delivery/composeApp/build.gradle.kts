@@ -60,6 +60,7 @@ kotlin {
             implementation(projects.feature.delivery.calculator)
             implementation(projects.feature.delivery.direction)
             implementation(projects.feature.delivery.main)
+            implementation(projects.feature.delivery.payer)
             implementation(projects.feature.delivery.person)
             implementation(projects.feature.delivery.point)
             implementation(projects.feature.login)

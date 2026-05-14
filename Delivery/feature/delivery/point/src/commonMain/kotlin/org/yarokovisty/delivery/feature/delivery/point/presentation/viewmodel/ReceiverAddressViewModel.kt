@@ -100,6 +100,7 @@ internal class ReceiverAddressViewModel(
         launch {
             val receiverAddress = stateValue.getReceiverAddress()
             addressRepository.setReceiver(receiverAddress)
+            router.openPayerScreen()
         }
     }
 
