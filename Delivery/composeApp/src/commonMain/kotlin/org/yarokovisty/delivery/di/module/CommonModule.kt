@@ -5,6 +5,7 @@ import org.yarokovisty.delivery.common.auth.di.authModule
 import org.yarokovisty.delivery.common.delivery.calculator.di.deliveryCalculatorModule
 import org.yarokovisty.delivery.common.delivery.direction.di.deliveryDirectionModule
 import org.yarokovisty.delivery.common.delivery.parcel.di.deliveryParcelModule
+import org.yarokovisty.delivery.common.delivery.payer.di.deliveryPayerModule
 import org.yarokovisty.delivery.common.delivery.person.di.deliveryPersonModule
 import org.yarokovisty.delivery.common.delivery.point.di.deliveryPointModule
 import org.yarokovisty.delivery.common.delivery.step.deliveryStepModule
@@ -17,6 +18,7 @@ val commonModule = module {
         deliveryCalculatorModule,
         deliveryDirectionModule,
         deliveryParcelModule,
+        deliveryPayerModule,
         deliveryPersonModule,
         deliveryPointModule,
         deliveryStepModule,

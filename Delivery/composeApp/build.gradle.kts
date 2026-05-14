@@ -45,6 +45,7 @@ kotlin {
             implementation(projects.common.delivery.calculator)
             implementation(projects.common.delivery.direction)
             implementation(projects.common.delivery.parcel)
+            implementation(projects.common.delivery.payer)
             implementation(projects.common.delivery.person)
             implementation(projects.common.delivery.point)
             implementation(projects.common.delivery.step)

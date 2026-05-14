@@ -7,23 +7,24 @@ val commonModules = listOf(
     ":common:delivery:calculator",
     ":common:delivery:direction",
     ":common:delivery:parcel",
+    ":common:delivery:payer",
     ":common:delivery:person",
     ":common:delivery:point",
     ":common:delivery:step",
     ":common:profile:main",
-    ":common:validation"
+    ":common:validation",
 )
 
 val coreModules = listOf(
     ":core:common:coroutines",
     ":core:common:presentation",
     ":core:network",
-    ":core:storage"
+    ":core:storage",
 )
 
 val designModules = listOf(
     ":design:theme",
-    ":design:uikit"
+    ":design:uikit",
 )
 
 val featureModules = listOf(
@@ -39,7 +40,7 @@ val featureModules = listOf(
 val libsModules = listOf(
     ":libs:coordinator",
     ":libs:encryption",
-    ":libs:navigation"
+    ":libs:navigation",
 )
 
 val utilModules = listOf(
@@ -50,7 +51,7 @@ val utilModules = listOf(
     ":util:modifier",
     ":util:phone",
     ":util:unit-test",
-    ":util:validation"
+    ":util:validation",
 )
 
 val modules = mapOf(
