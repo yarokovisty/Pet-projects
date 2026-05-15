@@ -8,7 +8,7 @@ import org.yarokovisty.delivery.util.kotlin.enums.toEnum
 internal fun PackageTypeListResponse.toItem(): List<ParcelInfo> =
     packages.map(PackageTypeResponse::toItem)
 
-internal fun PackageTypeResponse.toItem(): ParcelInfo =
+fun PackageTypeResponse.toItem(): ParcelInfo =
     ParcelInfo(
         id = this.id,
         type = this.id.toEnum(),

@@ -18,7 +18,7 @@ private const val CONNECT_TIMEOUT = 15_000L
 private const val REQUEST_TIMEOUT = 30_000L
 
 @Suppress("FunctionName")
-internal fun KtorHttpClient(): HttpClient =
+internal fun KtorHttpClient(json: Json): HttpClient =
     HttpClient {
         defaultRequest {
             url(BASE_URL)
@@ -30,11 +30,7 @@ internal fun KtorHttpClient(): HttpClient =
         }
 
         install(ContentNegotiation) {
-            json(
-                Json {
-                    ignoreUnknownKeys = true
-                }
-            )
+            json(json)
         }
 
         if (isDebug) {

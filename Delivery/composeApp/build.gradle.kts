@@ -44,6 +44,7 @@ kotlin {
             implementation(projects.common.auth)
             implementation(projects.common.delivery.calculator)
             implementation(projects.common.delivery.direction)
+            implementation(projects.common.delivery.order)
             implementation(projects.common.delivery.parcel)
             implementation(projects.common.delivery.payer)
             implementation(projects.common.delivery.person)

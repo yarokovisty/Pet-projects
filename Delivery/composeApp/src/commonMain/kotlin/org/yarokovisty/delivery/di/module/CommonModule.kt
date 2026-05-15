@@ -4,6 +4,7 @@ import org.koin.dsl.module
 import org.yarokovisty.delivery.common.auth.di.authModule
 import org.yarokovisty.delivery.common.delivery.calculator.di.deliveryCalculatorModule
 import org.yarokovisty.delivery.common.delivery.direction.di.deliveryDirectionModule
+import org.yarokovisty.delivery.common.delivery.order.di.deliveryOrderModule
 import org.yarokovisty.delivery.common.delivery.parcel.di.deliveryParcelModule
 import org.yarokovisty.delivery.common.delivery.payer.di.deliveryPayerModule
 import org.yarokovisty.delivery.common.delivery.person.di.deliveryPersonModule
@@ -17,6 +18,7 @@ val commonModule = module {
         authModule,
         deliveryCalculatorModule,
         deliveryDirectionModule,
+        deliveryOrderModule,
         deliveryParcelModule,
         deliveryPayerModule,
         deliveryPersonModule,

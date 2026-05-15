@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class DeliveryPointResponse(
+data class DeliveryPointResponse(
     @SerialName("id")
     val id: String,
     @SerialName("name")

@@ -7,7 +7,7 @@ import org.yarokovisty.delivery.common.delivery.direction.domain.entity.Delivery
 internal fun DeliveryPointListResponse.toItem(): List<DeliveryPoint> =
     points.map(DeliveryPointResponse::toItem)
 
-internal fun DeliveryPointResponse.toItem(): DeliveryPoint =
+fun DeliveryPointResponse.toItem(): DeliveryPoint =
     DeliveryPoint(
         id = this.id,
         name = this.name,
