@@ -12,8 +12,10 @@ import delivery.feature.delivery.point.generated.resources.ic_arrow_left
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import org.yarokovisty.delivery.design.uikit.TopBar
 import org.yarokovisty.delivery.design.uikit.screen.FullScreen
+import org.yarokovisty.delivery.feature.delivery.point.navigation.AddressScreenType
 import org.yarokovisty.delivery.feature.delivery.point.presentation.intent.SenderAddressIntent
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.SenderAddressState
 import org.yarokovisty.delivery.feature.delivery.point.presentation.viewmodel.SenderAddressViewModel
@@ -21,8 +23,8 @@ import org.yarokovisty.delivery.feature.delivery.point.ui.component.AddressLinea
 import org.yarokovisty.delivery.feature.delivery.point.ui.component.SenderAddressContent
 
 @Composable
-internal fun SenderAddressScreen() {
-    val viewModel: SenderAddressViewModel = koinViewModel()
+internal fun SenderAddressScreen(screenType: AddressScreenType) {
+    val viewModel: SenderAddressViewModel = koinViewModel { parametersOf(screenType) }
     val state by viewModel.state.collectAsState()
 
     SenderAddressScreen(state, viewModel::onIntent)

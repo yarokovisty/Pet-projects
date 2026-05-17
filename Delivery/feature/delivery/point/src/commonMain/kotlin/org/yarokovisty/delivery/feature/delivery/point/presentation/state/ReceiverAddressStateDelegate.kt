@@ -22,6 +22,28 @@ internal fun initialReceiverAddressState(currentStep: Int, maxSteps: Int): Recei
         )
     )
 
+internal fun ReceiverAddressState.setAddress(address: Address): ReceiverAddressState =
+    copy(
+        contentState = contentState.copy(
+            street = contentState.street.copy(
+                value = address.street,
+                fieldStatus = FieldStatus.NotValidated
+            ),
+            house = contentState.house.copy(
+                value = address.house,
+                fieldStatus = FieldStatus.NotValidated
+            ),
+            apartment = contentState.apartment.copy(
+                value = address.apartment,
+                fieldStatus = FieldStatus.NotValidated
+            ),
+            comment = address.comment,
+            nonContactedState = contentState.nonContactedState.copy(
+                checked = address.nonContacted ?: false
+            )
+        )
+    )
+
 internal fun ReceiverAddressState.updateStreet(street: String): ReceiverAddressState =
     copy(
         contentState = contentState.copy(

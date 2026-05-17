@@ -18,10 +18,18 @@ internal class PersonLocalDataSource(private val storage: PreferencesStorage) {
         storage.putObject(RECEIVER_KEY, receiver, PersonInfo.serializer())
     }
 
+    suspend fun clearReceiver() {
+        storage.remove(RECEIVER_KEY)
+    }
+
     suspend fun getSender(): PersonInfo? =
         storage.getObject(SENDER_KEY, PersonInfo.serializer())
 
     suspend fun setSender(sender: PersonInfo) {
         storage.putObject(SENDER_KEY, sender, PersonInfo.serializer())
+    }
+
+    suspend fun clearSender() {
+        storage.remove(SENDER_KEY)
     }
 }

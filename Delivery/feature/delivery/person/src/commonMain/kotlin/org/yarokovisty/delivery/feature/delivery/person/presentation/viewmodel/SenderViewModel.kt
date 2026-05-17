@@ -1,10 +1,12 @@
 package org.yarokovisty.delivery.feature.delivery.person.presentation.viewmodel
 
+import org.yarokovisty.delivery.common.delivery.person.domain.entity.PersonInfo
 import org.yarokovisty.delivery.common.delivery.person.domain.repository.PersonRepository
 import org.yarokovisty.delivery.common.profile.main.domain.usecase.GetUserUseCase
 import org.yarokovisty.delivery.common.validation.usecase.RuPhoneValidateUseCase
 import org.yarokovisty.delivery.common.validation.validator.NameValidator
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.feature.delivery.person.navigation.PersonScreenType
 import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderRouter
 import org.yarokovisty.delivery.feature.delivery.person.presentation.converter.toPersonInfo
 import org.yarokovisty.delivery.feature.delivery.person.presentation.intent.PersonIntent
@@ -33,6 +35,7 @@ internal class SenderViewModel(
     private val nameValidator: NameValidator,
     private val phoneNumberFormatter: PhoneNumberFormatter,
     private val router: SenderRouter,
+    private val screenType: PersonScreenType,
     maxSteps: Int
 ) : BaseViewModel<PersonState, PersonIntent, Nothing>(
     initial(CURRENT_STEP, maxSteps)
@@ -43,17 +46,24 @@ internal class SenderViewModel(
     }
 
     init {
-        loadUser()
+        loadData()
     }
 
-    private fun loadUser() {
+    private fun loadData() {
         launch {
-            getUserUseCase()?.toPersonInfo()?.let { receiverInfo ->
-                val phoneNumberFormatted = phoneNumberFormatter.format(receiverInfo.phone)
-                updateState { setPersonInfo(receiverInfo, phoneNumberFormatted) }
+            getSender()?.let { sender ->
+                val phoneNumberFormatted = phoneNumberFormatter.format(sender.phone)
+                updateState { setPersonInfo(sender, phoneNumberFormatted) }
             }
         }
     }
+
+    private suspend fun getSender(): PersonInfo? =
+        if (screenType == PersonScreenType.NEW) {
+            getUserUseCase()?.toPersonInfo()
+        } else {
+            personRepository.getSender()
+        }
 
     override fun onIntent(intent: PersonIntent) {
         when (intent) {
@@ -77,7 +87,7 @@ internal class SenderViewModel(
             val senderInfo = stateValue.getUpdatedPersonInfo()
             personRepository.setSender(senderInfo)
 
-            router.openSenderAddressScreen()
+            openNextScreen()
         }
     }
 
@@ -129,6 +139,14 @@ internal class SenderViewModel(
                 false
             }
         )
+    }
+
+    private fun openNextScreen() {
+        if (screenType == PersonScreenType.NEW) {
+            router.openSenderAddressScreen()
+        } else {
+            router.back()
+        }
     }
 
     private fun changeFirstname(firstname: String) {

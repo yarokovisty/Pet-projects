@@ -4,5 +4,5 @@ interface PayerRouter {
 
     fun back()
 
-    fun openConfirmationScreen()
+    fun openConfirmationOrderScreen()
 }

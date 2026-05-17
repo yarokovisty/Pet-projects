@@ -39,11 +39,7 @@ internal fun ProfileScreen() {
     val viewModel = koinViewModel<ProfileViewModel>()
     val state by viewModel.state.collectAsState()
 
-    ProfileScreen(
-        state = state,
-        events = viewModel.events,
-        onIntent = viewModel::onIntent
-    )
+    ProfileScreen(state, viewModel.events, viewModel::onIntent)
 }
 
 @Composable

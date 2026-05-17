@@ -8,7 +8,11 @@ interface AddressRepository {
 
     suspend fun setSender(address: Address)
 
+    suspend fun clearSender()
+
     suspend fun getReceiver(): Address?
 
     suspend fun setReceiver(address: Address)
+
+    suspend fun clearReceiver()
 }

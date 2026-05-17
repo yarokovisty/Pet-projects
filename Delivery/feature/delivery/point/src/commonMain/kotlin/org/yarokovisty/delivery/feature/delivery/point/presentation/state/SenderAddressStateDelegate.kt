@@ -18,6 +18,25 @@ internal fun initialSenderAddressState(currentStep: Int, maxSteps: Int): SenderA
         )
     )
 
+internal fun SenderAddressState.setAddress(address: Address): SenderAddressState =
+    copy(
+        contentState = contentState.copy(
+            street = contentState.street.copy(
+                value = address.street,
+                fieldStatus = FieldStatus.NotValidated
+            ),
+            house = contentState.house.copy(
+                value = address.house,
+                fieldStatus = FieldStatus.NotValidated
+            ),
+            apartment = contentState.apartment.copy(
+                value = address.apartment,
+                fieldStatus = FieldStatus.NotValidated
+            ),
+            comment = address.comment
+        )
+    )
+
 internal fun SenderAddressState.updateStreet(street: String): SenderAddressState =
     copy(
         contentState = contentState.copy(

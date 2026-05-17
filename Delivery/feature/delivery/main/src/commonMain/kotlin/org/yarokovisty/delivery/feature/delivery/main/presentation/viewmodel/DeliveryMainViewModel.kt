@@ -24,7 +24,7 @@ import org.yarokovisty.delivery.feature.delivery.main.presentation.state.selectP
 import org.yarokovisty.delivery.feature.delivery.main.presentation.state.showSelectParcelTypeScreen
 
 internal class DeliveryMainViewModel(
-    private val deliveryRepository: ParcelRepository,
+    private val parcelRepository: ParcelRepository,
     private val directionRepository: DirectionRepository,
     private val getAlternativeDeliveryPointsUseCase: GetAlternativeDeliveryPointsUseCase,
     private val getDeliveryPointByNameUseCase: GetDeliveryPointByNameUseCase,
@@ -38,17 +38,27 @@ internal class DeliveryMainViewModel(
     override fun onIntent(intent: DeliveryMainIntent) {
         when (intent) {
             is DeliveryMainIntent.LoadData -> loadData()
+
             is DeliveryMainIntent.SelectDeliveryPointFrom -> openDirectionFromScreen()
+
             is DeliveryMainIntent.SelectAlternativeDeliveryPointFrom ->
                 selectAlternativeDeliveryPointFrom(intent.pointName)
+
             is DeliveryMainIntent.SelectDeliveryPointTo -> openDirectionToScreen()
+
             is DeliveryMainIntent.SelectAlternativeDeliveryPointTo ->
                 selectAlternativeDeliveryPointTo(intent.pointName)
+
             is DeliveryMainIntent.OpenParcelTypeScreen -> openSelectParcelTypeScreen()
+
             is DeliveryMainIntent.CloseParcelTypeScreen -> closeSelectParcelTypeScreen()
+
             is DeliveryMainIntent.SelectParcelType -> selectParcelType(intent.parcelInfo)
-            is DeliveryMainIntent.CalculateDelivery -> openCalculatorScreen()
+
+            is DeliveryMainIntent.CalculateDelivery -> saveSelectedInfo()
+
             is DeliveryMainIntent.ChangeInputParcelId -> changeInputParcelId(intent.id)
+
             is DeliveryMainIntent.TrackParcel -> TODO()
         }
     }
@@ -58,7 +68,7 @@ internal class DeliveryMainViewModel(
 
         launchTrying {
             val deliveryPointsDeferred = async { directionRepository.getDeliveryPointList() }
-            val parcelTypesDeferred = async { deliveryRepository.getParcelInfoList() }
+            val parcelTypesDeferred = async { parcelRepository.getParcelInfoList() }
 
             val deliveryPoints = deliveryPointsDeferred.await()
             val parcelTypes = parcelTypesDeferred.await()
@@ -121,7 +131,7 @@ internal class DeliveryMainViewModel(
         updateState { selectParcelType(parcelInfo) }
     }
 
-    private fun openCalculatorScreen() {
+    private fun saveSelectedInfo() {
         val contentState = stateValue.deliveryCalculatorContent ?: return
         val parcelInfo = contentState.selectedParcelInfo
         val senderPoint = contentState.selectedPointFrom
@@ -129,7 +139,13 @@ internal class DeliveryMainViewModel(
 
         if (parcelInfo == null || senderPoint == null || receiverPoint == null) return
 
-        router.openCalculatorScreen(parcelInfo, senderPoint, receiverPoint)
+        launch {
+            parcelRepository.saveSelectedParcel(parcelInfo)
+            directionRepository.setSelectedPointFrom(senderPoint)
+            directionRepository.setSelectedPointTo(receiverPoint)
+
+            router.openCalculatorScreen(parcelInfo, senderPoint, receiverPoint)
+        }
     }
 
     private fun changeInputParcelId(id: String) {

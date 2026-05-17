@@ -2,6 +2,7 @@ package org.yarokovisty.delivery.design.uikit.button
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -12,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
+// Убрать везде fillMaxWidth
 @Composable
 fun PrimaryButton(
     text: String,
@@ -28,7 +30,7 @@ fun PrimaryButton(
             disabledContainerColor = DeliveryTheme.colorScheme.brandDisabled
         ),
         contentPadding = PaddingValues(16.dp),
-        modifier = modifier
+        modifier = modifier.fillMaxWidth()
     ) {
         Text(
             text = text,
@@ -54,7 +56,7 @@ fun PrimaryButton(
             disabledContainerColor = DeliveryTheme.colorScheme.brandDisabled
         ),
         contentPadding = PaddingValues(16.dp),
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         content = content
     )
 }

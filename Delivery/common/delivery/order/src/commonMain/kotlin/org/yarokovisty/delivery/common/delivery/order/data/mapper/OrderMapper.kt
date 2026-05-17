@@ -43,12 +43,12 @@ private fun Int.toOrderStatus(): OrderStatus =
 
 internal fun ConfirmationOrder.toRequest(): ConfirmationOrderRequest =
     ConfirmationOrderRequest(
-        packageId = "",
+        packageId = packageId,
         optionType = option.type.name,
-        senderPointId = "",
+        senderPointId = senderPointId,
         senderAddress = senderAddress.toRequest(),
         sender = sender.toRequest(),
-        receiverPointId = "",
+        receiverPointId = receiverPointId,
         receiverAddress = receiverAddress.toRequest(),
         receiver = receiver.toRequest(),
         payer = payer.name

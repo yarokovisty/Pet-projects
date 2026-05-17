@@ -28,10 +28,14 @@ internal class CalculatorRepositoryImpl(
             )
         ).toItem()
 
-    override fun getOption(): Option? =
+    override suspend fun getOption(): Option? =
         localDataSource.getOption()
 
-    override fun setOption(option: Option) {
+    override suspend fun setOption(option: Option) {
         localDataSource.setOption(option)
+    }
+
+    override suspend fun clearOption() {
+        localDataSource.clearOption()
     }
 }

@@ -12,8 +12,10 @@ import delivery.feature.delivery.person.generated.resources.receiver_topbar_titl
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import org.yarokovisty.delivery.design.uikit.TopBar
 import org.yarokovisty.delivery.design.uikit.screen.FullScreen
+import org.yarokovisty.delivery.feature.delivery.person.navigation.PersonScreenType
 import org.yarokovisty.delivery.feature.delivery.person.presentation.intent.PersonIntent
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.PersonState
 import org.yarokovisty.delivery.feature.delivery.person.presentation.viewmodel.ReceiverViewModel
@@ -21,8 +23,8 @@ import org.yarokovisty.delivery.feature.delivery.person.ui.component.PersonConte
 import org.yarokovisty.delivery.feature.delivery.person.ui.component.PersonLinearStepIndicator
 
 @Composable
-internal fun ReceiverScreen() {
-    val viewModel: ReceiverViewModel = koinViewModel()
+internal fun ReceiverScreen(screenType: PersonScreenType) {
+    val viewModel: ReceiverViewModel = koinViewModel { parametersOf(screenType) }
     val state by viewModel.state.collectAsState()
 
     ReceiverScreen(state, viewModel::onIntent)

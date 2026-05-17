@@ -4,6 +4,7 @@ import org.yarokovisty.delivery.common.delivery.point.domain.repository.AddressR
 import org.yarokovisty.delivery.common.validation.error.AddressValidationError
 import org.yarokovisty.delivery.common.validation.validator.AddressValidator
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.feature.delivery.point.navigation.AddressScreenType
 import org.yarokovisty.delivery.feature.delivery.point.navigation.SenderAddressRouter
 import org.yarokovisty.delivery.feature.delivery.point.presentation.intent.SenderAddressIntent
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.SenderAddressState
@@ -13,6 +14,7 @@ import org.yarokovisty.delivery.feature.delivery.point.presentation.state.getSen
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.houseInvalid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.houseValid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.initialSenderAddressState
+import org.yarokovisty.delivery.feature.delivery.point.presentation.state.setAddress
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.streetInvalid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.streetValid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.updateApartment
@@ -25,6 +27,7 @@ internal class SenderAddressViewModel(
     private val addressRepository: AddressRepository,
     private val addressValidator: AddressValidator,
     private val router: SenderAddressRouter,
+    private val screenType: AddressScreenType,
     maxSteps: Int,
 ) : BaseViewModel<SenderAddressState, SenderAddressIntent, Nothing>(
     initialSenderAddressState(currentStep = CURRENT_STEP, maxSteps = maxSteps)
@@ -33,6 +36,20 @@ internal class SenderAddressViewModel(
     private companion object {
 
         const val CURRENT_STEP = 4
+    }
+
+    init {
+        if (screenType == AddressScreenType.EDIT) {
+            loadAddress()
+        }
+    }
+
+    private fun loadAddress() {
+        launch {
+            addressRepository.getSender()?.let { address ->
+                updateState { setAddress(address) }
+            }
+        }
     }
 
     override fun onIntent(intent: SenderAddressIntent) {
@@ -98,7 +115,15 @@ internal class SenderAddressViewModel(
             val senderAddress = stateValue.getSenderAddress()
             addressRepository.setSender(senderAddress)
 
+            openNextScreen()
+        }
+    }
+
+    private fun openNextScreen() {
+        if (screenType == AddressScreenType.NEW) {
             router.openReceiverAddress()
+        } else {
+            router.back()
         }
     }
 

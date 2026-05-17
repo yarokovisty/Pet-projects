@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import org.yarokovisty.delivery.libs.navigation.destination.Screen
 
 @Serializable
-data object ReceiverDestination : Screen
+data class ReceiverDestination(val type: PersonScreenType) : Screen
 
 @Serializable
-data object SenderDestination : Screen
+data class SenderDestination(val type: PersonScreenType) : Screen

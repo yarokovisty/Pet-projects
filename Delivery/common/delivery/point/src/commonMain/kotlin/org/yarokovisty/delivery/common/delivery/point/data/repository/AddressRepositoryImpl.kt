@@ -15,10 +15,18 @@ internal class AddressRepositoryImpl(
         localDataSource.setSender(address)
     }
 
+    override suspend fun clearSender() {
+        localDataSource.clearSender()
+    }
+
     override suspend fun getReceiver(): Address? =
         localDataSource.getReceiver()
 
     override suspend fun setReceiver(address: Address) {
         localDataSource.setReceiver(address)
+    }
+
+    override suspend fun clearReceiver() {
+        localDataSource.clearReceiver()
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
+// TODO установить по умолчанию цвет текста
 @Composable
 fun Paragraph12Regular(
     text: String,
@@ -84,6 +85,22 @@ fun Paragraph16Regular(
         color = color,
         textAlign = textAlign,
         style = DeliveryTheme.typography.paragraph16Regular,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun Paragraph16Medium(
+    text: String,
+    color: Color = Color.Unspecified,
+    textAlign: TextAlign? = null,
+    modifier: Modifier = Modifier
+) {
+    Text(
+        text = text,
+        color = color,
+        textAlign = textAlign,
+        style = DeliveryTheme.typography.paragraph16Medium,
         modifier = modifier
     )
 }

@@ -149,5 +149,15 @@ internal class PayerViewModelTest {
         coVerify { payerRepository.setPayer(Payer.SENDER) }
     }
 
+    @Test
+    fun `click continue EXPECT router opens confirmation order screen`() = runTest {
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(PayerIntent.ClickContinue)
+        advanceUntilIdle()
+
+        verify { router.openConfirmationOrderScreen() }
+    }
+
     // endregion
 }

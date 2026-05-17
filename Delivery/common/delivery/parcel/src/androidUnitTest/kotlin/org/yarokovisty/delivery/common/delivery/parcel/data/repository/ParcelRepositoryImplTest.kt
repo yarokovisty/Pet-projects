@@ -4,6 +4,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
+import org.yarokovisty.delivery.common.delivery.parcel.data.datasource.DeliveryLocalDataSource
 import org.yarokovisty.delivery.common.delivery.parcel.data.datasource.DeliveryRemoteDataSource
 import org.yarokovisty.delivery.common.delivery.parcel.data.model.PackageTypeListResponse
 import org.yarokovisty.delivery.common.delivery.parcel.data.model.PackageTypeResponse
@@ -12,11 +13,13 @@ import org.yarokovisty.delivery.common.delivery.parcel.domain.entity.ParcelInfo
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
+import kotlin.test.assertNull
 
 class ParcelRepositoryImplTest {
 
+    private val localDataSource: DeliveryLocalDataSource = mockk(relaxed = true)
     private val remoteDataSource: DeliveryRemoteDataSource = mockk()
-    private val repository = ParcelRepositoryImpl(remoteDataSource)
+    private val repository = ParcelRepositoryImpl(localDataSource, remoteDataSource)
 
     private val typePackageListResponse = PackageTypeListResponse(
         packages = listOf(
@@ -37,6 +40,16 @@ class ParcelRepositoryImplTest {
                 weight = 2,
             ),
         )
+    )
+
+    private val parcelInfo = ParcelInfo(
+        id = "envelope",
+        type = PackageType.ENVELOPE,
+        name = "name0",
+        length = 1,
+        width = 1,
+        height = 1,
+        weight = 1
     )
 
     @Test
@@ -94,5 +107,37 @@ class ParcelRepositoryImplTest {
         coEvery { remoteDataSource.getPackageTypes() } returns response
 
         assertFails { repository.getParcelInfoList() }
+    }
+
+    @Test
+    fun `get selected parcel EXPECT parcel from local data source`() = runTest {
+        coEvery { localDataSource.getParcel() } returns parcelInfo
+
+        val actual = repository.getSelectedParcel()
+
+        assertEquals(parcelInfo, actual)
+    }
+
+    @Test
+    fun `get selected parcel when no data EXPECT null`() = runTest {
+        coEvery { localDataSource.getParcel() } returns null
+
+        val actual = repository.getSelectedParcel()
+
+        assertNull(actual)
+    }
+
+    @Test
+    fun `save selected parcel EXPECT local data source save parcel called`() = runTest {
+        repository.saveSelectedParcel(parcelInfo)
+
+        coVerify { localDataSource.saveParcel(parcelInfo) }
+    }
+
+    @Test
+    fun `clear selected parcel EXPECT local data source clear parcel called`() = runTest {
+        repository.clearSelectedParcel()
+
+        coVerify { localDataSource.clearParcel() }
     }
 }

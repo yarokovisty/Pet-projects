@@ -12,7 +12,9 @@ interface CalculatorRepository {
         receiverPoint: DeliveryPoint
     ): List<Option>
 
-    fun getOption(): Option?
+    suspend fun getOption(): Option?
 
-    fun setOption(option: Option)
+    suspend fun setOption(option: Option)
+
+    suspend fun clearOption()
 }

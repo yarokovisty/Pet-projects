@@ -10,6 +10,7 @@ import androidx.navigation3.ui.NavDisplay
 import org.koin.compose.viewmodel.koinViewModel
 import org.yarokovisty.delivery.feature.delivery.calculator.navigation.calculatorEntry
 import org.yarokovisty.delivery.feature.delivery.direction.navigation.directionEntry
+import org.yarokovisty.delivery.feature.delivery.order.navigation.confirmationOrderEntry
 import org.yarokovisty.delivery.feature.delivery.payer.navigation.payerEntry
 import org.yarokovisty.delivery.feature.delivery.person.navigation.receiverEntry
 import org.yarokovisty.delivery.feature.delivery.person.navigation.senderEntry
@@ -51,6 +52,7 @@ private fun AppScreen(
             mainEntry()
             directionEntry()
             calculatorEntry()
+            confirmationOrderEntry()
             payerEntry()
             receiverAddressEntry()
             receiverEntry()

@@ -12,7 +12,21 @@ class GlobalBackStack(startScreen: Screen) {
         backStack.add(screen)
     }
 
+    fun replace(screen: Screen) {
+        backStack.removeLastOrNull()
+        backStack.add(screen)
+    }
+
     fun pop() {
         backStack.removeLastOrNull()
+    }
+
+    fun popTo(screen: Screen, inclusive: Boolean = false) {
+        val index = backStack.indexOf(screen)
+
+        if (index == -1) return
+
+        val removeFrom = if (inclusive) index else index + 1
+        backStack.subList(removeFrom, backStack.size).clear()
     }
 }

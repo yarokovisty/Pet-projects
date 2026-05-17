@@ -1,0 +1,28 @@
+<resources>
+    <string name="order_topbar_title">Откуда забрать</string>
+    <string name="order_step_indicator_title">Шаг %1$d из %2$d</string>
+
+    <string name="order_receiver_title">Получатель</string>
+    <string name="order_sender_title">Отправитель</string>
+    <string name="order_name_subtitle">ФИО</string>
+    <string name="order_phone_subtitle">Телефон</string>
+
+    <string name="order_sender_address_title">Откуда забрать</string>
+    <string name="order_receiver_address_title">Куда доставить</string>
+    <string name="order_address_subtitle">Адрес</string>
+    <string name="order_address_description">%1$s, д. %2$s, кв. %3$s</string>
+    <string name="order_address_comment_subtitle">Заметка</string>
+
+
+    <string name="order_delivery_cost">Итого: %1$d₽</string>
+
+    <string name="order_selected_tariff">Тариф: %1$s</string>
+    <string name="order_tariff_default">Обычная доставка</string>
+    <string name="order_tariff_express">Экспресс доставка до двери</string>
+    <string name="order_delivery_amount_work_days">Срок: %1$s</string>
+    <string name="order_delviery_one_work_day">%1$d рабочий день</string>
+    <string name="order_delviery_some_work_days">%1$d рабочих дней</string>
+
+    <string name="order_checkout_button">Оформить</string>
+    <string name="order_checkout_error">Упс, не удалось оформить заказ\nПопробуйте еще раз</string>
+</resources>

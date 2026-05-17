@@ -8,7 +8,11 @@ interface PersonRepository {
 
     suspend fun setReceiver(receiver: PersonInfo)
 
+    suspend fun clearReceiver()
+
     suspend fun getSender(): PersonInfo?
 
     suspend fun setSender(sender: PersonInfo)
+
+    suspend fun clearSender()
 }

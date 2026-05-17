@@ -3,7 +3,6 @@ package org.yarokovisty.delivery.feature.profile.main.ui.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -186,14 +185,8 @@ private fun UpdateDataButton(
     onClick: () -> Unit
 ) {
     PrimaryButton(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp),
-        onClick = {
-            if (!loading) {
-                onClick()
-            }
-        }
+        modifier = Modifier.padding(top = 8.dp),
+        onClick = { if (!loading) onClick() }
     ) {
         if (loading) {
             CircularProgressIndicator(

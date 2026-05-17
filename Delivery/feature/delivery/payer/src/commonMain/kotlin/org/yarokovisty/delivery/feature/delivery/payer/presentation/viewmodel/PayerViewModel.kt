@@ -39,6 +39,7 @@ internal class PayerViewModel(
 
         launch {
             payerRepository.setPayer(payer)
+            router.openConfirmationOrderScreen()
         }
     }
 

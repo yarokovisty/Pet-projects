@@ -7,4 +7,6 @@ interface PayerRepository {
     suspend fun getPayer(): Payer?
 
     suspend fun setPayer(payer: Payer)
+
+    suspend fun clearPayer()
 }

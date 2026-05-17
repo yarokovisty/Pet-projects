@@ -16,4 +16,8 @@ internal class PayerLocalDataSource(private val storage: PreferencesStorage) {
     suspend fun setPayer(payer: Payer) {
         storage.putObject(PAYER_KEY, payer, Payer.serializer())
     }
+
+    suspend fun clearPayer() {
+        storage.remove(PAYER_KEY)
+    }
 }

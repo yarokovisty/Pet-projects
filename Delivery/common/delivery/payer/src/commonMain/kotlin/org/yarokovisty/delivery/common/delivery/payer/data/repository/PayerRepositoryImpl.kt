@@ -14,4 +14,8 @@ internal class PayerRepositoryImpl(
     override suspend fun setPayer(payer: Payer) {
         localDataSource.setPayer(payer)
     }
+
+    override suspend fun clearPayer() {
+        localDataSource.clearPayer()
+    }
 }

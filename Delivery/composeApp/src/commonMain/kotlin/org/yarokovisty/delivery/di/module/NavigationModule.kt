@@ -7,6 +7,7 @@ import org.yarokovisty.delivery.feature.delivery.calculator.navigation.Calculato
 import org.yarokovisty.delivery.feature.delivery.direction.navigation.DirectionRouter
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryRouter
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryTab
+import org.yarokovisty.delivery.feature.delivery.order.navigation.ConfirmationOrderRouter
 import org.yarokovisty.delivery.feature.delivery.payer.navigation.PayerRouter
 import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverRouter
 import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderRouter
@@ -18,6 +19,7 @@ import org.yarokovisty.delivery.libs.navigation.backstack.BottomBarBackStack
 import org.yarokovisty.delivery.libs.navigation.backstack.GlobalBackStack
 import org.yarokovisty.delivery.navigation.destination.MainDestination
 import org.yarokovisty.delivery.navigation.router.CalculatorRouterImpl
+import org.yarokovisty.delivery.navigation.router.ConfirmationOrderRouterImpl
 import org.yarokovisty.delivery.navigation.router.DeliveryRouterImpl
 import org.yarokovisty.delivery.navigation.router.DirectionRouterImpl
 import org.yarokovisty.delivery.navigation.router.LoginRouterImpl
@@ -35,6 +37,7 @@ private val backStackModule = module {
 
 private val routerModule = module {
     factoryOf(::CalculatorRouterImpl) bind CalculatorRouter::class
+    factoryOf(::ConfirmationOrderRouterImpl) bind ConfirmationOrderRouter::class
     factoryOf(::DeliveryRouterImpl) bind DeliveryRouter::class
     factoryOf(::DirectionRouterImpl) bind DirectionRouter::class
     factoryOf(::LoginRouterImpl) bind LoginRouter::class

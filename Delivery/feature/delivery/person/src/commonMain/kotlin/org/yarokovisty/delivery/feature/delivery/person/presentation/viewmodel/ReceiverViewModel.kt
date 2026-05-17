@@ -4,6 +4,7 @@ import org.yarokovisty.delivery.common.delivery.person.domain.repository.PersonR
 import org.yarokovisty.delivery.common.validation.usecase.RuPhoneValidateUseCase
 import org.yarokovisty.delivery.common.validation.validator.NameValidator
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.feature.delivery.person.navigation.PersonScreenType
 import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverRouter
 import org.yarokovisty.delivery.feature.delivery.person.presentation.intent.PersonIntent
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.PersonState
@@ -15,10 +16,12 @@ import org.yarokovisty.delivery.feature.delivery.person.presentation.state.lastn
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.lastnameValid
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.phoneNumberInvalid
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.phoneNumberValid
+import org.yarokovisty.delivery.feature.delivery.person.presentation.state.setPersonInfo
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.updateFirstname
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.updateLastname
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.updateMiddlename
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.updatePhoneNumber
+import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
 import org.yarokovisty.delivery.util.phone.clearPhoneNumber
 import org.yarokovisty.delivery.util.validation.validated.fold
 
@@ -27,14 +30,31 @@ internal class ReceiverViewModel(
     private val ruPhoneValidateUseCase: RuPhoneValidateUseCase,
     private val nameValidator: NameValidator,
     private val router: ReceiverRouter,
+    private val phoneNumberFormatter: PhoneNumberFormatter,
+    private val screenType: PersonScreenType,
     maxSteps: Int,
 ) : BaseViewModel<PersonState, PersonIntent, Nothing>(
-    initial(CURRENT_STEP, maxSteps)
+    initial(currentStep = CURRENT_STEP, maxSteps = maxSteps)
 ) {
 
     private companion object {
 
         const val CURRENT_STEP = 2
+    }
+
+    init {
+        if (screenType == PersonScreenType.EDIT) {
+            loadReceiver()
+        }
+    }
+
+    private fun loadReceiver() {
+        launch {
+            personRepository.getReceiver()?.let { receiver ->
+                val phoneNumberFormatted = phoneNumberFormatter.format(receiver.phone)
+                updateState { setPersonInfo(receiver, phoneNumberFormatted) }
+            }
+        }
     }
 
     override fun onIntent(intent: PersonIntent) {
@@ -55,10 +75,22 @@ internal class ReceiverViewModel(
     private fun nextStep() {
         if (!validateInputData()) return
 
+        saveReceiver()
+    }
+
+    private fun saveReceiver() {
         launch {
             val receiverInfo = stateValue.getUpdatedPersonInfo()
             personRepository.setReceiver(receiverInfo)
+            openNextScreen()
+        }
+    }
+
+    private fun openNextScreen() {
+        if (screenType == PersonScreenType.NEW) {
             router.openSenderScreen()
+        } else {
+            router.back()
         }
     }
 

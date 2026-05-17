@@ -7,12 +7,12 @@ import org.yarokovisty.delivery.libs.navigation.destination.Screen
 
 fun EntryProviderScope<Screen>.senderAddressEntry() {
     entry<SenderAddressDestination> {
-        SenderAddressScreen()
+        SenderAddressScreen(screenType = it.screenType)
     }
 }
 
 fun EntryProviderScope<Screen>.receiverAddressEntry() {
     entry<ReceiverAddressDestination> {
-        ReceiverAddressScreen()
+        ReceiverAddressScreen(screenType = it.screenType)
     }
 }

@@ -1,15 +1,23 @@
 package org.yarokovisty.delivery.common.delivery.calculator.data.datasource
 
 import org.yarokovisty.delivery.common.delivery.calculator.domain.entity.Option
+import org.yarokovisty.delivery.core.storage.preferences.PreferencesStorage
 
-internal class CalculatorLocalDataSource {
+internal class CalculatorLocalDataSource(private val storage: PreferencesStorage) {
 
-    private var option: Option? = null
+    private companion object {
 
-    fun getOption(): Option? =
-        option
+        const val OPTION_KEY = "option"
+    }
 
-    fun setOption(option: Option) {
-        this.option = option
+    suspend fun getOption(): Option? =
+        storage.getObject(OPTION_KEY, Option.serializer())
+
+    suspend fun setOption(option: Option) {
+        storage.putObject(OPTION_KEY, option, Option.serializer())
+    }
+
+    suspend fun clearOption() {
+        storage.remove(OPTION_KEY)
     }
 }

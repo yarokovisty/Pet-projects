@@ -36,13 +36,8 @@ import org.yarokovisty.delivery.util.flow.observe
 internal fun LoginScreen() {
     val viewModel: LoginViewModel = koinViewModel()
     val state by viewModel.state.collectAsState()
-    val events = viewModel.events
 
-    LoginScreen(
-        state = state,
-        events = events,
-        onIntent = viewModel::onIntent
-    )
+    LoginScreen(state, viewModel.events, viewModel::onIntent)
 }
 
 @Composable

@@ -49,9 +49,11 @@ internal fun OptionItemComponent(
 private fun Description(option: Option) {
     TwoLine(
         title = getTitle(option.type),
-        titleStyle = DeliveryTheme.typography.paragraph12Regular.copy(color = DeliveryTheme.colorScheme.textTertiary),
+        titleStyle = DeliveryTheme.typography.paragraph12Regular,
+        titleColor = DeliveryTheme.colorScheme.textTertiary,
         subtitle = stringResource(Res.string.calculator_delivery_cost, option.price),
-        subtitleStyle = DeliveryTheme.typography.titleH3.copy(color = DeliveryTheme.colorScheme.textPrimary),
+        subtitleStyle = DeliveryTheme.typography.titleH3,
+        subtitleColor = DeliveryTheme.colorScheme.textPrimary,
         startIcon = getIcon(option.type),
         endIcon = painterResource(Res.drawable.ic_arrow_small_right)
     )

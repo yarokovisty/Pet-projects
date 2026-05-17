@@ -16,6 +16,7 @@ kotlin {
             implementation(projects.common.delivery.direction)
             implementation(projects.common.delivery.parcel)
             implementation(projects.core.network)
+            implementation(projects.core.storage)
             implementation(projects.util.kotlin)
 
             implementation(libs.koin.core)

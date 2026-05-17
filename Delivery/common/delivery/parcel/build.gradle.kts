@@ -14,6 +14,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.core.network)
+            implementation(projects.core.storage)
             implementation(projects.util.kotlin)
 
             implementation(libs.koin.core)

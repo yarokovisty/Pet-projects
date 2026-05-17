@@ -30,7 +30,7 @@ internal fun ProfileSnacbarHost(
         hostState = successSnackbarHostState,
         modifier = modifier
     ) { snackbarData ->
-        _root_ide_package_.org.yarokovisty.delivery.feature.profile.main.ui.component.ProfileSnackbar(
+        ProfileSnackbar(
             text = snackbarData.visuals.message,
             icon = painterResource(Res.drawable.ic_check_circle),
             iconTint = DeliveryTheme.colorScheme.indicatorPositive
@@ -41,7 +41,7 @@ internal fun ProfileSnacbarHost(
         hostState = errorSnackbarHostState,
         modifier = modifier
     ) { snackbarData ->
-        _root_ide_package_.org.yarokovisty.delivery.feature.profile.main.ui.component.ProfileSnackbar(
+        ProfileSnackbar(
             text = snackbarData.visuals.message,
             icon = painterResource(Res.drawable.ic_error_circle),
             iconTint = DeliveryTheme.colorScheme.indicatorError

@@ -4,6 +4,7 @@ import org.yarokovisty.delivery.common.delivery.point.domain.repository.AddressR
 import org.yarokovisty.delivery.common.validation.error.AddressValidationError
 import org.yarokovisty.delivery.common.validation.validator.AddressValidator
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
+import org.yarokovisty.delivery.feature.delivery.point.navigation.AddressScreenType
 import org.yarokovisty.delivery.feature.delivery.point.navigation.ReceiverAddressRouter
 import org.yarokovisty.delivery.feature.delivery.point.presentation.intent.ReceiverAddressIntent
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.ReceiverAddressState
@@ -13,6 +14,7 @@ import org.yarokovisty.delivery.feature.delivery.point.presentation.state.getRec
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.houseInvalid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.houseValid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.initialReceiverAddressState
+import org.yarokovisty.delivery.feature.delivery.point.presentation.state.setAddress
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.streetInvalid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.streetValid
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.updateApartment
@@ -27,6 +29,7 @@ internal class ReceiverAddressViewModel(
     private val addressRepository: AddressRepository,
     private val addressValidator: AddressValidator,
     private val router: ReceiverAddressRouter,
+    private val screenType: AddressScreenType,
     maxSteps: Int,
 ) : BaseViewModel<ReceiverAddressState, ReceiverAddressIntent, Nothing>(
     initialReceiverAddressState(currentStep = CURRENT_STEP, maxSteps = maxSteps)
@@ -34,6 +37,20 @@ internal class ReceiverAddressViewModel(
     private companion object {
 
         const val CURRENT_STEP = 5
+    }
+
+    init {
+        if (screenType == AddressScreenType.EDIT) {
+            loadAddress()
+        }
+    }
+
+    private fun loadAddress() {
+        launch {
+            addressRepository.getReceiver()?.let { address ->
+                updateState { setAddress(address) }
+            }
+        }
     }
 
     override fun onIntent(intent: ReceiverAddressIntent) {
@@ -100,7 +117,16 @@ internal class ReceiverAddressViewModel(
         launch {
             val receiverAddress = stateValue.getReceiverAddress()
             addressRepository.setReceiver(receiverAddress)
+
+            openNextScreen()
+        }
+    }
+
+    private fun openNextScreen() {
+        if (screenType == AddressScreenType.NEW) {
             router.openPayerScreen()
+        } else {
+            router.back()
         }
     }
 

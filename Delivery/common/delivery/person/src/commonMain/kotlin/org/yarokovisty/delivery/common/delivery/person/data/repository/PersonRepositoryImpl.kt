@@ -15,10 +15,18 @@ internal class PersonRepositoryImpl(
         localDataSource.setReceiver(receiver)
     }
 
+    override suspend fun clearReceiver() {
+        localDataSource.clearReceiver()
+    }
+
     override suspend fun getSender(): PersonInfo? =
         localDataSource.getSender()
 
     override suspend fun setSender(sender: PersonInfo) {
         localDataSource.setSender(sender)
+    }
+
+    override suspend fun clearSender() {
+        localDataSource.clearSender()
     }
 }

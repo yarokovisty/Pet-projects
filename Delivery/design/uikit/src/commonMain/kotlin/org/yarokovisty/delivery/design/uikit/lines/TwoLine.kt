@@ -30,6 +30,8 @@ fun TwoLine(
     subtitle: String,
     subtitleStyle: TextStyle,
     modifier: Modifier = Modifier,
+    titleColor: Color = DeliveryTheme.colorScheme.textSecondary,
+    subtitleColor: Color = DeliveryTheme.colorScheme.textPrimary,
     startIcon: Painter? = null,
     startIconColor: Color = Color.Unspecified,
     endIcon: Painter? = null,
@@ -42,7 +44,7 @@ fun TwoLine(
             HorizontalGap(16.dp)
         }
 
-        Content(title, titleStyle, subtitle, subtitleStyle)
+        Content(title, titleStyle, titleColor, subtitle, subtitleStyle, subtitleColor)
 
         if (endIcon != null) {
             EndIcon(endIcon, endIconColor)
@@ -67,15 +69,17 @@ private fun StartIcon(
 private fun RowScope.Content(
     title: String,
     titleStyle: TextStyle,
+    titleColor: Color,
     subtitle: String,
-    subtitleStyle: TextStyle
+    subtitleStyle: TextStyle,
+    subtitleColor: Color
 ) {
     Column(modifier = Modifier.weight(1f)) {
-        Text(text = title, style = titleStyle)
+        Text(text = title, style = titleStyle, color = titleColor)
 
         VerticalGap(2.dp)
 
-        Text(text = subtitle, style = subtitleStyle)
+        Text(text = subtitle, style = subtitleStyle, color = subtitleColor)
     }
 }
 
