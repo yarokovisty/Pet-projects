@@ -23,6 +23,7 @@ kotlin {
             implementation(projects.core.common.presentation)
             implementation(projects.common.delivery.direction)
             implementation(projects.common.delivery.parcel)
+            implementation(projects.design.resources)
             implementation(projects.design.theme)
             implementation(projects.design.uikit)
             implementation(projects.libs.coordinator)

@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
+import delivery.design.resources.generated.resources.ic_close
 import delivery.feature.login.generated.resources.Res
-import delivery.feature.login.generated.resources.ic_close
 import delivery.feature.login.generated.resources.login_error
 import delivery.feature.login.generated.resources.login_topbar_title
 import kotlinx.coroutines.flow.Flow
@@ -31,6 +31,7 @@ import org.yarokovisty.delivery.feature.login.presentation.state.LoginState
 import org.yarokovisty.delivery.feature.login.presentation.viewmodel.LoginViewModel
 import org.yarokovisty.delivery.feature.login.ui.component.LoginContent
 import org.yarokovisty.delivery.util.flow.observe
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun LoginScreen() {
@@ -57,7 +58,7 @@ private fun LoginScreen(
         topBar = {
             TopBar(
                 title = stringResource(Res.string.login_topbar_title),
-                navigationIcon = painterResource(Res.drawable.ic_close),
+                navigationIcon = painterResource(DrawableRes.drawable.ic_close),
                 onClickNavIcon = { onIntent(LoginIntent.Back) }
             )
         },

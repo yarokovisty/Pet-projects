@@ -25,12 +25,12 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import delivery.design.resources.generated.resources.ic_circle_question
+import delivery.design.resources.generated.resources.ic_s_cross
 import delivery.feature.delivery.point.generated.resources.Res
 import delivery.feature.delivery.point.generated.resources.address_receiver_non_contact_checkbox_text
 import delivery.feature.delivery.point.generated.resources.address_receiver_non_contact_hint_text
 import delivery.feature.delivery.point.generated.resources.address_receiver_non_contact_hint_title
-import delivery.feature.delivery.point.generated.resources.ic_circle_question
-import delivery.feature.delivery.point.generated.resources.ic_s_cross
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
@@ -42,6 +42,7 @@ import org.yarokovisty.delivery.design.uikit.text.Paragraph12Regular
 import org.yarokovisty.delivery.feature.delivery.point.presentation.intent.ReceiverAddressIntent
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.NonContactedState
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.ReceiverAddressContentState
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun ReceiverAddressContent(
@@ -183,7 +184,7 @@ private fun TipDescription() {
 @Composable
 private fun CloseIcon(onClick: () -> Unit) {
     Icon(
-        painter = painterResource(Res.drawable.ic_s_cross),
+        painter = painterResource(DrawableRes.drawable.ic_s_cross),
         contentDescription = null,
         tint = DeliveryTheme.colorScheme.indicatorLight,
         modifier = Modifier.clickable(onClick = onClick)
@@ -206,7 +207,7 @@ private fun TipIcon(
         onClick = onClick
     ) {
         Icon(
-            painter = painterResource(Res.drawable.ic_circle_question),
+            painter = painterResource(DrawableRes.drawable.ic_circle_question),
             contentDescription = null,
             tint = iconTint
         )

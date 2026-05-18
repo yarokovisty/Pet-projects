@@ -17,9 +17,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import delivery.design.uikit.generated.resources.Res
-import delivery.design.uikit.generated.resources.ic_close
-import delivery.design.uikit.generated.resources.img_sorry
+import delivery.design.resources.generated.resources.Res
+import delivery.design.resources.generated.resources.ic_close
+import delivery.design.resources.generated.resources.img_sorry
 import org.jetbrains.compose.resources.painterResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.VerticalGap

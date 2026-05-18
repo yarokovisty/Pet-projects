@@ -8,6 +8,7 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.design.resources)
             implementation(projects.design.theme)
             implementation(projects.util.phone)
 

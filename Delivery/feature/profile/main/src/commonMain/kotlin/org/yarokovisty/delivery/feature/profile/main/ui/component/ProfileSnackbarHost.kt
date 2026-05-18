@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
-import delivery.feature.profile.main.generated.resources.Res
-import delivery.feature.profile.main.generated.resources.ic_check_circle
-import delivery.feature.profile.main.generated.resources.ic_error_circle
+import delivery.design.resources.generated.resources.Res
+import delivery.design.resources.generated.resources.ic_check_circle
+import delivery.design.resources.generated.resources.ic_error_circle
 import org.jetbrains.compose.resources.painterResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.text.Paragraph14Regular

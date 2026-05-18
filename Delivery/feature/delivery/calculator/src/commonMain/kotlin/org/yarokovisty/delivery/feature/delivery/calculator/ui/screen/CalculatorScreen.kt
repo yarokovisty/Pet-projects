@@ -6,9 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import delivery.design.resources.generated.resources.ic_close
 import delivery.feature.delivery.calculator.generated.resources.Res
 import delivery.feature.delivery.calculator.generated.resources.calculator_topbar_title
-import delivery.feature.delivery.calculator.generated.resources.ic_close
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -24,6 +24,7 @@ import org.yarokovisty.delivery.feature.delivery.calculator.ui.component.Calcula
 import org.yarokovisty.delivery.feature.delivery.calculator.ui.component.FailureScreen
 import org.yarokovisty.delivery.feature.delivery.calculator.ui.component.OptionListComponent
 import org.yarokovisty.delivery.feature.delivery.calculator.ui.component.SkeletonScreen
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun CalculatorScreen(
@@ -74,7 +75,7 @@ private fun CalculatorScreen(
 private fun CalculatorTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.calculator_topbar_title),
-        navigationIcon = painterResource(Res.drawable.ic_close),
+        navigationIcon = painterResource(DrawableRes.drawable.ic_close),
         onClickNavIcon = onBackClick
     )
 }

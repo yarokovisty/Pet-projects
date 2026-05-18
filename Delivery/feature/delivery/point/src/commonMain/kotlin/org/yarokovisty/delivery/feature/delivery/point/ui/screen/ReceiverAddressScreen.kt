@@ -6,9 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import delivery.design.resources.generated.resources.ic_arrow_left
 import delivery.feature.delivery.point.generated.resources.Res
 import delivery.feature.delivery.point.generated.resources.address_receiver_topbar_title
-import delivery.feature.delivery.point.generated.resources.ic_arrow_left
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -21,6 +21,7 @@ import org.yarokovisty.delivery.feature.delivery.point.presentation.state.Receiv
 import org.yarokovisty.delivery.feature.delivery.point.presentation.viewmodel.ReceiverAddressViewModel
 import org.yarokovisty.delivery.feature.delivery.point.ui.component.AddressLinearStepIndicator
 import org.yarokovisty.delivery.feature.delivery.point.ui.component.ReceiverAddressContent
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun ReceiverAddressScreen(screenType: AddressScreenType) {
@@ -50,7 +51,7 @@ private fun ReceiverAddressScreen(
 private fun ReceiverAddressTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.address_receiver_topbar_title),
-        navigationIcon = painterResource(Res.drawable.ic_arrow_left),
+        navigationIcon = painterResource(DrawableRes.drawable.ic_arrow_left),
         onClickNavIcon = onBackClick
     )
 }

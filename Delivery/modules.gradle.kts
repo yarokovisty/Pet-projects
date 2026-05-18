@@ -24,6 +24,7 @@ val coreModules = listOf(
 )
 
 val designModules = listOf(
+    ":design:resources",
     ":design:theme",
     ":design:uikit",
 )

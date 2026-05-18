@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import delivery.feature.delivery.direction.generated.resources.Res
-import delivery.feature.delivery.direction.generated.resources.ic_arrow_small_right
+import delivery.design.resources.generated.resources.Res
+import delivery.design.resources.generated.resources.ic_arrow_small_right
 import org.jetbrains.compose.resources.painterResource
 import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.design.theme.DeliveryTheme

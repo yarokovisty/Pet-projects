@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import delivery.design.resources.generated.resources.ic_arrow_left
 import delivery.feature.delivery.person.generated.resources.Res
-import delivery.feature.delivery.person.generated.resources.ic_arrow_left
 import delivery.feature.delivery.person.generated.resources.receiver_topbar_title
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -21,6 +21,7 @@ import org.yarokovisty.delivery.feature.delivery.person.presentation.state.Perso
 import org.yarokovisty.delivery.feature.delivery.person.presentation.viewmodel.ReceiverViewModel
 import org.yarokovisty.delivery.feature.delivery.person.ui.component.PersonContent
 import org.yarokovisty.delivery.feature.delivery.person.ui.component.PersonLinearStepIndicator
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun ReceiverScreen(screenType: PersonScreenType) {
@@ -50,7 +51,7 @@ private fun ReceiverScreen(
 private fun ReceiverTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.receiver_topbar_title),
-        navigationIcon = painterResource(Res.drawable.ic_arrow_left),
+        navigationIcon = painterResource(DrawableRes.drawable.ic_arrow_left),
         onClickNavIcon = onBackClick
     )
 }

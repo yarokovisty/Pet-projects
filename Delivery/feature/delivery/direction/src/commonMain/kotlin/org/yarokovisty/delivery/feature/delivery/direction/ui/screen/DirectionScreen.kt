@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
+import delivery.design.resources.generated.resources.ic_close
 import delivery.feature.delivery.direction.generated.resources.Res
-import delivery.feature.delivery.direction.generated.resources.ic_close
 import delivery.feature.delivery.direction.generated.resources.topbar_title_from
 import delivery.feature.delivery.direction.generated.resources.topbar_title_to
 import org.jetbrains.compose.resources.painterResource
@@ -28,6 +28,7 @@ import org.yarokovisty.delivery.feature.delivery.direction.presentation.viewmode
 import org.yarokovisty.delivery.feature.delivery.direction.ui.component.ContentScreen
 import org.yarokovisty.delivery.feature.delivery.direction.ui.component.FailureScreen
 import org.yarokovisty.delivery.feature.delivery.direction.ui.component.LoadingScreen
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun DirectionScreen(directionType: DirectionType) {
@@ -54,7 +55,7 @@ private fun DirectionScreen(
         topBar = {
             TopBar(
                 title = getTitle(state.directionType),
-                navigationIcon = painterResource(Res.drawable.ic_close),
+                navigationIcon = painterResource(DrawableRes.drawable.ic_close),
                 onClickNavIcon = { onIntent(DirectionIntent.Back) }
             )
         },

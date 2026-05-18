@@ -26,6 +26,7 @@ kotlin {
             implementation(projects.common.validation)
             implementation(projects.core.network)
             implementation(projects.core.storage)
+            implementation(projects.design.resources)
             implementation(projects.design.uikit)
             implementation(projects.design.theme)
             implementation(projects.libs.coordinator)

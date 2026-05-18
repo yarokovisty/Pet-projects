@@ -8,6 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import delivery.design.resources.generated.resources.ic_arrow_drop_down
+import delivery.design.resources.generated.resources.ic_email
+import delivery.design.resources.generated.resources.ic_marker
+import delivery.design.resources.generated.resources.ic_pointer
 import delivery.feature.delivery.main.generated.resources.Res
 import delivery.feature.delivery.main.generated.resources.calculator_card_button_calculate
 import delivery.feature.delivery.main.generated.resources.calculator_card_package_size_default_item
@@ -16,10 +20,6 @@ import delivery.feature.delivery.main.generated.resources.calculator_card_point_
 import delivery.feature.delivery.main.generated.resources.calculator_card_point_from_title
 import delivery.feature.delivery.main.generated.resources.calculator_card_point_to_title
 import delivery.feature.delivery.main.generated.resources.calculator_card_title
-import delivery.feature.delivery.main.generated.resources.ic_arrow_drop_down
-import delivery.feature.delivery.main.generated.resources.ic_email
-import delivery.feature.delivery.main.generated.resources.ic_marker
-import delivery.feature.delivery.main.generated.resources.ic_pointer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
@@ -28,6 +28,7 @@ import org.yarokovisty.delivery.design.uikit.selector.SelectCategory
 import org.yarokovisty.delivery.design.uikit.text.TitleH2
 import org.yarokovisty.delivery.feature.delivery.main.presentation.intent.DeliveryMainIntent
 import org.yarokovisty.delivery.feature.delivery.main.presentation.state.DeliveryCalculatorContent
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun DeliveryCalculatorCard(
@@ -73,8 +74,8 @@ private fun PointFromSelector(
         label = stringResource(Res.string.calculator_card_point_from_title),
         text = state.selectedPointFrom?.name ?: "",
         defaultText = stringResource(Res.string.calculator_card_point_default_item),
-        startIcon = painterResource(Res.drawable.ic_marker),
-        endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
+        startIcon = painterResource(DrawableRes.drawable.ic_marker),
+        endIcon = painterResource(DrawableRes.drawable.ic_arrow_drop_down),
         onClick = { onIntent(DeliveryMainIntent.SelectDeliveryPointFrom) },
         alternatives = state.alternativePointsFrom,
         onClickAlternative = { onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointFrom(it)) }
@@ -90,8 +91,8 @@ private fun PointToSelector(
         label = stringResource(Res.string.calculator_card_point_to_title),
         text = state.selectedPointTo?.name ?: "",
         defaultText = stringResource(Res.string.calculator_card_point_default_item),
-        startIcon = painterResource(Res.drawable.ic_pointer),
-        endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
+        startIcon = painterResource(DrawableRes.drawable.ic_pointer),
+        endIcon = painterResource(DrawableRes.drawable.ic_arrow_drop_down),
         onClick = { onIntent(DeliveryMainIntent.SelectDeliveryPointTo) },
         alternatives = state.alternativePointsTo,
         onClickAlternative = { onIntent(DeliveryMainIntent.SelectAlternativeDeliveryPointTo(it)) }
@@ -107,8 +108,8 @@ private fun PackageTypeSelector(
         label = stringResource(Res.string.calculator_card_package_size_title),
         text = state.selectedParcelInfo?.name ?: "",
         defaultText = stringResource(Res.string.calculator_card_package_size_default_item),
-        startIcon = painterResource(Res.drawable.ic_email),
-        endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
+        startIcon = painterResource(DrawableRes.drawable.ic_email),
+        endIcon = painterResource(DrawableRes.drawable.ic_arrow_drop_down),
         onClick = { onIntent(DeliveryMainIntent.OpenParcelTypeScreen) }
     )
 }

@@ -8,8 +8,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import delivery.feature.delivery.calculator.generated.resources.Res
-import delivery.feature.delivery.calculator.generated.resources.ic_plane
+import delivery.design.resources.generated.resources.Res
+import delivery.design.resources.generated.resources.ic_plane
 import org.jetbrains.compose.resources.painterResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.VerticalGap

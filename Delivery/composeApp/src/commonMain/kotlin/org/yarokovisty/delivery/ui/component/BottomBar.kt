@@ -14,12 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import delivery.composeapp.generated.resources.Res
-import delivery.composeapp.generated.resources.ic_calculate
-import delivery.composeapp.generated.resources.ic_time
-import delivery.composeapp.generated.resources.ic_user
 import delivery.composeapp.generated.resources.tab_text_delivery
 import delivery.composeapp.generated.resources.tab_text_history
 import delivery.composeapp.generated.resources.tab_text_profile
+import delivery.design.resources.generated.resources.ic_calculate
+import delivery.design.resources.generated.resources.ic_time
+import delivery.design.resources.generated.resources.ic_user
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
@@ -27,6 +27,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.text.Tabbar
 import org.yarokovisty.delivery.presentation.state.MainTab
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun BottomBar(
@@ -92,7 +93,7 @@ private val MainTab.textRes: StringResource
 
 private val MainTab.iconRes: DrawableResource
     get() = when (this) {
-        MainTab.DELIVERY -> Res.drawable.ic_calculate
-        MainTab.HISTORY -> Res.drawable.ic_time
-        MainTab.PROFILE -> Res.drawable.ic_user
+        MainTab.DELIVERY -> DrawableRes.drawable.ic_calculate
+        MainTab.HISTORY -> DrawableRes.drawable.ic_time
+        MainTab.PROFILE -> DrawableRes.drawable.ic_user
     }

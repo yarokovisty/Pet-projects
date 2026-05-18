@@ -10,15 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import delivery.design.resources.generated.resources.ic_arrow_small_right
+import delivery.design.resources.generated.resources.ic_bus
+import delivery.design.resources.generated.resources.ic_plane
 import delivery.feature.delivery.calculator.generated.resources.Res
 import delivery.feature.delivery.calculator.generated.resources.calculator_default_delivery_title
 import delivery.feature.delivery.calculator.generated.resources.calculator_delivery_cost
 import delivery.feature.delivery.calculator.generated.resources.calculator_delviery_one_work_day
 import delivery.feature.delivery.calculator.generated.resources.calculator_delviery_some_work_days
 import delivery.feature.delivery.calculator.generated.resources.calculator_express_delivery_title
-import delivery.feature.delivery.calculator.generated.resources.ic_arrow_small_right
-import delivery.feature.delivery.calculator.generated.resources.ic_bus
-import delivery.feature.delivery.calculator.generated.resources.ic_plane
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.common.delivery.calculator.domain.entity.Option
@@ -28,6 +28,7 @@ import org.yarokovisty.delivery.design.uikit.HorizontalGap
 import org.yarokovisty.delivery.design.uikit.VerticalGap
 import org.yarokovisty.delivery.design.uikit.lines.TwoLine
 import org.yarokovisty.delivery.design.uikit.text.Paragraph12Regular
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun OptionItemComponent(
@@ -55,7 +56,7 @@ private fun Description(option: Option) {
         subtitleStyle = DeliveryTheme.typography.titleH3,
         subtitleColor = DeliveryTheme.colorScheme.textPrimary,
         startIcon = getIcon(option.type),
-        endIcon = painterResource(Res.drawable.ic_arrow_small_right)
+        endIcon = painterResource(DrawableRes.drawable.ic_arrow_small_right)
     )
 }
 
@@ -69,8 +70,8 @@ private fun getTitle(optionType: OptionType): String =
 @Composable
 private fun getIcon(optionType: OptionType): Painter =
     when (optionType) {
-        OptionType.DEFAULT -> painterResource(Res.drawable.ic_bus)
-        OptionType.EXPRESS -> painterResource(Res.drawable.ic_plane)
+        OptionType.DEFAULT -> painterResource(DrawableRes.drawable.ic_bus)
+        OptionType.EXPRESS -> painterResource(DrawableRes.drawable.ic_plane)
     }
 
 @Composable

@@ -23,6 +23,7 @@ kotlin {
             implementation(projects.common.delivery.step)
             implementation(projects.common.validation)
             implementation(projects.core.common.presentation)
+            implementation(projects.design.resources)
             implementation(projects.design.theme)
             implementation(projects.design.uikit)
             implementation(projects.libs.navigation)

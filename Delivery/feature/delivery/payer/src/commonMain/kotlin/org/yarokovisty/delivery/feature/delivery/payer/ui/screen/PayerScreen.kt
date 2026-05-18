@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import delivery.design.resources.generated.resources.ic_arrow_left
 import delivery.feature.delivery.payer.generated.resources.Res
-import delivery.feature.delivery.payer.generated.resources.ic_arrow_left
 import delivery.feature.delivery.payer.generated.resources.payer_topbar_title
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -19,6 +19,7 @@ import org.yarokovisty.delivery.feature.delivery.payer.presentation.state.PayerS
 import org.yarokovisty.delivery.feature.delivery.payer.presentation.viewmodel.PayerViewModel
 import org.yarokovisty.delivery.feature.delivery.payer.ui.component.PayerContent
 import org.yarokovisty.delivery.feature.delivery.payer.ui.component.PayerLinearStepIndicator
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun PayerScreen() {
@@ -48,7 +49,7 @@ private fun PayerScreen(
 private fun PayerTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.payer_topbar_title),
-        navigationIcon = painterResource(Res.drawable.ic_arrow_left),
+        navigationIcon = painterResource(DrawableRes.drawable.ic_arrow_left),
         onClickNavIcon = onBackClick
     )
 }

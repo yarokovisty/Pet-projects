@@ -18,8 +18,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
+import delivery.design.resources.generated.resources.ic_arrow_drop_down
 import delivery.feature.profile.main.generated.resources.Res
-import delivery.feature.profile.main.generated.resources.ic_arrow_drop_down
 import delivery.feature.profile.main.generated.resources.profile_city_title
 import delivery.feature.profile.main.generated.resources.profile_email_not_match_pattern_error
 import delivery.feature.profile.main.generated.resources.profile_email_title
@@ -39,6 +39,7 @@ import org.yarokovisty.delivery.feature.profile.main.presentation.intent.Profile
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.ContentState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldStatus
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun ProfileContent(
@@ -150,7 +151,7 @@ private fun CityField(
         text = city,
         defaultText = stringResource(Res.string.profile_city_title),
         label = stringResource(Res.string.profile_city_title),
-        endIcon = painterResource(Res.drawable.ic_arrow_drop_down),
+        endIcon = painterResource(DrawableRes.drawable.ic_arrow_drop_down),
         onClick = onClick
     )
 }

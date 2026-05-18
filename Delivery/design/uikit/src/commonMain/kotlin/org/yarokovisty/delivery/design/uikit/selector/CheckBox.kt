@@ -26,8 +26,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import delivery.design.uikit.generated.resources.Res
-import delivery.design.uikit.generated.resources.ic_check
+import delivery.design.resources.generated.resources.Res
+import delivery.design.resources.generated.resources.ic_check
 import org.jetbrains.compose.resources.painterResource
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.HorizontalGap

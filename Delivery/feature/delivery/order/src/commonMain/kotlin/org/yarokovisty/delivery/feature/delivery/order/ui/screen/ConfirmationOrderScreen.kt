@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
+import delivery.design.resources.generated.resources.ic_close
 import delivery.feature.delivery.order.generated.resources.Res
-import delivery.feature.delivery.order.generated.resources.ic_close
 import delivery.feature.delivery.order.generated.resources.order_checkout_error
 import delivery.feature.delivery.order.generated.resources.order_topbar_title
 import kotlinx.coroutines.flow.Flow
@@ -42,6 +42,7 @@ import org.yarokovisty.delivery.feature.delivery.order.presentation.viewmodel.Co
 import org.yarokovisty.delivery.feature.delivery.order.ui.component.ConfirmationOrderContent
 import org.yarokovisty.delivery.feature.delivery.order.ui.component.ConfirmationOrderLinearStepIndicator
 import org.yarokovisty.delivery.util.flow.observe
+import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
 internal fun ConfirmationOrderScreen() {
@@ -101,7 +102,7 @@ private fun ConfirmationOrderScreen(
 private fun ConfirmationOrderTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.order_topbar_title),
-        navigationIcon = painterResource(Res.drawable.ic_close),
+        navigationIcon = painterResource(DrawableRes.drawable.ic_close),
         onClickNavIcon = onBackClick
     )
 }
