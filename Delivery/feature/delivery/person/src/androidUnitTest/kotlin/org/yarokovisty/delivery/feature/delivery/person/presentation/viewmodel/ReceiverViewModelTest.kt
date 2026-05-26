@@ -14,10 +14,12 @@ import org.yarokovisty.delivery.common.validation.error.NameValidationError
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
 import org.yarokovisty.delivery.common.validation.usecase.RuPhoneValidateUseCase
 import org.yarokovisty.delivery.common.validation.validator.NameValidator
+import org.yarokovisty.delivery.feature.delivery.person.navigation.PersonScreenType
 import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverRouter
 import org.yarokovisty.delivery.feature.delivery.person.presentation.intent.PersonIntent
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.NameFieldStatus
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.PhoneFieldStatus
+import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import org.yarokovisty.delivery.util.validation.validated.invalid
 import org.yarokovisty.delivery.util.validation.validated.valid
@@ -39,6 +41,7 @@ internal class ReceiverViewModelTest {
     private val personRepository: PersonRepository = mockk(relaxed = true)
     private val ruPhoneValidateUseCase: RuPhoneValidateUseCase = mockk()
     private val nameValidator: NameValidator = mockk()
+    private val phoneNumberFormatter: PhoneNumberFormatter = mockk()
     private val router: ReceiverRouter = mockk(relaxed = true)
 
     @get:Rule
@@ -50,6 +53,8 @@ internal class ReceiverViewModelTest {
             ruPhoneValidateUseCase = ruPhoneValidateUseCase,
             nameValidator = nameValidator,
             router = router,
+            phoneNumberFormatter = phoneNumberFormatter,
+            screenType = PersonScreenType.NEW,
             maxSteps = MAX_STEPS,
         )
 

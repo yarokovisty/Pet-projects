@@ -321,14 +321,14 @@ class CalculatorViewModelTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
         } returns options
-        every { calculatorRepository.setOption(selectedOption) } just runs
+        coEvery { calculatorRepository.setOption(selectedOption) } just runs
 
         val viewModel = createViewModel()
         advanceUntilIdle()
         viewModel.onIntent(CalculatorIntent.SelectOption(selectedOption))
         advanceUntilIdle()
 
-        verify(exactly = 1) { calculatorRepository.setOption(selectedOption) }
+        coVerify(exactly = 1) { calculatorRepository.setOption(selectedOption) }
     }
 
     @Test
@@ -337,7 +337,7 @@ class CalculatorViewModelTest {
         coEvery {
             calculatorRepository.getOptionList(parcelInfo, senderPoint, receiverPoint)
         } returns options
-        every { calculatorRepository.setOption(selectedOption) } just runs
+        coEvery { calculatorRepository.setOption(selectedOption) } just runs
 
         val viewModel = createViewModel()
         advanceUntilIdle()

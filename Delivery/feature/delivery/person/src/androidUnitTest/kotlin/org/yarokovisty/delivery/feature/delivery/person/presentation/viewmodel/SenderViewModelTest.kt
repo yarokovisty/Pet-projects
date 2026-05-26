@@ -17,6 +17,7 @@ import org.yarokovisty.delivery.common.validation.error.NameValidationError
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
 import org.yarokovisty.delivery.common.validation.usecase.RuPhoneValidateUseCase
 import org.yarokovisty.delivery.common.validation.validator.NameValidator
+import org.yarokovisty.delivery.feature.delivery.person.navigation.PersonScreenType
 import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderRouter
 import org.yarokovisty.delivery.feature.delivery.person.presentation.intent.PersonIntent
 import org.yarokovisty.delivery.feature.delivery.person.presentation.state.NameFieldStatus
@@ -61,6 +62,7 @@ internal class SenderViewModelTest {
             nameValidator = nameValidator,
             phoneNumberFormatter = phoneNumberFormatter,
             router = router,
+            screenType = PersonScreenType.NEW,
             maxSteps = MAX_STEPS,
         )
     }

@@ -12,6 +12,7 @@ import org.yarokovisty.delivery.common.delivery.point.domain.entity.Address
 import org.yarokovisty.delivery.common.delivery.point.domain.repository.AddressRepository
 import org.yarokovisty.delivery.common.validation.error.AddressValidationError
 import org.yarokovisty.delivery.common.validation.validator.AddressValidator
+import org.yarokovisty.delivery.feature.delivery.point.navigation.AddressScreenType
 import org.yarokovisty.delivery.feature.delivery.point.navigation.SenderAddressRouter
 import org.yarokovisty.delivery.feature.delivery.point.presentation.intent.SenderAddressIntent
 import org.yarokovisty.delivery.feature.delivery.point.presentation.state.FieldStatus
@@ -45,6 +46,7 @@ internal class SenderAddressViewModelTest {
             addressRepository = addressRepository,
             addressValidator = addressValidator,
             router = router,
+            screenType = AddressScreenType.NEW,
             maxSteps = MAX_STEPS,
         )
 
