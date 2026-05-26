@@ -59,7 +59,7 @@ private fun LoginScreen(
             TopBar(
                 title = stringResource(Res.string.login_topbar_title),
                 navigationIcon = painterResource(DrawableRes.drawable.ic_close),
-                onClickNavIcon = { onIntent(LoginIntent.Back) }
+                onNavIconClick = { onIntent(LoginIntent.Back) }
             )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },

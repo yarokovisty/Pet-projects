@@ -52,6 +52,6 @@ private fun ReceiverAddressTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.address_receiver_topbar_title),
         navigationIcon = painterResource(DrawableRes.drawable.ic_arrow_left),
-        onClickNavIcon = onBackClick
+        onNavIconClick = onBackClick
     )
 }

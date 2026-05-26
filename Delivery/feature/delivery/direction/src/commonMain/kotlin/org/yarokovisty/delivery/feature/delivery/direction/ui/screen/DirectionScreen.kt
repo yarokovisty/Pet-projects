@@ -56,7 +56,7 @@ private fun DirectionScreen(
             TopBar(
                 title = getTitle(state.directionType),
                 navigationIcon = painterResource(DrawableRes.drawable.ic_close),
-                onClickNavIcon = { onIntent(DirectionIntent.Back) }
+                onNavIconClick = { onIntent(DirectionIntent.Back) }
             )
         },
         containerColor = DeliveryTheme.colorScheme.bgPrimary

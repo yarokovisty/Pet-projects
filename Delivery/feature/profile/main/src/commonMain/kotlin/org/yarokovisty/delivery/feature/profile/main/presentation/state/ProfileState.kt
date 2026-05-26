@@ -7,7 +7,8 @@ import org.yarokovisty.delivery.core.common.presentation.State
 internal data class ProfileState(
     val loading: Boolean,
     val error: Boolean,
-    val content: ContentState?
+    val content: ContentState?,
+    val logoutScreenVisible: Boolean,
 ) : State
 
 internal data class ContentState(

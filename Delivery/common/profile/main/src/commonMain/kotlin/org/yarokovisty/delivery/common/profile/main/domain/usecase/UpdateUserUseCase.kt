@@ -11,6 +11,6 @@ class UpdateUserUseCase(
 
     suspend operator fun invoke(user: User) {
         val token = authRepository.getToken() ?: error("Token is null")
-        userRepository.updateUser(user, token)
+        userRepository.update(user, token)
     }
 }

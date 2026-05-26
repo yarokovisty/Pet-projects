@@ -1,11 +1,13 @@
 package org.yarokovisty.delivery.design.uikit
 
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.text.TitleH2
@@ -15,7 +17,9 @@ import org.yarokovisty.delivery.design.uikit.text.TitleH2
 fun TopBar(
     title: String,
     navigationIcon: Painter? = null,
-    onClickNavIcon: () -> Unit = {},
+    navigationIconTint: Color = DeliveryTheme.colorScheme.indicatorLight,
+    onNavIconClick: () -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {},
 ) {
     TopAppBar(
         title = {
@@ -23,28 +27,23 @@ fun TopBar(
         },
         navigationIcon = {
             if (navigationIcon != null) {
-                NavIcon(
-                    icon = navigationIcon,
-                    onClick = onClickNavIcon
-                )
+                NavIcon(icon = navigationIcon, tint = navigationIconTint, onClick = onNavIconClick)
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = DeliveryTheme.colorScheme.bgPrimary
-        )
+        ),
+        actions = actions
     )
 }
 
 @Composable
 private fun NavIcon(
     icon: Painter,
+    tint: Color,
     onClick: () -> Unit
 ) {
     IconButton(onClick = onClick) {
-        Icon(
-            painter = icon,
-            contentDescription = null,
-            tint = DeliveryTheme.colorScheme.indicatorLight
-        )
+        Icon(painter = icon, contentDescription = null, tint = tint)
     }
 }

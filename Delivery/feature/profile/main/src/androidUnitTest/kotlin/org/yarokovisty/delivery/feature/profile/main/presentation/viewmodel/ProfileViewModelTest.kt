@@ -3,12 +3,15 @@ package org.yarokovisty.delivery.feature.profile.main.presentation.viewmodel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import io.mockk.verify
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
+import org.yarokovisty.delivery.common.logout.domain.usecase.LogoutUseCase
 import org.yarokovisty.delivery.common.profile.main.domain.entity.User
 import org.yarokovisty.delivery.common.profile.main.domain.usecase.GetUserUseCase
 import org.yarokovisty.delivery.common.profile.main.domain.usecase.UpdateUserUseCase
@@ -24,11 +27,14 @@ import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import org.yarokovisty.delivery.util.validation.validated.invalid
 import org.yarokovisty.delivery.util.validation.validated.valid
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class ProfileViewModelTest {
 
     private val getUserUseCase: GetUserUseCase = mockk()
     private val updateUserUseCase: UpdateUserUseCase = mockk(relaxed = true)
+    private val logoutUseCase: LogoutUseCase = mockk(relaxed = true)
     private val emailValidator: EmailValidator = mockk()
     private val router = mockk<ProfileRouter>(relaxed = true)
 
@@ -47,6 +53,7 @@ class ProfileViewModelTest {
         ProfileViewModel(
             getUserUseCase,
             updateUserUseCase,
+            logoutUseCase,
             emailValidator,
             router
         )
@@ -350,5 +357,120 @@ class ProfileViewModelTest {
         advanceUntilIdle()
 
         verify { router.openDirectionScreen() }
+    }
+
+    @Test
+    fun `show logout screen intent EXPECT logout screen visible is true`() = runTest {
+        val user = User(
+            id = TEST_ID,
+            phone = TEST_PHONE,
+            firstname = null,
+            lastname = null,
+            middlename = null,
+            email = null,
+            city = null
+        )
+        coEvery { getUserUseCase() } returns user
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(ProfileIntent.ShowLogoutScreen)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.logoutScreenVisible
+        assertTrue(actual)
+    }
+
+    @Test
+    fun `close logout screen intent EXPECT logout screen visible is false`() = runTest {
+        val user = User(
+            id = TEST_ID,
+            phone = TEST_PHONE,
+            firstname = null,
+            lastname = null,
+            middlename = null,
+            email = null,
+            city = null
+        )
+        coEvery { getUserUseCase() } returns user
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(ProfileIntent.ShowLogoutScreen)
+        advanceUntilIdle()
+        viewModel.onIntent(ProfileIntent.CloseLogoutScreen)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.logoutScreenVisible
+        assertFalse(actual)
+    }
+
+    @Test
+    fun `confirm logout intent EXPECT logout use case called`() = runTest {
+        val user = User(
+            id = TEST_ID,
+            phone = TEST_PHONE,
+            firstname = null,
+            lastname = null,
+            middlename = null,
+            email = null,
+            city = null
+        )
+        coEvery { getUserUseCase() } returns user
+        coEvery { logoutUseCase() } just runs
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(ProfileIntent.ConfirmLogout)
+        advanceUntilIdle()
+
+        coVerify { logoutUseCase() }
+    }
+
+    @Test
+    fun `confirm logout intent EXPECT router opens delivery main tab`() = runTest {
+        val user = User(
+            id = TEST_ID,
+            phone = TEST_PHONE,
+            firstname = null,
+            lastname = null,
+            middlename = null,
+            email = null,
+            city = null
+        )
+        coEvery { getUserUseCase() } returns user
+        coEvery { logoutUseCase() } just runs
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(ProfileIntent.ConfirmLogout)
+        advanceUntilIdle()
+
+        verify { router.openDeliveryMainTab() }
+    }
+
+    @Test
+    fun `confirm logout intent EXPECT logout screen visible is false`() = runTest {
+        val user = User(
+            id = TEST_ID,
+            phone = TEST_PHONE,
+            firstname = null,
+            lastname = null,
+            middlename = null,
+            email = null,
+            city = null
+        )
+        coEvery { getUserUseCase() } returns user
+        coEvery { logoutUseCase() } just runs
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(ProfileIntent.ShowLogoutScreen)
+        advanceUntilIdle()
+        viewModel.onIntent(ProfileIntent.ConfirmLogout)
+        advanceUntilIdle()
+
+        val actual = viewModel.state.value.logoutScreenVisible
+        assertFalse(actual)
     }
 }

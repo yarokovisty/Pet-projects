@@ -7,7 +7,8 @@ internal fun initial() =
     ProfileState(
         loading = false,
         error = false,
-        content = null
+        content = null,
+        logoutScreenVisible = false,
     )
 
 internal fun loadingState() =
@@ -37,6 +38,7 @@ internal fun ProfileState.contentState(user: User) =
         )
     )
 
+// TODO(заменить на использование форматера)
 private fun String.formatPhone(): String =
     replace(Regex("(\\d)(\\d{3})(\\d{3})(\\d{2})(\\d{2})"), "+$1 $2 $3 $4 $5")
 
@@ -94,3 +96,6 @@ internal fun ContentState.getUpdatedUser(): User =
         email = email.text.ifEmpty { null },
         city = city.ifEmpty { null },
     )
+
+internal fun ProfileState.updateLogoutScreenVisibility(visible: Boolean) =
+    copy(logoutScreenVisible = visible)

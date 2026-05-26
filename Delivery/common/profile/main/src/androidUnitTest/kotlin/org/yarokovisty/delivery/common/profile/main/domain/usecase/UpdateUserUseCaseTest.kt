@@ -38,11 +38,11 @@ class UpdateUserUseCaseTest {
             city = TEST_CITY
         )
         coEvery { authRepository.getToken() } returns TEST_TOKEN
-        coEvery { userRepository.updateUser(user, TEST_TOKEN) } returns Unit
+        coEvery { userRepository.update(user, TEST_TOKEN) } returns Unit
 
         useCase(user)
 
-        coVerify { userRepository.updateUser(user, TEST_TOKEN) }
+        coVerify { userRepository.update(user, TEST_TOKEN) }
     }
 
     @Test
@@ -57,7 +57,7 @@ class UpdateUserUseCaseTest {
             city = TEST_CITY
         )
         coEvery { authRepository.getToken() } returns TEST_TOKEN
-        coEvery { userRepository.updateUser(user, TEST_TOKEN) } returns Unit
+        coEvery { userRepository.update(user, TEST_TOKEN) } returns Unit
 
         useCase(user)
 
@@ -97,7 +97,7 @@ class UpdateUserUseCaseTest {
 
         assertFailsWith<IllegalStateException> { useCase(user) }
 
-        coVerify(exactly = 0) { userRepository.updateUser(any(), any()) }
+        coVerify(exactly = 0) { userRepository.update(any(), any()) }
     }
 
     @Test
@@ -112,10 +112,10 @@ class UpdateUserUseCaseTest {
             city = null
         )
         coEvery { authRepository.getToken() } returns TEST_TOKEN
-        coEvery { userRepository.updateUser(user, TEST_TOKEN) } returns Unit
+        coEvery { userRepository.update(user, TEST_TOKEN) } returns Unit
 
         useCase(user)
 
-        coVerify { userRepository.updateUser(user, TEST_TOKEN) }
+        coVerify { userRepository.update(user, TEST_TOKEN) }
     }
 }

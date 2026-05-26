@@ -37,7 +37,7 @@ class GetUserUseCaseTest {
             email = TEST_EMAIL,
             city = null
         )
-        coEvery { userRepository.getUserFromLocal() } returns localUser
+        coEvery { userRepository.getFromLocal() } returns localUser
 
         val actual = useCase()
 
@@ -55,11 +55,11 @@ class GetUserUseCaseTest {
             email = TEST_EMAIL,
             city = null
         )
-        coEvery { userRepository.getUserFromLocal() } returns localUser
+        coEvery { userRepository.getFromLocal() } returns localUser
 
         useCase()
 
-        coVerify(exactly = 0) { userRepository.getUserFromNetwork(any()) }
+        coVerify(exactly = 0) { userRepository.getFromNetwork(any()) }
     }
 
     @Test
@@ -73,7 +73,7 @@ class GetUserUseCaseTest {
             email = TEST_EMAIL,
             city = null
         )
-        coEvery { userRepository.getUserFromLocal() } returns localUser
+        coEvery { userRepository.getFromLocal() } returns localUser
 
         useCase()
 
@@ -91,9 +91,9 @@ class GetUserUseCaseTest {
             email = TEST_EMAIL,
             city = null
         )
-        coEvery { userRepository.getUserFromLocal() } returns null
+        coEvery { userRepository.getFromLocal() } returns null
         coEvery { authRepository.getToken() } returns TEST_TOKEN
-        coEvery { userRepository.getUserFromNetwork(TEST_TOKEN) } returns networkUser
+        coEvery { userRepository.getFromNetwork(TEST_TOKEN) } returns networkUser
 
         val actual = useCase()
 
@@ -111,18 +111,18 @@ class GetUserUseCaseTest {
             email = TEST_EMAIL,
             city = null
         )
-        coEvery { userRepository.getUserFromLocal() } returns null
+        coEvery { userRepository.getFromLocal() } returns null
         coEvery { authRepository.getToken() } returns TEST_TOKEN
-        coEvery { userRepository.getUserFromNetwork(TEST_TOKEN) } returns networkUser
+        coEvery { userRepository.getFromNetwork(TEST_TOKEN) } returns networkUser
 
         useCase()
 
-        coVerify { userRepository.getUserFromNetwork(TEST_TOKEN) }
+        coVerify { userRepository.getFromNetwork(TEST_TOKEN) }
     }
 
     @Test
     fun `invoke when local is null and token is null EXPECT null returned`() = runTest {
-        coEvery { userRepository.getUserFromLocal() } returns null
+        coEvery { userRepository.getFromLocal() } returns null
         coEvery { authRepository.getToken() } returns null
 
         val actual = useCase()
@@ -132,11 +132,11 @@ class GetUserUseCaseTest {
 
     @Test
     fun `invoke when local is null and token is null EXPECT network not called`() = runTest {
-        coEvery { userRepository.getUserFromLocal() } returns null
+        coEvery { userRepository.getFromLocal() } returns null
         coEvery { authRepository.getToken() } returns null
 
         useCase()
 
-        coVerify(exactly = 0) { userRepository.getUserFromNetwork(any()) }
+        coVerify(exactly = 0) { userRepository.getFromNetwork(any()) }
     }
 }

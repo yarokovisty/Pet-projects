@@ -8,7 +8,7 @@ fun PersonInfoResponse.toItem(): PersonInfo =
     PersonInfo(
         firstname = firstname,
         lastname = lastname,
-        middlename = middlename.ifEmpty { null },
+        middlename = middlename?.ifEmpty { null },
         phone = phone
     )
 

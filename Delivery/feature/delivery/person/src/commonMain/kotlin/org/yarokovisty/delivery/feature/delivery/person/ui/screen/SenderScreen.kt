@@ -52,6 +52,6 @@ private fun SenderTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.sender_topbar_title),
         navigationIcon = painterResource(DrawableRes.drawable.ic_arrow_left),
-        onClickNavIcon = onBackClick
+        onNavIconClick = onBackClick
     )
 }

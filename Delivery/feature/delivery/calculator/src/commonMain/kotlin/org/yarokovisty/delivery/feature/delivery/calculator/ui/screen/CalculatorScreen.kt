@@ -76,6 +76,6 @@ private fun CalculatorTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.calculator_topbar_title),
         navigationIcon = painterResource(DrawableRes.drawable.ic_close),
-        onClickNavIcon = onBackClick
+        onNavIconClick = onBackClick
     )
 }

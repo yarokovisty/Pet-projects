@@ -10,7 +10,7 @@ data class PersonInfoResponse(
     @SerialName("lastname")
     val lastname: String,
     @SerialName("middlename")
-    val middlename: String,
+    val middlename: String? = null,
     @SerialName("phone")
     val phone: String
 )

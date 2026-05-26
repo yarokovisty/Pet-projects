@@ -16,4 +16,8 @@
 
     <string name="user_update_data_success">Данные успешно обновлены</string>
     <string name="user_update_data_error">Не удалось обновить данные</string>
+
+    <string name="profile_logout_title">Вы точно хотите выйти?</string>
+    <string name="profile_logout_cancel_button">Отменить</string>
+    <string name="profile_logout_confirm_button">Выйти</string>
 </resources>

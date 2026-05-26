@@ -64,6 +64,26 @@ class BottomBarBackStack(startTab: Tab) {
         }
     }
 
+    fun newRoot(destination: Destination) {
+        when (destination) {
+            is Tab -> newRootTab(destination)
+            is Screen -> newRootScreen(destination)
+        }
+    }
+
+    private fun newRootTab(tab: Tab) {
+        tabContainer.clear()
+        tabContainer[tab] = mutableStateListOf(tab.startDestination)
+        currentTab = tab
+        updateBranchBackstack()
+    }
+
+    private fun newRootScreen(screen: Screen) {
+        currentTabBackstack.clear()
+        currentTabBackstack.add(screen)
+        updateBranchBackstack()
+    }
+
     private fun updateBranchBackstack() {
         backStack.apply {
             clear()

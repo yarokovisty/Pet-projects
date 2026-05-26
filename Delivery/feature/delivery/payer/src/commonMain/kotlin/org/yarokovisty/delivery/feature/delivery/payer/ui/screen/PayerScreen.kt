@@ -50,6 +50,6 @@ private fun PayerTopBar(onBackClick: () -> Unit) {
     TopBar(
         title = stringResource(Res.string.payer_topbar_title),
         navigationIcon = painterResource(DrawableRes.drawable.ic_arrow_left),
-        onClickNavIcon = onBackClick
+        onNavIconClick = onBackClick
     )
 }

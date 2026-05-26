@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBars
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -12,12 +14,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import delivery.design.resources.generated.resources.ic_exit
 import delivery.feature.profile.main.generated.resources.Res
 import delivery.feature.profile.main.generated.resources.profile_topbar_title
 import delivery.feature.profile.main.generated.resources.user_update_data_error
 import delivery.feature.profile.main.generated.resources.user_update_data_success
 import kotlinx.coroutines.flow.Flow
 import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
@@ -32,8 +36,8 @@ import org.yarokovisty.delivery.feature.profile.main.ui.component.LoadingScreen
 import org.yarokovisty.delivery.feature.profile.main.ui.component.ProfileContent
 import org.yarokovisty.delivery.feature.profile.main.ui.component.ProfileSnacbarHost
 import org.yarokovisty.delivery.util.flow.observe
+import delivery.design.resources.generated.resources.Res as designRes
 
-// TODO добавить возможность выходить из профиля
 @Composable
 internal fun ProfileScreen() {
     val viewModel = koinViewModel<ProfileViewModel>()
@@ -56,7 +60,7 @@ private fun ProfileScreen(
         paddingValues = WindowInsets.statusBars.asPaddingValues(),
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            TopBar(title = stringResource(Res.string.profile_topbar_title))
+            ProfileTopBar(onExitClick = { onIntent(ProfileIntent.ShowLogoutScreen) })
 
             when {
                 state.loading -> LoadingScreen()
@@ -64,6 +68,8 @@ private fun ProfileScreen(
                 state.content != null -> ProfileContent(state.content, onIntent)
             }
         }
+
+        LogoutScreen(state.logoutScreenVisible, onIntent)
 
         ProfileSnacbarHost(
             successSnackbarHostState = successSnackbarHostState,
@@ -84,5 +90,26 @@ private fun ProfileScreen(
                 errorSnackbarHostState.showSnackbar(message)
             }
         }
+    }
+}
+
+@Composable
+private fun ProfileTopBar(onExitClick: () -> Unit) {
+    TopBar(
+        title = stringResource(Res.string.profile_topbar_title),
+        actions = {
+            TopBarActions(onExitClick = onExitClick)
+        }
+    )
+}
+
+@Composable
+private fun TopBarActions(onExitClick: () -> Unit) {
+    IconButton(onClick = onExitClick) {
+        Icon(
+            painter = painterResource(designRes.drawable.ic_exit),
+            contentDescription = null,
+            tint = DeliveryTheme.colorScheme.brandIndicator
+        )
     }
 }

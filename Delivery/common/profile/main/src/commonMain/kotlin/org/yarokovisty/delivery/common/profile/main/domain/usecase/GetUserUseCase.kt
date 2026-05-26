@@ -10,10 +10,10 @@ class GetUserUseCase(
 ) {
 
     suspend operator fun invoke(): User? =
-        userRepository.getUserFromLocal() ?: getUserFromNetwork()
+        userRepository.getFromLocal() ?: getUserFromNetwork()
 
     private suspend fun getUserFromNetwork(): User? {
         val token = authRepository.getToken() ?: return null
-        return userRepository.getUserFromNetwork(token)
+        return userRepository.getFromNetwork(token)
     }
 }

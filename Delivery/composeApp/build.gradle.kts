@@ -50,6 +50,7 @@ kotlin {
             implementation(projects.common.delivery.person)
             implementation(projects.common.delivery.point)
             implementation(projects.common.delivery.step)
+            implementation(projects.common.logout)
             implementation(projects.common.profile.main)
             implementation(projects.common.validation)
             implementation(projects.core.common.coroutines)

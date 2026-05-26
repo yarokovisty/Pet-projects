@@ -4,9 +4,11 @@ import org.yarokovisty.delivery.common.profile.main.domain.entity.User
 
 interface UserRepository {
 
-    suspend fun getUserFromLocal(): User?
+    suspend fun getFromLocal(): User?
 
-    suspend fun getUserFromNetwork(token: String): User
+    suspend fun getFromNetwork(token: String): User
 
-    suspend fun updateUser(user: User, token: String)
+    suspend fun update(user: User, token: String)
+
+    suspend fun clear()
 }

@@ -52,7 +52,7 @@ class UserRepositoryImplTest {
         )
         coEvery { localDataSource.get() } returns cachedUser
 
-        val actual = repository.getUserFromLocal()
+        val actual = repository.getFromLocal()
 
         assertEquals(cachedUser, actual)
     }
@@ -61,7 +61,7 @@ class UserRepositoryImplTest {
     fun `get user from local when no data EXPECT null returned`() = runTest {
         coEvery { localDataSource.get() } returns null
 
-        val actual = repository.getUserFromLocal()
+        val actual = repository.getFromLocal()
 
         assertNull(actual)
     }
@@ -70,7 +70,7 @@ class UserRepositoryImplTest {
     fun `get user from local EXPECT local data source get called`() = runTest {
         coEvery { localDataSource.get() } returns null
 
-        repository.getUserFromLocal()
+        repository.getFromLocal()
 
         coVerify { localDataSource.get() }
     }
@@ -94,7 +94,7 @@ class UserRepositoryImplTest {
         )
         coEvery { remoteDataSource.getUser(TEST_TOKEN) } returns sessionResponse
 
-        repository.getUserFromNetwork(TEST_TOKEN)
+        repository.getFromNetwork(TEST_TOKEN)
 
         coVerify { remoteDataSource.getUser(TEST_TOKEN) }
     }
@@ -123,7 +123,7 @@ class UserRepositoryImplTest {
         )
         coEvery { remoteDataSource.getUser(TEST_TOKEN) } returns sessionResponse
 
-        val actual = repository.getUserFromNetwork(TEST_TOKEN)
+        val actual = repository.getFromNetwork(TEST_TOKEN)
 
         assertEquals(expectedUser, actual)
     }
@@ -152,7 +152,7 @@ class UserRepositoryImplTest {
         )
         coEvery { remoteDataSource.getUser(TEST_TOKEN) } returns sessionResponse
 
-        val actual = repository.getUserFromNetwork(TEST_TOKEN)
+        val actual = repository.getFromNetwork(TEST_TOKEN)
 
         assertEquals(expectedUser, actual)
     }
@@ -196,7 +196,7 @@ class UserRepositoryImplTest {
         coEvery { remoteDataSource.updateUser(any(), any()) } returns mockResponse
         coEvery { localDataSource.save(any()) } just runs
 
-        repository.updateUser(user, TEST_TOKEN)
+        repository.update(user, TEST_TOKEN)
 
         coVerify { remoteDataSource.updateUser(expectedRequest, TEST_TOKEN) }
     }
@@ -226,7 +226,7 @@ class UserRepositoryImplTest {
         coEvery { remoteDataSource.updateUser(any(), any()) } returns mockResponse
         coEvery { localDataSource.save(any()) } just runs
 
-        repository.updateUser(user, TEST_TOKEN)
+        repository.update(user, TEST_TOKEN)
 
         coVerify { localDataSource.save(user) }
     }
@@ -261,7 +261,7 @@ class UserRepositoryImplTest {
         coEvery { remoteDataSource.updateUser(any(), any()) } returns mockResponse
         coEvery { localDataSource.save(any()) } just runs
 
-        repository.updateUser(user, TEST_TOKEN)
+        repository.update(user, TEST_TOKEN)
 
         coVerify { remoteDataSource.updateUser(expectedRequest, TEST_TOKEN) }
     }
@@ -286,9 +286,22 @@ class UserRepositoryImplTest {
         coEvery { remoteDataSource.updateUser(any(), any()) } returns mockResponse
         coEvery { localDataSource.save(any()) } just runs
 
-        repository.updateUser(user, TEST_TOKEN)
+        repository.update(user, TEST_TOKEN)
 
         coVerify { localDataSource.save(user) }
+    }
+
+    // endregion
+
+    // region clear
+
+    @Test
+    fun `clear EXPECT local data source remove called`() = runTest {
+        coEvery { localDataSource.remove() } just runs
+
+        repository.clear()
+
+        coVerify { localDataSource.remove() }
     }
 
     // endregion

@@ -16,4 +16,8 @@ internal class UserLocalDataSource(private val storage: PreferencesStorage) {
     suspend fun save(user: User) {
         storage.putObject(USER_KEY, user, User.serializer())
     }
+
+    suspend fun remove() {
+        storage.remove(USER_KEY)
+    }
 }

@@ -22,6 +22,7 @@ kotlin {
             implementation(projects.common.auth)
             implementation(projects.core.common.presentation)
             implementation(projects.common.delivery.direction)
+            implementation(projects.common.logout)
             implementation(projects.common.profile.main)
             implementation(projects.common.validation)
             implementation(projects.core.network)
@@ -50,4 +51,8 @@ kotlin {
 
 android {
     namespace = "org.yarokovisty.delivery.feature.profile.main"
+}
+
+dependencies {
+    debugImplementation(libs.compose.uiTooling)
 }

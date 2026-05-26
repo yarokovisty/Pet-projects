@@ -1,6 +1,7 @@
 package org.yarokovisty.delivery.feature.profile.main.presentation.viewmodel
 
 import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
+import org.yarokovisty.delivery.common.logout.domain.usecase.LogoutUseCase
 import org.yarokovisty.delivery.common.profile.main.domain.usecase.GetUserUseCase
 import org.yarokovisty.delivery.common.profile.main.domain.usecase.UpdateUserUseCase
 import org.yarokovisty.delivery.common.validation.validator.EmailValidator
@@ -21,6 +22,7 @@ import org.yarokovisty.delivery.feature.profile.main.presentation.state.getUpdat
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.initial
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.invalidEmailField
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.loadingState
+import org.yarokovisty.delivery.feature.profile.main.presentation.state.updateLogoutScreenVisibility
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.updateUserErrorState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.updateUserSuccessState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.validEmailField
@@ -29,12 +31,28 @@ import org.yarokovisty.delivery.util.validation.validated.fold
 internal class ProfileViewModel(
     private val getUserUseCase: GetUserUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
+    private val logoutUseCase: LogoutUseCase,
     private val emailValidator: EmailValidator,
     private val router: ProfileRouter,
 ) : BaseViewModel<ProfileState, ProfileIntent, ProfileEvent>(initial()) {
 
     init {
         loadData()
+    }
+
+    override fun onIntent(intent: ProfileIntent) {
+        when (intent) {
+            is ProfileIntent.ClickCity -> clickCity()
+            is ProfileIntent.ClickUpdateData -> updateData()
+            is ProfileIntent.CloseLogoutScreen -> changeLogoutScreenVisibility(visible = false)
+            is ProfileIntent.ConfirmLogout -> logout()
+            is ProfileIntent.InputEmail -> changeEmail(intent.email)
+            is ProfileIntent.InputFirstname -> changeFirstname(intent.firstname)
+            is ProfileIntent.InputLastname -> changeLastname(intent.lastname)
+            is ProfileIntent.InputMiddlename -> changeMiddlename(intent.middlename)
+            is ProfileIntent.LoadData -> loadData()
+            is ProfileIntent.ShowLogoutScreen -> changeLogoutScreenVisibility(visible = true)
+        }
     }
 
     private fun loadData() {
@@ -49,18 +67,6 @@ internal class ProfileViewModel(
 
     private fun handleError() {
         updateState { errorState() }
-    }
-
-    override fun onIntent(intent: ProfileIntent) {
-        when (intent) {
-            is ProfileIntent.ClickCity -> clickCity()
-            is ProfileIntent.ClickUpdateData -> updateData()
-            is ProfileIntent.InputEmail -> changeEmail(intent.email)
-            is ProfileIntent.InputFirstname -> changeFirstname(intent.firstname)
-            is ProfileIntent.InputLastname -> changeLastname(intent.lastname)
-            is ProfileIntent.InputMiddlename -> changeMiddlename(intent.middlename)
-            is ProfileIntent.LoadData -> loadData()
-        }
     }
 
     private fun clickCity() {
@@ -122,5 +128,18 @@ internal class ProfileViewModel(
 
     private fun changeMiddlename(middlename: String) {
         updateState { changeMiddlenameField(middlename) }
+    }
+
+    private fun changeLogoutScreenVisibility(visible: Boolean) {
+        updateState { updateLogoutScreenVisibility(visible) }
+    }
+
+    private fun logout() {
+        updateState { updateLogoutScreenVisibility(false) }
+
+        launch {
+            logoutUseCase()
+            router.openDeliveryMainTab()
+        }
     }
 }

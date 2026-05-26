@@ -10,6 +10,7 @@ import org.yarokovisty.delivery.common.delivery.payer.di.deliveryPayerModule
 import org.yarokovisty.delivery.common.delivery.person.di.deliveryPersonModule
 import org.yarokovisty.delivery.common.delivery.point.di.deliveryPointModule
 import org.yarokovisty.delivery.common.delivery.step.deliveryStepModule
+import org.yarokovisty.delivery.common.logout.di.logoutModule
 import org.yarokovisty.delivery.common.profile.main.di.profileMainModule
 import org.yarokovisty.delivery.common.validation.di.validationModule
 
@@ -24,6 +25,7 @@ val commonModule = module {
         deliveryPersonModule,
         deliveryPointModule,
         deliveryStepModule,
+        logoutModule,
         profileMainModule,
         validationModule
     )

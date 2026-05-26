@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
-// Убрать везде fillMaxWidth
+// TODO Убрать везде fillMaxWidth
 @Composable
 fun PrimaryButton(
     text: String,
@@ -63,7 +63,7 @@ fun PrimaryButton(
 
 @Preview
 @Composable
-fun PrimaryButtonPreview() {
+private fun PrimaryButtonPreview() {
     DeliveryTheme {
         PrimaryButton(text = "PrimaryButton", onClick = {})
     }
