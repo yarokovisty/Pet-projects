@@ -22,7 +22,6 @@ import delivery.feature.delivery.main.generated.resources.calculator_card_point_
 import delivery.feature.delivery.main.generated.resources.calculator_card_title
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.button.PrimaryButton
 import org.yarokovisty.delivery.design.uikit.selector.SelectCategory
 import org.yarokovisty.delivery.design.uikit.text.TitleH2

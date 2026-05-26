@@ -14,7 +14,6 @@ import delivery.feature.delivery.payer.generated.resources.payer_receiver_text
 import delivery.feature.delivery.payer.generated.resources.payer_sender_text
 import org.jetbrains.compose.resources.stringResource
 import org.yarokovisty.delivery.common.delivery.payer.domain.entity.Payer
-import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.button.PrimaryButton
 import org.yarokovisty.delivery.design.uikit.selector.RadioGroup
 import org.yarokovisty.delivery.design.uikit.text.Paragraph16Regular
