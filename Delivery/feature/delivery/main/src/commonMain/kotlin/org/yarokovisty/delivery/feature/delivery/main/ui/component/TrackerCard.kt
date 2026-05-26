@@ -29,7 +29,7 @@ internal fun TrackerCard(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Title()
+            TitleH2(text = stringResource(Res.string.tracker_card_title))
 
             ParcelIdInput(
                 text = state.inputIdParcel,
@@ -42,11 +42,6 @@ internal fun TrackerCard(
             )
         }
     }
-}
-
-@Composable
-private fun Title() {
-    TitleH2(text = stringResource(Res.string.tracker_card_title), color = DeliveryTheme.colorScheme.textPrimary)
 }
 
 @Composable

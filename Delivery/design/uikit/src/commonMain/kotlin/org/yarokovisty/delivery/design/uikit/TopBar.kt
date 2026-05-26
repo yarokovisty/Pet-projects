@@ -19,7 +19,7 @@ fun TopBar(
 ) {
     TopAppBar(
         title = {
-            Title(title)
+            TitleH2(text = title)
         },
         navigationIcon = {
             if (navigationIcon != null) {
@@ -32,14 +32,6 @@ fun TopBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = DeliveryTheme.colorScheme.bgPrimary
         )
-    )
-}
-
-@Composable
-private fun Title(value: String) {
-    TitleH2(
-        text = value,
-        color = DeliveryTheme.colorScheme.textPrimary
     )
 }
 

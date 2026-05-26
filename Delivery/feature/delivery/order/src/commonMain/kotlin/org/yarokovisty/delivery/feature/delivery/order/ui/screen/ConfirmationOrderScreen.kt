@@ -114,7 +114,7 @@ private fun ErrorSnackbar(text: String) {
         modifier = Modifier.padding(8.dp)
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
-            Paragraph14Regular(text = text, color = DeliveryTheme.colorScheme.textPrimary)
+            Paragraph14Regular(text)
         }
     }
 }

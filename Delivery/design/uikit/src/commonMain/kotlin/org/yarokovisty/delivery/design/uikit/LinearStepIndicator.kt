@@ -27,18 +27,13 @@ fun LinearStepIndicator(
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         if (title != null) {
-            Title(title)
+            Paragraph14Regular(text = title)
 
             VerticalGap(8.dp)
         }
 
         StepIndicator(step, maxSteps, contentColor, containerColor)
     }
-}
-
-@Composable
-private fun Title(text: String) {
-    Paragraph14Regular(text = text, color = DeliveryTheme.colorScheme.textPrimary)
 }
 
 @Composable

@@ -163,19 +163,11 @@ private fun UpperTextContainer(
 ) {
     Column {
         if (title != null) {
-            Title(title)
+            Paragraph14Regular(text = title)
         }
 
         VerticalGap(6.dp)
     }
-}
-
-@Composable
-private fun Title(text: String) {
-    Paragraph14Regular(
-        text = text,
-        color = DeliveryTheme.colorScheme.textPrimary
-    )
 }
 
 @Composable

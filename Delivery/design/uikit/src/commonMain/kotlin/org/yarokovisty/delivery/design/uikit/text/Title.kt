@@ -11,7 +11,7 @@ import org.yarokovisty.delivery.design.theme.DeliveryTheme
 @Composable
 fun TitleH1(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {
@@ -27,7 +27,7 @@ fun TitleH1(
 @Composable
 fun TitleH2(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {
@@ -43,7 +43,7 @@ fun TitleH2(
 @Composable
 fun TitleH3(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {
@@ -59,7 +59,7 @@ fun TitleH3(
 @Composable
 fun TitleSubtitle(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {

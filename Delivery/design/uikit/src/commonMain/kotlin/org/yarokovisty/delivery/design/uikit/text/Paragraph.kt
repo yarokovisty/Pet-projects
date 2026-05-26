@@ -8,11 +8,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
-// TODO установить по умолчанию цвет текста
 @Composable
 fun Paragraph12Regular(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {
@@ -28,7 +27,7 @@ fun Paragraph12Regular(
 @Composable
 fun Paragraph14Regular(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {
@@ -44,7 +43,7 @@ fun Paragraph14Regular(
 @Composable
 fun Paragraph14Medium(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {
@@ -60,7 +59,7 @@ fun Paragraph14Medium(
 @Composable
 fun Paragraph14RegularUnderline(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {
@@ -76,7 +75,7 @@ fun Paragraph14RegularUnderline(
 @Composable
 fun Paragraph16Regular(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {
@@ -92,7 +91,7 @@ fun Paragraph16Regular(
 @Composable
 fun Paragraph16Medium(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {
@@ -108,7 +107,7 @@ fun Paragraph16Medium(
 @Composable
 fun Paragraph16MediumUnderline(
     text: String,
-    color: Color = Color.Unspecified,
+    color: Color = DeliveryTheme.colorScheme.textPrimary,
     textAlign: TextAlign? = null,
     modifier: Modifier = Modifier
 ) {

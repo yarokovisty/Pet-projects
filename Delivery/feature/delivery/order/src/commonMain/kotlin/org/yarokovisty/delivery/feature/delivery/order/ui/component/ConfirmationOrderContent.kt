@@ -91,10 +91,7 @@ private fun DetailType.getIntent(): ConfirmationOrderIntent =
 
 @Composable
 private fun Summary(price: Double) {
-    TitleH3(
-        text = stringResource(Res.string.order_delivery_cost, price),
-        color = DeliveryTheme.colorScheme.textPrimary
-    )
+    TitleH3(text = stringResource(Res.string.order_delivery_cost, price))
 }
 
 @Composable

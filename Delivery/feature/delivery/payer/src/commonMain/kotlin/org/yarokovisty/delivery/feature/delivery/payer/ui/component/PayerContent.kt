@@ -32,7 +32,7 @@ internal fun PayerContent(
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
     ) {
-        QuestionTitle()
+        Paragraph16Regular(text = stringResource(Res.string.payer_question_select_text))
 
         PayerRadioGroup(
             selectedPayer = state.selectedPayer,
@@ -42,14 +42,6 @@ internal fun PayerContent(
 
         ContinueButton(onClick = { onIntent(PayerIntent.ClickContinue) })
     }
-}
-
-@Composable
-private fun QuestionTitle() {
-    Paragraph16Regular(
-        text = stringResource(Res.string.payer_question_select_text),
-        color = DeliveryTheme.colorScheme.textPrimary
-    )
 }
 
 @Composable

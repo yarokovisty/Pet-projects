@@ -29,7 +29,6 @@ internal fun SelectParcelTypeContent(
         item {
             TitleH3(
                 text = stringResource(Res.string.parcel_type_title),
-                color = DeliveryTheme.colorScheme.textPrimary,
                 modifier = Modifier.padding(start = 16.dp, top = 0.dp, end = 16.dp, bottom = 16.dp)
             )
         }
@@ -62,10 +61,7 @@ private fun ParcelTypeItem(
             parcelInfo.height
         )
 
-        Paragraph16Regular(
-            text = text,
-            color = DeliveryTheme.colorScheme.textPrimary
-        )
+        Paragraph16Regular(text)
     }
 }
 

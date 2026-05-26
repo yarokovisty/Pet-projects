@@ -63,11 +63,7 @@ private fun ProfileSnackbar(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Paragraph14Regular(
-                text = text,
-                color = DeliveryTheme.colorScheme.textPrimary,
-                modifier = Modifier.weight(1f)
-            )
+            Paragraph14Regular(text = text, modifier = Modifier.weight(1f))
 
             Icon(
                 painter = icon,

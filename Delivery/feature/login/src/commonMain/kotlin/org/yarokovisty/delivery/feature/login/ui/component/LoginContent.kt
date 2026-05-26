@@ -36,9 +36,8 @@ internal fun LoginContent(
             .padding(start = 16.dp, top = 24.dp, end = 16.dp, bottom = 16.dp)
     ) {
         Paragraph16Regular(
+            text = stringResource(Res.string.login_description),
             modifier = Modifier.fillMaxWidth(),
-            color = DeliveryTheme.colorScheme.textPrimary,
-            text = stringResource(Res.string.login_description)
         )
 
         VerticalGap(24.dp)

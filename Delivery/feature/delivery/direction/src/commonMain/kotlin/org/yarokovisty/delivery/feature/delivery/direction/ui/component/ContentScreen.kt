@@ -47,11 +47,7 @@ private fun DeliveryPointItem(
             .clickable(onClick = onClick)
             .padding(16.dp)
     ) {
-        Paragraph16Regular(
-            text = point.name,
-            color = DeliveryTheme.colorScheme.textPrimary,
-            modifier = Modifier.weight(1f)
-        )
+        Paragraph16Regular(text = point.name, modifier = Modifier.weight(1f))
 
         Icon(
             painter = painterResource(Res.drawable.ic_arrow_small_right),

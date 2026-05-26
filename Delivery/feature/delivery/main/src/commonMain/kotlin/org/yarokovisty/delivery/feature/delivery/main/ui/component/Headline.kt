@@ -16,10 +16,7 @@ import org.yarokovisty.delivery.design.uikit.text.TitleSubtitle
 @Composable
 internal fun Headline() {
     Column {
-        TitleH1(
-            text = stringResource(Res.string.title_screen),
-            color = DeliveryTheme.colorScheme.textPrimary
-        )
+        TitleH1(text = stringResource(Res.string.title_screen))
 
         VerticalGap(8.dp)
 

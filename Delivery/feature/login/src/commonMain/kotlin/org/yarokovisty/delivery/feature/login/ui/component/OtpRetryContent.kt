@@ -37,7 +37,6 @@ internal fun OtpRetryContent(
 private fun OtpRetryText(onClick: () -> Unit) {
     Paragraph16MediumUnderline(
         text = stringResource(Res.string.login_otp_code_retry_text),
-        color = DeliveryTheme.colorScheme.textPrimary,
         modifier = Modifier.clickable(onClick = onClick)
     )
 }

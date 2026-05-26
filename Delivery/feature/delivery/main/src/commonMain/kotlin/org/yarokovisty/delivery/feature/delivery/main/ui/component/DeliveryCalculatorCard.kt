@@ -60,7 +60,6 @@ internal fun DeliveryCalculatorCard(
 private fun ColumnScope.Title() {
     TitleH2(
         text = stringResource(Res.string.calculator_card_title),
-        color = DeliveryTheme.colorScheme.textPrimary,
         modifier = Modifier.align(Alignment.CenterHorizontally)
     )
 }

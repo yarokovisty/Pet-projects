@@ -73,11 +73,7 @@ private fun Title(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
-        Paragraph16Medium(
-            text = title,
-            color = DeliveryTheme.colorScheme.textPrimary,
-            modifier = Modifier.weight(1f),
-        )
+        Paragraph16Medium(text = title, modifier = Modifier.weight(1f))
 
         Icon(
             painter = painterResource(Res.drawable.ic_edit),
