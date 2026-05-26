@@ -2,9 +2,7 @@ package org.yarokovisty.delivery.common.delivery.calculator.data.repository
 
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.test.runTest
 import org.yarokovisty.delivery.common.delivery.calculator.data.datasource.CalculatorLocalDataSource
 import org.yarokovisty.delivery.common.delivery.calculator.data.datasource.CalculatorRemoteDataSource
@@ -91,9 +89,9 @@ class CalculatorRepositoryImplTest {
     }
 
     @Test
-    fun `get option when option is set EXPECT option`() {
+    fun `get option when option is set EXPECT option`() = runTest {
         val expected = Option(id = "opt-1", price = 500.0, days = 3, type = OptionType.DEFAULT)
-        every { localDataSource.getOption() } returns expected
+        coEvery { localDataSource.getOption() } returns expected
 
         val actual = repository.getOption()
 
@@ -101,8 +99,8 @@ class CalculatorRepositoryImplTest {
     }
 
     @Test
-    fun `get option when option is not set EXPECT null`() {
-        every { localDataSource.getOption() } returns null
+    fun `get option when option is not set EXPECT null`() = runTest {
+        coEvery { localDataSource.getOption() } returns null
 
         val actual = repository.getOption()
 
@@ -110,11 +108,11 @@ class CalculatorRepositoryImplTest {
     }
 
     @Test
-    fun `set option EXPECT invoke local data source`() {
+    fun `set option EXPECT invoke local data source`() = runTest {
         val option = Option(id = "opt-1", price = 500.0, days = 3, type = OptionType.DEFAULT)
 
         repository.setOption(option)
 
-        verify { localDataSource.setOption(option) }
+        coVerify { localDataSource.setOption(option) }
     }
 }
