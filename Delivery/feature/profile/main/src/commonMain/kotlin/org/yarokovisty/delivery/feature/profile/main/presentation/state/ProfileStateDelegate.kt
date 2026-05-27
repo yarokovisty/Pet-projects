@@ -2,6 +2,7 @@ package org.yarokovisty.delivery.feature.profile.main.presentation.state
 
 import org.yarokovisty.delivery.common.profile.main.domain.entity.User
 import org.yarokovisty.delivery.common.validation.error.EmailValidationError
+import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
 
 internal fun initial() =
     ProfileState(
@@ -20,7 +21,10 @@ internal fun ProfileState.errorState() =
 internal fun ProfileState.downloadingDataUpdateState() =
     copy(content = content?.copy(downloadingDataUpdate = true))
 
-internal fun ProfileState.contentState(user: User) =
+internal fun ProfileState.contentState(
+    user: User,
+    phoneNumberFormatter: PhoneNumberFormatter,
+) =
     copy(
         loading = false,
         content = ContentState(
@@ -29,7 +33,7 @@ internal fun ProfileState.contentState(user: User) =
             lastname = user.lastname ?: "",
             middlename = user.middlename ?: "",
             city = user.city ?: "",
-            phone = user.phone.formatPhone(),
+            phone = phoneNumberFormatter.format(user.phone),
             email = EmailFieldState(
                 text = user.email ?: "",
                 status = EmailFieldStatus.NotValidated
@@ -37,10 +41,6 @@ internal fun ProfileState.contentState(user: User) =
             downloadingDataUpdate = false
         )
     )
-
-// TODO(заменить на использование форматера)
-private fun String.formatPhone(): String =
-    replace(Regex("(\\d)(\\d{3})(\\d{3})(\\d{2})(\\d{2})"), "+$1 $2 $3 $4 $5")
 
 internal fun ProfileState.changeFirstnameField(firstname: String) =
     copy(content = content?.copy(firstname = firstname))

@@ -34,6 +34,7 @@ kotlin {
             implementation(projects.libs.navigation)
             implementation(projects.util.coroutines)
             implementation(projects.util.flow)
+            implementation(projects.util.phone)
             implementation(projects.util.validation)
 
             implementation(libs.compose.components.resources)

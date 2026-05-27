@@ -26,6 +26,7 @@ import org.yarokovisty.delivery.feature.profile.main.presentation.state.updateLo
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.updateUserErrorState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.updateUserSuccessState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.validEmailField
+import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
 import org.yarokovisty.delivery.util.validation.validated.fold
 
 internal class ProfileViewModel(
@@ -33,6 +34,7 @@ internal class ProfileViewModel(
     private val updateUserUseCase: UpdateUserUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val emailValidator: EmailValidator,
+    private val phoneNumberFormatter: PhoneNumberFormatter,
     private val router: ProfileRouter,
 ) : BaseViewModel<ProfileState, ProfileIntent, ProfileEvent>(initial()) {
 
@@ -60,7 +62,7 @@ internal class ProfileViewModel(
 
         launchTrying {
             getUserUseCase()?.let { user ->
-                updateState { contentState(user) }
+                updateState { contentState(user, phoneNumberFormatter) }
             }
         } handle { handleError() }
     }
