@@ -66,9 +66,7 @@ private fun ContinueButton(onClick: () -> Unit) {
     PrimaryButton(
         text = stringResource(Res.string.payer_continue_button),
         onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 16.dp),
+        modifier = Modifier.padding(vertical = 16.dp),
     )
 }
 

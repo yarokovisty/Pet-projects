@@ -13,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
-// TODO Убрать везде fillMaxWidth
 @Composable
 fun PrimaryButton(
     text: String,

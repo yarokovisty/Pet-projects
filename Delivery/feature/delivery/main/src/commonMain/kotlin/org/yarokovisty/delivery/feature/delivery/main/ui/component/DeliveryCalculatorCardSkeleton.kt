@@ -61,7 +61,6 @@ internal fun DeliveryCalculatorCardSkeleton() {
 
             PrimaryButton(
                 text = stringResource(Res.string.calculator_card_button_calculate),
-                modifier = Modifier.fillMaxWidth(),
                 enabled = false,
                 onClick = { },
             )

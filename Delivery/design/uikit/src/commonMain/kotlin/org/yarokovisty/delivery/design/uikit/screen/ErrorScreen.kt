@@ -53,9 +53,7 @@ fun ErrorScreen(
         PrimaryButton(
             text = buttonText,
             onClick = onButtonClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
+            modifier = Modifier.align(Alignment.BottomCenter)
         )
     }
 }

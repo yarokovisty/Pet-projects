@@ -120,7 +120,6 @@ private fun CalculateButton(
     PrimaryButton(
         text = stringResource(Res.string.calculator_card_button_calculate),
         enabled = enabled,
-        modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
     )
 }

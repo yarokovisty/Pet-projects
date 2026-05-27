@@ -1,6 +1,5 @@
 package org.yarokovisty.delivery.feature.delivery.point.ui.component
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,8 +14,6 @@ internal fun ContinueButton(onClick: () -> Unit) {
     PrimaryButton(
         text = stringResource(Res.string.address_continue_button),
         onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 16.dp),
+        modifier = Modifier.padding(vertical = 16.dp),
     )
 }

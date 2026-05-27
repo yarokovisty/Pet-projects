@@ -65,7 +65,6 @@ private fun FindButton(
     PrimaryButton(
         text = stringResource(Res.string.tracker_card_button_find),
         enabled = enabled,
-        modifier = Modifier.fillMaxWidth(),
         onClick = onClick
     )
 }

@@ -76,9 +76,7 @@ internal fun PersonContent(
 
         PrimaryButton(
             text = stringResource(Res.string.person_continue_button),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
+            modifier = Modifier.padding(vertical = 16.dp),
             onClick = {
                 focusManager.clearFocus()
                 keyboardController?.hide()
