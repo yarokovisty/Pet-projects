@@ -15,7 +15,7 @@ import org.yarokovisty.delivery.design.uikit.text.TitleH2
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopBar(
-    title: String,
+    title: String = "",
     navigationIcon: Painter? = null,
     navigationIconTint: Color = DeliveryTheme.colorScheme.indicatorLight,
     onNavIconClick: () -> Unit = {},

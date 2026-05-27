@@ -25,4 +25,8 @@
 
     <string name="order_checkout_button">Оформить</string>
     <string name="order_checkout_error">Упс, не удалось оформить заказ\nПопробуйте еще раз</string>
+
+    <string name="success_order_title">Заявка отправлена</string>
+    <string name="success_order_description">Вы можете оплатить ваш заказ в разделе «Профиль»</string>
+    <string name="success_order_check_order_button">Посмотреть статус</string>
 </resources>

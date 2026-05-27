@@ -29,4 +29,14 @@ class GlobalBackStack(startScreen: Screen) {
         val removeFrom = if (inclusive) index else index + 1
         backStack.subList(removeFrom, backStack.size).clear()
     }
+
+    fun newRoot(screen: Screen) {
+        backStack.clear()
+        backStack.add(screen)
+    }
+
+    fun newChain(vararg screens: Screen) {
+        backStack.clear()
+        backStack.addAll(screens.asList())
+    }
 }

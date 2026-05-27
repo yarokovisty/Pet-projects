@@ -1,6 +1,7 @@
 package org.yarokovisty.delivery.navigation.router
 
 import org.yarokovisty.delivery.feature.delivery.order.navigation.ConfirmationOrderRouter
+import org.yarokovisty.delivery.feature.delivery.order.navigation.SuccessOrderDestination
 import org.yarokovisty.delivery.feature.delivery.person.navigation.PersonScreenType
 import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverDestination
 import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderDestination
@@ -30,5 +31,9 @@ class ConfirmationOrderRouterImpl(private val globalBackStack: GlobalBackStack) 
 
     override fun openSenderAddressScreen() {
         globalBackStack.push(SenderAddressDestination(AddressScreenType.EDIT))
+    }
+
+    override fun openSuccessOrderScreen() {
+        globalBackStack.push(SuccessOrderDestination)
     }
 }

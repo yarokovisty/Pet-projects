@@ -11,6 +11,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.yarokovisty.delivery.feature.delivery.calculator.navigation.calculatorEntry
 import org.yarokovisty.delivery.feature.delivery.direction.navigation.directionEntry
 import org.yarokovisty.delivery.feature.delivery.order.navigation.confirmationOrderEntry
+import org.yarokovisty.delivery.feature.delivery.order.navigation.successOrderEntry
 import org.yarokovisty.delivery.feature.delivery.payer.navigation.payerEntry
 import org.yarokovisty.delivery.feature.delivery.person.navigation.receiverEntry
 import org.yarokovisty.delivery.feature.delivery.person.navigation.senderEntry
@@ -58,6 +59,7 @@ private fun AppScreen(
             receiverEntry()
             senderAddressEntry()
             senderEntry()
+            successOrderEntry()
             loginEntry()
         },
     )

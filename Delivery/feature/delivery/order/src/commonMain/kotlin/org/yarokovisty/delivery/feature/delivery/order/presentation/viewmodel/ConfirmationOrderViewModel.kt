@@ -59,6 +59,7 @@ internal class ConfirmationOrderViewModel(
 
             orderRepository.createOrder(confirmationOrder)
             clearConfirmationOrderUseCase()
+            router.openSuccessOrderScreen()
         } handle { handleError() }
     }
 

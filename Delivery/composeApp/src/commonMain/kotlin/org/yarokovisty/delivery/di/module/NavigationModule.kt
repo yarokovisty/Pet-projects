@@ -8,6 +8,7 @@ import org.yarokovisty.delivery.feature.delivery.direction.navigation.DirectionR
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryRouter
 import org.yarokovisty.delivery.feature.delivery.main.navigation.DeliveryTab
 import org.yarokovisty.delivery.feature.delivery.order.navigation.ConfirmationOrderRouter
+import org.yarokovisty.delivery.feature.delivery.order.navigation.SuccessOrderRouter
 import org.yarokovisty.delivery.feature.delivery.payer.navigation.PayerRouter
 import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverRouter
 import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderRouter
@@ -29,6 +30,7 @@ import org.yarokovisty.delivery.navigation.router.ReceiverAddressRouterImpl
 import org.yarokovisty.delivery.navigation.router.ReceiverRouterImpl
 import org.yarokovisty.delivery.navigation.router.SenderAddressRouterImpl
 import org.yarokovisty.delivery.navigation.router.SenderRouterImpl
+import org.yarokovisty.delivery.navigation.router.SuccessOrderRouterImpl
 
 private val backStackModule = module {
     single { GlobalBackStack(MainDestination) }
@@ -46,6 +48,7 @@ private val routerModule = module {
     factoryOf(::ReceiverAddressRouterImpl) bind ReceiverAddressRouter::class
     factoryOf(::ReceiverRouterImpl) bind ReceiverRouter::class
     factoryOf(::SenderAddressRouterImpl) bind SenderAddressRouter::class
+    factoryOf(::SuccessOrderRouterImpl) bind SuccessOrderRouter::class
     factoryOf(::SenderRouterImpl) bind SenderRouter::class
 }
 

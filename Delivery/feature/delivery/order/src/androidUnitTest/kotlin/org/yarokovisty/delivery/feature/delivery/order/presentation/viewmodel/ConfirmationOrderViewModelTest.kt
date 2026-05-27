@@ -173,5 +173,25 @@ internal class ConfirmationOrderViewModelTest {
         coVerify(exactly = 0) { orderRepository.createOrder(any()) }
     }
 
+    @Test
+    fun `checkout order when content is null EXPECT clear confirmation order use case not called`() = runTest {
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(ConfirmationOrderIntent.CheckoutOrder)
+        advanceUntilIdle()
+
+        coVerify(exactly = 0) { clearConfirmationOrderUseCase() }
+    }
+
+    @Test
+    fun `checkout order when content is null EXPECT router does not open success order screen`() = runTest {
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(ConfirmationOrderIntent.CheckoutOrder)
+        advanceUntilIdle()
+
+        verify(exactly = 0) { router.openSuccessOrderScreen() }
+    }
+
     // endregion
 }

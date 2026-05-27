@@ -11,4 +11,6 @@ interface ConfirmationOrderRouter {
     fun openReceiverAddressScreen()
 
     fun openSenderAddressScreen()
+
+    fun openSuccessOrderScreen()
 }
