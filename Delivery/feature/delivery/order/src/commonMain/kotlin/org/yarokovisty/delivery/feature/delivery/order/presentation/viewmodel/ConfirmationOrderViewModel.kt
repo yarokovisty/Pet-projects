@@ -57,7 +57,7 @@ internal class ConfirmationOrderViewModel(
             val content = stateValue.content ?: return@launchTrying
             val confirmationOrder = content.confirmationOrder
 
-            orderRepository.createOrder(confirmationOrder)
+            orderRepository.create(confirmationOrder)
             clearConfirmationOrderUseCase()
             router.openSuccessOrderScreen()
         } handle { handleError() }

@@ -1,0 +1,19 @@
+<resources>
+    <string name="history_main_title">История отправлений</string>
+
+    <string name="history_main_order_status">Статус</string>
+    <string name="history_main_order_created_status">Создан</string>
+    <string name="history_main_order_waiting_status">Ждём курьера</string>
+    <string name="history_main_order_delivering_status">Везём заказ</string>
+    <string name="history_main_order_delivered_status">Доставлен</string>
+    <string name="history_main_order_canceled_status">Отменён</string>
+    <string name="history_main_order_id">Номер заказа</string>
+    <string name="history_main_order_address_title">Адрес доставки</string>
+    <string name="history_main_order_address_value">%1$s, %2$s, д. %3$s, кв. %4$s</string>
+    <string name="history_main_order_more">Подробнее</string>
+
+    <string name="history_main_empty_content">Ваша история заказов пустая...</string>
+
+    <string name="error_message_unavailable_service">Сервис временно недоступен</string>
+    <string name="error_button_repeat">Повторить</string>
+</resources>

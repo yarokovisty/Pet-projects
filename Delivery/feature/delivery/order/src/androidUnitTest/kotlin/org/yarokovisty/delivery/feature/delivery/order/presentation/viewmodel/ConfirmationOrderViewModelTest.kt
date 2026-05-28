@@ -170,7 +170,7 @@ internal class ConfirmationOrderViewModelTest {
         viewModel.onIntent(ConfirmationOrderIntent.CheckoutOrder)
         advanceUntilIdle()
 
-        coVerify(exactly = 0) { orderRepository.createOrder(any()) }
+        coVerify(exactly = 0) { orderRepository.create(any()) }
     }
 
     @Test

@@ -14,6 +14,7 @@ kotlin {
         }
 
         commonMain.dependencies {
+            implementation(projects.common.auth)
             implementation(projects.common.delivery.calculator)
             implementation(projects.common.delivery.direction)
             implementation(projects.common.delivery.parcel)

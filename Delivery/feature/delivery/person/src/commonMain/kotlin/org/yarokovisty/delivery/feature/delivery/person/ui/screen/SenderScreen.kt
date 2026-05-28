@@ -36,7 +36,6 @@ private fun SenderScreen(
     state: PersonState,
     onIntent: (PersonIntent) -> Unit
 ) {
-    // TODO добавить индикатор загрузки
     FullScreen {
         Column(modifier = Modifier.fillMaxSize()) {
             SenderTopBar(onBackClick = { onIntent(PersonIntent.Back) })

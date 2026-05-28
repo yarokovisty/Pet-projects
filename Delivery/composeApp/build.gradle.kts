@@ -67,6 +67,7 @@ kotlin {
             implementation(projects.feature.delivery.payer)
             implementation(projects.feature.delivery.person)
             implementation(projects.feature.delivery.point)
+            implementation(projects.feature.history.main)
             implementation(projects.feature.login)
             implementation(projects.feature.profile.main)
             implementation(projects.libs.encryption)

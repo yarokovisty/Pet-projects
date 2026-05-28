@@ -18,6 +18,7 @@ import org.yarokovisty.delivery.common.profile.main.domain.usecase.UpdateUserUse
 import org.yarokovisty.delivery.common.validation.error.EmailValidationError
 import org.yarokovisty.delivery.common.validation.validator.EmailValidator
 import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileRouter
+import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
 import org.yarokovisty.delivery.feature.profile.main.presentation.intent.ProfileIntent
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.ContentState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldState
@@ -36,6 +37,9 @@ class ProfileViewModelTest {
     private val updateUserUseCase: UpdateUserUseCase = mockk(relaxed = true)
     private val logoutUseCase: LogoutUseCase = mockk(relaxed = true)
     private val emailValidator: EmailValidator = mockk()
+    private val phoneNumberFormatter: PhoneNumberFormatter = mockk {
+        every { format(TEST_PHONE) } returns TEST_PHONE_FORMATTED
+    }
     private val router = mockk<ProfileRouter>(relaxed = true)
 
     private companion object {
@@ -55,6 +59,7 @@ class ProfileViewModelTest {
             updateUserUseCase,
             logoutUseCase,
             emailValidator,
+            phoneNumberFormatter,
             router
         )
 

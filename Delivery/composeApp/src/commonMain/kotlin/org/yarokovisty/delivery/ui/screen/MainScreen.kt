@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -16,8 +15,8 @@ import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import org.koin.compose.viewmodel.koinViewModel
 import org.yarokovisty.delivery.feature.delivery.main.navigation.deliveryMainEntry
+import org.yarokovisty.delivery.feature.history.main.navigation.historyMainEntry
 import org.yarokovisty.delivery.feature.profile.main.navigation.profileEntry
-import org.yarokovisty.delivery.navigation.destination.HistoryMainDestination
 import org.yarokovisty.delivery.presentation.intent.MainIntent
 import org.yarokovisty.delivery.presentation.state.MainState
 import org.yarokovisty.delivery.presentation.viewmodel.MainViewModel
@@ -62,9 +61,7 @@ private fun MainScreen(
             },
             entryProvider = entryProvider {
                 deliveryMainEntry()
-                entry<HistoryMainDestination> {
-                    Text("History")
-                }
+                historyMainEntry()
                 profileEntry()
             }
         )
