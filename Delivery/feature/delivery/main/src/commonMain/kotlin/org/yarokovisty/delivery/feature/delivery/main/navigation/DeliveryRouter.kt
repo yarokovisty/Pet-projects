@@ -13,4 +13,6 @@ interface DeliveryRouter {
         senderPoint: DeliveryPoint,
         receiverPoint: DeliveryPoint
     )
+
+    fun openOrderDetailsScreen(orderId: String)
 }

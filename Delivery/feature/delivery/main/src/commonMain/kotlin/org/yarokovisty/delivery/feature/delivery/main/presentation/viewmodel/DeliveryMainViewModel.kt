@@ -59,7 +59,7 @@ internal class DeliveryMainViewModel(
 
             is DeliveryMainIntent.ChangeInputParcelId -> changeInputParcelId(intent.id)
 
-            is DeliveryMainIntent.TrackParcel -> TODO()
+            is DeliveryMainIntent.TrackParcel -> openOrderDetailsScreen()
         }
     }
 
@@ -150,5 +150,10 @@ internal class DeliveryMainViewModel(
 
     private fun changeInputParcelId(id: String) {
         updateState { changeTracker(id) }
+    }
+
+    private fun openOrderDetailsScreen() {
+        val orderId = stateValue.trackerContent.orderId
+        router.openOrderDetailsScreen(orderId)
     }
 }

@@ -685,4 +685,34 @@ class DeliveryMainViewModelTest {
         val actual = viewModel.state.value.trackerContent.trackEnabled
         assertEquals(true, actual)
     }
+
+    @Test
+    fun `track parcel with order id set EXPECT router opens order details screen with correct id`() = runTest {
+        val orderId = "order-456"
+        coEvery { directionRepository.getDeliveryPointList() } returns points
+        coEvery { parcelRepository.getParcelInfoList() } returns parcelInfoList
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.ChangeInputParcelId(orderId))
+        viewModel.onIntent(DeliveryMainIntent.TrackParcel)
+        advanceUntilIdle()
+
+        verify { router.openOrderDetailsScreen(orderId) }
+    }
+
+    @Test
+    fun `track parcel with empty order id EXPECT router opens order details screen with empty string`() = runTest {
+        coEvery { directionRepository.getDeliveryPointList() } returns points
+        coEvery { parcelRepository.getParcelInfoList() } returns parcelInfoList
+        every { getAlternativeDeliveryPointsUseCase(points) } returns alternativePoints
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(DeliveryMainIntent.TrackParcel)
+        advanceUntilIdle()
+
+        verify { router.openOrderDetailsScreen("") }
+    }
 }

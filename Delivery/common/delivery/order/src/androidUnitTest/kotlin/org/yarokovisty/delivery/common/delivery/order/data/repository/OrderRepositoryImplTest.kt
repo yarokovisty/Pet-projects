@@ -288,7 +288,7 @@ class OrderRepositoryImplTest {
 
         val result = repository.getHistory("test-token")
 
-        assertEquals("order-1", result[0].id)
+        assertEquals("order-2", result[0].id)
     }
 
     @Test
@@ -297,7 +297,7 @@ class OrderRepositoryImplTest {
 
         val result = repository.getHistory("test-token")
 
-        assertEquals("order-2", result[1].id)
+        assertEquals("order-1", result[1].id)
     }
 
     @Test
@@ -306,7 +306,7 @@ class OrderRepositoryImplTest {
 
         val result = repository.getHistory("test-token")
 
-        assertEquals(500.0, result[0].price)
+        assertEquals(750.0, result[0].price)
     }
 
     @Test
@@ -315,7 +315,7 @@ class OrderRepositoryImplTest {
 
         val result = repository.getHistory("test-token")
 
-        assertEquals(750.0, result[1].price)
+        assertEquals(500.0, result[1].price)
     }
 
     @Test
@@ -324,7 +324,7 @@ class OrderRepositoryImplTest {
 
         val result = repository.getHistory("test-token")
 
-        assertEquals(OrderStatus.CREATED, result[0].status)
+        assertEquals(OrderStatus.DELIVERED, result[0].status)
     }
 
     @Test
@@ -333,7 +333,7 @@ class OrderRepositoryImplTest {
 
         val result = repository.getHistory("test-token")
 
-        assertEquals(OrderStatus.DELIVERED, result[1].status)
+        assertEquals(OrderStatus.CREATED, result[1].status)
     }
 
     @Test
@@ -342,7 +342,7 @@ class OrderRepositoryImplTest {
 
         val result = repository.getHistory("test-token")
 
-        assertEquals(Payer.SENDER, result[0].payer)
+        assertEquals(Payer.RECEIVER, result[0].payer)
     }
 
     @Test
@@ -351,7 +351,7 @@ class OrderRepositoryImplTest {
 
         val result = repository.getHistory("test-token")
 
-        assertEquals(Payer.RECEIVER, result[1].payer)
+        assertEquals(Payer.SENDER, result[1].payer)
     }
 
     @Test

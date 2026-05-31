@@ -61,4 +61,4 @@ internal fun DeliveryMainState.selectParcelType(parcelInfo: ParcelInfo) =
     )
 
 internal fun DeliveryMainState.changeTracker(parcelId: String) =
-    copy(trackerContent = trackerContent.copy(inputIdParcel = parcelId))
+    copy(trackerContent = trackerContent.copy(orderId = parcelId))

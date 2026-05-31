@@ -26,8 +26,8 @@ internal data class DeliveryCalculatorContent(
 }
 
 internal data class TrackerContent(
-    val inputIdParcel: String,
+    val orderId: String,
 ) {
     val trackEnabled: Boolean
-        get() = inputIdParcel.isNotEmpty()
+        get() = orderId.isNotEmpty()
 }

@@ -32,7 +32,7 @@ internal fun TrackerCard(
             TitleH2(text = stringResource(Res.string.tracker_card_title))
 
             ParcelIdInput(
-                text = state.inputIdParcel,
+                text = state.orderId,
                 onTextChange = { onIntent(DeliveryMainIntent.ChangeInputParcelId(it)) }
             )
 
