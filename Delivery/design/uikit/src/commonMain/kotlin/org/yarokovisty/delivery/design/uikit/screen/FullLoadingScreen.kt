@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.feature.delivery.direction.ui.component
+package org.yarokovisty.delivery.design.uikit.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,9 +11,9 @@ import androidx.compose.ui.unit.dp
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 
 @Composable
-internal fun LoadingScreen() {
+fun FullLoadingScreen(modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(

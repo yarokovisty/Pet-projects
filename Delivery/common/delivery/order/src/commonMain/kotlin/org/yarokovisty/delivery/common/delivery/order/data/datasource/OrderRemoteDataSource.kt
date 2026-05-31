@@ -12,7 +12,6 @@ import org.yarokovisty.delivery.core.network.client.put
 
 internal class OrderRemoteDataSource(private val httpClient: HttpClient) {
 
-    // TODO унести token на interceptor
     suspend fun get(id: String, token: String): OrderResponse =
         httpClient.get("api/delivery/orders/$id", token)
 

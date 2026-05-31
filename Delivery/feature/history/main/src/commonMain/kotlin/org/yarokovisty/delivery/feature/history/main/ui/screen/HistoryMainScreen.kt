@@ -10,6 +10,7 @@ import delivery.feature.history.main.generated.resources.history_main_title
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.yarokovisty.delivery.design.uikit.TopBar
+import org.yarokovisty.delivery.design.uikit.screen.FullLoadingScreen
 import org.yarokovisty.delivery.design.uikit.screen.FullScreen
 import org.yarokovisty.delivery.feature.history.main.presentation.intent.HistoryMainIntent
 import org.yarokovisty.delivery.feature.history.main.presentation.state.HistoryMainState
@@ -17,7 +18,6 @@ import org.yarokovisty.delivery.feature.history.main.presentation.viewmodel.Hist
 import org.yarokovisty.delivery.feature.history.main.ui.component.EmptyContent
 import org.yarokovisty.delivery.feature.history.main.ui.component.FailureContent
 import org.yarokovisty.delivery.feature.history.main.ui.component.HistoryOrdersContent
-import org.yarokovisty.delivery.feature.history.main.ui.component.LoadingContent
 
 @Composable
 internal fun HistoryMainScreen() {
@@ -41,7 +41,7 @@ private fun HistoryMainScreen(
             TopBar(title = stringResource(Res.string.history_main_title))
 
             when {
-                state.loading -> LoadingContent()
+                state.loading -> FullLoadingScreen()
                 state.error -> FailureContent(onRefreshClick = { onIntent(HistoryMainIntent.LoadData) })
                 state.orders.isEmpty() -> EmptyContent()
                 else -> HistoryOrdersContent(

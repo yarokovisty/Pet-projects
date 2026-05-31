@@ -22,12 +22,12 @@ import org.koin.core.parameter.parametersOf
 import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DirectionType
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.TopBar
+import org.yarokovisty.delivery.design.uikit.screen.FullLoadingScreen
 import org.yarokovisty.delivery.feature.delivery.direction.presentation.intent.DirectionIntent
 import org.yarokovisty.delivery.feature.delivery.direction.presentation.state.DirectionState
 import org.yarokovisty.delivery.feature.delivery.direction.presentation.viewmodel.DirectionViewModel
 import org.yarokovisty.delivery.feature.delivery.direction.ui.component.ContentScreen
 import org.yarokovisty.delivery.feature.delivery.direction.ui.component.FailureScreen
-import org.yarokovisty.delivery.feature.delivery.direction.ui.component.LoadingScreen
 import delivery.design.resources.generated.resources.Res as DrawableRes
 
 @Composable
@@ -67,7 +67,7 @@ private fun DirectionScreen(
                 .padding(innerPadding)
         ) {
             when {
-                state.loading -> LoadingScreen()
+                state.loading -> FullLoadingScreen()
                 state.error -> FailureScreen(onIntent)
                 state.content != null -> ContentScreen(state.content, onIntent)
             }

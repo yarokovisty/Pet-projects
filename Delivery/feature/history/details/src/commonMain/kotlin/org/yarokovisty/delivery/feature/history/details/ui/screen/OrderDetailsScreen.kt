@@ -5,6 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
+import org.yarokovisty.delivery.design.uikit.screen.FullLoadingScreen
 import org.yarokovisty.delivery.design.uikit.screen.FullScreen
 import org.yarokovisty.delivery.feature.history.details.presentation.intent.OrderDetailsIntent
 import org.yarokovisty.delivery.feature.history.details.presentation.state.OrderDetailsError
@@ -12,7 +13,6 @@ import org.yarokovisty.delivery.feature.history.details.presentation.state.Order
 import org.yarokovisty.delivery.feature.history.details.presentation.viewmodel.OrderDetailsViewModel
 import org.yarokovisty.delivery.feature.history.details.ui.component.CancelErrorScreen
 import org.yarokovisty.delivery.feature.history.details.ui.component.LoadErrorScreen
-import org.yarokovisty.delivery.feature.history.details.ui.component.LoadingScreen
 import org.yarokovisty.delivery.feature.history.details.ui.component.OrderDetailsContent
 import org.yarokovisty.delivery.feature.history.details.ui.component.SuccessfulScreen
 
@@ -31,7 +31,7 @@ private fun OrderDetailsScreen(
 ) {
     FullScreen {
         when {
-            state.loading -> LoadingScreen()
+            state.loading -> FullLoadingScreen()
             state.error != null -> OrderDetailsErrorScreen(state.error, onIntent)
             state.successfulScreenVisible -> SuccessfulScreen(onIntent = onIntent)
             state.order != null -> OrderDetailsContent(

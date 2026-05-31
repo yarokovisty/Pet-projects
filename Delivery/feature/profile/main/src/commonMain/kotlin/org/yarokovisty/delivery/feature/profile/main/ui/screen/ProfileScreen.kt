@@ -23,13 +23,13 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.TopBar
+import org.yarokovisty.delivery.design.uikit.screen.FullLoadingScreen
 import org.yarokovisty.delivery.design.uikit.screen.FullScreen
 import org.yarokovisty.delivery.feature.profile.main.presentation.event.ProfileEvent
 import org.yarokovisty.delivery.feature.profile.main.presentation.intent.ProfileIntent
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.ProfileState
 import org.yarokovisty.delivery.feature.profile.main.presentation.viewmodel.ProfileViewModel
 import org.yarokovisty.delivery.feature.profile.main.ui.component.FailureScreen
-import org.yarokovisty.delivery.feature.profile.main.ui.component.LoadingScreen
 import org.yarokovisty.delivery.feature.profile.main.ui.component.ProfileContent
 import org.yarokovisty.delivery.feature.profile.main.ui.component.ProfileSnacbarHost
 import org.yarokovisty.delivery.util.flow.observe
@@ -57,7 +57,7 @@ private fun ProfileScreen(
             ProfileTopBar(onExitClick = { onIntent(ProfileIntent.ShowLogoutScreen) })
 
             when {
-                state.loading -> LoadingScreen()
+                state.loading -> FullLoadingScreen()
                 state.error -> FailureScreen(onIntent)
                 state.content != null -> ProfileContent(state.content, onIntent)
             }
