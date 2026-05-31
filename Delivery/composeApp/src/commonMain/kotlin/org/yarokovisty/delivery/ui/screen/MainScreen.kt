@@ -1,10 +1,6 @@
 package org.yarokovisty.delivery.ui.screen
 
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.consumeWindowInsets
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -14,6 +10,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import org.koin.compose.viewmodel.koinViewModel
+import org.yarokovisty.delivery.design.uikit.screen.FullScreen
 import org.yarokovisty.delivery.feature.delivery.main.navigation.deliveryMainEntry
 import org.yarokovisty.delivery.feature.history.main.navigation.historyMainEntry
 import org.yarokovisty.delivery.feature.profile.main.navigation.profileEntry
@@ -38,32 +35,28 @@ private fun MainScreen(
     state: MainState,
     onIntent: (MainIntent) -> Unit,
 ) {
-    Scaffold(
-        bottomBar = {
+    FullScreen {
+        Column {
+            NavDisplay(
+                entryDecorators = listOf(
+                    rememberSaveableStateHolderNavEntryDecorator(),
+                    rememberViewModelStoreNavEntryDecorator()
+                ),
+                backStack = state.backStack,
+                modifier = Modifier.weight(1f),
+                onBack = {
+                    onIntent(MainIntent.Back)
+                },
+                entryProvider = entryProvider {
+                    deliveryMainEntry()
+                    historyMainEntry()
+                    profileEntry()
+                }
+            )
             BottomBar(
                 selectedTab = state.selectedTab,
                 onTabSelected = { onIntent(MainIntent.SwitchTab(it)) }
             )
-        },
-        contentWindowInsets = WindowInsets()
-    ) { innerPadding ->
-        NavDisplay(
-            entryDecorators = listOf(
-                rememberSaveableStateHolderNavEntryDecorator(),
-                rememberViewModelStoreNavEntryDecorator()
-            ),
-            backStack = state.backStack,
-            modifier = Modifier
-                .padding(innerPadding)
-                .consumeWindowInsets(WindowInsets.statusBars),
-            onBack = {
-                onIntent(MainIntent.Back)
-            },
-            entryProvider = entryProvider {
-                deliveryMainEntry()
-                historyMainEntry()
-                profileEntry()
-            }
-        )
+        }
     }
 }

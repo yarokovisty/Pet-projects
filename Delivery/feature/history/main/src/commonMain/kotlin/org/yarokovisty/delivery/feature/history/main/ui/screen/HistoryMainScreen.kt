@@ -1,9 +1,6 @@
 package org.yarokovisty.delivery.feature.history.main.ui.screen
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -39,9 +36,7 @@ private fun HistoryMainScreen(
         onIntent(HistoryMainIntent.LoadData)
     }
 
-    FullScreen(
-        paddingValues = WindowInsets.statusBars.asPaddingValues()
-    ) {
+    FullScreen {
         Column {
             TopBar(title = stringResource(Res.string.history_main_title))
 
@@ -52,7 +47,7 @@ private fun HistoryMainScreen(
                 else -> HistoryOrdersContent(
                     state.orders,
                     onDetailClick = { order ->
-                        onIntent(HistoryMainIntent.OpenOrderDetail(order.id))
+                        onIntent(HistoryMainIntent.OpenOrderDetails(order.id))
                     }
                 )
             }

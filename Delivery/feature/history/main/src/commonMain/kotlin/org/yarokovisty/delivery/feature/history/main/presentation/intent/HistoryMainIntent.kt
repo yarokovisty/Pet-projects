@@ -5,5 +5,5 @@ import org.yarokovisty.delivery.core.common.presentation.Intent
 internal sealed interface HistoryMainIntent : Intent {
 
     data object LoadData : HistoryMainIntent
-    data class OpenOrderDetail(val orderId: String) : HistoryMainIntent
+    data class OpenOrderDetails(val orderId: String) : HistoryMainIntent
 }

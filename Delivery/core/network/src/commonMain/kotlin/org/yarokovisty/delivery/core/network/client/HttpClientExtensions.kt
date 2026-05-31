@@ -7,6 +7,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.request.patch
 import io.ktor.client.request.post
+import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
@@ -52,6 +53,17 @@ suspend inline fun <reified T, reified R> HttpClient.patch(
     token: String
 ): T =
     patch(url) {
+        contentType(ContentType.Application.Json)
+        setBody(request)
+        withToken(token)
+    }.body()
+
+suspend inline fun <reified T, reified R> HttpClient.put(
+    url: String,
+    request: R,
+    token: String
+): T =
+    put(url) {
         contentType(ContentType.Application.Json)
         setBody(request)
         withToken(token)

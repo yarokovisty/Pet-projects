@@ -2,8 +2,8 @@ package org.yarokovisty.delivery.common.delivery.order.data.mapper
 
 import org.yarokovisty.delivery.common.delivery.direction.data.mapper.toItem
 import org.yarokovisty.delivery.common.delivery.order.data.model.ConfirmationOrderRequest
+import org.yarokovisty.delivery.common.delivery.order.data.model.OrderDto
 import org.yarokovisty.delivery.common.delivery.order.data.model.OrderListResponse
-import org.yarokovisty.delivery.common.delivery.order.data.model.OrderResponse
 import org.yarokovisty.delivery.common.delivery.order.data.model.OrderStatusResponse
 import org.yarokovisty.delivery.common.delivery.order.domain.entity.ConfirmationOrder
 import org.yarokovisty.delivery.common.delivery.order.domain.entity.Order
@@ -16,9 +16,9 @@ import org.yarokovisty.delivery.common.delivery.point.data.mapper.toRequest
 import org.yarokovisty.delivery.util.kotlin.enums.toEnum
 
 internal fun OrderListResponse.toItem(): List<Order> =
-    orders.map(OrderResponse::toItem)
+    orders.map(OrderDto::toItem).reversed()
 
-internal fun OrderResponse.toItem(): Order =
+internal fun OrderDto.toItem(): Order =
     Order(
         id = id,
         price = price,

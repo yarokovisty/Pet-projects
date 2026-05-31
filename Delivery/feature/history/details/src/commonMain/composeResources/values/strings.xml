@@ -1,0 +1,33 @@
+<resources>
+    <string name="history_details_title">Заказ №%1$s</string>
+
+    <string name="history_details_order_status">Статус</string>
+    <string name="history_details_order_created_status">Создан</string>
+    <string name="history_details_order_waiting_status">Ждём курьера</string>
+    <string name="history_details_order_delivering_status">Везём заказ</string>
+    <string name="history_details_order_delivered_status">Доставлен</string>
+    <string name="history_details_order_canceled_status">Отменён</string>
+
+    <string name="history_details_order_address_title">Адрес доставки</string>
+    <string name="history_details_order_address_value">%1$s, %2$s, д. %3$s, кв. %4$s</string>
+
+    <string name="history_details_order_tariff_title">Тип доставки</string>
+    <string name="history_details_order_tariff_default">Обычная доставка</string>
+    <string name="history_details_order_tariff_express">Экспресс доставка</string>
+
+    <string name="history_details_order_cancel_button">Отменить заказ</string>
+
+    <string name="cancellation_order_title">Отменить заказ?</string>
+    <string name="cancellation_order_cancel_button">Отменить</string>
+    <string name="cancellation_order_not_cancel_button">Не отменять</string>
+    <string name="cancellation_order_back_button">Вернуться</string>
+
+    <string name="successful_cancellation_title">Заказа отменён</string>
+    <string name="successful_cancellation_description">Ваш заказ успешно отменён</string>
+
+    <string name="error_message_unavailable_service">Сервис временно недоступен</string>
+    <string name="error_button_repeat">Повторить</string>
+
+    <string name="error_title_cancel_order">Не удалось отменить заказ</string>
+    <string name="error_message_cancel_order">Упс... Что-то пошло не так. Повторите отмену заказа</string>
+</resources>

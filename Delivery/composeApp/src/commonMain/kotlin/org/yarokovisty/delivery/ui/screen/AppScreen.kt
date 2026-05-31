@@ -17,6 +17,7 @@ import org.yarokovisty.delivery.feature.delivery.person.navigation.receiverEntry
 import org.yarokovisty.delivery.feature.delivery.person.navigation.senderEntry
 import org.yarokovisty.delivery.feature.delivery.point.navigation.receiverAddressEntry
 import org.yarokovisty.delivery.feature.delivery.point.navigation.senderAddressEntry
+import org.yarokovisty.delivery.feature.history.details.navigation.orderDetailsEntry
 import org.yarokovisty.delivery.feature.login.navigation.loginEntry
 import org.yarokovisty.delivery.navigation.entry.mainEntry
 import org.yarokovisty.delivery.presentation.intent.AppIntent
@@ -61,6 +62,7 @@ private fun AppScreen(
             senderEntry()
             successOrderEntry()
             loginEntry()
+            orderDetailsEntry()
         },
     )
 }

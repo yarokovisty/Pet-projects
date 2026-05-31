@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,19 +31,15 @@ import org.yarokovisty.delivery.design.uikit.text.TitleH3
 fun ErrorScreen(
     message: String,
     buttonText: String,
-    modifier: Modifier = Modifier,
     onButtonClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    padding: PaddingValues = PaddingValues(start = 16.dp, top = 12.dp, end = 16.dp, bottom = 32.dp),
     onCloseClick: (() -> Unit)? = null,
 ) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(
-                start = 16.dp,
-                top = 12.dp,
-                end = 16.dp,
-                bottom = 32.dp
-            )
+            .padding(padding)
     ) {
         if (onCloseClick != null) {
             CloseIcon(onClick = onCloseClick)

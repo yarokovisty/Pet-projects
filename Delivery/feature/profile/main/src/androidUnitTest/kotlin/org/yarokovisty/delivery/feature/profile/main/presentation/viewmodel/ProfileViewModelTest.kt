@@ -18,12 +18,12 @@ import org.yarokovisty.delivery.common.profile.main.domain.usecase.UpdateUserUse
 import org.yarokovisty.delivery.common.validation.error.EmailValidationError
 import org.yarokovisty.delivery.common.validation.validator.EmailValidator
 import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileRouter
-import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
 import org.yarokovisty.delivery.feature.profile.main.presentation.intent.ProfileIntent
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.ContentState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldState
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.EmailFieldStatus
 import org.yarokovisty.delivery.feature.profile.main.presentation.state.initial
+import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import org.yarokovisty.delivery.util.validation.validated.invalid
 import org.yarokovisty.delivery.util.validation.validated.valid

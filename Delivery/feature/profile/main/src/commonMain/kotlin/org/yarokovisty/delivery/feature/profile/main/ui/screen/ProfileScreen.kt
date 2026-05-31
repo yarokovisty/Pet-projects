@@ -1,10 +1,7 @@
 package org.yarokovisty.delivery.feature.profile.main.ui.screen
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SnackbarHostState
@@ -55,10 +52,7 @@ private fun ProfileScreen(
     val successSnackbarHostState = remember { SnackbarHostState() }
     val errorSnackbarHostState = remember { SnackbarHostState() }
 
-    FullScreen(
-        containerColor = DeliveryTheme.colorScheme.bgPrimary,
-        paddingValues = WindowInsets.statusBars.asPaddingValues(),
-    ) {
+    FullScreen(containerColor = DeliveryTheme.colorScheme.bgPrimary) {
         Column(modifier = Modifier.fillMaxSize()) {
             ProfileTopBar(onExitClick = { onIntent(ProfileIntent.ShowLogoutScreen) })
 

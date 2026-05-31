@@ -14,6 +14,8 @@ import org.yarokovisty.delivery.feature.delivery.person.navigation.ReceiverRoute
 import org.yarokovisty.delivery.feature.delivery.person.navigation.SenderRouter
 import org.yarokovisty.delivery.feature.delivery.point.navigation.ReceiverAddressRouter
 import org.yarokovisty.delivery.feature.delivery.point.navigation.SenderAddressRouter
+import org.yarokovisty.delivery.feature.history.details.navigation.OrderDetailsRouter
+import org.yarokovisty.delivery.feature.history.main.navigation.HistoryMainRouter
 import org.yarokovisty.delivery.feature.login.navigation.LoginRouter
 import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileRouter
 import org.yarokovisty.delivery.libs.navigation.backstack.BottomBarBackStack
@@ -23,7 +25,9 @@ import org.yarokovisty.delivery.navigation.router.CalculatorRouterImpl
 import org.yarokovisty.delivery.navigation.router.ConfirmationOrderRouterImpl
 import org.yarokovisty.delivery.navigation.router.DeliveryRouterImpl
 import org.yarokovisty.delivery.navigation.router.DirectionRouterImpl
+import org.yarokovisty.delivery.navigation.router.HistoryMainRouterImpl
 import org.yarokovisty.delivery.navigation.router.LoginRouterImpl
+import org.yarokovisty.delivery.navigation.router.OrderDetailsRouterImpl
 import org.yarokovisty.delivery.navigation.router.PayerRouterImpl
 import org.yarokovisty.delivery.navigation.router.ProfileRouterImpl
 import org.yarokovisty.delivery.navigation.router.ReceiverAddressRouterImpl
@@ -42,7 +46,9 @@ private val routerModule = module {
     factoryOf(::ConfirmationOrderRouterImpl) bind ConfirmationOrderRouter::class
     factoryOf(::DeliveryRouterImpl) bind DeliveryRouter::class
     factoryOf(::DirectionRouterImpl) bind DirectionRouter::class
+    factoryOf(::HistoryMainRouterImpl) bind HistoryMainRouter::class
     factoryOf(::LoginRouterImpl) bind LoginRouter::class
+    factoryOf(::OrderDetailsRouterImpl) bind OrderDetailsRouter::class
     factoryOf(::PayerRouterImpl) bind PayerRouter::class
     factoryOf(::ProfileRouterImpl) bind ProfileRouter::class
     factoryOf(::ReceiverAddressRouterImpl) bind ReceiverAddressRouter::class

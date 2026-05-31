@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class CreateOrderResponse(
-    @SerialName("order")
-    val order: OrderResponse
+internal data class CancellationOrderRequest(
+    @SerialName("orderId")
+    val orderId: String
 )

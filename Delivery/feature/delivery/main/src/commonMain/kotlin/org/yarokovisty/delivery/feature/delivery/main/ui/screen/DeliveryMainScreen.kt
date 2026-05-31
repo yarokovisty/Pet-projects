@@ -1,9 +1,6 @@
 package org.yarokovisty.delivery.feature.delivery.main.ui.screen
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -37,10 +34,7 @@ private fun DeliveryMainScreen(
         DeliveryTheme.colorScheme.bgSecondary
     }
 
-    FullScreen(
-        containerColor = containerColor,
-        paddingValues = WindowInsets.statusBars.asPaddingValues(),
-    ) {
+    FullScreen(containerColor = containerColor) {
         if (state.error) {
             FailureScreen(onIntent)
         } else {

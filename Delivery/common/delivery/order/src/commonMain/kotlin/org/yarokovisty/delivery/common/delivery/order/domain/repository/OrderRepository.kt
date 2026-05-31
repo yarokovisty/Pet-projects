@@ -5,7 +5,11 @@ import org.yarokovisty.delivery.common.delivery.order.domain.entity.Order
 
 interface OrderRepository {
 
-    suspend fun create(confirmation: ConfirmationOrder): Order
+    suspend fun get(orderId: String, token: String): Order
 
     suspend fun getHistory(token: String): List<Order>
+
+    suspend fun create(confirmation: ConfirmationOrder): Order
+
+    suspend fun cancel(orderId: String, token: String)
 }

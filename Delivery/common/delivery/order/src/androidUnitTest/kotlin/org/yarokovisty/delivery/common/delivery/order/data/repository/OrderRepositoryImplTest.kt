@@ -7,7 +7,9 @@ import kotlinx.coroutines.test.runTest
 import org.yarokovisty.delivery.common.delivery.calculator.domain.entity.OptionType
 import org.yarokovisty.delivery.common.delivery.direction.data.model.DeliveryPointResponse
 import org.yarokovisty.delivery.common.delivery.order.data.datasource.OrderRemoteDataSource
-import org.yarokovisty.delivery.common.delivery.order.data.model.CreateOrderResponse
+import org.yarokovisty.delivery.common.delivery.order.data.model.CancellationOrderRequest
+import org.yarokovisty.delivery.common.delivery.order.data.model.CancellationOrderResponse
+import org.yarokovisty.delivery.common.delivery.order.data.model.OrderDto
 import org.yarokovisty.delivery.common.delivery.order.data.model.OrderListResponse
 import org.yarokovisty.delivery.common.delivery.order.data.model.OrderResponse
 import org.yarokovisty.delivery.common.delivery.order.data.model.OrderStatusResponse
@@ -25,7 +27,7 @@ class OrderRepositoryImplTest {
     private val remoteDataSource: OrderRemoteDataSource = mockk()
     private val repository = OrderRepositoryImpl(remoteDataSource)
 
-    private val orderResponse = OrderResponse(
+    private val orderDto = OrderDto(
         id = "order-1",
         price = 500.0,
         packageType = PackageTypeResponse(
@@ -80,9 +82,9 @@ class OrderRepositoryImplTest {
         cancellable = true
     )
 
-    private val createOrderResponse = CreateOrderResponse(order = orderResponse)
+    private val orderResponse = OrderResponse(order = orderDto)
 
-    private val secondOrderResponse = OrderResponse(
+    private val secondOrderDto = OrderDto(
         id = "order-2",
         price = 750.0,
         packageType = PackageTypeResponse(
@@ -138,16 +140,16 @@ class OrderRepositoryImplTest {
     )
 
     private val orderListResponse = OrderListResponse(
-        orders = listOf(orderResponse, secondOrderResponse)
+        orders = listOf(orderDto, secondOrderDto)
     )
 
     private val emptyOrderListResponse = OrderListResponse(orders = emptyList())
 
-    private val singleOrderListResponse = OrderListResponse(orders = listOf(orderResponse))
+    private val singleOrderListResponse = OrderListResponse(orders = listOf(orderDto))
 
     @Test
     fun `create order EXPECT correct order id`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -156,7 +158,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct price`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -165,7 +167,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct option type`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -174,7 +176,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct sender firstname`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -183,7 +185,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct receiver firstname`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -192,7 +194,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct sender address street`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -201,7 +203,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct receiver address street`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -210,7 +212,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct sender point name`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -219,7 +221,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct receiver point name`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -228,7 +230,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct payer`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -237,7 +239,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct status`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -246,7 +248,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct cancellable flag`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -255,7 +257,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT correct parcel info name`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         val result = repository.create(mockk(relaxed = true))
 
@@ -264,7 +266,7 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `create order EXPECT data source called`() = runTest {
-        coEvery { remoteDataSource.create(any()) } returns createOrderResponse
+        coEvery { remoteDataSource.create(any()) } returns orderResponse
 
         repository.create(mockk(relaxed = true))
 
@@ -405,5 +407,88 @@ class OrderRepositoryImplTest {
         val result = repository.getHistory("test-token")
 
         assertEquals("order-1", result[0].id)
+    }
+
+    @Test
+    fun `get order EXPECT correct order id`() = runTest {
+        coEvery { remoteDataSource.get("order-1", "test-token") } returns orderResponse
+
+        val result = repository.get("order-1", "test-token")
+
+        assertEquals("order-1", result.id)
+    }
+
+    @Test
+    fun `get order EXPECT correct price`() = runTest {
+        coEvery { remoteDataSource.get("order-1", "test-token") } returns orderResponse
+
+        val result = repository.get("order-1", "test-token")
+
+        assertEquals(500.0, result.price)
+    }
+
+    @Test
+    fun `get order EXPECT correct status`() = runTest {
+        coEvery { remoteDataSource.get("order-1", "test-token") } returns orderResponse
+
+        val result = repository.get("order-1", "test-token")
+
+        assertEquals(OrderStatus.CREATED, result.status)
+    }
+
+    @Test
+    fun `get order EXPECT correct payer`() = runTest {
+        coEvery { remoteDataSource.get("order-1", "test-token") } returns orderResponse
+
+        val result = repository.get("order-1", "test-token")
+
+        assertEquals(Payer.SENDER, result.payer)
+    }
+
+    @Test
+    fun `get order EXPECT data source called with correct params`() = runTest {
+        val orderId = "order-1"
+        val token = "auth-token-123"
+        coEvery { remoteDataSource.get(orderId, token) } returns orderResponse
+
+        repository.get(orderId, token)
+
+        coVerify(exactly = 1) { remoteDataSource.get(orderId, token) }
+    }
+
+    @Test
+    fun `get order when data source throws exception EXPECT exception propagated`() = runTest {
+        coEvery {
+            remoteDataSource.get(any(), any())
+        } throws RuntimeException("Network error")
+
+        assertFailsWith<RuntimeException> {
+            repository.get("order-1", "test-token")
+        }
+    }
+
+    @Test
+    fun `cancel order EXPECT data source called with correct order id`() = runTest {
+        val orderId = "order-1"
+        val token = "test-token"
+        val expectedRequest = CancellationOrderRequest(orderId)
+        coEvery {
+            remoteDataSource.cancel(expectedRequest, token)
+        } returns CancellationOrderResponse(success = true)
+
+        repository.cancel(orderId, token)
+
+        coVerify(exactly = 1) { remoteDataSource.cancel(expectedRequest, token) }
+    }
+
+    @Test
+    fun `cancel order when data source throws exception EXPECT exception propagated`() = runTest {
+        coEvery {
+            remoteDataSource.cancel(any(), any())
+        } throws RuntimeException("Network error")
+
+        assertFailsWith<RuntimeException> {
+            repository.cancel("order-1", "test-token")
+        }
     }
 }

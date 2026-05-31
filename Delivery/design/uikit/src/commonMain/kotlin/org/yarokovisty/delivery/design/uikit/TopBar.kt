@@ -37,6 +37,29 @@ fun TopBar(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopBar(
+    title: @Composable () -> Unit,
+    navigationIcon: Painter? = null,
+    navigationIconTint: Color = DeliveryTheme.colorScheme.indicatorLight,
+    onNavIconClick: () -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {},
+) {
+    TopAppBar(
+        title = { title() },
+        navigationIcon = {
+            if (navigationIcon != null) {
+                NavIcon(icon = navigationIcon, tint = navigationIconTint, onClick = onNavIconClick)
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = DeliveryTheme.colorScheme.bgPrimary
+        ),
+        actions = actions
+    )
+}
+
 @Composable
 private fun NavIcon(
     icon: Painter,

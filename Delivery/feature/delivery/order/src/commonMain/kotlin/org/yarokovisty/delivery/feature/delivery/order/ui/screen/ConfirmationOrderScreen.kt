@@ -2,11 +2,8 @@ package org.yarokovisty.delivery.feature.delivery.order.ui.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
@@ -69,7 +66,7 @@ private fun ConfirmationOrderScreen(
         onBackCompleted = { onIntent(ConfirmationOrderIntent.Back) }
     )
 
-    FullScreen(paddingValues = WindowInsets.navigationBars.asPaddingValues()) {
+    FullScreen {
         Column(modifier = Modifier.fillMaxSize()) {
             ConfirmationOrderTopBar(onBackClick = { onIntent(ConfirmationOrderIntent.Back) })
 

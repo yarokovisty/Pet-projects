@@ -3,12 +3,14 @@ package org.yarokovisty.delivery.feature.history.main.presentation.viewmodel
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.yarokovisty.delivery.common.delivery.order.domain.entity.Order
 import org.yarokovisty.delivery.common.delivery.order.domain.usecase.GetHistoryOrdersUseCase
+import org.yarokovisty.delivery.feature.history.main.navigation.HistoryMainRouter
 import org.yarokovisty.delivery.feature.history.main.presentation.intent.HistoryMainIntent
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import kotlin.test.Test
@@ -20,6 +22,7 @@ import kotlin.test.assertTrue
 internal class HistoryMainViewModelTest {
 
     private val getHistoryOrdersUseCase: GetHistoryOrdersUseCase = mockk()
+    private val router: HistoryMainRouter = mockk(relaxed = true)
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
@@ -27,6 +30,7 @@ internal class HistoryMainViewModelTest {
     private fun createViewModel(): HistoryMainViewModel =
         HistoryMainViewModel(
             getHistoryOrdersUseCase = getHistoryOrdersUseCase,
+            router = router,
         )
 
     // region Init
@@ -147,6 +151,20 @@ internal class HistoryMainViewModelTest {
         advanceUntilIdle()
 
         assertFalse(viewModel.state.value.loading)
+    }
+
+    // endregion
+
+    // region OpenOrderDetails
+
+    @Test
+    fun `open order details EXPECT router opens order details screen`() {
+        val orderId = "order-123"
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(HistoryMainIntent.OpenOrderDetails(orderId))
+
+        verify { router.openOrderDetailsScreen(orderId) }
     }
 
     // endregion

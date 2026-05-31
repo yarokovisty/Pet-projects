@@ -8,6 +8,7 @@ import org.yarokovisty.delivery.feature.delivery.order.di.deliveryOrderModule
 import org.yarokovisty.delivery.feature.delivery.payer.di.deliveryPayerModule
 import org.yarokovisty.delivery.feature.delivery.person.di.deliveryPersonModule
 import org.yarokovisty.delivery.feature.delivery.point.di.deliveryPointModule
+import org.yarokovisty.delivery.feature.history.details.di.historyDetailsModule
 import org.yarokovisty.delivery.feature.history.main.di.historyMainModule
 import org.yarokovisty.delivery.feature.login.di.loginModule
 import org.yarokovisty.delivery.feature.profile.main.di.profileMainModule
@@ -21,6 +22,7 @@ val featureModule = module {
         deliveryPersonModule,
         deliveryPayerModule,
         deliveryPointModule,
+        historyDetailsModule,
         historyMainModule,
         loginModule,
         profileMainModule,
