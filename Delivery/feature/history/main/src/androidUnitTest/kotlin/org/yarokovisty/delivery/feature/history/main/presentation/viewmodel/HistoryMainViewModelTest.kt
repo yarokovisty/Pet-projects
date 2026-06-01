@@ -9,7 +9,7 @@ import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.yarokovisty.delivery.common.delivery.order.domain.entity.Order
-import org.yarokovisty.delivery.common.delivery.order.domain.usecase.GetHistoryOrdersUseCase
+import org.yarokovisty.delivery.common.delivery.order.domain.repository.OrderRepository
 import org.yarokovisty.delivery.feature.history.main.navigation.HistoryMainRouter
 import org.yarokovisty.delivery.feature.history.main.presentation.intent.HistoryMainIntent
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
@@ -21,7 +21,7 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class HistoryMainViewModelTest {
 
-    private val getHistoryOrdersUseCase: GetHistoryOrdersUseCase = mockk()
+    private val orderRepository: OrderRepository = mockk()
     private val router: HistoryMainRouter = mockk(relaxed = true)
 
     @get:Rule
@@ -29,7 +29,7 @@ internal class HistoryMainViewModelTest {
 
     private fun createViewModel(): HistoryMainViewModel =
         HistoryMainViewModel(
-            getHistoryOrdersUseCase = getHistoryOrdersUseCase,
+            orderRepository = orderRepository,
             router = router,
         )
 
@@ -67,14 +67,14 @@ internal class HistoryMainViewModelTest {
     // region LoadData - Success
 
     @Test
-    fun `load data EXPECT get history orders use case called`() = runTest {
-        coEvery { getHistoryOrdersUseCase() } returns emptyList()
+    fun `load data EXPECT order repository getHistory called`() = runTest {
+        coEvery { orderRepository.getHistory() } returns emptyList()
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)
         advanceUntilIdle()
 
-        coVerify { getHistoryOrdersUseCase() }
+        coVerify { orderRepository.getHistory() }
     }
 
     @Test
@@ -83,7 +83,7 @@ internal class HistoryMainViewModelTest {
             mockk<Order>(relaxed = true),
             mockk<Order>(relaxed = true),
         )
-        coEvery { getHistoryOrdersUseCase() } returns expectedOrders
+        coEvery { orderRepository.getHistory() } returns expectedOrders
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)
@@ -95,7 +95,7 @@ internal class HistoryMainViewModelTest {
     @Test
     fun `load data with orders returned EXPECT state loading is false`() = runTest {
         val orders = listOf(mockk<Order>(relaxed = true))
-        coEvery { getHistoryOrdersUseCase() } returns orders
+        coEvery { orderRepository.getHistory() } returns orders
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)
@@ -107,7 +107,7 @@ internal class HistoryMainViewModelTest {
     @Test
     fun `load data with orders returned EXPECT state error is false`() = runTest {
         val orders = listOf(mockk<Order>(relaxed = true))
-        coEvery { getHistoryOrdersUseCase() } returns orders
+        coEvery { orderRepository.getHistory() } returns orders
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)
@@ -118,7 +118,7 @@ internal class HistoryMainViewModelTest {
 
     @Test
     fun `load data with empty list returned EXPECT state orders is empty`() = runTest {
-        coEvery { getHistoryOrdersUseCase() } returns emptyList()
+        coEvery { orderRepository.getHistory() } returns emptyList()
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)
@@ -132,8 +132,8 @@ internal class HistoryMainViewModelTest {
     // region LoadData - Error
 
     @Test
-    fun `load data when use case throws EXPECT state error is true`() = runTest {
-        coEvery { getHistoryOrdersUseCase() } throws RuntimeException("test error")
+    fun `load data when repository throws EXPECT state error is true`() = runTest {
+        coEvery { orderRepository.getHistory() } throws RuntimeException("test error")
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)
@@ -143,8 +143,8 @@ internal class HistoryMainViewModelTest {
     }
 
     @Test
-    fun `load data when use case throws EXPECT state loading is false`() = runTest {
-        coEvery { getHistoryOrdersUseCase() } throws RuntimeException("test error")
+    fun `load data when repository throws EXPECT state loading is false`() = runTest {
+        coEvery { orderRepository.getHistory() } throws RuntimeException("test error")
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)

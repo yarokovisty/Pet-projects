@@ -2,8 +2,7 @@ package org.yarokovisty.delivery.feature.profile.main.presentation.viewmodel
 
 import org.yarokovisty.delivery.common.delivery.direction.domain.entity.DeliveryPoint
 import org.yarokovisty.delivery.common.logout.domain.usecase.LogoutUseCase
-import org.yarokovisty.delivery.common.profile.main.domain.usecase.GetUserUseCase
-import org.yarokovisty.delivery.common.profile.main.domain.usecase.UpdateUserUseCase
+import org.yarokovisty.delivery.common.profile.main.domain.repository.UserRepository
 import org.yarokovisty.delivery.common.validation.validator.EmailValidator
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.profile.main.navigation.ProfileRouter
@@ -30,8 +29,7 @@ import org.yarokovisty.delivery.util.phone.PhoneNumberFormatter
 import org.yarokovisty.delivery.util.validation.validated.fold
 
 internal class ProfileViewModel(
-    private val getUserUseCase: GetUserUseCase,
-    private val updateUserUseCase: UpdateUserUseCase,
+    private val userRepository: UserRepository,
     private val logoutUseCase: LogoutUseCase,
     private val emailValidator: EmailValidator,
     private val phoneNumberFormatter: PhoneNumberFormatter,
@@ -61,9 +59,8 @@ internal class ProfileViewModel(
         updateState { loadingState() }
 
         launchTrying {
-            getUserUseCase()?.let { user ->
-                updateState { contentState(user, phoneNumberFormatter) }
-            }
+            val user = userRepository.get()
+            updateState { contentState(user, phoneNumberFormatter) }
         } handle { handleError() }
     }
 
@@ -89,8 +86,10 @@ internal class ProfileViewModel(
 
         launchTrying {
             val updatedUser = content.getUpdatedUser()
-            updateUserUseCase(updatedUser)
+            userRepository.update(updatedUser)
+
             emitEvent(ProfileEvent.UpdateUserDataSuccess)
+
             updateState { updateUserSuccessState() }
         } handle { handleUpdateUserError() }
     }

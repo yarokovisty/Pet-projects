@@ -20,6 +20,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.common.auth)
+            implementation(projects.common.profile.main)
             implementation(projects.core.common.coroutines)
             implementation(projects.core.common.presentation)
             implementation(projects.common.validation)

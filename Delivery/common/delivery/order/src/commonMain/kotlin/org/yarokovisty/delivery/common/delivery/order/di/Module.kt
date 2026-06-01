@@ -6,18 +6,19 @@ import org.koin.dsl.module
 import org.yarokovisty.delivery.common.delivery.order.data.datasource.OrderRemoteDataSource
 import org.yarokovisty.delivery.common.delivery.order.data.repository.OrderRepositoryImpl
 import org.yarokovisty.delivery.common.delivery.order.domain.repository.OrderRepository
-import org.yarokovisty.delivery.common.delivery.order.domain.usecase.CancelOrderUseCase
 import org.yarokovisty.delivery.common.delivery.order.domain.usecase.ClearConfirmationOrderUseCase
 import org.yarokovisty.delivery.common.delivery.order.domain.usecase.GetConfirmationOrderUseCase
-import org.yarokovisty.delivery.common.delivery.order.domain.usecase.GetHistoryOrdersUseCase
-import org.yarokovisty.delivery.common.delivery.order.domain.usecase.GetOrderUseCase
+import org.yarokovisty.delivery.core.network.di.authHttpClientQualifier
+import org.yarokovisty.delivery.core.network.di.defaultHttpClientQualifier
 
 val deliveryOrderModule = module {
-    factoryOf(::OrderRemoteDataSource)
+    factory {
+        OrderRemoteDataSource(
+            defaultHttpClient = get(defaultHttpClientQualifier),
+            authHttpClient = get(authHttpClientQualifier)
+        )
+    }
     factoryOf(::OrderRepositoryImpl) bind OrderRepository::class
     factoryOf(::ClearConfirmationOrderUseCase)
     factoryOf(::GetConfirmationOrderUseCase)
-    factoryOf(::GetHistoryOrdersUseCase)
-    factoryOf(::GetOrderUseCase)
-    factoryOf(::CancelOrderUseCase)
 }

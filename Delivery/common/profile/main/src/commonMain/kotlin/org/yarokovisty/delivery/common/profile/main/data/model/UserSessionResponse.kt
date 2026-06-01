@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserSessionResponse(
     @SerialName("user")
-    val user: org.yarokovisty.delivery.common.profile.main.data.model.UserResponse
+    val user: org.yarokovisty.delivery.common.profile.main.data.model.UserDto
 )

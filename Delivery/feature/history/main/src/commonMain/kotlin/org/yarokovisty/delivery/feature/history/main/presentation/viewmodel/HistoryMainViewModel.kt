@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.feature.history.main.presentation.viewmodel
 
-import org.yarokovisty.delivery.common.delivery.order.domain.usecase.GetHistoryOrdersUseCase
+import org.yarokovisty.delivery.common.delivery.order.domain.repository.OrderRepository
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.history.main.navigation.HistoryMainRouter
 import org.yarokovisty.delivery.feature.history.main.presentation.intent.HistoryMainIntent
@@ -11,7 +11,7 @@ import org.yarokovisty.delivery.feature.history.main.presentation.state.initial
 import org.yarokovisty.delivery.feature.history.main.presentation.state.loading
 
 internal class HistoryMainViewModel(
-    private val getHistoryOrdersUseCase: GetHistoryOrdersUseCase,
+    private val orderRepository: OrderRepository,
     private val router: HistoryMainRouter,
 ) : BaseViewModel<HistoryMainState, HistoryMainIntent, Nothing>(initial()) {
 
@@ -26,11 +26,12 @@ internal class HistoryMainViewModel(
         updateState { loading() }
 
         launchTrying {
-            val historyOrders = getHistoryOrdersUseCase()
+            val historyOrders = orderRepository.getHistory()
             updateState { content(historyOrders) }
         } handle { handleError() }
     }
 
+    // TODO добавить обработку Unauthorized
     private fun handleError() {
         updateState { error() }
     }

@@ -1,11 +1,11 @@
 package org.yarokovisty.delivery.common.profile.main.data.mapper
 
 import org.yarokovisty.delivery.common.profile.main.data.model.ProfileRequest
+import org.yarokovisty.delivery.common.profile.main.data.model.UserDto
 import org.yarokovisty.delivery.common.profile.main.data.model.UserRequest
-import org.yarokovisty.delivery.common.profile.main.data.model.UserResponse
 import org.yarokovisty.delivery.common.profile.main.domain.entity.User
 
-internal fun UserResponse.toItem(): User =
+fun UserDto.toItem(): User =
     User(
         id = id,
         phone = phone,

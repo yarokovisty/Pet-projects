@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserResponse(
+data class UserDto(
     @SerialName("_id")
     val id: String,
     @SerialName("phone")

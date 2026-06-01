@@ -25,8 +25,8 @@ val deliveryPersonModule = module {
     }
     viewModel { (screenType: PersonScreenType) ->
         SenderViewModel(
+            userRepository = get(),
             personRepository = get(),
-            getUserUseCase = get(),
             ruPhoneValidateUseCase = get(),
             nameValidator = get(),
             phoneNumberFormatter = PhoneNumberFormatter(PhoneNumberMask.RU),

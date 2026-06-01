@@ -12,6 +12,7 @@ kotlin {
             implementation(libs.mockk)
         }
         commonMain.dependencies {
+            implementation(projects.core.network)
             implementation(projects.core.storage)
 
             implementation(libs.koin.core)

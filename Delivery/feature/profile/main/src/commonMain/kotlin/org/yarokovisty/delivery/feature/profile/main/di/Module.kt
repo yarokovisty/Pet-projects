@@ -9,8 +9,7 @@ import org.yarokovisty.delivery.util.phone.PhoneNumberMask
 val profileMainModule = module {
     viewModel {
         ProfileViewModel(
-            getUserUseCase = get(),
-            updateUserUseCase = get(),
+            userRepository = get(),
             logoutUseCase = get(),
             emailValidator = get(),
             phoneNumberFormatter = PhoneNumberFormatter(PhoneNumberMask.RU),

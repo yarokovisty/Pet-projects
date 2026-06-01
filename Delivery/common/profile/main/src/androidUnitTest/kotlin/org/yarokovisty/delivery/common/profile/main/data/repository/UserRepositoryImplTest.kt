@@ -9,13 +9,12 @@ import kotlinx.coroutines.test.runTest
 import org.yarokovisty.delivery.common.profile.main.data.datasource.UserLocalDataSource
 import org.yarokovisty.delivery.common.profile.main.data.datasource.UserRemoteDataSource
 import org.yarokovisty.delivery.common.profile.main.data.model.ProfileRequest
+import org.yarokovisty.delivery.common.profile.main.data.model.UserDto
 import org.yarokovisty.delivery.common.profile.main.data.model.UserRequest
-import org.yarokovisty.delivery.common.profile.main.data.model.UserResponse
 import org.yarokovisty.delivery.common.profile.main.data.model.UserSessionResponse
 import org.yarokovisty.delivery.common.profile.main.domain.entity.User
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNull
 
 class UserRepositoryImplTest {
 
@@ -34,13 +33,12 @@ class UserRepositoryImplTest {
         const val TEST_MIDDLENAME = "Ivanovich"
         const val TEST_EMAIL = "ivan@example.com"
         const val TEST_CITY = "Moscow"
-        const val TEST_TOKEN = "token_abc123"
     }
 
-    // region getUserFromLocal
+    // region get
 
     @Test
-    fun `get user from local when data exists EXPECT user returned`() = runTest {
+    fun `get when local user exists EXPECT local user returned`() = runTest {
         val cachedUser = User(
             id = TEST_ID,
             phone = TEST_PHONE,
@@ -52,57 +50,33 @@ class UserRepositoryImplTest {
         )
         coEvery { localDataSource.get() } returns cachedUser
 
-        val actual = repository.getFromLocal()
+        val actual = repository.get()
 
         assertEquals(cachedUser, actual)
     }
 
     @Test
-    fun `get user from local when no data EXPECT null returned`() = runTest {
-        coEvery { localDataSource.get() } returns null
-
-        val actual = repository.getFromLocal()
-
-        assertNull(actual)
-    }
-
-    @Test
-    fun `get user from local EXPECT local data source get called`() = runTest {
-        coEvery { localDataSource.get() } returns null
-
-        repository.getFromLocal()
-
-        coVerify { localDataSource.get() }
-    }
-
-    // endregion
-
-    // region getUserFromNetwork
-
-    @Test
-    fun `get user from network EXPECT remote data source called with token`() = runTest {
-        val sessionResponse = UserSessionResponse(
-            user = UserResponse(
-                id = TEST_ID,
-                phone = TEST_PHONE,
-                firstname = TEST_FIRSTNAME,
-                lastname = TEST_LASTNAME,
-                middlename = TEST_MIDDLENAME,
-                email = TEST_EMAIL,
-                city = TEST_CITY
-            )
+    fun `get when local user exists EXPECT remote data source not called`() = runTest {
+        val cachedUser = User(
+            id = TEST_ID,
+            phone = TEST_PHONE,
+            firstname = TEST_FIRSTNAME,
+            lastname = TEST_LASTNAME,
+            middlename = TEST_MIDDLENAME,
+            email = TEST_EMAIL,
+            city = TEST_CITY
         )
-        coEvery { remoteDataSource.getUser(TEST_TOKEN) } returns sessionResponse
+        coEvery { localDataSource.get() } returns cachedUser
 
-        repository.getFromNetwork(TEST_TOKEN)
+        repository.get()
 
-        coVerify { remoteDataSource.getUser(TEST_TOKEN) }
+        coVerify(exactly = 0) { remoteDataSource.get() }
     }
 
     @Test
-    fun `get user from network EXPECT mapped user returned`() = runTest {
+    fun `get when local is null EXPECT remote user returned`() = runTest {
         val sessionResponse = UserSessionResponse(
-            user = UserResponse(
+            user = UserDto(
                 id = TEST_ID,
                 phone = TEST_PHONE,
                 firstname = TEST_FIRSTNAME,
@@ -121,24 +95,74 @@ class UserRepositoryImplTest {
             email = TEST_EMAIL,
             city = TEST_CITY
         )
-        coEvery { remoteDataSource.getUser(TEST_TOKEN) } returns sessionResponse
+        coEvery { localDataSource.get() } returns null
+        coEvery { remoteDataSource.get() } returns sessionResponse
+        coEvery { localDataSource.save(any()) } just runs
 
-        val actual = repository.getFromNetwork(TEST_TOKEN)
+        val actual = repository.get()
 
         assertEquals(expectedUser, actual)
     }
 
     @Test
-    fun `get user from network when response has null fields EXPECT user with nulls returned`() = runTest {
+    fun `get when local is null EXPECT remote data source called`() = runTest {
         val sessionResponse = UserSessionResponse(
-            user = UserResponse(
+            user = UserDto(
                 id = TEST_ID,
                 phone = TEST_PHONE,
-                firstname = null,
-                lastname = null,
-                middlename = null,
-                email = null,
-                city = null
+                firstname = TEST_FIRSTNAME,
+                lastname = TEST_LASTNAME,
+                middlename = TEST_MIDDLENAME,
+                email = TEST_EMAIL,
+                city = TEST_CITY
+            )
+        )
+        coEvery { localDataSource.get() } returns null
+        coEvery { remoteDataSource.get() } returns sessionResponse
+        coEvery { localDataSource.save(any()) } just runs
+
+        repository.get()
+
+        coVerify { remoteDataSource.get() }
+    }
+
+    @Test
+    fun `get when local is null EXPECT remote user saved to local`() = runTest {
+        val expectedUser = User(
+            id = TEST_ID,
+            phone = TEST_PHONE,
+            firstname = TEST_FIRSTNAME,
+            lastname = TEST_LASTNAME,
+            middlename = TEST_MIDDLENAME,
+            email = TEST_EMAIL,
+            city = TEST_CITY
+        )
+        val sessionResponse = UserSessionResponse(
+            user = UserDto(
+                id = TEST_ID,
+                phone = TEST_PHONE,
+                firstname = TEST_FIRSTNAME,
+                lastname = TEST_LASTNAME,
+                middlename = TEST_MIDDLENAME,
+                email = TEST_EMAIL,
+                city = TEST_CITY
+            )
+        )
+        coEvery { localDataSource.get() } returns null
+        coEvery { remoteDataSource.get() } returns sessionResponse
+        coEvery { localDataSource.save(any()) } just runs
+
+        repository.get()
+
+        coVerify { localDataSource.save(expectedUser) }
+    }
+
+    @Test
+    fun `get when local is null and response has null fields EXPECT user with nulls returned`() = runTest {
+        val sessionResponse = UserSessionResponse(
+            user = UserDto(
+                id = TEST_ID,
+                phone = TEST_PHONE
             )
         )
         val expectedUser = User(
@@ -150,19 +174,43 @@ class UserRepositoryImplTest {
             email = null,
             city = null
         )
-        coEvery { remoteDataSource.getUser(TEST_TOKEN) } returns sessionResponse
+        coEvery { localDataSource.get() } returns null
+        coEvery { remoteDataSource.get() } returns sessionResponse
+        coEvery { localDataSource.save(any()) } just runs
 
-        val actual = repository.getFromNetwork(TEST_TOKEN)
+        val actual = repository.get()
 
         assertEquals(expectedUser, actual)
     }
 
     // endregion
 
-    // region updateUser
+    // region set
 
     @Test
-    fun `update user EXPECT remote update called with correct request`() = runTest {
+    fun `set EXPECT local data source save called`() = runTest {
+        val user = User(
+            id = TEST_ID,
+            phone = TEST_PHONE,
+            firstname = TEST_FIRSTNAME,
+            lastname = TEST_LASTNAME,
+            middlename = TEST_MIDDLENAME,
+            email = TEST_EMAIL,
+            city = TEST_CITY
+        )
+        coEvery { localDataSource.save(any()) } just runs
+
+        repository.set(user)
+
+        coVerify { localDataSource.save(user) }
+    }
+
+    // endregion
+
+    // region update
+
+    @Test
+    fun `update EXPECT remote update called with correct request`() = runTest {
         val user = User(
             id = TEST_ID,
             phone = TEST_PHONE,
@@ -183,7 +231,7 @@ class UserRepositoryImplTest {
             phone = TEST_PHONE
         )
         val mockResponse = UserSessionResponse(
-            user = UserResponse(
+            user = UserDto(
                 id = TEST_ID,
                 phone = TEST_PHONE,
                 firstname = TEST_FIRSTNAME,
@@ -193,16 +241,16 @@ class UserRepositoryImplTest {
                 city = TEST_CITY
             )
         )
-        coEvery { remoteDataSource.updateUser(any(), any()) } returns mockResponse
+        coEvery { remoteDataSource.update(any()) } returns mockResponse
         coEvery { localDataSource.save(any()) } just runs
 
-        repository.update(user, TEST_TOKEN)
+        repository.update(user)
 
-        coVerify { remoteDataSource.updateUser(expectedRequest, TEST_TOKEN) }
+        coVerify { remoteDataSource.update(expectedRequest) }
     }
 
     @Test
-    fun `update user EXPECT user saved to local`() = runTest {
+    fun `update EXPECT user saved to local`() = runTest {
         val user = User(
             id = TEST_ID,
             phone = TEST_PHONE,
@@ -213,7 +261,7 @@ class UserRepositoryImplTest {
             city = TEST_CITY
         )
         val mockResponse = UserSessionResponse(
-            user = UserResponse(
+            user = UserDto(
                 id = TEST_ID,
                 phone = TEST_PHONE,
                 firstname = TEST_FIRSTNAME,
@@ -223,16 +271,16 @@ class UserRepositoryImplTest {
                 city = TEST_CITY
             )
         )
-        coEvery { remoteDataSource.updateUser(any(), any()) } returns mockResponse
+        coEvery { remoteDataSource.update(any()) } returns mockResponse
         coEvery { localDataSource.save(any()) } just runs
 
-        repository.update(user, TEST_TOKEN)
+        repository.update(user)
 
         coVerify { localDataSource.save(user) }
     }
 
     @Test
-    fun `update user with null fields EXPECT remote called with nulls`() = runTest {
+    fun `update with null fields EXPECT remote called with nulls`() = runTest {
         val user = User(
             id = TEST_ID,
             phone = TEST_PHONE,
@@ -253,42 +301,17 @@ class UserRepositoryImplTest {
             phone = TEST_PHONE
         )
         val mockResponse = UserSessionResponse(
-            user = UserResponse(
+            user = UserDto(
                 id = TEST_ID,
                 phone = TEST_PHONE
             )
         )
-        coEvery { remoteDataSource.updateUser(any(), any()) } returns mockResponse
+        coEvery { remoteDataSource.update(any()) } returns mockResponse
         coEvery { localDataSource.save(any()) } just runs
 
-        repository.update(user, TEST_TOKEN)
+        repository.update(user)
 
-        coVerify { remoteDataSource.updateUser(expectedRequest, TEST_TOKEN) }
-    }
-
-    @Test
-    fun `update user with null fields EXPECT user with nulls saved to local`() = runTest {
-        val user = User(
-            id = TEST_ID,
-            phone = TEST_PHONE,
-            firstname = null,
-            lastname = null,
-            middlename = null,
-            email = null,
-            city = null
-        )
-        val mockResponse = UserSessionResponse(
-            user = UserResponse(
-                id = TEST_ID,
-                phone = TEST_PHONE
-            )
-        )
-        coEvery { remoteDataSource.updateUser(any(), any()) } returns mockResponse
-        coEvery { localDataSource.save(any()) } just runs
-
-        repository.update(user, TEST_TOKEN)
-
-        coVerify { localDataSource.save(user) }
+        coVerify { remoteDataSource.update(expectedRequest) }
     }
 
     // endregion

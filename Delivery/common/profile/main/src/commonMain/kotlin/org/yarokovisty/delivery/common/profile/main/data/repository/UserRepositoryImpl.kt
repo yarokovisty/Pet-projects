@@ -12,14 +12,15 @@ internal class UserRepositoryImpl(
     private val remoteDataSource: UserRemoteDataSource,
 ) : UserRepository {
 
-    override suspend fun getFromLocal(): User? =
+    override suspend fun get(): User =
         localDataSource.get()
+            ?: remoteDataSource.get().user.toItem().also { localDataSource.save(it) }
 
-    override suspend fun getFromNetwork(token: String): User =
-        remoteDataSource.getUser(token).user.toItem()
+    override suspend fun set(user: User) =
+        localDataSource.save(user)
 
-    override suspend fun update(user: User, token: String) {
-        remoteDataSource.updateUser(user.toRequest(), token)
+    override suspend fun update(user: User) {
+        remoteDataSource.update(user.toRequest())
         localDataSource.save(user)
     }
 

@@ -284,163 +284,162 @@ class OrderRepositoryImplTest {
 
     @Test
     fun `get history EXPECT correct first order id`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns orderListResponse
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals("order-2", result[0].id)
     }
 
     @Test
     fun `get history EXPECT correct second order id`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns orderListResponse
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals("order-1", result[1].id)
     }
 
     @Test
     fun `get history EXPECT correct first order price`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns orderListResponse
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals(750.0, result[0].price)
     }
 
     @Test
     fun `get history EXPECT correct second order price`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns orderListResponse
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals(500.0, result[1].price)
     }
 
     @Test
     fun `get history EXPECT correct first order status`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns orderListResponse
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals(OrderStatus.DELIVERED, result[0].status)
     }
 
     @Test
     fun `get history EXPECT correct second order status`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns orderListResponse
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals(OrderStatus.CREATED, result[1].status)
     }
 
     @Test
     fun `get history EXPECT correct first order payer`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns orderListResponse
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals(Payer.RECEIVER, result[0].payer)
     }
 
     @Test
     fun `get history EXPECT correct second order payer`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns orderListResponse
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals(Payer.SENDER, result[1].payer)
     }
 
     @Test
-    fun `get history EXPECT data source called with token`() = runTest {
-        val token = "auth-token-123"
-        coEvery { remoteDataSource.getHistory(token) } returns orderListResponse
+    fun `get history EXPECT data source called`() = runTest {
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        repository.getHistory(token)
+        repository.getHistory()
 
-        coVerify(exactly = 1) { remoteDataSource.getHistory(token) }
+        coVerify(exactly = 1) { remoteDataSource.getHistory() }
     }
 
     @Test
     fun `get history when data source throws exception EXPECT exception propagated`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } throws RuntimeException("Network error")
+        coEvery { remoteDataSource.getHistory() } throws RuntimeException("Network error")
 
         assertFailsWith<RuntimeException> {
-            repository.getHistory("test-token")
+            repository.getHistory()
         }
     }
 
     @Test
     fun `get history with multiple orders EXPECT correct list size`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns orderListResponse
+        coEvery { remoteDataSource.getHistory() } returns orderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals(2, result.size)
     }
 
     @Test
     fun `get history with empty list EXPECT empty result`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns emptyOrderListResponse
+        coEvery { remoteDataSource.getHistory() } returns emptyOrderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals(0, result.size)
     }
 
     @Test
     fun `get history with single order EXPECT list size one`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns singleOrderListResponse
+        coEvery { remoteDataSource.getHistory() } returns singleOrderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals(1, result.size)
     }
 
     @Test
     fun `get history with single order EXPECT correct order id`() = runTest {
-        coEvery { remoteDataSource.getHistory(any()) } returns singleOrderListResponse
+        coEvery { remoteDataSource.getHistory() } returns singleOrderListResponse
 
-        val result = repository.getHistory("test-token")
+        val result = repository.getHistory()
 
         assertEquals("order-1", result[0].id)
     }
 
     @Test
     fun `get order EXPECT correct order id`() = runTest {
-        coEvery { remoteDataSource.get("order-1", "test-token") } returns orderResponse
+        coEvery { remoteDataSource.get("order-1") } returns orderResponse
 
-        val result = repository.get("order-1", "test-token")
+        val result = repository.get("order-1")
 
         assertEquals("order-1", result.id)
     }
 
     @Test
     fun `get order EXPECT correct price`() = runTest {
-        coEvery { remoteDataSource.get("order-1", "test-token") } returns orderResponse
+        coEvery { remoteDataSource.get("order-1") } returns orderResponse
 
-        val result = repository.get("order-1", "test-token")
+        val result = repository.get("order-1")
 
         assertEquals(500.0, result.price)
     }
 
     @Test
     fun `get order EXPECT correct status`() = runTest {
-        coEvery { remoteDataSource.get("order-1", "test-token") } returns orderResponse
+        coEvery { remoteDataSource.get("order-1") } returns orderResponse
 
-        val result = repository.get("order-1", "test-token")
+        val result = repository.get("order-1")
 
         assertEquals(OrderStatus.CREATED, result.status)
     }
 
     @Test
     fun `get order EXPECT correct payer`() = runTest {
-        coEvery { remoteDataSource.get("order-1", "test-token") } returns orderResponse
+        coEvery { remoteDataSource.get("order-1") } returns orderResponse
 
-        val result = repository.get("order-1", "test-token")
+        val result = repository.get("order-1")
 
         assertEquals(Payer.SENDER, result.payer)
     }
@@ -448,47 +447,41 @@ class OrderRepositoryImplTest {
     @Test
     fun `get order EXPECT data source called with correct params`() = runTest {
         val orderId = "order-1"
-        val token = "auth-token-123"
-        coEvery { remoteDataSource.get(orderId, token) } returns orderResponse
+        coEvery { remoteDataSource.get(orderId) } returns orderResponse
 
-        repository.get(orderId, token)
+        repository.get(orderId)
 
-        coVerify(exactly = 1) { remoteDataSource.get(orderId, token) }
+        coVerify(exactly = 1) { remoteDataSource.get(orderId) }
     }
 
     @Test
     fun `get order when data source throws exception EXPECT exception propagated`() = runTest {
-        coEvery {
-            remoteDataSource.get(any(), any())
-        } throws RuntimeException("Network error")
+        coEvery { remoteDataSource.get(any()) } throws RuntimeException("Network error")
 
         assertFailsWith<RuntimeException> {
-            repository.get("order-1", "test-token")
+            repository.get("order-1")
         }
     }
 
     @Test
     fun `cancel order EXPECT data source called with correct order id`() = runTest {
         val orderId = "order-1"
-        val token = "test-token"
         val expectedRequest = CancellationOrderRequest(orderId)
         coEvery {
-            remoteDataSource.cancel(expectedRequest, token)
+            remoteDataSource.cancel(expectedRequest)
         } returns CancellationOrderResponse(success = true)
 
-        repository.cancel(orderId, token)
+        repository.cancel(orderId)
 
-        coVerify(exactly = 1) { remoteDataSource.cancel(expectedRequest, token) }
+        coVerify(exactly = 1) { remoteDataSource.cancel(expectedRequest) }
     }
 
     @Test
     fun `cancel order when data source throws exception EXPECT exception propagated`() = runTest {
-        coEvery {
-            remoteDataSource.cancel(any(), any())
-        } throws RuntimeException("Network error")
+        coEvery { remoteDataSource.cancel(any()) } throws RuntimeException("Network error")
 
         assertFailsWith<RuntimeException> {
-            repository.cancel("order-1", "test-token")
+            repository.cancel("order-1")
         }
     }
 }

@@ -1,20 +1,20 @@
 package org.yarokovisty.delivery.common.auth.data.repository
 
-import org.yarokovisty.delivery.common.auth.data.datasource.AuthLocalDataSource
 import org.yarokovisty.delivery.common.auth.domain.repository.AuthRepository
+import org.yarokovisty.delivery.core.network.token.TokenProvider
 
 internal class AuthRepositoryImpl(
-    private val localDataSource: AuthLocalDataSource
+    private val tokenProvider: TokenProvider,
 ) : AuthRepository {
 
     override suspend fun saveToken(token: String) {
-        localDataSource.saveToken(token)
+        tokenProvider.set(token)
     }
 
     override suspend fun getToken(): String? =
-        localDataSource.getToken()
+        tokenProvider.get()
 
     override suspend fun clearToken() {
-        localDataSource.clearToken()
+        tokenProvider.clear()
     }
 }

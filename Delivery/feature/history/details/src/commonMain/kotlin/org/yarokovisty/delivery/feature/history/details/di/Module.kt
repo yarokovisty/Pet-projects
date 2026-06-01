@@ -7,8 +7,7 @@ import org.yarokovisty.delivery.feature.history.details.presentation.viewmodel.O
 val historyDetailsModule = module {
     viewModel { (orderId: String) ->
         OrderDetailsViewModel(
-            cancelOrderUseCase = get(),
-            getOrderUseCase = get(),
+            orderRepository = get(),
             router = get(),
             orderId = orderId
         )

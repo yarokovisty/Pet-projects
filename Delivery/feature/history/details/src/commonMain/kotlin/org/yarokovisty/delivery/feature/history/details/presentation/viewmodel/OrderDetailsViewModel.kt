@@ -1,7 +1,6 @@
 package org.yarokovisty.delivery.feature.history.details.presentation.viewmodel
 
-import org.yarokovisty.delivery.common.delivery.order.domain.usecase.CancelOrderUseCase
-import org.yarokovisty.delivery.common.delivery.order.domain.usecase.GetOrderUseCase
+import org.yarokovisty.delivery.common.delivery.order.domain.repository.OrderRepository
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.history.details.navigation.OrderDetailsRouter
 import org.yarokovisty.delivery.feature.history.details.presentation.intent.OrderDetailsIntent
@@ -15,8 +14,7 @@ import org.yarokovisty.delivery.feature.history.details.presentation.state.loadi
 import org.yarokovisty.delivery.feature.history.details.presentation.state.updateCancellationScreenVisibility
 
 internal class OrderDetailsViewModel(
-    private val cancelOrderUseCase: CancelOrderUseCase,
-    private val getOrderUseCase: GetOrderUseCase,
+    private val orderRepository: OrderRepository,
     private val router: OrderDetailsRouter,
     private val orderId: String,
 ) : BaseViewModel<OrderDetailsState, OrderDetailsIntent, Nothing>(initial()) {
@@ -39,7 +37,7 @@ internal class OrderDetailsViewModel(
         updateState { loading() }
 
         launchTrying {
-            val order = getOrderUseCase(orderId)
+            val order = orderRepository.get(orderId)
             updateState { content(order) }
         } handle { handleError(OrderDetailsError.LOAD) }
     }
@@ -50,11 +48,12 @@ internal class OrderDetailsViewModel(
         }
 
         launchTrying {
-            cancelOrderUseCase(orderId)
+            orderRepository.cancel(orderId)
             updateState { cancellationSuccess() }
         } handle { handleError(OrderDetailsError.CANCEL) }
     }
 
+    // TODO добавить обработку Unauthorized
     private fun handleError(error: OrderDetailsError) {
         updateState { error(error) }
     }

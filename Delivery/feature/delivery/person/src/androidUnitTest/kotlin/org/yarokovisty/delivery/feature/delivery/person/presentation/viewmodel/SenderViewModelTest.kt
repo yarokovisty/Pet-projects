@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.yarokovisty.delivery.common.delivery.person.domain.entity.PersonInfo
 import org.yarokovisty.delivery.common.delivery.person.domain.repository.PersonRepository
 import org.yarokovisty.delivery.common.profile.main.domain.entity.User
-import org.yarokovisty.delivery.common.profile.main.domain.usecase.GetUserUseCase
+import org.yarokovisty.delivery.common.profile.main.domain.repository.UserRepository
 import org.yarokovisty.delivery.common.validation.error.NameValidationError
 import org.yarokovisty.delivery.common.validation.error.PhoneValidationError
 import org.yarokovisty.delivery.common.validation.usecase.RuPhoneValidateUseCase
@@ -44,7 +44,7 @@ internal class SenderViewModelTest {
     }
 
     private val personRepository: PersonRepository = mockk(relaxed = true)
-    private val getUserUseCase: GetUserUseCase = mockk()
+    private val userRepository: UserRepository = mockk()
     private val ruPhoneValidateUseCase: RuPhoneValidateUseCase = mockk()
     private val nameValidator: NameValidator = mockk()
     private val phoneNumberFormatter: PhoneNumberFormatter = mockk()
@@ -54,10 +54,14 @@ internal class SenderViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private fun createViewModel(userResult: User? = null): SenderViewModel {
-        coEvery { getUserUseCase() } returns userResult
+        if (userResult != null) {
+            coEvery { userRepository.get() } returns userResult
+        } else {
+            coEvery { userRepository.get() } throws RuntimeException("No user")
+        }
         return SenderViewModel(
+            userRepository = userRepository,
             personRepository = personRepository,
-            getUserUseCase = getUserUseCase,
             ruPhoneValidateUseCase = ruPhoneValidateUseCase,
             nameValidator = nameValidator,
             phoneNumberFormatter = phoneNumberFormatter,

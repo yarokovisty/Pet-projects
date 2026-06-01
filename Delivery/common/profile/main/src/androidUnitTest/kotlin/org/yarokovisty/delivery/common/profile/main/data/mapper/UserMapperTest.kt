@@ -1,8 +1,8 @@
 package org.yarokovisty.delivery.common.profile.main.data.mapper
 
 import org.yarokovisty.delivery.common.profile.main.data.model.ProfileRequest
+import org.yarokovisty.delivery.common.profile.main.data.model.UserDto
 import org.yarokovisty.delivery.common.profile.main.data.model.UserRequest
-import org.yarokovisty.delivery.common.profile.main.data.model.UserResponse
 import org.yarokovisty.delivery.common.profile.main.domain.entity.User
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -21,7 +21,7 @@ class UserMapperTest {
 
     @Test
     fun `toItem with full user data EXPECT all fields mapped correctly`() {
-        val response = UserResponse(
+        val response = UserDto(
             id = TEST_ID,
             phone = TEST_PHONE,
             firstname = TEST_FIRSTNAME,
@@ -47,7 +47,7 @@ class UserMapperTest {
 
     @Test
     fun `toItem with minimal user data EXPECT null fields mapped correctly`() {
-        val response = UserResponse(
+        val response = UserDto(
             id = TEST_ID,
             phone = TEST_PHONE,
             firstname = null,

@@ -7,9 +7,10 @@ import org.yarokovisty.delivery.common.delivery.parcel.data.datasource.DeliveryL
 import org.yarokovisty.delivery.common.delivery.parcel.data.datasource.DeliveryRemoteDataSource
 import org.yarokovisty.delivery.common.delivery.parcel.data.repository.ParcelRepositoryImpl
 import org.yarokovisty.delivery.common.delivery.parcel.domain.repository.ParcelRepository
+import org.yarokovisty.delivery.core.network.di.defaultHttpClientQualifier
 
 val deliveryParcelModule = module {
     factoryOf(::DeliveryLocalDataSource)
-    factoryOf(::DeliveryRemoteDataSource)
+    factory { DeliveryRemoteDataSource(httpClient = get(defaultHttpClientQualifier)) }
     factoryOf(::ParcelRepositoryImpl) bind ParcelRepository::class
 }

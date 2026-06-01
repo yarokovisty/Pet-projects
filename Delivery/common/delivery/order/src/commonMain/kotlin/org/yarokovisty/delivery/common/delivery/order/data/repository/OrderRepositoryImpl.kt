@@ -12,11 +12,11 @@ internal class OrderRepositoryImpl(
     private val remoteDataSource: OrderRemoteDataSource,
 ) : OrderRepository {
 
-    override suspend fun get(orderId: String, token: String): Order =
-        remoteDataSource.get(orderId, token).order.toItem()
+    override suspend fun get(orderId: String): Order =
+        remoteDataSource.get(orderId).order.toItem()
 
-    override suspend fun getHistory(token: String): List<Order> =
-        remoteDataSource.getHistory(token).toItem()
+    override suspend fun getHistory(): List<Order> =
+        remoteDataSource.getHistory().toItem()
 
     override suspend fun create(confirmation: ConfirmationOrder): Order {
         val request = confirmation.toRequest()
@@ -25,8 +25,8 @@ internal class OrderRepositoryImpl(
         return response.order.toItem()
     }
 
-    override suspend fun cancel(orderId: String, token: String) {
+    override suspend fun cancel(orderId: String) {
         val request = CancellationOrderRequest(orderId)
-        remoteDataSource.cancel(request, token)
+        remoteDataSource.cancel(request)
     }
 }

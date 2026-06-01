@@ -7,9 +7,12 @@ import org.yarokovisty.delivery.common.delivery.direction.data.datasource.Direct
 import org.yarokovisty.delivery.common.delivery.direction.data.datasource.DirectionRemoteDataSource
 import org.yarokovisty.delivery.common.delivery.direction.data.repository.DirectionRepositoryImpl
 import org.yarokovisty.delivery.common.delivery.direction.domain.repository.DirectionRepository
+import org.yarokovisty.delivery.core.network.di.defaultHttpClientQualifier
 
 val deliveryDirectionModule = module {
     factoryOf(::DirectionLocalDataSource)
-    factoryOf(::DirectionRemoteDataSource)
+    factory {
+        DirectionRemoteDataSource(httpClient = get(defaultHttpClientQualifier))
+    }
     factoryOf(::DirectionRepositoryImpl) bind DirectionRepository::class
 }

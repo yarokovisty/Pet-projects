@@ -7,14 +7,10 @@ import org.yarokovisty.delivery.common.profile.main.data.datasource.UserLocalDat
 import org.yarokovisty.delivery.common.profile.main.data.datasource.UserRemoteDataSource
 import org.yarokovisty.delivery.common.profile.main.data.repository.UserRepositoryImpl
 import org.yarokovisty.delivery.common.profile.main.domain.repository.UserRepository
-import org.yarokovisty.delivery.common.profile.main.domain.usecase.GetUserUseCase
-import org.yarokovisty.delivery.common.profile.main.domain.usecase.UpdateUserUseCase
+import org.yarokovisty.delivery.core.network.di.authHttpClientQualifier
 
 val profileMainModule = module {
     factoryOf(::UserLocalDataSource)
-    factoryOf(::UserRemoteDataSource)
+    factory { UserRemoteDataSource(authHttpClient = get(authHttpClientQualifier)) }
     factoryOf(::UserRepositoryImpl) bind UserRepository::class
-
-    factoryOf(::GetUserUseCase)
-    factoryOf(::UpdateUserUseCase)
 }

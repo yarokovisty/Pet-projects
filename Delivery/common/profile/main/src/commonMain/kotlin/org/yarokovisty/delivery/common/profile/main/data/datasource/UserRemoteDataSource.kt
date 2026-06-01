@@ -6,15 +6,11 @@ import org.yarokovisty.delivery.common.profile.main.data.model.UserSessionRespon
 import org.yarokovisty.delivery.core.network.client.get
 import org.yarokovisty.delivery.core.network.client.patch
 
-internal class UserRemoteDataSource(private val httpClient: HttpClient) {
+internal class UserRemoteDataSource(private val authHttpClient: HttpClient) {
 
-    suspend fun getUser(token: String): UserSessionResponse =
-        httpClient.get("/api/users/session", token)
+    suspend fun get(): UserSessionResponse =
+        authHttpClient.get("/api/users/session")
 
-    suspend fun updateUser(request: UserRequest, token: String): UserSessionResponse =
-        httpClient.patch(
-            url = "/api/users/profile",
-            request = request,
-            token = token
-        )
+    suspend fun update(request: UserRequest): UserSessionResponse =
+        authHttpClient.patch(url = "/api/users/profile", request = request)
 }

@@ -9,7 +9,14 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
         }
+        androidUnitTest.dependencies {
+            implementation(libs.junit)
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.mockk)
+        }
         commonMain.dependencies {
+            implementation(projects.core.storage)
             implementation(projects.util.logger)
 
             api(libs.ktor.client.core)

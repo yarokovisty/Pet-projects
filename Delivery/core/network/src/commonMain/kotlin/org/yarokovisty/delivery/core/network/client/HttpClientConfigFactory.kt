@@ -1,6 +1,6 @@
 package org.yarokovisty.delivery.core.network.client
 
-import io.ktor.client.HttpClient
+import io.ktor.client.HttpClientConfig
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -17,30 +17,28 @@ private const val NETWORK_LOGGING_TAG = "HttpLogging"
 private const val CONNECT_TIMEOUT = 15_000L
 private const val REQUEST_TIMEOUT = 30_000L
 
-@Suppress("FunctionName")
-internal fun KtorHttpClient(json: Json): HttpClient =
-    HttpClient {
-        defaultRequest {
-            url(BASE_URL)
-        }
+internal fun HttpClientConfig<*>.setDefaultConfig(json: Json) {
+    defaultRequest {
+        url(BASE_URL)
+    }
 
-        install(HttpTimeout) {
-            requestTimeoutMillis = REQUEST_TIMEOUT
-            connectTimeoutMillis = CONNECT_TIMEOUT
-        }
+    install(HttpTimeout) {
+        requestTimeoutMillis = REQUEST_TIMEOUT
+        connectTimeoutMillis = CONNECT_TIMEOUT
+    }
 
-        install(ContentNegotiation) {
-            json(json)
-        }
+    install(ContentNegotiation) {
+        json(json)
+    }
 
-        if (isDebug) {
-            install(Logging) {
-                logger = object : Logger {
-                    override fun log(message: String) {
-                        DeliveryLogger.i(NETWORK_LOGGING_TAG, message)
-                    }
+    if (isDebug) {
+        install(Logging) {
+            logger = object : Logger {
+                override fun log(message: String) {
+                    DeliveryLogger.i(NETWORK_LOGGING_TAG, message)
                 }
-                level = LogLevel.ALL
             }
+            level = LogLevel.ALL
         }
     }
+}

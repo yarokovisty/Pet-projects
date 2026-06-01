@@ -8,9 +8,10 @@ import org.yarokovisty.delivery.common.delivery.calculator.data.datasource.Calcu
 import org.yarokovisty.delivery.common.delivery.calculator.data.datasource.CalculatorRemoteDataSource
 import org.yarokovisty.delivery.common.delivery.calculator.data.repository.CalculatorRepositoryImpl
 import org.yarokovisty.delivery.common.delivery.calculator.domain.repository.CalculatorRepository
+import org.yarokovisty.delivery.core.network.di.defaultHttpClientQualifier
 
 val deliveryCalculatorModule = module {
     singleOf(::CalculatorLocalDataSource)
-    factoryOf(::CalculatorRemoteDataSource)
+    factory { CalculatorRemoteDataSource(httpClient = get(defaultHttpClientQualifier)) }
     factoryOf(::CalculatorRepositoryImpl) bind CalculatorRepository::class
 }

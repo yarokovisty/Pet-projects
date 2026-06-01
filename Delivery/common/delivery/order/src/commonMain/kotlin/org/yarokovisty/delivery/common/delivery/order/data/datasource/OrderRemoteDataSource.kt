@@ -10,24 +10,23 @@ import org.yarokovisty.delivery.core.network.client.get
 import org.yarokovisty.delivery.core.network.client.post
 import org.yarokovisty.delivery.core.network.client.put
 
-internal class OrderRemoteDataSource(private val httpClient: HttpClient) {
+internal class OrderRemoteDataSource(
+    private val defaultHttpClient: HttpClient,
+    private val authHttpClient: HttpClient,
+) {
 
-    suspend fun get(id: String, token: String): OrderResponse =
-        httpClient.get("api/delivery/orders/$id", token)
+    suspend fun get(id: String): OrderResponse =
+        authHttpClient.get("api/delivery/orders/$id")
 
-    suspend fun getHistory(token: String): OrderListResponse =
-        httpClient.get("api/delivery/orders", token)
+    suspend fun getHistory(): OrderListResponse =
+        authHttpClient.get("api/delivery/orders")
 
     suspend fun create(request: ConfirmationOrderRequest): OrderResponse =
-        httpClient.post<OrderResponse, ConfirmationOrderRequest>("api/delivery/order", request)
+        defaultHttpClient.post<OrderResponse, ConfirmationOrderRequest>("api/delivery/order", request)
 
-    suspend fun cancel(
-        request: CancellationOrderRequest,
-        token: String
-    ): CancellationOrderResponse =
-        httpClient.put<CancellationOrderResponse, CancellationOrderRequest>(
+    suspend fun cancel(request: CancellationOrderRequest): CancellationOrderResponse =
+        authHttpClient.put<CancellationOrderResponse, CancellationOrderRequest>(
             url = "api/delivery/orders/cancel",
-            request = request,
-            token = token
+            request = request
         )
 }

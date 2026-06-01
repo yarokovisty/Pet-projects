@@ -9,8 +9,7 @@ import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.yarokovisty.delivery.common.delivery.order.domain.entity.Order
-import org.yarokovisty.delivery.common.delivery.order.domain.usecase.CancelOrderUseCase
-import org.yarokovisty.delivery.common.delivery.order.domain.usecase.GetOrderUseCase
+import org.yarokovisty.delivery.common.delivery.order.domain.repository.OrderRepository
 import org.yarokovisty.delivery.feature.history.details.navigation.OrderDetailsRouter
 import org.yarokovisty.delivery.feature.history.details.presentation.intent.OrderDetailsIntent
 import org.yarokovisty.delivery.feature.history.details.presentation.state.OrderDetailsError
@@ -24,8 +23,7 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class OrderDetailsViewModelTest {
 
-    private val cancelOrderUseCase: CancelOrderUseCase = mockk(relaxed = true)
-    private val getOrderUseCase: GetOrderUseCase = mockk()
+    private val orderRepository: OrderRepository = mockk(relaxed = true)
     private val router: OrderDetailsRouter = mockk(relaxed = true)
 
     @get:Rule
@@ -37,8 +35,7 @@ internal class OrderDetailsViewModelTest {
 
     private fun createViewModel(): OrderDetailsViewModel =
         OrderDetailsViewModel(
-            cancelOrderUseCase = cancelOrderUseCase,
-            getOrderUseCase = getOrderUseCase,
+            orderRepository = orderRepository,
             router = router,
             orderId = ORDER_ID,
         )
@@ -48,7 +45,7 @@ internal class OrderDetailsViewModelTest {
     @Test
     fun `init with successful load EXPECT loading is false`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -59,7 +56,7 @@ internal class OrderDetailsViewModelTest {
     @Test
     fun `init with successful load EXPECT order is set`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -70,7 +67,7 @@ internal class OrderDetailsViewModelTest {
     @Test
     fun `init with successful load EXPECT error is null`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -83,8 +80,8 @@ internal class OrderDetailsViewModelTest {
     // region Init - LoadData Error
 
     @Test
-    fun `init when use case throws EXPECT error is LOAD`() = runTest {
-        coEvery { getOrderUseCase(ORDER_ID) } throws RuntimeException("Network error")
+    fun `init when repository throws EXPECT error is LOAD`() = runTest {
+        coEvery { orderRepository.get(ORDER_ID) } throws RuntimeException("Network error")
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -93,8 +90,8 @@ internal class OrderDetailsViewModelTest {
     }
 
     @Test
-    fun `init when use case throws EXPECT loading is false`() = runTest {
-        coEvery { getOrderUseCase(ORDER_ID) } throws RuntimeException("Network error")
+    fun `init when repository throws EXPECT loading is false`() = runTest {
+        coEvery { orderRepository.get(ORDER_ID) } throws RuntimeException("Network error")
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -107,16 +104,16 @@ internal class OrderDetailsViewModelTest {
     // region LoadData Intent
 
     @Test
-    fun `load data intent EXPECT get order use case called`() = runTest {
+    fun `load data intent EXPECT order repository get called`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
         viewModel.onIntent(OrderDetailsIntent.LoadData)
         advanceUntilIdle()
 
-        coVerify(exactly = 2) { getOrderUseCase(ORDER_ID) }
+        coVerify(exactly = 2) { orderRepository.get(ORDER_ID) }
     }
 
     // endregion
@@ -126,7 +123,7 @@ internal class OrderDetailsViewModelTest {
     @Test
     fun `open cancellation screen EXPECT cancellation screen visible is true`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -142,7 +139,7 @@ internal class OrderDetailsViewModelTest {
     @Test
     fun `close cancellation screen EXPECT cancellation screen visible is false`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -159,7 +156,7 @@ internal class OrderDetailsViewModelTest {
     @Test
     fun `confirm cancellation success EXPECT successful screen visible is true`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -172,7 +169,7 @@ internal class OrderDetailsViewModelTest {
     @Test
     fun `confirm cancellation success EXPECT loading is false`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -183,22 +180,22 @@ internal class OrderDetailsViewModelTest {
     }
 
     @Test
-    fun `confirm cancellation success EXPECT cancel use case called`() = runTest {
+    fun `confirm cancellation success EXPECT cancel called on repository`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
         viewModel.onIntent(OrderDetailsIntent.ConfirmCancellation)
         advanceUntilIdle()
 
-        coVerify(exactly = 1) { cancelOrderUseCase(ORDER_ID) }
+        coVerify(exactly = 1) { orderRepository.cancel(ORDER_ID) }
     }
 
     @Test
     fun `confirm cancellation EXPECT cancellation screen hidden`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -214,10 +211,10 @@ internal class OrderDetailsViewModelTest {
     // region ConfirmCancellation - Error
 
     @Test
-    fun `confirm cancellation when use case throws EXPECT error is CANCEL`() = runTest {
+    fun `confirm cancellation when repository throws EXPECT error is CANCEL`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
-        coEvery { cancelOrderUseCase(ORDER_ID) } throws RuntimeException("Cancel error")
+        coEvery { orderRepository.get(ORDER_ID) } returns order
+        coEvery { orderRepository.cancel(ORDER_ID) } throws RuntimeException("Cancel error")
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -228,10 +225,10 @@ internal class OrderDetailsViewModelTest {
     }
 
     @Test
-    fun `confirm cancellation when use case throws EXPECT loading is false`() = runTest {
+    fun `confirm cancellation when repository throws EXPECT loading is false`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
-        coEvery { cancelOrderUseCase(ORDER_ID) } throws RuntimeException("Cancel error")
+        coEvery { orderRepository.get(ORDER_ID) } returns order
+        coEvery { orderRepository.cancel(ORDER_ID) } throws RuntimeException("Cancel error")
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -248,7 +245,7 @@ internal class OrderDetailsViewModelTest {
     @Test
     fun `back intent EXPECT router back called`() = runTest {
         val order = mockk<Order>(relaxed = true)
-        coEvery { getOrderUseCase(ORDER_ID) } returns order
+        coEvery { orderRepository.get(ORDER_ID) } returns order
 
         val viewModel = createViewModel()
         advanceUntilIdle()
