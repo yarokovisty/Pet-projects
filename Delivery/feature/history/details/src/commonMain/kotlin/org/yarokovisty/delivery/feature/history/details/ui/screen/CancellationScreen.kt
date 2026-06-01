@@ -16,7 +16,6 @@ import delivery.feature.history.details.generated.resources.cancellation_order_n
 import delivery.feature.history.details.generated.resources.cancellation_order_title
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.VerticalGap
 import org.yarokovisty.delivery.design.uikit.button.OutlinedButton
 import org.yarokovisty.delivery.design.uikit.button.PrimaryButton
@@ -33,7 +32,6 @@ internal fun CancellationScreen(
 ) {
     BottomSheetScreen(
         visible = visible,
-        containerColor = DeliveryTheme.colorScheme.bgPrimary,
         shape = RoundedCornerShape(16.dp),
         onDismissRequest = { onIntent(OrderDetailsIntent.CloseCancellationScreen) }
     ) {
