@@ -135,7 +135,7 @@ internal class HistoryMainViewModelTest {
 
     @Test
     fun `load data when repository throws unauthorized EXPECT state error is Unauthorized`() = runTest {
-        coEvery { orderRepository.getHistory() } throws NetworkException.Unauthorized
+        coEvery { orderRepository.getHistory() } throws NetworkException.Unauthorized()
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)
@@ -146,7 +146,7 @@ internal class HistoryMainViewModelTest {
 
     @Test
     fun `load data when repository throws unauthorized EXPECT state loading is false`() = runTest {
-        coEvery { orderRepository.getHistory() } throws NetworkException.Unauthorized
+        coEvery { orderRepository.getHistory() } throws NetworkException.Unauthorized()
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)
@@ -183,7 +183,7 @@ internal class HistoryMainViewModelTest {
 
     @Test
     fun `load data when repository throws NetworkException Unknown EXPECT state error is Unknown`() = runTest {
-        coEvery { orderRepository.getHistory() } throws NetworkException.Unknown
+        coEvery { orderRepository.getHistory() } throws NetworkException.Unknown()
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)

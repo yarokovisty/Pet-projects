@@ -14,7 +14,7 @@ internal fun initial(): OrderDetailsState =
 internal fun OrderDetailsState.loading(): OrderDetailsState =
     copy(loading = true, error = null)
 
-internal fun OrderDetailsState.error(error: OrderDetailsError): OrderDetailsState =
+internal fun OrderDetailsState.error(error: Error): OrderDetailsState =
     copy(loading = false, error = error)
 
 internal fun OrderDetailsState.content(order: Order) =

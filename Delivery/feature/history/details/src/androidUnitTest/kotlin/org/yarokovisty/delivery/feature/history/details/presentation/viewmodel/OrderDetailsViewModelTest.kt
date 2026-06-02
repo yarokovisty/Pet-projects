@@ -10,9 +10,10 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.yarokovisty.delivery.common.delivery.order.domain.entity.Order
 import org.yarokovisty.delivery.common.delivery.order.domain.repository.OrderRepository
+import org.yarokovisty.delivery.core.common.error.NetworkException
 import org.yarokovisty.delivery.feature.history.details.navigation.OrderDetailsRouter
 import org.yarokovisty.delivery.feature.history.details.presentation.intent.OrderDetailsIntent
-import org.yarokovisty.delivery.feature.history.details.presentation.state.OrderDetailsError
+import org.yarokovisty.delivery.feature.history.details.presentation.state.Error
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -86,12 +87,36 @@ internal class OrderDetailsViewModelTest {
         val viewModel = createViewModel()
         advanceUntilIdle()
 
-        assertEquals(OrderDetailsError.LOAD, viewModel.state.value.error)
+        assertEquals(Error.Load, viewModel.state.value.error)
     }
 
     @Test
     fun `init when repository throws EXPECT loading is false`() = runTest {
         coEvery { orderRepository.get(ORDER_ID) } throws RuntimeException("Network error")
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+
+        assertFalse(viewModel.state.value.loading)
+    }
+
+    // endregion
+
+    // region Init - LoadData Unauthorized Error
+
+    @Test
+    fun `init when repository throws unauthorized EXPECT error is Unauthorized`() = runTest {
+        coEvery { orderRepository.get(ORDER_ID) } throws NetworkException.Unauthorized()
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+
+        assertEquals(Error.Unauthorized, viewModel.state.value.error)
+    }
+
+    @Test
+    fun `init when repository throws unauthorized EXPECT loading is false`() = runTest {
+        coEvery { orderRepository.get(ORDER_ID) } throws NetworkException.Unauthorized()
 
         val viewModel = createViewModel()
         advanceUntilIdle()
@@ -221,7 +246,7 @@ internal class OrderDetailsViewModelTest {
         viewModel.onIntent(OrderDetailsIntent.ConfirmCancellation)
         advanceUntilIdle()
 
-        assertEquals(OrderDetailsError.CANCEL, viewModel.state.value.error)
+        assertEquals(Error.Cancel, viewModel.state.value.error)
     }
 
     @Test
@@ -252,6 +277,22 @@ internal class OrderDetailsViewModelTest {
         viewModel.onIntent(OrderDetailsIntent.Back)
 
         verify { router.back() }
+    }
+
+    // endregion
+
+    // region OpenLoginScreen
+
+    @Test
+    fun `open login screen intent EXPECT router open login screen called`() = runTest {
+        val order = mockk<Order>(relaxed = true)
+        coEvery { orderRepository.get(ORDER_ID) } returns order
+
+        val viewModel = createViewModel()
+        advanceUntilIdle()
+        viewModel.onIntent(OrderDetailsIntent.OpenLoginScreen)
+
+        verify { router.openLoginScreen() }
     }
 
     // endregion

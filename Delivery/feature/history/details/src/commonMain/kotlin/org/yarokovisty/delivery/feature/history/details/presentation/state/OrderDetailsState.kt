@@ -5,13 +5,14 @@ import org.yarokovisty.delivery.core.common.presentation.State
 
 internal data class OrderDetailsState(
     val loading: Boolean,
-    val error: OrderDetailsError?,
+    val error: Error?,
     val order: Order?,
     val successfulScreenVisible: Boolean,
     val cancellationScreenVisible: Boolean,
 ) : State
 
-internal enum class OrderDetailsError {
-    LOAD,
-    CANCEL
+internal sealed interface Error {
+    data object Load : Error
+    data object Cancel : Error
+    data object Unauthorized : Error
 }

@@ -13,4 +13,5 @@ internal sealed interface OrderDetailsIntent : Intent {
     data object CloseCancellationScreen : OrderDetailsIntent
 
     data object ConfirmCancellation : OrderDetailsIntent
+    data object OpenLoginScreen : OrderDetailsIntent
 }

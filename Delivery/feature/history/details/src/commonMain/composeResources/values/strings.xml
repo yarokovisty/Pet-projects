@@ -30,4 +30,6 @@
 
     <string name="error_title_cancel_order">Не удалось отменить заказ</string>
     <string name="error_message_cancel_order">Упс... Что-то пошло не так. Повторите отмену заказа</string>
+    <string name="error_message_unauthorized">Для просмотра деталей заказа нужно авторизоваться</string>
+    <string name="error_login_button">Авторизоваться</string>
 </resources>

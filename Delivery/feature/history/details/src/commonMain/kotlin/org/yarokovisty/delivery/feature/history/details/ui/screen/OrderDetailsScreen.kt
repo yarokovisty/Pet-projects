@@ -8,13 +8,14 @@ import org.koin.core.parameter.parametersOf
 import org.yarokovisty.delivery.design.uikit.screen.FullLoadingScreen
 import org.yarokovisty.delivery.design.uikit.screen.FullScreen
 import org.yarokovisty.delivery.feature.history.details.presentation.intent.OrderDetailsIntent
-import org.yarokovisty.delivery.feature.history.details.presentation.state.OrderDetailsError
+import org.yarokovisty.delivery.feature.history.details.presentation.state.Error
 import org.yarokovisty.delivery.feature.history.details.presentation.state.OrderDetailsState
 import org.yarokovisty.delivery.feature.history.details.presentation.viewmodel.OrderDetailsViewModel
 import org.yarokovisty.delivery.feature.history.details.ui.component.CancelErrorScreen
 import org.yarokovisty.delivery.feature.history.details.ui.component.LoadErrorScreen
 import org.yarokovisty.delivery.feature.history.details.ui.component.OrderDetailsContent
 import org.yarokovisty.delivery.feature.history.details.ui.component.SuccessfulScreen
+import org.yarokovisty.delivery.feature.history.details.ui.component.UnauthorizedErrorScreen
 
 @Composable
 internal fun OrderDetailsScreen(orderId: String) {
@@ -47,14 +48,18 @@ private fun OrderDetailsScreen(
 
 @Composable
 private fun OrderDetailsErrorScreen(
-    error: OrderDetailsError,
+    error: Error,
     onIntent: (OrderDetailsIntent) -> Unit
 ) {
     when (error) {
-        OrderDetailsError.LOAD -> LoadErrorScreen(
+        Error.Cancel -> CancelErrorScreen(onIntent = onIntent)
+        Error.Load -> LoadErrorScreen(
             onCloseClick = { onIntent(OrderDetailsIntent.Back) },
             onRefreshClick = { onIntent(OrderDetailsIntent.LoadData) }
         )
-        OrderDetailsError.CANCEL -> CancelErrorScreen(onIntent = onIntent)
+        Error.Unauthorized -> UnauthorizedErrorScreen(
+            onBack = { onIntent(OrderDetailsIntent.Back) },
+            onLoginClick = { onIntent(OrderDetailsIntent.OpenLoginScreen) }
+        )
     }
 }
