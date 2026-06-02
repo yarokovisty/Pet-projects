@@ -10,13 +10,15 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.yarokovisty.delivery.common.delivery.order.domain.entity.Order
 import org.yarokovisty.delivery.common.delivery.order.domain.repository.OrderRepository
+import org.yarokovisty.delivery.core.common.error.NetworkException
 import org.yarokovisty.delivery.feature.history.main.navigation.HistoryMainRouter
 import org.yarokovisty.delivery.feature.history.main.presentation.intent.HistoryMainIntent
+import org.yarokovisty.delivery.feature.history.main.presentation.state.Error
 import org.yarokovisty.delivery.util.unitTest.MainDispatcherRule
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import kotlin.test.assertNull
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class HistoryMainViewModelTest {
@@ -45,12 +47,12 @@ internal class HistoryMainViewModelTest {
     }
 
     @Test
-    fun `init EXPECT error is false`() {
+    fun `init EXPECT error is null`() {
         val viewModel = createViewModel()
 
         val actual = viewModel.state.value.error
 
-        assertFalse(actual)
+        assertNull(actual)
     }
 
     @Test
@@ -105,7 +107,7 @@ internal class HistoryMainViewModelTest {
     }
 
     @Test
-    fun `load data with orders returned EXPECT state error is false`() = runTest {
+    fun `load data with orders returned EXPECT state error is null`() = runTest {
         val orders = listOf(mockk<Order>(relaxed = true))
         coEvery { orderRepository.getHistory() } returns orders
         val viewModel = createViewModel()
@@ -113,7 +115,7 @@ internal class HistoryMainViewModelTest {
         viewModel.onIntent(HistoryMainIntent.LoadData)
         advanceUntilIdle()
 
-        assertFalse(viewModel.state.value.error)
+        assertNull(viewModel.state.value.error)
     }
 
     @Test
@@ -129,21 +131,47 @@ internal class HistoryMainViewModelTest {
 
     // endregion
 
-    // region LoadData - Error
+    // region LoadData - Unauthorized Error
 
     @Test
-    fun `load data when repository throws EXPECT state error is true`() = runTest {
+    fun `load data when repository throws unauthorized EXPECT state error is Unauthorized`() = runTest {
+        coEvery { orderRepository.getHistory() } throws NetworkException.Unauthorized
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(HistoryMainIntent.LoadData)
+        advanceUntilIdle()
+
+        assertEquals(Error.Unauthorized, viewModel.state.value.error)
+    }
+
+    @Test
+    fun `load data when repository throws unauthorized EXPECT state loading is false`() = runTest {
+        coEvery { orderRepository.getHistory() } throws NetworkException.Unauthorized
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(HistoryMainIntent.LoadData)
+        advanceUntilIdle()
+
+        assertFalse(viewModel.state.value.loading)
+    }
+
+    // endregion
+
+    // region LoadData - Unknown Error
+
+    @Test
+    fun `load data when repository throws unknown exception EXPECT state error is Unknown`() = runTest {
         coEvery { orderRepository.getHistory() } throws RuntimeException("test error")
         val viewModel = createViewModel()
 
         viewModel.onIntent(HistoryMainIntent.LoadData)
         advanceUntilIdle()
 
-        assertTrue(viewModel.state.value.error)
+        assertEquals(Error.Unknown, viewModel.state.value.error)
     }
 
     @Test
-    fun `load data when repository throws EXPECT state loading is false`() = runTest {
+    fun `load data when repository throws unknown exception EXPECT state loading is false`() = runTest {
         coEvery { orderRepository.getHistory() } throws RuntimeException("test error")
         val viewModel = createViewModel()
 
@@ -151,6 +179,17 @@ internal class HistoryMainViewModelTest {
         advanceUntilIdle()
 
         assertFalse(viewModel.state.value.loading)
+    }
+
+    @Test
+    fun `load data when repository throws NetworkException Unknown EXPECT state error is Unknown`() = runTest {
+        coEvery { orderRepository.getHistory() } throws NetworkException.Unknown
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(HistoryMainIntent.LoadData)
+        advanceUntilIdle()
+
+        assertEquals(Error.Unknown, viewModel.state.value.error)
     }
 
     // endregion
@@ -165,6 +204,19 @@ internal class HistoryMainViewModelTest {
         viewModel.onIntent(HistoryMainIntent.OpenOrderDetails(orderId))
 
         verify { router.openOrderDetailsScreen(orderId) }
+    }
+
+    // endregion
+
+    // region OpenLoginScreen
+
+    @Test
+    fun `open login screen EXPECT router opens login screen`() {
+        val viewModel = createViewModel()
+
+        viewModel.onIntent(HistoryMainIntent.OpenLoginScreen)
+
+        verify { router.openLoginScreen() }
     }
 
     // endregion

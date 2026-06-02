@@ -2,7 +2,7 @@ package org.yarokovisty.delivery.common.delivery.parcel.data.datasource
 
 import io.ktor.client.HttpClient
 import org.yarokovisty.delivery.common.delivery.parcel.data.model.PackageTypeListResponse
-import org.yarokovisty.delivery.core.network.client.get
+import org.yarokovisty.delivery.core.network.extenstions.get
 
 internal class DeliveryRemoteDataSource(private val httpClient: HttpClient) {
 

@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.core.network.client
+package org.yarokovisty.delivery.core.network.config
 
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.plugins.HttpTimeout
@@ -9,6 +9,7 @@ import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.yarokovisty.delivery.core.network.extenstions.installResponseValidation
 import org.yarokovisty.delivery.core.network.util.isDebug
 import org.yarokovisty.delivery.util.logger.DeliveryLogger
 
@@ -30,6 +31,8 @@ internal fun HttpClientConfig<*>.setDefaultConfig(json: Json) {
     install(ContentNegotiation) {
         json(json)
     }
+
+    installResponseValidation()
 
     if (isDebug) {
         install(Logging) {

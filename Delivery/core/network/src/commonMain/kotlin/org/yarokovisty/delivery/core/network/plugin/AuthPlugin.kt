@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.core.network.client
+package org.yarokovisty.delivery.core.network.plugin
 
 import io.ktor.client.plugins.api.createClientPlugin
 import io.ktor.http.HttpHeaders

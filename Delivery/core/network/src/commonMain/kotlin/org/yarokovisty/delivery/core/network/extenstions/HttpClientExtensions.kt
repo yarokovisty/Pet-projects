@@ -1,4 +1,4 @@
-package org.yarokovisty.delivery.core.network.client
+package org.yarokovisty.delivery.core.network.extenstions
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

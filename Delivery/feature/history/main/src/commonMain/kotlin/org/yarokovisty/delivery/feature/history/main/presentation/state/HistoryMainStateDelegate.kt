@@ -5,15 +5,15 @@ import org.yarokovisty.delivery.common.delivery.order.domain.entity.Order
 internal fun initial(): HistoryMainState =
     HistoryMainState(
         loading = false,
-        error = false,
+        error = null,
         orders = emptyList(),
     )
 
 internal fun HistoryMainState.loading(): HistoryMainState =
-    copy(error = false, loading = true)
+    copy(error = null, loading = true)
 
-internal fun HistoryMainState.error(): HistoryMainState =
-    copy(loading = false, error = true)
+internal fun HistoryMainState.error(error: Error): HistoryMainState =
+    copy(loading = false, error = error)
 
 internal fun HistoryMainState.content(orders: List<Order>): HistoryMainState =
     copy(loading = false, orders = orders)

@@ -20,6 +20,7 @@ kotlin {
             implementation(projects.common.delivery.direction)
             implementation(projects.common.delivery.order)
             implementation(projects.common.delivery.point)
+            implementation(projects.core.common.error)
             implementation(projects.core.common.presentation)
             implementation(projects.core.network)
             implementation(projects.design.resources)

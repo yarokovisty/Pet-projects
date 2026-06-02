@@ -1,9 +1,11 @@
 package org.yarokovisty.delivery.feature.history.main.presentation.viewmodel
 
 import org.yarokovisty.delivery.common.delivery.order.domain.repository.OrderRepository
+import org.yarokovisty.delivery.core.common.error.NetworkException
 import org.yarokovisty.delivery.core.common.presentation.BaseViewModel
 import org.yarokovisty.delivery.feature.history.main.navigation.HistoryMainRouter
 import org.yarokovisty.delivery.feature.history.main.presentation.intent.HistoryMainIntent
+import org.yarokovisty.delivery.feature.history.main.presentation.state.Error
 import org.yarokovisty.delivery.feature.history.main.presentation.state.HistoryMainState
 import org.yarokovisty.delivery.feature.history.main.presentation.state.content
 import org.yarokovisty.delivery.feature.history.main.presentation.state.error
@@ -19,6 +21,7 @@ internal class HistoryMainViewModel(
         when (intent) {
             is HistoryMainIntent.LoadData -> loadData()
             is HistoryMainIntent.OpenOrderDetails -> openOrderDetails(intent.orderId)
+            is HistoryMainIntent.OpenLoginScreen -> openLoginScreen()
         }
     }
 
@@ -28,15 +31,21 @@ internal class HistoryMainViewModel(
         launchTrying {
             val historyOrders = orderRepository.getHistory()
             updateState { content(historyOrders) }
-        } handle { handleError() }
+        } handle ::handleError
     }
 
-    // TODO добавить обработку Unauthorized
-    private fun handleError() {
-        updateState { error() }
+    private fun handleError(e: Throwable) {
+        when (e) {
+            is NetworkException.Unauthorized -> updateState { error(Error.Unauthorized) }
+            else -> updateState { error(Error.Unknown) }
+        }
     }
 
     private fun openOrderDetails(orderId: String) {
         router.openOrderDetailsScreen(orderId)
+    }
+
+    private fun openLoginScreen() {
+        router.openLoginScreen()
     }
 }

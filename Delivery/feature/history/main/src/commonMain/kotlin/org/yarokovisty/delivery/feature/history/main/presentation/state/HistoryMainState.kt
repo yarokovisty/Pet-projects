@@ -5,6 +5,12 @@ import org.yarokovisty.delivery.core.common.presentation.State
 
 internal data class HistoryMainState(
     val loading: Boolean,
-    val error: Boolean,
+    val error: Error?,
     val orders: List<Order>,
 ) : State
+
+internal sealed interface Error {
+
+    object Unauthorized : Error
+    object Unknown : Error
+}

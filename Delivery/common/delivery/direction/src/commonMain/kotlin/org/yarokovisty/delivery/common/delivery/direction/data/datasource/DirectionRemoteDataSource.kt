@@ -2,7 +2,7 @@ package org.yarokovisty.delivery.common.delivery.direction.data.datasource
 
 import io.ktor.client.HttpClient
 import org.yarokovisty.delivery.common.delivery.direction.data.model.DeliveryPointListResponse
-import org.yarokovisty.delivery.core.network.client.get
+import org.yarokovisty.delivery.core.network.extenstions.get
 
 internal class DirectionRemoteDataSource(private val httpClient: HttpClient) {
 

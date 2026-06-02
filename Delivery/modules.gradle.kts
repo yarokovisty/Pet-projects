@@ -19,6 +19,7 @@ val commonModules = listOf(
 
 val coreModules = listOf(
     ":core:common:coroutines",
+    ":core:common:error",
     ":core:common:presentation",
     ":core:network",
     ":core:storage",

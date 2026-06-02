@@ -1,4 +1,5 @@
 plugins {
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.delivery.androidLibrary)
     alias(libs.plugins.delivery.kotlinMultiplatform)
 }
@@ -16,8 +17,11 @@ kotlin {
             implementation(libs.mockk)
         }
         commonMain.dependencies {
+            implementation(projects.core.common.error)
             implementation(projects.core.storage)
             implementation(projects.util.logger)
+
+            implementation(libs.kotlin.serialization)
 
             api(libs.ktor.client.core)
             implementation(libs.ktor.client.logging)

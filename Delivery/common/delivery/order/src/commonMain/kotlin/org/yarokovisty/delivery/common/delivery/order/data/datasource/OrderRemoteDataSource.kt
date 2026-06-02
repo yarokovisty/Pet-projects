@@ -6,9 +6,9 @@ import org.yarokovisty.delivery.common.delivery.order.data.model.CancellationOrd
 import org.yarokovisty.delivery.common.delivery.order.data.model.ConfirmationOrderRequest
 import org.yarokovisty.delivery.common.delivery.order.data.model.OrderListResponse
 import org.yarokovisty.delivery.common.delivery.order.data.model.OrderResponse
-import org.yarokovisty.delivery.core.network.client.get
-import org.yarokovisty.delivery.core.network.client.post
-import org.yarokovisty.delivery.core.network.client.put
+import org.yarokovisty.delivery.core.network.extenstions.get
+import org.yarokovisty.delivery.core.network.extenstions.post
+import org.yarokovisty.delivery.core.network.extenstions.put
 
 internal class OrderRemoteDataSource(
     private val defaultHttpClient: HttpClient,

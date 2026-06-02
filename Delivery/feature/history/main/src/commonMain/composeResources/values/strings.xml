@@ -15,5 +15,7 @@
     <string name="history_main_empty_content">Ваша история заказов пустая...</string>
 
     <string name="error_message_unavailable_service">Сервис временно недоступен</string>
-    <string name="error_button_repeat">Повторить</string>
+    <string name="error_repeat_button">Повторить</string>
+    <string name="error_message_unauthorized">Для просмотра истории нужно авторизоваться</string>
+    <string name="error_login_button">Авторизоваться</string>
 </resources>

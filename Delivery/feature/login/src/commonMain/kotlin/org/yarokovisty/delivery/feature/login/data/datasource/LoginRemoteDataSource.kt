@@ -1,7 +1,7 @@
 package org.yarokovisty.delivery.feature.login.data.datasource
 
 import io.ktor.client.HttpClient
-import org.yarokovisty.delivery.core.network.client.post
+import org.yarokovisty.delivery.core.network.extenstions.post
 import org.yarokovisty.delivery.feature.login.data.model.OtpRequest
 import org.yarokovisty.delivery.feature.login.data.model.OtpResponse
 import org.yarokovisty.delivery.feature.login.data.model.SigninRequest
