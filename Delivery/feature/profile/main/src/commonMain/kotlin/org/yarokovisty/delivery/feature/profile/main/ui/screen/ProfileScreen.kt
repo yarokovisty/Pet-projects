@@ -6,11 +6,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import delivery.design.resources.generated.resources.ic_exit
 import delivery.feature.profile.main.generated.resources.Res
 import delivery.feature.profile.main.generated.resources.profile_topbar_title
@@ -38,7 +38,7 @@ import delivery.design.resources.generated.resources.Res as designRes
 @Composable
 internal fun ProfileScreen() {
     val viewModel = koinViewModel<ProfileViewModel>()
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     ProfileScreen(state, viewModel.events, viewModel::onIntent)
 }

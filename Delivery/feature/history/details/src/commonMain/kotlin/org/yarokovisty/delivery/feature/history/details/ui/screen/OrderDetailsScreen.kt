@@ -1,8 +1,8 @@
 package org.yarokovisty.delivery.feature.history.details.ui.screen
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import org.yarokovisty.delivery.design.uikit.screen.FullLoadingScreen
@@ -20,7 +20,7 @@ import org.yarokovisty.delivery.feature.history.details.ui.component.Unauthorize
 @Composable
 internal fun OrderDetailsScreen(orderId: String) {
     val viewModel: OrderDetailsViewModel = koinViewModel { parametersOf(orderId) }
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     OrderDetailsScreen(state, viewModel::onIntent)
 }

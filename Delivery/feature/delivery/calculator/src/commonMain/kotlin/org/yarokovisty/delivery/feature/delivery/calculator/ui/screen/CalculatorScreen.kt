@@ -3,9 +3,9 @@ package org.yarokovisty.delivery.feature.delivery.calculator.ui.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import delivery.design.resources.generated.resources.ic_close
 import delivery.feature.delivery.calculator.generated.resources.Res
 import delivery.feature.delivery.calculator.generated.resources.calculator_topbar_title
@@ -33,7 +33,7 @@ internal fun CalculatorScreen(
     receiverPoint: DeliveryPoint
 ) {
     val viewModel: CalculatorViewModel = koinViewModel { parametersOf(parcelInfo, senderPoint, receiverPoint) }
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     CalculatorScreen(state, viewModel::onIntent)
 }

@@ -12,11 +12,7 @@ import org.yarokovisty.delivery.libs.navigation.backstack.GlobalBackStack
 internal class DeliveryRouterImpl(private val globalBackStack: GlobalBackStack) : DeliveryRouter {
 
     override fun openDirectionScreen(directionType: DirectionType) {
-        globalBackStack.push(
-            DirectionDestination(
-                directionType
-            )
-        )
+        globalBackStack.push(DirectionDestination(directionType))
     }
 
     override fun openCalculatorScreen(

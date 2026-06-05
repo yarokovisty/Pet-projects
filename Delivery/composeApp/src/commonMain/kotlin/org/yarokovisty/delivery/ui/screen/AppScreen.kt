@@ -1,8 +1,8 @@
 package org.yarokovisty.delivery.ui.screen
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
@@ -19,6 +19,9 @@ import org.yarokovisty.delivery.feature.delivery.point.navigation.receiverAddres
 import org.yarokovisty.delivery.feature.delivery.point.navigation.senderAddressEntry
 import org.yarokovisty.delivery.feature.history.details.navigation.orderDetailsEntry
 import org.yarokovisty.delivery.feature.login.navigation.loginEntry
+import org.yarokovisty.delivery.libs.navigation.animation.slideNextTransitionSpec
+import org.yarokovisty.delivery.libs.navigation.animation.slidePredictivePreviousTransitionSpec
+import org.yarokovisty.delivery.libs.navigation.animation.slidePreviousTransitionSpec
 import org.yarokovisty.delivery.navigation.entry.mainEntry
 import org.yarokovisty.delivery.presentation.intent.AppIntent
 import org.yarokovisty.delivery.presentation.state.AppState
@@ -28,7 +31,7 @@ import kotlin.collections.listOf
 @Composable
 fun AppScreen() {
     val viewModel: AppViewModel = koinViewModel()
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     AppScreen(
         state = state,
@@ -50,6 +53,9 @@ private fun AppScreen(
         onBack = {
             onIntent(AppIntent.Back)
         },
+        transitionSpec = slideNextTransitionSpec(),
+        popTransitionSpec = slidePreviousTransitionSpec(),
+        predictivePopTransitionSpec = slidePredictivePreviousTransitionSpec(),
         entryProvider = entryProvider {
             mainEntry()
             directionEntry()

@@ -3,8 +3,8 @@ package org.yarokovisty.delivery.feature.history.main.ui.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import delivery.feature.history.main.generated.resources.Res
 import delivery.feature.history.main.generated.resources.history_main_title
 import org.jetbrains.compose.resources.stringResource
@@ -24,7 +24,7 @@ import org.yarokovisty.delivery.feature.history.main.ui.component.UnknownFailure
 @Composable
 internal fun HistoryMainScreen() {
     val viewModel: HistoryMainViewModel = koinViewModel()
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     HistoryMainScreen(state, viewModel::onIntent)
 }

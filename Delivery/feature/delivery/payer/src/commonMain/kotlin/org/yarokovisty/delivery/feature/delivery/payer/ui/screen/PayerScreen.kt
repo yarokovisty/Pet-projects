@@ -3,9 +3,9 @@ package org.yarokovisty.delivery.feature.delivery.payer.ui.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import delivery.design.resources.generated.resources.ic_arrow_left
 import delivery.feature.delivery.payer.generated.resources.Res
 import delivery.feature.delivery.payer.generated.resources.payer_topbar_title
@@ -24,7 +24,7 @@ import delivery.design.resources.generated.resources.Res as DrawableRes
 @Composable
 internal fun PayerScreen() {
     val viewModel: PayerViewModel = koinViewModel()
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     PayerScreen(state, viewModel::onIntent)
 }

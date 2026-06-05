@@ -3,9 +3,9 @@ package org.yarokovisty.delivery.feature.delivery.point.ui.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import delivery.design.resources.generated.resources.ic_arrow_left
 import delivery.feature.delivery.point.generated.resources.Res
 import delivery.feature.delivery.point.generated.resources.address_receiver_topbar_title
@@ -26,7 +26,7 @@ import delivery.design.resources.generated.resources.Res as DrawableRes
 @Composable
 internal fun ReceiverAddressScreen(screenType: AddressScreenType) {
     val viewModel: ReceiverAddressViewModel = koinViewModel { parametersOf(screenType) }
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     ReceiverAddressScreen(state, viewModel::onIntent)
 }

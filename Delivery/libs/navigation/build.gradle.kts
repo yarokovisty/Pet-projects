@@ -1,4 +1,6 @@
 plugins {
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.delivery.androidLibrary)
     alias(libs.plugins.delivery.kotlinMultiplatform)
 }

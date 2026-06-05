@@ -3,8 +3,8 @@ package org.yarokovisty.delivery.feature.delivery.main.ui.screen
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.compose.viewmodel.koinViewModel
 import org.yarokovisty.delivery.design.theme.DeliveryTheme
 import org.yarokovisty.delivery.design.uikit.screen.FullScreen
@@ -17,7 +17,7 @@ import org.yarokovisty.delivery.feature.delivery.main.ui.component.FailureScreen
 @Composable
 internal fun DeliveryMainScreen() {
     val viewModel: DeliveryMainViewModel = koinViewModel()
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     DeliveryMainScreen(state, viewModel::onIntent)
 }

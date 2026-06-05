@@ -3,9 +3,9 @@ package org.yarokovisty.delivery.feature.delivery.person.ui.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import delivery.design.resources.generated.resources.ic_arrow_left
 import delivery.feature.delivery.person.generated.resources.Res
 import delivery.feature.delivery.person.generated.resources.receiver_topbar_title
@@ -26,7 +26,7 @@ import delivery.design.resources.generated.resources.Res as DrawableRes
 @Composable
 internal fun ReceiverScreen(screenType: PersonScreenType) {
     val viewModel: ReceiverViewModel = koinViewModel { parametersOf(screenType) }
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     ReceiverScreen(state, viewModel::onIntent)
 }
