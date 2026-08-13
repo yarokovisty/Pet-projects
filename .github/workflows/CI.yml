@@ -1,0 +1,62 @@
+name: CI
+
+defaults:
+  run:
+    working-directory: Pizza
+
+on:
+  push:
+    branches:
+      - shift-pizza
+
+  pull_request:
+    branches:
+      - shift-pizza
+
+  workflow_dispatch:
+
+jobs:
+  detekt:
+    name: Detekt
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup build environment
+        uses: ./.github/actions/setup-build
+
+      - name: Run detekt
+        run: ./gradlew detekt --stacktrace
+
+  unit-tests:
+    name: Unit-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup build environment
+        uses: ./.github/actions/setup-build
+
+      - name: Run unit tests
+        run: ./gradlew test --stacktrace --no-daemon
+
+  android-build:
+    name: Android build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup build environment
+        uses: ./.github/actions/setup-build
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Build android project
+        run: ./gradlew assembleDebug --stacktrace

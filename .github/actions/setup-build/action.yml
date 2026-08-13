@@ -1,0 +1,19 @@
+name: Setup build environment
+
+description: Setup JDK and Gradle
+
+runs:
+  using: composite
+
+  steps:
+    - name: Setup JDK
+      uses: actions/setup-java@v5
+      with:
+        distribution: temurin
+        java-version: '17'
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v6
+      
+    - name: Grant execute permission
+      run: chmod +x ./gradlew
