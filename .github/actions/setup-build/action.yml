@@ -16,4 +16,4 @@ runs:
       uses: gradle/actions/setup-gradle@v6
       
     - name: Grant execute permission
-      run: chmod +x ./gradlew
+      uses: chmod +x ./gradlew
