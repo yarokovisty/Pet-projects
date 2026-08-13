@@ -16,4 +16,6 @@ runs:
       uses: gradle/actions/setup-gradle@v6
       
     - name: Grant execute permission
-      uses: chmod +x ./gradlew
+      shell: bash
+      working-directory: Pizza
+      run: chmod +x ./gradlew
