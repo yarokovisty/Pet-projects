@@ -1,3 +1,5 @@
+package convention
+
 import dev.detekt.gradle.Detekt
 import dev.detekt.gradle.plugin.DetektPlugin
 

@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation(plugin(libs.plugins.android.application))
     implementation(plugin(libs.plugins.detekt))
 }
 

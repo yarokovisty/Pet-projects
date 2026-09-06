@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.convention.tools.detekt)
+    alias(libs.plugins.convention.detekt)
 }
 
 android {

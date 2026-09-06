@@ -22,5 +22,6 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 detekt = { id = "dev.detekt", version.ref = "detekt" }
 
-convention-tools-detekt = { id = "detekt" }
+convention-android = { id = "convention.android" }
+convention-detekt = { id = "convention.detekt" }
 
