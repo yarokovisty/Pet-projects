@@ -1,6 +1,15 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+    configurations.classpath {
+        resolutionStrategy {
+            force(libs.findLibrary("jetbrains-annotations").get())
+        }
+    }
+}
+
 plugins {
     alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.koin.compiler) apply false
     alias(libs.plugins.kotlin.compose) apply false
 
     alias(libs.plugins.convention.android) apply false
