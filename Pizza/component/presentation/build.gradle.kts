@@ -4,5 +4,8 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.util.coroutines)
+
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.kotlin.coroutines.core)
 }
